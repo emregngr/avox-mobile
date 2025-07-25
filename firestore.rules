@@ -1,0 +1,39 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    match /devices/{deviceId} {
+      allow create: if request.resource.data.get('userId', null) == null;
+      allow read, delete: if request.auth != null && resource.data.get('userId', null) == request.auth.uid;
+      allow update: if request.auth != null && (
+      (resource.data.get('userId', null) == null && request.resource.data.userId == request.auth.uid) || (resource.data.get('userId', null) == request.auth.uid));
+    } 
+    match /enAirlines/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /enAirports/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /enHome/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /trAirlines/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /trAirports/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /trHome/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

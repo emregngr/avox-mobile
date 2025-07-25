@@ -1,0 +1,66 @@
+module.exports = {
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  presets: [require('nativewind/preset')],
+  safelist: ['bg-eu', 'bg-as', 'bg-na', 'bg-sa', 'bg-af', 'bg-oc'],
+  theme: {
+    extend: {
+      fontFamily: {
+        'inter-regular': ['Inter-Regular'],
+        'inter-medium': ['Inter-Medium'],
+        'inter-semibold': ['Inter-SemiBold'],
+        'inter-bold': ['Inter-Bold'],
+      },
+      colors: {
+        primary: {
+          100: 'var(--color-primary-100)',
+          70: 'var(--color-primary-70)',
+          50: 'var(--color-primary-50)',
+          30: 'var(--color-primary-30)',
+        },
+        secondary: {
+          100: 'var(--color-secondary-100)',
+          50: 'var(--color-secondary-50)',
+          30: 'var(--color-secondary-30)',
+          15: 'var(--color-secondary-15)',
+        },
+        tertiary: {
+          100: 'var(--color-tertiary-100)',
+          50: 'var(--color-tertiary-50)',
+          30: 'var(--color-tertiary-30)',
+        },
+        text: {
+          100: 'var(--color-text-100)',
+          90: 'var(--color-text-90)',
+          70: 'var(--color-text-70)',
+          50: 'var(--color-text-50)',
+          30: 'var(--color-text-30)',
+        },
+        onPrimary: {
+          100: 'var(--color-onPrimary-100)',
+          70: 'var(--color-onPrimary-70)',
+          50: 'var(--color-onPrimary-50)',
+          30: 'var(--color-onPrimary-30)',
+          20: 'var(--color-onPrimary-20)',
+        },
+        background: {
+          primary: 'var(--color-background-primary)',
+          secondary: 'var(--color-background-secondary)',
+          tertiary: 'var(--color-background-tertiary)',
+          quaternary: 'var(--color-background-quaternary)',
+          blur: 'var(--color-background-blur)',
+        },
+        success: 'var(--color-success)',
+        warning: 'var(--color-warning)',
+        error: 'var(--color-error)',
+        info: 'var(--color-info)',
+        eu: 'var(--color-eu)',
+        as: 'var(--color-as)',
+        na: 'var(--color-na)',
+        sa: 'var(--color-sa)',
+        af: 'var(--color-af)',
+        oc: 'var(--color-oc)',
+      },
+    },
+  },
+  plugins: [],
+}

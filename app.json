@@ -1,0 +1,143 @@
+{
+  "expo": {
+    "name": "Avox",
+    "slug": "avox",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": ["avox"],
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "jsEngine": "hermes",
+    "platforms": ["ios", "android"],
+    "packagerOpts": {
+      "sourceExts": ["ts", "tsx", "js", "jsx", "json"]
+    },
+    "updates": {
+      "enabled": true,
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ALWAYS",
+      "url": ""
+    },
+    "runtimeVersion": "1.0.0",
+    "ios": {
+      "googleServicesFile": "./firebase/GoogleService-Info.plist",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.avox",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "entitlements": {
+        "aps-environment": "production"
+      },
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true,
+        "GIDClientID": "396294037399-k8k5qpf3rgid0a1ujc5jjg9jbpve70vk.apps.googleusercontent.com"
+      },
+      "icon": "./src/assets/images/icon-ios.png",
+      "splash": {
+        "image": "./src/assets/images/splash-ios.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#A2CAE5",
+        "imageWidth": 200
+      }
+    },
+    "android": {
+      "googleServicesFile": "./firebase/google-services.json",
+      "package": "com.avox",
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/icon-android.png",
+        "backgroundColor": "#A2CAE5"
+      },
+      "splash": {
+        "image": "./src/assets/images/splash-android.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#A2CAE5",
+        "imageWidth": 200
+      },
+      "edgeToEdgeEnabled": false,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_AUDIO",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "locales": {
+      "en": "./src/localization/en.json",
+      "tr": "./src/localization/tr.json"
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/crashlytics",
+      "@react-native-google-signin/google-signin",
+      "expo-router",
+      "expo-localization",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          },
+          "android": {
+            "extraProguardRules": "-keep class com.google.android.gms.internal.consent_sdk.** { *; }"
+          }
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "",
+          "cameraPermission": "",
+          "microphonePermission": "",
+          "recordAudioAndroid": true
+        }
+      ],
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": ""
+        }
+      ],
+      [
+        "expo-maps",
+        {
+          "requestLocationPermission": "true",
+          "locationPermission": ""
+        }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/Inter-Bold.ttf",
+            "./src/assets/fonts/Inter-Medium.ttf",
+            "./src/assets/fonts/Inter-Regular.ttf",
+            "./src/assets/fonts/Inter-SemiBold.ttf"
+          ]
+        }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "avox",
+          "project": "avox",
+          "url": "https://sentry.io/"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": ""
+      }
+    }
+  }
+}
