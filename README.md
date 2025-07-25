@@ -1,50 +1,199 @@
-# Welcome to your Expo app 👋
+# 📱 Avox Aviation
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+All the details of aviation at your fingertips!
 
-## Get started
+Avox Aviation introduces airlines and airports around the world and provides up-to-the-minute updates. A must-have for everyone — from travelers to aviation enthusiasts, industry professionals to frequent flyers!
 
-1. Install dependencies
+Detailed introduction to airlines
+Comprehensive information about airports
+Real-time aviation updates
+User-friendly, fast, and up-to-date
 
-   ```bash
-   npm install
-   ```
+Everything related to the sky and aviation is on Avox Aviation! Plan your journey and stay informed about the aviation world.
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 🚀 Download
 
-In the output, you'll find options to open the app in a
+- **iOS**: [Download on the App Store](https://apps.apple.com/ca/app/avox/6747673276)
+- **Android**: [Get it on Google Play](https://play.google.com/store/apps/details?id=com.avox)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 📋 Table of Contents
 
-## Get a fresh project
+- [Features](#-features)
+- [Screenshots](#-screenshots)
+- [Development](#-development)
+- [Technologies](#-technologies)
+- [License](#-license)
+- [Contact](#-contact)
+- [Acknowledgments](#-acknowledgments)
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
+## ✨ Features
+
+- 🚀 Modern and user-friendly interface
+- 📱 iOS and Android support
+- ✈️ Comprehensive airline information
+- 🏢 Detailed airport data
+- 🔄 Real-time aviation updates
+- 🌙 Dark/Light theme support
+- 🔐 Secure authentication
+- 📊 Detailed analytics and reporting
+- 🌐 Multi-language support
+
+---
+
+## 📸 Screenshots
+
+> _Coming soon_
+
+---
+
+## 🛠 Development
+
+### 📁 Project Structure
+
+```
+├── src/
+│   ├── api/           # API endpoints and configurations
+│   ├── app/           # App screens (Expo Router)
+│   ├── assets/        # Images, fonts, icons
+│   ├── components/    # Reusable UI components
+│   ├── config/        # App configuration files
+│   ├── constants/     # Static values and constants
+│   ├── enums/         # TypeScript enums
+│   ├── hooks/         # Custom React hooks
+│   ├── locales/       # Internationalization files
+│   ├── services/      # Business logic and API services
+│   ├── store/         # Zustand store configuration
+│   ├── themes/        # Theme configurations
+│   ├── types/         # TypeScript type definitions
+│   ├── utils/         # Helper utilities
+│   └── global.css     # Global styles
+├── app.json           # Expo configuration
+└── package.json       # Project dependencies
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 📜 Available Scripts
 
-## Learn more
+Install dependencies:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm install
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Start development server:
 
-## Join the community
+```bash
+expo start
+```
 
-Join our community of developers creating universal apps.
+Run on iOS simulator:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+expo run:ios
+```
+
+Run on Android emulator:
+
+```bash
+expo run:android
+```
+
+Run on web:
+
+```bash
+expo start --web
+```
+
+Build for development:
+
+```bash
+eas build --profile development --platform android
+eas build --profile development --platform ios
+```
+
+Build for production:
+
+```bash
+eas build --profile production --platform android
+eas build --profile production --platform ios
+```
+
+Submit to stores:
+
+```bash
+eas submit --profile production --platform android
+eas submit --profile production --platform ios
+```
+
+Lint and format:
+
+```bash
+npm run lint
+npm run lint:fix
+npm run format
+```
+
+---
+
+## 🔧 Technologies
+
+- **Framework**: React Native + Expo Router
+- **Language**: TypeScript
+- **Styling**: NativeWind (Tailwind CSS for React Native)
+- **State Management**: Zustand
+- **Data Fetching**: TanStack Query (React Query)
+- **Forms**: React Hook Form + Zod
+- **Navigation**: Expo Router
+
+### UI Components
+
+- @gorhom/bottom-sheet
+- react-native-reanimated
+- react-native-gesture-handler
+
+### Backend & Services
+
+- Firebase (Auth, Firestore, Analytics, Messaging, Crashlytics)
+- Google Sign-In
+- Apple Authentication
+
+### Others
+
+- **Maps**: Expo Maps
+- **Image Handling**: Expo Image + Image Picker
+- **i18n**: i18next + react-i18next
+- **Notifications**: React Native Notifications
+- **Error Tracking**: Sentry
+- **Testing**: Jest + React Test Renderer
+- **Code Quality**: ESLint + Prettier + TypeScript
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 📞 Contact
+
+**Developer**: Emre Güngör
+📎 [LinkedIn](https://www.linkedin.com/in/emregungor-rn/)
+
+---
+
+## 🙏 Acknowledgments
+
+- Expo team for the amazing framework
+- React Native community
+- All contributors
+
+---
+
+⭐ Don’t forget to star the repo if you like the app!
+❤️ Made with love
