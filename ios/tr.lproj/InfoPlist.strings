@@ -1,0 +1,6 @@
+NSPhotoLibraryUsageDescription = "Fotoğraf seçebilmeniz ve cihazınızdaki görselleri kullanabilmeniz için fotoğraf albümünüze erişim izni istiyoruz";
+NSCameraUsageDescription = "Fotoğraf veya video çekebilmeniz için kameraya erişim izni istiyoruz";
+NSMicrophoneUsageDescription = "Ses kaydı yapabilmeniz veya sesli iletişim kurabilmeniz için mikrofona erişim izni istiyoruz";
+NSUserTrackingUsageDescription = "Daha iyi ve ilgi alanlarınıza uygun reklamlar gösterebilmek için uygulama ve web sitelerindeki etkinliğinizi izlememize izin verin";
+NSLocationWhenInUseUsageDescription= "Yakınınızdaki içerikleri gösterebilmek ve konuma dayalı hizmetler sunabilmek için uygulama kullanılırken konum bilginize ihtiyaç duyuyoruz";
+NSUserNotificationUsageDescription = "Bildirimler aracılığıyla size önemli duyurular ve güncellemeler gönderebilmek için izninizi istiyoruz";

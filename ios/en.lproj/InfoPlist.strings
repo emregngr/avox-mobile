@@ -1,0 +1,6 @@
+NSPhotoLibraryUsageDescription = "We ask for access to your photo album so that you can select photos and use the images on your device";
+NSCameraUsageDescription = "We ask for access to the camera so you can take photos or videos";
+NSMicrophoneUsageDescription = "We require access to the microphone so that you can record or communicate by voice";
+NSUserTrackingUsageDescription = "Let us track your activity on apps and websites so we can show you better ads that are more relevant to your interests";
+NSLocationWhenInUseUsageDescription= "Allow us to track your activity on apps and websites so that we can show you better and relevant advertising";
+NSUserNotificationUsageDescription = "We ask for your consent so that we can send you important announcements and updates through notifications";

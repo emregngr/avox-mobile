@@ -4,11 +4,11 @@
       "color": {
         "components": {
           "alpha": "1.000",
-          "blue": "0.898039215686275",
-          "green": "0.792156862745098",
-          "red": "0.635294117647059"
+          "blue": "0.898",
+          "green": "0.792",
+          "red": "0.635"
         },
-        "color-space": "srgb"
+        "color-space": "displayP3"
       },
       "idiom": "universal"
     }
