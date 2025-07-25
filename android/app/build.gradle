@@ -93,7 +93,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.5"
     }
     signingConfigs {
         debug {
@@ -102,6 +102,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        // release {
+        //     storeFile file(AVOX_UPLOAD_STORE_FILE)
+        //     storePassword AVOX_UPLOAD_STORE_PASSWORD
+        //     keyAlias AVOX_UPLOAD_KEY_ALIAS
+        //     keyPassword AVOX_UPLOAD_KEY_PASSWORD
+        // }
     }
     buildTypes {
         debug {
@@ -175,3 +181,6 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'

@@ -1,8 +1,10 @@
 <resources>
-  <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-    <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
-  </style>
-  <style name="Theme.App.SplashScreen" parent="AppTheme">
-    <item name="android:windowBackground">@drawable/splashscreen_logo</item>
-  </style>
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+      <item name="android:windowBackground">@drawable/splashscreen</item>
+      <item name="android:windowAnimationStyle">@null</item>
+      <item name="android:statusBarColor">@color/splashscreen_background</item>
+      <item name="android:navigationBarColor">@color/splashscreen_background</item>
+      <item name="colorPrimary">@color/colorPrimary</item>
+      <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
 </resources>

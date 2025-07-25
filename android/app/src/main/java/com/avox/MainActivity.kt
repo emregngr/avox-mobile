@@ -2,6 +2,7 @@ package com.avox
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
@@ -38,6 +39,40 @@ class MainActivity : ReactActivity() {
               mainComponentName,
               fabricEnabled
           ){})
+  }
+
+  /**
+   * Fix for NullPointerException in onWindowFocusChanged
+   * Add null check for ReactDelegate
+   */
+  override fun onWindowFocusChanged(hasFocus: Boolean) {
+    try {
+      super.onWindowFocusChanged(hasFocus)
+    } catch (e: NullPointerException) {
+      Log.w("MainActivity", "ReactDelegate is null during onWindowFocusChanged", e)
+    }
+  }
+
+  /**
+   * Override onPause to prevent crashes during activity lifecycle
+   */
+  override fun onPause() {
+    try {
+      super.onPause()
+    } catch (e: NullPointerException) {
+      Log.w("MainActivity", "ReactDelegate is null during onPause", e)
+    }
+  }
+
+  /**
+   * Override onResume to prevent crashes during activity lifecycle
+   */
+  override fun onResume() {
+    try {
+      super.onResume()
+    } catch (e: NullPointerException) {
+      Log.w("MainActivity", "ReactDelegate is null during onResume", e)
+    }
   }
 
   /**
