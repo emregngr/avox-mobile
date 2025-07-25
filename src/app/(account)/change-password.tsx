@@ -175,7 +175,7 @@ const ChangePasswordForm = () => {
       <View className="mt-6">
         <ThemedButton
           disabled={buttonDisabled}
-          label={getLocale('changePassword')}
+          label={getLocale('change')}
           loading={isPending}
           onPress={handleFormSubmit}
         />

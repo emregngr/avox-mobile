@@ -268,5 +268,6 @@
   "emailRegisterFailed": "Registration by email failed.",
   "airlineInfo": "Airline Information",
   "airportInfo": "Airport Information",
-  "retry": "Retry"
+  "retry": "Retry",
+  "change": "Change"
 }

@@ -270,5 +270,6 @@
   "emailRegisterFailed": "Email ile kayıt başarısız oldu.",
   "airlineInfo": "Havayolu Bilgileri",
   "airportInfo": "Havalimanı Bilgileri",
-  "retry": "Tekrar Dene"
+  "retry": "Tekrar Dene",
+  "change": "Değiştir"
 }
