@@ -1,4 +1,4 @@
-# 📱 Avox Aviation
+# 📱 Avox
 
 All the details of aviation at your fingertips!
 
@@ -48,7 +48,7 @@ Everything related to the sky and aviation is on Avox Aviation! Plan your journe
 
 ## 📸 Screenshots
 
-> _Coming soon_
+https://github.com/user-attachments/assets/ff886a50-a7dc-41a7-81dc-fd5e57c25292
 
 ---
 
@@ -182,7 +182,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 📞 Contact
 
-**Developer**: Emre Güngör
+**Developer**: Emre Güngör<br>
 📎 [LinkedIn](https://www.linkedin.com/in/emregungor-rn/)
 
 ---
@@ -195,5 +195,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-⭐ Don’t forget to star the repo if you like the app!
+⭐ Don’t forget to star the repo if you like the app!<br>
 ❤️ Made with love
