@@ -1,15 +1,11 @@
-import 'dayjs/locale/en'
-import 'dayjs/locale/tr'
-
-import crashlytics from '@react-native-firebase/crashlytics'
-import dayjs from 'dayjs'
+import { getCrashlytics, recordError } from '@react-native-firebase/crashlytics'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { Alert, ScrollView, TouchableOpacity, View } from 'react-native'
 
 import CheckMark from '@/assets/icons/checkmark.svg'
 import { Header, SafeLayout, ThemedText } from '@/components/common'
-import { getLocale, i18nChangeLocale } from '@/locales/i18next'
+import { getLocale } from '@/locales/i18next'
 import useLocaleStore, { changeLocale } from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
@@ -20,6 +16,8 @@ type LanguageItem = {
   id: number
   text: string
 }
+
+const crashlytics = getCrashlytics()
 
 export default function ChooseLanguage() {
   const { selectedTheme } = useThemeStore()
@@ -37,13 +35,11 @@ export default function ChooseLanguage() {
 
   const handleChangeLanguage = useCallback(async (lang: string) => {
     try {
-      dayjs.locale(lang)
-      await i18nChangeLocale(lang)
       await changeLocale(lang)
       router.back()
     } catch (error: any) {
       Alert.alert(getLocale('error'), error?.message, [{ text: getLocale('ok') }])
-      crashlytics().recordError(error)
+      recordError(crashlytics, error as Error)
     }
   }, [])
 
@@ -88,7 +84,7 @@ export default function ChooseLanguage() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={headerTitle} />
+      <Header backIconOnPress={handleBackPress} title={headerTitle} />
       <ScrollView
         className="flex-1"
         contentContainerClassName="px-4 py-5"

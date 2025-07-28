@@ -48,7 +48,7 @@ export default function TotalAirplanes() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={getLocale('totalAirplanes')} />
+      <Header backIconOnPress={handleBackPress} title={getLocale('totalAirplanes')} />
       <FlatList
         className="flex-1"
         contentContainerClassName="pt-5 px-4 pb-10"

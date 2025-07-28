@@ -1,13 +1,16 @@
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { memo, useCallback, useMemo } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
+import { TestIds } from 'react-native-google-mobile-ads'
 
 import { ThemedText } from '@/components/common/ThemedText'
 import { FavoriteButton } from '@/components/feature/FavoriteButton'
+import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import type { Airline } from '@/types/feature/airline'
+import { AnalyticsService } from '@/utils/common/analyticsService'
 import { responsive } from '@/utils/common/responsive'
 import type { AirlineType } from '@/utils/feature/getBadge'
 import { getAirlineBadge } from '@/utils/feature/getBadge'
@@ -36,7 +39,14 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
     },
   } = airline || {}
 
-  const badge = useMemo(() => getAirlineBadge(businessType as AirlineType), [businessType])
+  const logAirlineCardPress = useCallback(async () => {
+    await AnalyticsService.sendEvent('airline_card_press', {
+      airline_id: id,
+      airline_name: name,
+      iata_code: iataCode,
+      user_locale: selectedLocale,
+    })
+  }, [id, name, iataCode, selectedLocale])
 
   const handlePress = useCallback(() => {
     router.navigate({
@@ -46,10 +56,6 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
       pathname: '/airline-detail',
     })
   }, [airline])
-
-  const popularDestinations = useMemo(() => destinations?.slice(0, 4).join(', '), [destinations])
-
-  const containerWidth = useMemo(() => responsive.deviceWidth / 2 - 44, [])
 
   const localeStrings = useMemo(
     () => ({
@@ -63,16 +69,59 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
     [selectedLocale],
   )
 
+  const badge = useMemo(() => getAirlineBadge(businessType as AirlineType), [businessType])
+
+  const locationText = useMemo(() => `${city}, ${country}, ${region}`, [city, country, region])
+
+  const popularDestinations = useMemo(() => destinations?.slice(0, 4).join(', '), [destinations])
+
+  const containerWidth = useMemo(() => responsive.deviceWidth / 2 - 44, [])
+
+  const isCargo = useMemo(() => businessModel === 'cargo', [businessModel])
+
+  const styles = useMemo(
+    () => ({
+      badgeImage: {
+        height: 40,
+        left: 4,
+        position: 'absolute' as const,
+        top: 4,
+        width: 40,
+      },
+      title: {
+        height: 130,
+      },
+    }),
+    [],
+  )
+
+  const adUnitId = useMemo(() => {
+    if (__DEV__) {
+      return TestIds.INTERSTITIAL
+    }
+    return Platform.OS === 'ios'
+      ? 'ca-app-pub-4123130377375974/1756124081'
+      : 'ca-app-pub-4123130377375974/2330839152'
+  }, [])
+
+  const { showInterstitialAd } = useInterstitialAdHandler({
+    adUnitId,
+  })
+
   return (
     <TouchableOpacity
+      onPress={() => {
+        logAirlineCardPress()
+        handlePress()
+        showInterstitialAd()
+      }}
       activeOpacity={0.7}
       className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary"
       hitSlop={20}
-      onPress={handlePress}
     >
       <View
         className="bg-background-primary rounded-t-xl overflow-hidden w-full justify-center"
-        style={{ height: 130 }}
+        style={styles.title}
       >
         <ThemedText
           className="mb-1" color="tertiary-100" type="title"
@@ -82,16 +131,10 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
         </ThemedText>
 
         <Image
-          style={{
-            bottom: 4,
-            height: 40,
-            left: 4,
-            position: 'absolute',
-            width: 40,
-          }}
           cachePolicy="memory-disk"
           contentFit="contain"
           source={badge}
+          style={styles.badgeImage}
           transition={0}
         />
 
@@ -101,7 +144,7 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
           </ThemedText>
         </View>
 
-        {businessModel === 'cargo' ? (
+        {isCargo ? (
           <View className="bg-error px-2 py-1 rounded-xl overflow-hidden absolute top-2 left-2">
             <ThemedText color="text-100" type="button2">
               {localeStrings.cargo}
@@ -128,7 +171,7 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
             numberOfLines={2}
             type="body2"
           >
-            {city}, {country}, {region}
+            {locationText}
           </ThemedText>
 
           <View

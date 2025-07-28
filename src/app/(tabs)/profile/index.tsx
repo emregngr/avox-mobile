@@ -1,4 +1,4 @@
-import firebase from '@react-native-firebase/app'
+import { getApp } from '@react-native-firebase/app'
 import { getAuth } from '@react-native-firebase/auth'
 import { Image } from 'expo-image'
 import { router, useFocusEffect } from 'expo-router'
@@ -15,7 +15,8 @@ import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
-const authInstance = getAuth(firebase.app())
+const app = getApp()
+const authInstance = getAuth(app)
 
 export default function Profile() {
   const { selectedLocale } = useLocaleStore()
@@ -26,7 +27,7 @@ export default function Profile() {
   const { mutateAsync: handleLogoutMutation } = useLogout()
   const { data: userProfile } = useGetUser()
 
-  const user = authInstance?.currentUser
+  const user = useMemo(() => authInstance.currentUser, [])
   const isPasswordUser = user?.providerData.some(provider => provider?.providerId === 'password')
 
   useFocusEffect(
@@ -67,7 +68,7 @@ export default function Profile() {
 
   return (
     <SafeLayout>
-      <Header leftIcon={false} rightIcon={settingsIcon} rightIconOnPress={handleSettingsPress} />
+      <Header backIcon={false} rightIcon={settingsIcon} rightIconOnPress={handleSettingsPress} />
 
       <ScrollView
         className="flex-1 px-4"

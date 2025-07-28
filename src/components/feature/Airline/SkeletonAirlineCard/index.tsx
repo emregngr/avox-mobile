@@ -15,14 +15,17 @@ export const SkeletonAirlineCard = memo(() => {
     pulse.value = withRepeat(withTiming(1, { duration: 1000 }), -1, true)
   }, [])
 
-  const animatedStyle = useAnimatedStyle(() => ({
+  const animatedStyle = useAnimatedStyle(
+    () => ({
       opacity: interpolate(pulse.value, [0, 1], [0.3, 0.7]),
-    }), [])
+    }),
+    [],
+  )
 
   return (
     <View className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary">
       <View
-        className="bg-background-primary rounded-t-xl overflow-hidden border-b border-background-quaternary w-full justify-center"
+        className="bg-background-primary rounded-t-xl overflow-hidden w-full justify-center"
         style={[{ height: 130 }, animatedStyle]}
       >
         <Animated.View

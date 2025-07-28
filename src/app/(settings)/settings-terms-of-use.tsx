@@ -76,7 +76,7 @@ export default function SettingsTermsOfUse() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={getLocale('termsOfUse')} />
+      <Header backIconOnPress={handleBackPress} title={getLocale('termsOfUse')} />
 
       <ScrollView
         className="flex-1"

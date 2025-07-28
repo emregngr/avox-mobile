@@ -1,7 +1,8 @@
 import React from 'react'
 import { FlatList } from 'react-native'
 
-import { SkeletonAirlineCard, SkeletonAirportCard } from '@/components/feature'
+import { SkeletonAirlineCard } from '@/components/feature/Airline/SkeletonAirlineCard'
+import { SkeletonAirportCard } from '@/components/feature/Airport/SkeletonAirportCard'
 
 interface SkeletonListProps {
   type: 'airport' | 'airline'

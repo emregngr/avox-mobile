@@ -1,4 +1,4 @@
-import firebase from '@react-native-firebase/app'
+import { getApp } from '@react-native-firebase/app'
 import { getAuth } from '@react-native-firebase/auth'
 import {
   arrayRemove,
@@ -15,8 +15,9 @@ import type { Airline } from '@/types/feature/airline'
 import type { Airport } from '@/types/feature/airport'
 import type { FavoriteItem, Favorites } from '@/types/feature/favorite'
 
-const auth = getAuth(firebase.app())
-const db = getFirestore(firebase.app())
+const app = getApp()
+const auth = getAuth(app)
+const db = getFirestore(app)
 
 const getCurrentUserId = (): string | undefined => auth?.currentUser?.uid
 
@@ -90,9 +91,9 @@ export const addToFavorites = async ({ id, type }: FavoriteItem): Promise<void> 
   const favoriteObject = { id, type }
 
   try {
-    const userSnap = await getDoc(userRef)
+    const userDoc = await getDoc(userRef)
 
-    if (userSnap?.exists()) {
+    if (userDoc.exists()) {
       await updateDoc(userRef, {
         favorites: arrayUnion(favoriteObject),
       })
@@ -114,9 +115,9 @@ export const removeFromFavorites = async ({ id, type }: FavoriteItem): Promise<v
   const favoriteObject = { id, type }
 
   try {
-    const userSnap = await getDoc(userRef)
+    const userDoc = await getDoc(userRef)
 
-    if (userSnap?.exists()) {
+    if (userDoc.exists()) {
       await updateDoc(userRef, {
         favorites: arrayRemove(favoriteObject),
       })

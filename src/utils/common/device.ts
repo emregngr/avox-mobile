@@ -1,10 +1,14 @@
-import messaging from '@react-native-firebase/messaging'
+import { getApp } from '@react-native-firebase/app'
+import { getMessaging, getToken } from '@react-native-firebase/messaging'
 import { getCalendars } from 'expo-localization'
 import { Platform } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 
 import type { DeviceParams } from '@/types/common/device'
 import { Logger } from '@/utils/common/logger'
+
+const app = getApp()
+const messaging = getMessaging(app)
 
 const Device = {
   getBrand(): string {
@@ -39,19 +43,12 @@ const Device = {
       return 'unknown'
     }
   },
-  async getFcmToken(): Promise<string | null> {
+  async getFcmToken(): Promise<string> {
     try {
-      const authStatus = await messaging().hasPermission()
-      if (
-        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-        authStatus === messaging.AuthorizationStatus.PROVISIONAL
-      ) {
-        return await messaging().getToken()
-      }
-      return null
+      return await getToken(messaging)
     } catch (error: any) {
       Logger.log('getFcmToken', error)
-      return null
+      return 'unknown'
     }
   },
   async getHost(): Promise<string> {
@@ -86,6 +83,15 @@ const Device = {
       return 'unknown'
     }
   },
+  getTimezone(): string {
+    try {
+      const calendars = getCalendars()
+      return calendars?.[0]?.timeZone ?? Intl.DateTimeFormat().resolvedOptions().timeZone
+    } catch (error: any) {
+      Logger.log('getTimezone', error)
+      return 'unknown'
+    }
+  },
   async getUniqueId(): Promise<string> {
     try {
       return await DeviceInfo.getUniqueId()
@@ -112,28 +118,26 @@ const Device = {
   },
   async registerDevice(): Promise<DeviceParams> {
     try {
-      const [unique_id, messagingToken, carrier, build_id, host, ip, user_agent] =
-        await Promise.all([
-          this.getUniqueId(),
-          this.getFcmToken(),
-          this.getCarrier(),
-          this.getBuildId(),
-          this.getHost(),
-          this.getIpAddress(),
-          this.getUserAgent(),
-        ])
+      const [unique_id, device_token, carrier, build_id, host, ip, user_agent] = await Promise.all([
+        this.getUniqueId(),
+        this.getFcmToken(),
+        this.getCarrier(),
+        this.getBuildId(),
+        this.getHost(),
+        this.getIpAddress(),
+        this.getUserAgent(),
+      ])
       const brand = this.getBrand()
       const model = this.getModel()
       const system_version = this.getSystemVersion()
-      const calendars = getCalendars()
-      const timezone = calendars[0]?.timeZone ?? null
+      const timezone = this.getTimezone()
 
       return {
         base_os: Platform.OS,
         brand,
         build_id,
         carrier,
-        device_token: messagingToken || null,
+        device_token,
         host,
         ip,
         model,

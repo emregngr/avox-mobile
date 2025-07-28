@@ -47,7 +47,7 @@ export default function AllPopularDestinations() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={getLocale('popularDestinations')} />
+      <Header backIconOnPress={handleBackPress} title={getLocale('popularDestinations')} />
       <FlatList
         className="flex-1"
         columnWrapperClassName="justify-between gap-x-4"

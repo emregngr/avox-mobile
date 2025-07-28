@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import firebase from '@react-native-firebase/app'
+import { getApp } from '@react-native-firebase/app'
 import { getAuth } from '@react-native-firebase/auth'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo, useRef, useState } from 'react'
@@ -15,7 +15,8 @@ import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
-const authInstance = getAuth(firebase.app())
+const app = getApp()
+const authInstance = getAuth(app)
 
 const ChangePasswordForm = () => {
   const { isPending, mutateAsync: changePassword } = useChangePassword()
@@ -352,7 +353,7 @@ export default function ChangePassword() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={headerTitle} />
+      <Header backIconOnPress={handleBackPress} title={headerTitle} />
       {isPasswordUser ? <ChangePasswordForm /> : <AddPasswordForm />}
     </SafeLayout>
   )

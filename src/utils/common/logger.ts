@@ -1,8 +1,10 @@
-import crashlytics from '@react-native-firebase/crashlytics'
+import { getCrashlytics, log, recordError } from '@react-native-firebase/crashlytics'
 
 export type LogCategory = 'info' | 'error' | 'warning' | 'debug'
 
 export type LogData = Record<string, unknown> | Error | null
+
+const crashlytics = getCrashlytics()
 
 export const Logger = {
   breadcrumb: (message: string, category: LogCategory, data: LogData = null) => {
@@ -14,9 +16,9 @@ export const Logger = {
 
     if (!__DEV__) {
       if (data instanceof Error) {
-        crashlytics().recordError(data)
+        recordError(crashlytics, data)
       } else {
-        crashlytics().log(JSON.stringify(row))
+        log(crashlytics, JSON.stringify(row))
       }
     }
     console.log(message, category, data)
@@ -31,9 +33,9 @@ export const Logger = {
 
     if (!__DEV__) {
       if (data instanceof Error) {
-        crashlytics().recordError(data)
+        recordError(crashlytics, data)
       } else {
-        crashlytics().log(JSON.stringify(row))
+        log(crashlytics, JSON.stringify(row))
       }
     }
     console.log(message, data)

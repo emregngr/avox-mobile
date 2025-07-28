@@ -295,7 +295,7 @@ export default function Register() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={localeStrings.register} />
+      <Header backIconOnPress={handleBackPress} title={localeStrings.register} />
 
       <KeyboardAwareScrollView
         bottomOffset={50}

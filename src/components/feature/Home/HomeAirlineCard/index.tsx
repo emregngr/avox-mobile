@@ -1,12 +1,16 @@
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { memo, useCallback, useMemo } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
+import { TestIds } from 'react-native-google-mobile-ads'
 
 import { ThemedText } from '@/components/common/ThemedText'
 import { FavoriteButton } from '@/components/feature/FavoriteButton'
+import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
 import { getLocale } from '@/locales/i18next'
+import useLocaleStore from '@/store/locale'
 import type { Airline } from '@/types/feature/airline'
+import { AnalyticsService } from '@/utils/common/analyticsService'
 import type { AirlineType } from '@/utils/feature/getBadge'
 import { getAirlineBadge } from '@/utils/feature/getBadge'
 
@@ -15,6 +19,8 @@ interface HomeAirlineCardProps {
 }
 
 export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
+  const { selectedLocale } = useLocaleStore()
+
   const {
     iataCode,
     icaoCode,
@@ -31,6 +37,15 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
 
   const badge = useMemo(() => getAirlineBadge(businessType as AirlineType), [businessType])
 
+  const logAirlineCardPress = useCallback(async () => {
+    await AnalyticsService.sendEvent('airline_card_press', {
+      airline_id: id,
+      airline_name: name,
+      iata_code: iataCode,
+      user_locale: selectedLocale,
+    })
+  }, [id, name, iataCode, selectedLocale])
+
   const handlePress = useCallback(() => {
     router.navigate({
       params: {
@@ -42,20 +57,18 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
 
   const locationText = useMemo(() => `${city}, ${country}, ${region}`, [city, country, region])
 
-  const badgeImageStyle = useMemo(
+  const styles = useMemo(
     () => ({
-      bottom: 4,
-      height: 40,
-      left: 4,
-      position: 'absolute' as const,
-      width: 40,
-    }),
-    [],
-  )
-
-  const titleContainerStyle = useMemo(
-    () => ({
-      height: 130,
+      badgeImage: {
+        height: 40,
+        left: 4,
+        position: 'absolute' as const,
+        top: 4,
+        width: 40,
+      },
+      title: {
+        height: 130,
+      },
     }),
     [],
   )
@@ -88,14 +101,31 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
     [businessModel, classNames.cargoContainer],
   )
 
+  const adUnitId = useMemo(() => {
+    if (__DEV__) {
+      return TestIds.INTERSTITIAL
+    }
+    return Platform.OS === 'ios'
+      ? 'ca-app-pub-4123130377375974/1756124081'
+      : 'ca-app-pub-4123130377375974/2330839152'
+  }, [])
+
+  const { showInterstitialAd } = useInterstitialAdHandler({
+    adUnitId,
+  })
+
   return (
     <TouchableOpacity
+      onPress={() => {
+        logAirlineCardPress()
+        handlePress()
+        showInterstitialAd()
+      }}
       activeOpacity={0.7}
       className={classNames.container}
       hitSlop={20}
-      onPress={handlePress}
     >
-      <View className={classNames.header} style={titleContainerStyle}>
+      <View className={classNames.header} style={styles.title}>
         <ThemedText color="tertiary-100" type="title" center>
           {iataCode}
         </ThemedText>
@@ -104,7 +134,7 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
           cachePolicy="memory-disk"
           contentFit="contain"
           source={badge}
-          style={badgeImageStyle}
+          style={styles.badgeImage}
           transition={0}
         />
 

@@ -33,7 +33,7 @@ export const ThemedText = ({
   children,
   className,
   color,
-  type = 'body1',
+  type,
   ...props
 }: TypographyProps) => {
   const styles: Record<TypographyType, string> = {

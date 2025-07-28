@@ -1,18 +1,21 @@
 import { Ionicons } from '@expo/vector-icons'
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router'
 import React, { useCallback, useMemo, useState } from 'react'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, Platform } from 'react-native'
 import { Tabs } from 'react-native-collapsible-tab-view'
 import { ScrollView } from 'react-native-gesture-handler'
+import { TestIds } from 'react-native-google-mobile-ads'
 
-import { Header, RenderDetailTabBar, SafeLayout } from '@/components/common'
+import { FullScreenLoading, Header, RenderDetailTabBar, SafeLayout } from '@/components/common'
 import {
+  AdBanner,
   AirlineFlightTab,
   AirlineHeader,
   CompanyTab,
   FleetTab,
   SafetyEnvTab,
 } from '@/components/feature'
+import { useAirlineById } from '@/hooks/services/useAirline'
 import { useFavoriteToggle } from '@/hooks/services/useFavoriteToggle'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
@@ -20,20 +23,34 @@ import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import type { Airline } from '@/types/feature/airline'
 import type { RegionKey } from '@/types/feature/region'
+import { AnalyticsService } from '@/utils/common/analyticsService'
 import { cn } from '@/utils/common/cn'
+import { LinkingService } from '@/utils/common/linkingService'
 import { setSystemColors } from '@/utils/common/setSystemColors'
 
-export default function AirlineDetailScreen() {
-  const params = useLocalSearchParams()
-  const { airline } = params as { airline: string }
-  const airlineData = useMemo(() => JSON.parse(airline) as Airline, [airline])
+export default function AirlineDetail() {
+  const { airline, airlineId } = useLocalSearchParams() as { airline: string; airlineId: string }
+
+  const { data: airlineByIdData } = useAirlineById(airlineId)
 
   const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
 
+  const airlineData = useMemo(() => {
+    if (airlineId) {
+      return airlineByIdData as Airline
+    }
+
+    if (airline) {
+      return JSON.parse(airline) as Airline
+    }
+
+    return null
+  }, [airlineByIdData, airline, airlineId])
+
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const { id: airlineId, name, operations } = airlineData || {}
+  const { id: currentAirlineId, name, operations } = airlineData || {}
   const { region } = operations || {}
 
   const regionLower = useMemo(() => region?.toLowerCase() as RegionKey, [region])
@@ -47,31 +64,39 @@ export default function AirlineDetailScreen() {
 
   const [activeIndex, setActiveIndex] = useState<number>(0)
 
-  const id = useMemo(() => String(airlineId), [airlineId])
+  const id = useMemo(() => String(currentAirlineId), [currentAirlineId])
   const type = useMemo(() => 'airline' as const, [])
 
   const { handleFavoritePress, isFavorite, isPending } = useFavoriteToggle({ id, type })
 
   const handleBackPress = useCallback(() => {
-    router.back()
-  }, [])
+    if (airlineId) {
+      router.dismissAll()
+      router.replace('/home')
+    } else {
+      router.back()
+    }
+  }, [airlineId])
 
   const handleIndexChange = useCallback((index: number) => {
     setActiveIndex(index)
   }, [])
 
   const HeaderSectionComponent = useCallback(
-    () => <AirlineHeader airlineData={airlineData} />,
+    () => (airlineData ? <AirlineHeader airlineData={airlineData} /> : null),
     [airlineData],
   )
 
   const tabViews = useMemo(
-    () => [
-      () => <CompanyTab airlineData={airlineData} />,
-      () => <FleetTab airlineData={airlineData} />,
-      () => <AirlineFlightTab airlineData={airlineData} />,
-      () => <SafetyEnvTab airlineData={airlineData} />,
-    ],
+    () =>
+      airlineData
+        ? [
+            () => <CompanyTab airlineData={airlineData} />,
+            () => <FleetTab airlineData={airlineData} />,
+            () => <AirlineFlightTab airlineData={airlineData} />,
+            () => <SafetyEnvTab airlineData={airlineData} />,
+          ]
+        : [],
     [airlineData],
   )
 
@@ -94,6 +119,22 @@ export default function AirlineDetailScreen() {
       />
     ),
     [regionLower, activeIndex],
+  )
+
+  const shareIconOnPress = useCallback(async () => {
+    await LinkingService.shareAirline(airlineData as Airline)
+
+    await AnalyticsService.sendEvent('airport_shared', {
+      airport_id: airlineData?.id,
+      airport_name: airlineData?.name,
+      iata_code: airlineData?.iataCode,
+      user_locale: selectedLocale,
+    })
+  }, [])
+
+  const shareIcon = useMemo(
+    () => <Ionicons color={colors.onPrimary100} name="share-outline" size={20} />,
+    [],
   )
 
   const rightIcon = useMemo(() => {
@@ -123,13 +164,16 @@ export default function AirlineDetailScreen() {
 
   const headerProps = useMemo(
     () => ({
+      backIconOnPress: handleBackPress,
       containerClassName: 'h-14 my-1',
-      leftIconOnPress: handleBackPress,
       rightIcon,
       rightIconClassName: 'bg-background-primary overflow-hidden rounded-full p-2',
       rightIconOnPress: handleFavoritePress,
-      textClassName: 'mx-20',
-      title: name,
+      shareIcon,
+      shareIconClassName: 'bg-background-primary overflow-hidden rounded-full p-2',
+      shareIconOnPress,
+      title: name as string,
+      titleClassName: 'ml-[46px] mr-[100px]',
     }),
     [name, handleBackPress, rightIcon, handleFavoritePress],
   )
@@ -161,7 +205,18 @@ export default function AirlineDetailScreen() {
     [],
   )
 
-  return (
+  const adUnitId = useMemo(() => {
+    if (__DEV__) {
+      return TestIds.BANNER
+    }
+    return Platform.OS === 'ios'
+      ? 'ca-app-pub-4123130377375974/1937454469'
+      : 'ca-app-pub-4123130377375974/9656162382'
+  }, [])
+
+  return !airlineData ? (
+    <FullScreenLoading />
+  ) : (
     <SafeLayout className={safeAreaClassName}>
       <Header {...headerProps} />
 
@@ -179,6 +234,8 @@ export default function AirlineDetailScreen() {
           })}
         </Tabs.Container>
       </ScrollView>
+
+      <AdBanner adUnitId={adUnitId} />
     </SafeLayout>
   )
 }

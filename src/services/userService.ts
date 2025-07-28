@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import firebase from '@react-native-firebase/app'
+import { getApp } from '@react-native-firebase/app'
 import {
   EmailAuthProvider,
   getAuth,
@@ -20,11 +20,12 @@ import {
 import { getLocale } from '@/locales/i18next'
 import type { AddPasswordCredentials, ChangePasswordCredentials } from '@/types/feature/password'
 import type { ProfileData, UserProfile } from '@/types/feature/user'
-import AnalyticsService from '@/utils/common/analytic'
+import { AnalyticsService } from '@/utils/common/analyticsService'
 import Device from '@/utils/common/device'
 
-const auth = getAuth(firebase.app())
-const db = getFirestore(firebase.app())
+const app = getApp()
+const auth = getAuth(app)
+const db = getFirestore(app)
 
 export const getUser = async (): Promise<UserProfile | null> => {
   const user = auth?.currentUser
@@ -34,11 +35,11 @@ export const getUser = async (): Promise<UserProfile | null> => {
 
   try {
     const userRef = doc(db, 'users', user?.uid)
-    const docSnap = await getDoc(userRef)
+    const userDoc = await getDoc(userRef)
     await AsyncStorage.setItem('user-id', `${user?.uid}`)
 
-    if (docSnap.exists()) {
-      const firestoreData = docSnap.data()
+    if (userDoc.exists()) {
+      const firestoreData = userDoc.data()
       const userData: UserProfile = {
         createdAt: firestoreData?.createdAt,
         displayName: user.displayName || null,

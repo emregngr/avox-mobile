@@ -106,12 +106,12 @@ const TextFormFieldComponent = <T extends FieldValues>(
     <Controller
       render={({ field: { onBlur, onChange, value }, fieldState: { error } }) => (
         <View className="w-full">
-          <ThemedText className="my-1.5 px-1" color="text-70" type="body1">
+          <ThemedText className="my-1.5 mx-1" color="text-70" type="body1">
             {label}
           </ThemedText>
           <View
             className={cn(
-              'flex-row items-center justify-center px-4 rounded-xl overflow-hidden bg-background-tertiary border',
+              'flex-row items-center px-4 rounded-xl overflow-hidden bg-background-tertiary border',
               error ? 'border-error' : 'border-transparent',
             )}
           >
@@ -178,7 +178,7 @@ const TextFormFieldComponent = <T extends FieldValues>(
             ) : null}
           </View>
           {error ? (
-            <ThemedText className="my-1.5 px-1" color="error" type="body2">
+            <ThemedText className="my-1.5 mx-1" color="error" type="body2">
               {error?.message}
             </ThemedText>
           ) : null}

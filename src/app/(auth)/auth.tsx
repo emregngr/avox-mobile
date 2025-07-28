@@ -94,7 +94,7 @@ export default function Auth() {
 
   return (
     <SafeLayout>
-      <Header leftIcon={false} rightIcon={closeIcon} rightIconOnPress={handleBackPress} />
+      <Header backIcon={false} rightIcon={closeIcon} rightIconOnPress={handleBackPress} />
 
       <ScrollView
         className="flex-1"

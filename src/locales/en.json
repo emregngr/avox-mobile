@@ -56,7 +56,7 @@
   "termsOfUseMessage": "You must accept the Terms of Use.",
   "termsOfUse": "Terms of Use",
   "alreadyHaveAccount": "Already have an account?",
-  "breakingNewDetailTitle": "News Detail",
+  "breakingNewsDetailTitle": "News Detail",
   "forceUpdateText": "A new version of the app is available. Please update.",
   "forceUpdateButton": "Update",
   "maintenanceText": "System maintenance in progress. Please try again later.",
@@ -163,7 +163,7 @@
   "hubInformation": "Hub Information",
   "city": "City",
   "hubLocation": "Hub Location",
-  "totalAirplane": "Total Aircraft",
+  "totalAirplane": "Total Airplane",
   "count": "Count",
   "kmh": "km/h",
   "km": "km",
@@ -269,5 +269,9 @@
   "airlineInfo": "Airline Information",
   "airportInfo": "Airport Information",
   "retry": "Retry",
-  "change": "Change"
+  "change": "Change",
+  "shareAirlineMessage": "View details about {airlineName} ({iataCode}): {link}",
+  "shareAirlineTitle": "{airlineName} - Avox",
+  "shareAirportMessage": "View details about {airportName} ({iataCode}): {link}",
+  "shareAirportTitle": "{airportName} - Avox"
 }

@@ -193,7 +193,7 @@ export default function Login() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={localeStrings.login} />
+      <Header backIconOnPress={handleBackPress} title={localeStrings.login} />
 
       <KeyboardAwareScrollView
         bottomOffset={50}

@@ -2,16 +2,23 @@ import { useMemo } from 'react'
 import type { ToastProps } from 'react-native-toast-message'
 import { ErrorToast, SuccessToast } from 'react-native-toast-message'
 
+import useThemeStore from '@/store/theme'
+import { themeColors } from '@/themes'
+
 interface ToastConfigProps extends ToastProps {
-  style?: any,
-  text1Props?: any,
+  style?: any
+  text1Props?: any
   text1Style?: any
-  text2NumberOfLines?: number,
-  text2Props?: any,
+  text2NumberOfLines?: number
+  text2Props?: any
   text2Style?: any
 }
 
-export const useToastConfig = (colors: any) => useMemo(() => {
+export const useToastConfig = () => {
+  const { selectedTheme } = useThemeStore()
+  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
+
+  const toastConfig = useMemo(() => {
     const baseToastProps = {
       text1Props: { allowFontScaling: false, maxFontSizeMultiplier: 1 },
       text2NumberOfLines: 2,
@@ -64,3 +71,6 @@ export const useToastConfig = (colors: any) => useMemo(() => {
       ),
     }
   }, [colors])
+
+  return toastConfig
+}

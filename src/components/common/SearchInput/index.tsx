@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react'
-import { TextInput, TouchableOpacity, View } from 'react-native'
+import { Pressable, TextInput, TouchableOpacity, View } from 'react-native'
 
 import ColoredClear from '@/assets/icons/coloredClear'
 import Search from '@/assets/icons/tab/search.svg'
+import { ThemedText } from '@/components/common/ThemedText'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import { cn } from '@/utils/common/cn'
@@ -26,45 +27,63 @@ export const SearchInput = ({ className, onChangeText, placeholder, value }: Sea
     onChangeText('')
   }
 
+  const handleCancel = () => {
+    onChangeText('')
+    setIsFocused(false)
+  }
+
   return (
     <View
-      className={cn(
-        'flex-row items-center justify-center px-4 self-center rounded-xl overflow-hidden bg-background-tertiary',
-        className,
-      )}
-      style={{ width: responsive.deviceWidth - 32 }}
+      style={{
+        width: responsive.deviceWidth - 32,
+      }}
+      className={cn('flex-row items-center self-center', className)}
     >
-      <Search color={colors?.onPrimary100} height={20} width={20} />
-      <TextInput
+      <View
         className={cn(
-          'flex-1 py-3 ml-3 text-text-100 placeholder:text-text-50 text-[16px] font-inter-medium',
+          'flex-row items-center px-4 rounded-xl overflow-hidden bg-background-tertiary transition-all duration-200',
+          isFocused ? 'flex-1' : '',
         )}
-        onBlur={() => {
-          setIsFocused(false)
-        }}
-        allowFontScaling={false}
-        autoCorrect={false}
-        keyboardAppearance={selectedTheme === 'dark' ? 'dark' : 'light'}
-        maxFontSizeMultiplier={1.0}
-        onChangeText={onChangeText}
-        onFocus={() => setIsFocused(true)}
-        placeholder={placeholder}
-        returnKeyType="search"
-        spellCheck={false}
-        textAlignVertical="center"
-        underlineColorAndroid="transparent"
-        value={value}
-        enablesReturnKeyAutomatically
-      />
-      {isFocused && value?.length > 0 ? (
-        <TouchableOpacity activeOpacity={0.7} hitSlop={10} onPress={handleClear}>
-          <ColoredClear
-            height={20}
-            primaryColor={colors?.background?.primary}
-            secondaryColor={colors?.onPrimary100}
-            width={20}
-          />
-        </TouchableOpacity>
+      >
+        <Search color={colors?.onPrimary100} height={20} width={20} />
+        <TextInput
+          className={cn(
+            'flex-1 py-3 ml-3 text-text-100 placeholder:text-text-50 text-[16px] font-inter-medium',
+          )}
+          onBlur={() => {
+            setIsFocused(false)
+          }}
+          allowFontScaling={false}
+          autoCorrect={false}
+          keyboardAppearance={selectedTheme === 'dark' ? 'dark' : 'light'}
+          maxFontSizeMultiplier={1.0}
+          onChangeText={onChangeText}
+          onFocus={() => setIsFocused(true)}
+          placeholder={placeholder}
+          returnKeyType="search"
+          spellCheck={false}
+          textAlignVertical="center"
+          underlineColorAndroid="transparent"
+          value={value}
+          enablesReturnKeyAutomatically
+        />
+        {isFocused && value?.length > 0 ? (
+          <TouchableOpacity activeOpacity={0.7} hitSlop={10} onPress={handleClear}>
+            <ColoredClear
+              height={20}
+              primaryColor={colors?.background?.primary}
+              secondaryColor={colors?.onPrimary100}
+              width={20}
+            />
+          </TouchableOpacity>
+        ) : null}
+      </View>
+      {isFocused ? (
+        <Pressable className="ml-2" onPress={handleCancel}>
+          <ThemedText color="text-100" type="body1">
+            İptal Et
+          </ThemedText>
+        </Pressable>
       ) : null}
     </View>
   )

@@ -56,7 +56,7 @@
   "termsOfUseMessage": "Kullanım Şartlarını kabul etmek zorunludur.",
   "termsOfUse": "Kullanım Şartları",
   "alreadyHaveAccount": "Zaten bir hesabınız var mı?",
-  "breakingNewDetailTitle": "Haber Detayı",
+  "breakingNewsDetailTitle": "Haber Detayı",
   "forceUpdateText": "Uygulamanızın yeni bir sürümü mevcut. Lütfen güncelleyin.",
   "forceUpdateButton": "Güncelle",
   "maintenanceText": "Sistem bakımı yapılıyor. Lütfen daha sonra tekrar deneyin.",
@@ -271,5 +271,9 @@
   "airlineInfo": "Havayolu Bilgileri",
   "airportInfo": "Havalimanı Bilgileri",
   "retry": "Tekrar Dene",
-  "change": "Değiştir"
+  "change": "Değiştir",
+  "shareAirlineMessage": "{airlineName} ({iataCode}) hakkında detayları görüntüle: {link}",
+  "shareAirlineTitle": "{airlineName} - Avox",
+  "shareAirportMessage": "{airportName} ({iataCode}) hakkında detayları görüntüle: {link}",
+  "shareAirportTitle": "{airportName} - Avox"
 }

@@ -1,5 +1,7 @@
-import crashlytics from '@react-native-firebase/crashlytics'
+import { getCrashlytics, recordError } from '@react-native-firebase/crashlytics'
 import { QueryClient } from '@tanstack/react-query'
+
+const crashlytics = getCrashlytics()
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -7,7 +9,7 @@ export const queryClient = new QueryClient({
       onError: (error: Error) => {
         console.error(error)
         if (!__DEV__) {
-          crashlytics().recordError(error)
+          recordError(crashlytics, error as Error)
         }
       },
       retry: 1,

@@ -124,7 +124,7 @@ export default function ForgotPassword() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={headerTitle} />
+      <Header backIconOnPress={handleBackPress} title={headerTitle} />
 
       <KeyboardAwareScrollView
         bottomOffset={50}

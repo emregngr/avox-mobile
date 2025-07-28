@@ -1,11 +1,15 @@
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { memo, useCallback, useMemo } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
+import { TestIds } from 'react-native-google-mobile-ads'
 
 import { ThemedText } from '@/components/common/ThemedText'
 import { FavoriteButton } from '@/components/feature/FavoriteButton'
+import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
+import useLocaleStore from '@/store/locale'
 import type { Airport } from '@/types/feature/airport'
+import { AnalyticsService } from '@/utils/common/analyticsService'
 import getAirportImage from '@/utils/feature/getAirportImage'
 import type { AirportType } from '@/utils/feature/getBadge'
 import { getAirportBadge } from '@/utils/feature/getBadge'
@@ -15,6 +19,8 @@ interface HomeAirportCardProps {
 }
 
 export const HomeAirportCard = memo(({ airport }: HomeAirportCardProps) => {
+  const { selectedLocale } = useLocaleStore()
+
   const {
     iataCode,
     icaoCode,
@@ -37,6 +43,15 @@ export const HomeAirportCard = memo(({ airport }: HomeAirportCardProps) => {
       airportImage,
     }
   }, [airportType])
+
+  const logAirportCardPress = useCallback(async () => {
+    await AnalyticsService.sendEvent('airport_card_press', {
+      airline_id: id,
+      airline_name: name,
+      iata_code: iataCode,
+      user_locale: selectedLocale,
+    })
+  }, [id, name, iataCode, selectedLocale])
 
   const handlePress = useCallback(() => {
     router.navigate({
@@ -82,12 +97,29 @@ export const HomeAirportCard = memo(({ airport }: HomeAirportCardProps) => {
     [],
   )
 
+  const adUnitId = useMemo(() => {
+    if (__DEV__) {
+      return TestIds.INTERSTITIAL
+    }
+    return Platform.OS === 'ios'
+      ? 'ca-app-pub-4123130377375974/7531194946'
+      : 'ca-app-pub-4123130377375974/8992450420'
+  }, [])
+
+  const { showInterstitialAd } = useInterstitialAdHandler({
+    adUnitId,
+  })
+
   return (
     <TouchableOpacity
+      onPress={() => {
+        logAirportCardPress()
+        handlePress()
+        showInterstitialAd()
+      }}
       activeOpacity={0.7}
       className={classNames.container}
       hitSlop={20}
-      onPress={handlePress}
     >
       <View className={classNames.imageContainer}>
         <Image

@@ -1,13 +1,16 @@
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { memo, useCallback, useMemo } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
+import { TestIds } from 'react-native-google-mobile-ads'
 
 import { ThemedText } from '@/components/common/ThemedText'
 import { FavoriteButton } from '@/components/feature/FavoriteButton'
+import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import type { Airport } from '@/types/feature/airport'
+import { AnalyticsService } from '@/utils/common/analyticsService'
 import { responsive } from '@/utils/common/responsive'
 import getAirportImage from '@/utils/feature/getAirportImage'
 import type { AirportType } from '@/utils/feature/getBadge'
@@ -36,8 +39,14 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
     },
   } = airport || {}
 
-  const image = useMemo(() => getAirportImage(airportType as AirportType), [airportType])
-  const badge = useMemo(() => getAirportBadge(airportType as AirportType), [airportType])
+  const logAirportCardPress = useCallback(async () => {
+    await AnalyticsService.sendEvent('airport_card_press', {
+      airline_id: id,
+      airline_name: name,
+      iata_code: iataCode,
+      user_locale: selectedLocale,
+    })
+  }, [id, name, iataCode, selectedLocale])
 
   const handlePress = useCallback(() => {
     router.navigate({
@@ -59,42 +68,71 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
     [selectedLocale],
   )
 
+  const image = useMemo(() => getAirportImage(airportType as AirportType), [airportType])
+
+  const badge = useMemo(() => getAirportBadge(airportType as AirportType), [airportType])
+
   const locationText = useMemo(() => `${city}, ${country}, ${region}`, [city, country, region])
 
   const airlinesText = useMemo(() => airlines?.map(airline => airline).join(', '), [airlines])
 
-  const airlinesContainerWidth = useMemo(() => responsive.deviceWidth / 2 - 44, [])
+  const containerWidth = useMemo(() => responsive.deviceWidth / 2 - 44, [])
+
+  const styles = useMemo(
+    () => ({
+      badgeImage: {
+        height: 40,
+        left: 4,
+        position: 'absolute' as const,
+        top: 4,
+        width: 40,
+      },
+      mainImage: {
+        height: 130,
+        width: '100%' as const,
+      },
+    }),
+    [],
+  )
+
+  const adUnitId = useMemo(() => {
+    if (__DEV__) {
+      return TestIds.INTERSTITIAL
+    }
+    return Platform.OS === 'ios'
+      ? 'ca-app-pub-4123130377375974/7531194946'
+      : 'ca-app-pub-4123130377375974/8992450420'
+  }, [])
+
+  const { showInterstitialAd } = useInterstitialAdHandler({
+    adUnitId,
+  })
 
   return (
     <TouchableOpacity
+      onPress={() => {
+        logAirportCardPress()
+        handlePress()
+        showInterstitialAd()
+      }}
       activeOpacity={0.7}
       className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary"
       hitSlop={20}
-      onPress={handlePress}
     >
       <View className="rounded-t-xl overflow-hidden w-full justify-center">
         <Image
-          style={{
-            height: 130,
-            width: '100%',
-          }}
           cachePolicy="memory-disk"
           contentFit="cover"
           source={image}
+          style={styles.mainImage}
           transition={0}
         />
 
         <Image
-          style={{
-            height: 40,
-            left: 4,
-            position: 'absolute',
-            top: 4,
-            width: 40,
-          }}
           cachePolicy="memory-disk"
           contentFit="contain"
           source={badge}
+          style={styles.badgeImage}
           transition={0}
         />
 
@@ -207,7 +245,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
 
         <View
           className="bg-background-quaternary px-2 py-1 rounded-xl overflow-hidden mt-2"
-          style={{ width: airlinesContainerWidth }}
+          style={{ width: containerWidth }}
         >
           <View className="flex-row items-center px-1">
             <ThemedText

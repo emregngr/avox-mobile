@@ -1,4 +1,5 @@
 export * from './ActiveFilters'
+export * from './AdBanner'
 export * from './Airline'
 export * from './Airport'
 export * from './AppNavigator'

@@ -4,16 +4,16 @@ import React, { memo, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
-import type { BreakingNew } from '@/types/feature/home'
+import type { BreakingNews } from '@/types/feature/home'
 import { responsive } from '@/utils/common/responsive'
 
 const itemWidth = responsive.deviceWidth
 
-interface BreakingNewCardProps {
-  item: BreakingNew
+interface BreakingNewsCardProps {
+  item: BreakingNews
 }
 
-export const BreakingNewCard = memo(({ item }: BreakingNewCardProps) => {
+export const BreakingNewsCard = memo(({ item }: BreakingNewsCardProps) => {
   const { image, title } = item || {}
   const imageSource = useMemo(() => ({ uri: image }), [image])
 
@@ -22,7 +22,7 @@ export const BreakingNewCard = memo(({ item }: BreakingNewCardProps) => {
       params: {
         item: JSON.stringify(item),
       },
-      pathname: '/breaking-new-detail',
+      pathname: '/breaking-news-detail',
     })
   }, [item])
 
@@ -66,4 +66,4 @@ export const BreakingNewCard = memo(({ item }: BreakingNewCardProps) => {
   )
 })
 
-BreakingNewCard.displayName = 'BreakingNewCard'
+BreakingNewsCard.displayName = 'BreakingNewsCard'

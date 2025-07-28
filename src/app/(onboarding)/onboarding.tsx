@@ -19,6 +19,10 @@ interface OnboardingItemProps {
   item: OnBoardingType
 }
 interface DotProps {
+  isActive: boolean
+}
+
+interface DotsContainerProps {
   currentIndex: number
   length: number
 }
@@ -149,27 +153,36 @@ export default function OnBoarding() {
 
       <View className="absolute bottom-0 w-full px-4" style={bottomContainerStyle}>
         <ThemedButton label={buttonLabel} onPress={handlePressNext} type="border" />
-        <Dot currentIndex={currentIndex} length={onBoardings?.length} />
+
+        <DotsContainer currentIndex={currentIndex} length={onBoardings?.length} />
       </View>
     </View>
   )
 }
 
-const Dot = memo(({ currentIndex, length }: DotProps) => {
-  const dots = useMemo(
+const Dot = memo(({ isActive }: DotProps) => {
+  const dotClassName = useMemo(
     () =>
-      Array.from({ length }, (_, i) => (
-        <View className="w-2 h-2 mx-2" key={i}>
-          <View
-            className={cn(
-              'w-2 h-2 rounded-full overflow-hidden',
-              i === currentIndex ? 'bg-onPrimary-100' : 'bg-onPrimary-50',
-            )}
-          />
-        </View>
-      )),
+      cn('w-2 h-2 rounded-full overflow-hidden', isActive ? 'bg-onPrimary-100' : 'bg-onPrimary-50'),
+    [isActive],
+  )
+
+  return (
+    <View className="w-2 h-2 mx-1.5">
+      <View className={dotClassName} />
+    </View>
+  )
+})
+
+Dot.displayName = 'Dot'
+
+const DotsContainer = memo(({ currentIndex, length }: DotsContainerProps) => {
+  const dots = useMemo(
+    () => Array.from({ length }, (_, i) => <Dot isActive={i === currentIndex} key={i} />),
     [currentIndex, length],
   )
 
   return <View className="flex-row justify-center mt-8">{dots}</View>
 })
+
+DotsContainer.displayName = 'DotsContainer'

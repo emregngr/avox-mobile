@@ -9,29 +9,35 @@ import { themeColors } from '@/themes'
 import { cn } from '@/utils/common/cn'
 
 type HeaderProps = {
-  containerClassName?: string
-  leftIcon?: boolean
-  leftIconOnPress?: () => void
-  rightButtonLabel?: string
-  rightButtonOnPress?: () => void
-  rightIcon?: ReactNode
-  rightIconClassName?: string
-  rightIconOnPress?: () => void
-  textClassName?: string
-  title?: string | string[]
+  backIcon?: boolean,
+  backIconOnPress?: () => void,
+  containerClassName?: string,
+  rightButtonLabel?: string,
+  rightButtonOnPress?: () => void,
+  rightIcon?: ReactNode,
+  rightIconClassName?: string,
+  rightIconOnPress?: () => void,
+  shareIcon?: ReactNode,
+  shareIconClassName?: string,
+  shareIconOnPress?: () => void,
+  title?: string | string[],
+  titleClassName?: string
 }
 
 export const Header = ({
+  backIcon = true,
+  backIconOnPress,
   containerClassName,
-  leftIcon = true,
-  leftIconOnPress,
   rightButtonLabel,
   rightButtonOnPress,
   rightIcon,
   rightIconClassName,
   rightIconOnPress,
-  textClassName,
+  shareIcon,
+  shareIconClassName,
+  shareIconOnPress,
   title,
+  titleClassName,
 }: HeaderProps) => {
   const { selectedTheme } = useThemeStore()
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
@@ -40,7 +46,7 @@ export const Header = ({
     <View className={cn('h-11 justify-center items-center', containerClassName)}>
       {title ? (
         <ThemedText
-          className={cn(textClassName)}
+          className={cn(titleClassName)}
           color="text-100"
           ellipsizeMode="tail"
           numberOfLines={2}
@@ -51,14 +57,25 @@ export const Header = ({
         </ThemedText>
       ) : null}
 
-      {leftIcon ? (
+      {backIcon ? (
         <TouchableOpacity
           activeOpacity={0.7}
           className="absolute left-4"
           hitSlop={20}
-          onPress={leftIconOnPress}
+          onPress={backIconOnPress}
         >
           <Back color={colors?.onPrimary100} height={24} width={24} />
+        </TouchableOpacity>
+      ) : null}
+
+      {shareIcon ? (
+        <TouchableOpacity
+          activeOpacity={0.7}
+          className={cn('absolute right-16', `${shareIconClassName}`)}
+          hitSlop={10}
+          onPress={shareIconOnPress}
+        >
+          {shareIcon}
         </TouchableOpacity>
       ) : null}
 
@@ -74,7 +91,7 @@ export const Header = ({
         <TouchableOpacity
           activeOpacity={0.7}
           className={cn('absolute right-4', `${rightIconClassName}`)}
-          hitSlop={20}
+          hitSlop={10}
           onPress={rightIconOnPress}
         >
           {rightIcon}

@@ -2,8 +2,8 @@ import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from '
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import { FlatList, View } from 'react-native'
 
-import { BreakingNewCard } from '@/components/feature/Home/BreakingNewCard'
-import type { BreakingNew } from '@/types/feature/home'
+import { BreakingNewsCard } from '@/components/feature/Home/BreakingNewsCard'
+import type { BreakingNews } from '@/types/feature/home'
 import { cn } from '@/utils/common/cn'
 import { responsive } from '@/utils/common/responsive'
 
@@ -14,31 +14,30 @@ const RESTART_DELAY = 100
 const itemWidth = responsive.deviceWidth
 
 interface HomeSliderProps {
-  breakingNews: BreakingNew[]
+  breakingNews: BreakingNews[]
 }
-interface BreakingNewCardProps {
-  item: BreakingNew
+interface BreakingNewsCardProps {
+  item: BreakingNews
 }
 
 interface DotProps {
-  index: number
   isActive: boolean
 }
 
 interface DotsContainerProps {
-  breakingNews: BreakingNew[]
+  breakingNews: BreakingNews[]
   currentIndex: number
 }
 
-const Dot = memo(({ index, isActive }: DotProps) => {
+const Dot = memo(({ isActive }: DotProps) => {
   const dotClassName = useMemo(
     () =>
-      cn('w-2 h-2 rounded-full overflow-hidden', isActive ? 'bg-primary-100' : 'bg-onPrimary-100'),
+      cn('w-2 h-2 rounded-full overflow-hidden', isActive ? 'bg-onPrimary-100' : 'bg-onPrimary-50'),
     [isActive],
   )
 
   return (
-    <View className="w-2 h-2 mx-2">
+    <View className="w-2 h-2 mx-1.5">
       <View className={dotClassName} />
     </View>
   )
@@ -48,10 +47,7 @@ Dot.displayName = 'Dot'
 
 const DotsContainer = memo(({ breakingNews, currentIndex }: DotsContainerProps) => {
   const dots = useMemo(
-    () =>
-      breakingNews?.map((_, index) => (
-        <Dot index={index} isActive={index === currentIndex} key={index} />
-      )),
+    () => breakingNews?.map((_, i) => <Dot isActive={i === currentIndex} key={i} />),
     [breakingNews, currentIndex],
   )
 
@@ -127,14 +123,14 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
   }, [clearAutoScroll])
 
   const renderItem = useCallback(
-    ({ item }: BreakingNewCardProps) => <BreakingNewCard item={item} />,
+    ({ item }: BreakingNewsCardProps) => <BreakingNewsCard item={item} />,
     [],
   )
 
-  const keyExtractor = useCallback((item: BreakingNew) => item?.id?.toString(), [])
+  const keyExtractor = useCallback((item: BreakingNews) => item?.id?.toString(), [])
 
   const getItemLayout = useCallback(
-    (data: ArrayLike<BreakingNew> | null | undefined, index: number) => ({
+    (data: ArrayLike<BreakingNews> | null | undefined, index: number) => ({
       index,
       length: itemWidth,
       offset: itemWidth * index,
@@ -159,28 +155,28 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
   return (
     <View>
       <FlatList
+        bounces={false}
         data={memoizedBreakingNews}
+        decelerationRate="fast"
         getItemLayout={getItemLayout}
+        initialNumToRender={ITEMS_PER_PAGE}
         keyExtractor={keyExtractor}
+        maxToRenderPerBatch={ITEMS_PER_PAGE}
         onMomentumScrollEnd={onMomentumScrollEnd}
         onScroll={onScroll}
         onScrollBeginDrag={onScrollBeginDrag}
         ref={flatListRef}
         renderItem={renderItem}
-        bounces={false}
-        decelerationRate="fast"
-        disableIntervalMomentum={true}
-        horizontal={true}
-        initialNumToRender={ITEMS_PER_PAGE}
-        maxToRenderPerBatch={ITEMS_PER_PAGE}
-        pagingEnabled={true}
-        removeClippedSubviews={true}
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
         snapToAlignment="center"
         snapToInterval={itemWidth}
         updateCellsBatchingPeriod={200}
         windowSize={5}
+        disableIntervalMomentum
+        horizontal
+        pagingEnabled
+        removeClippedSubviews
       />
 
       <DotsContainer breakingNews={memoizedBreakingNews} currentIndex={currentIndex} />

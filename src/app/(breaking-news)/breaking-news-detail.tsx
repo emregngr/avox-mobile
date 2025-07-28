@@ -1,18 +1,20 @@
 import { Image } from 'expo-image'
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
-import { ScrollView, View } from 'react-native'
+import { Platform, ScrollView, View } from 'react-native'
+import { TestIds } from 'react-native-google-mobile-ads'
 
 import { Header, SafeLayout, ThemedText } from '@/components/common'
+import { AdBanner } from '@/components/feature'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
-import type { BreakingNew } from '@/types/feature/home'
+import type { BreakingNews } from '@/types/feature/home'
 
-export default function BreakingNewDetail() {
+export default function BreakingNewsDetail() {
   const params = useLocalSearchParams()
   const { item } = params as { item: string }
 
-  const itemData = useMemo(() => JSON.parse(item) as BreakingNew, [item])
+  const itemData = useMemo(() => JSON.parse(item) as BreakingNews, [item])
 
   const { description, image, title } = itemData
   const { selectedTheme } = useThemeStore()
@@ -35,9 +37,18 @@ export default function BreakingNewDetail() {
     router?.back()
   }, [])
 
+  const adUnitId = useMemo(() => {
+    if (__DEV__) {
+      return TestIds.BANNER
+    }
+    return Platform.OS === 'ios'
+      ? 'ca-app-pub-4123130377375974/8155997003'
+      : 'ca-app-pub-4123130377375974/6016918825'
+  }, [])
+
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={getLocale('breakingNewDetailTitle')} />
+      <Header backIconOnPress={handleBackPress} title={getLocale('breakingNewsDetailTitle')} />
 
       <ScrollView
         className="flex-1"
@@ -62,6 +73,8 @@ export default function BreakingNewDetail() {
           </ThemedText>
         </View>
       </ScrollView>
+
+      <AdBanner adUnitId={adUnitId} />
     </SafeLayout>
   )
 }

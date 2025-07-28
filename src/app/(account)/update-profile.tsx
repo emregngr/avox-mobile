@@ -188,7 +188,7 @@ export default function UpdateProfile() {
         <FullScreenLoading />
       ) : (
         <>
-          <Header leftIconOnPress={handleBackPress} title={headerTitle} />
+          <Header backIconOnPress={handleBackPress} title={headerTitle} />
           <KeyboardAwareScrollView
             bottomOffset={50}
             contentContainerClassName="my-5 pb-24 px-4"

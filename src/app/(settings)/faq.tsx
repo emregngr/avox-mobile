@@ -150,7 +150,7 @@ export default function Faq() {
     },
     {
       description:
-        "On our airline pages, you can access information such as the company's headquarters, aircraft types and fleet size, flight destinations, contact details, and its airline alliance affiliation.",
+        "On our airline pages, you can access information such as the company's headquarters, airplane types and fleet size, flight destinations, contact details, and its airline alliance affiliation.",
       title: 'What information can I find about airlines?',
     },
     {
@@ -239,7 +239,7 @@ export default function Faq() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={getLocale('faq')} />
+      <Header backIconOnPress={handleBackPress} title={getLocale('faq')} />
 
       <ScrollView
         className="flex-1"

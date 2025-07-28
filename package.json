@@ -94,6 +94,7 @@
     "react-native-collapsible-tab-view": "^8.0.1",
     "react-native-device-info": "^14.0.4",
     "react-native-gesture-handler": "~2.27.1",
+    "react-native-google-mobile-ads": "^15.4.0",
     "react-native-keyboard-controller": "^1.17.5",
     "react-native-notifications": "^5.1.0",
     "react-native-pager-view": "6.8.1",

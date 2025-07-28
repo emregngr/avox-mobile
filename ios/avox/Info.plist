@@ -40,8 +40,16 @@
 			</array>
 		</dict>
 	</array>
+	<key>com.apple.developer.associated-domains</key>
+    <array>
+    <string>applinks:avox.app</string>
+    </array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-</string>
+	<key>GADIsAdManagerApp</key>
+	<true/>
 	<key>GIDClientID</key>
 	<string>396294037399-k8k5qpf3rgid0a1ujc5jjg9jbpve70vk.apps.googleusercontent.com</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

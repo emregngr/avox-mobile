@@ -2,10 +2,10 @@ import 'dayjs/locale/en'
 import 'dayjs/locale/tr'
 
 import { Ionicons } from '@expo/vector-icons'
-import crashlytics from '@react-native-firebase/crashlytics'
+import { getCrashlytics, recordError } from '@react-native-firebase/crashlytics'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
-import { Alert, Appearance, ScrollView, TouchableOpacity, View } from 'react-native'
+import { Alert, ScrollView, TouchableOpacity, View } from 'react-native'
 
 import { Header, SafeLayout, ThemedText } from '@/components/common'
 import { getLocale } from '@/locales/i18next'
@@ -19,6 +19,8 @@ interface ThemeItem {
   name: string
   value: 'dark' | 'light'
 }
+
+const crashlytics = getCrashlytics()
 
 export default function ChooseTheme() {
   const { selectedTheme } = useThemeStore()
@@ -46,11 +48,10 @@ export default function ChooseTheme() {
   const handleChangeTheme = useCallback((theme: 'light' | 'dark') => {
     try {
       changeTheme(theme)
-      Appearance?.setColorScheme(theme)
       router.back()
     } catch (error: any) {
       Alert.alert(getLocale('error'), error?.message, [{ text: getLocale('ok') }])
-      crashlytics().recordError(error)
+      recordError(crashlytics, error as Error)
     }
   }, [])
 
@@ -110,7 +111,7 @@ export default function ChooseTheme() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={headerTitle} />
+      <Header backIconOnPress={handleBackPress} title={headerTitle} />
 
       <ScrollView
         className="flex-1"

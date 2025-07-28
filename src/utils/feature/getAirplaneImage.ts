@@ -1,20 +1,20 @@
 const imageFiles = {
-  airbus_a320neo: require('@/assets/images/aircraft/airbus_a320neo.webp'),
-  'airbus_a350-900': require('@/assets/images/aircraft/airbus_a350-900.webp'),
-  'airbus_a380-800': require('@/assets/images/aircraft/airbus_a380-800.webp'),
-  'antonov_an-148': require('@/assets/images/aircraft/antonov_an-148.webp'),
-  'atr_72-600': require('@/assets/images/aircraft/atr_72-600.webp'),
-  'boeing_737-800': require('@/assets/images/aircraft/boeing_737-800.webp'),
-  'boeing_747-8': require('@/assets/images/aircraft/boeing_747-8.webp'),
-  'boeing_777-300ER': require('@/assets/images/aircraft/boeing_777-300ER.webp'),
-  'boeing_787-9': require('@/assets/images/aircraft/boeing_787-9.webp'),
-  bombardier_q400: require('@/assets/images/aircraft/bombardier_q400.webp'),
-  cessna_citation_cj4: require('@/assets/images/aircraft/cessna_citation_cj4.webp'),
-  comac_c919: require('@/assets/images/aircraft/comac_c919.webp'),
-  'douglas_md-11f': require('@/assets/images/aircraft/douglas_md-11f.webp'),
-  embraer_e190: require('@/assets/images/aircraft/embraer_e190.webp'),
-  fokker_100: require('@/assets/images/aircraft/fokker_100.webp'),
-  'ilyushin_II-76': require('@/assets/images/aircraft/ilyushin_II-76.webp'),
+  airbus_a320neo: require('@/assets/images/airplane/airbus_a320neo.webp'),
+  'airbus_a350-900': require('@/assets/images/airplane/airbus_a350-900.webp'),
+  'airbus_a380-800': require('@/assets/images/airplane/airbus_a380-800.webp'),
+  'antonov_an-148': require('@/assets/images/airplane/antonov_an-148.webp'),
+  'atr_72-600': require('@/assets/images/airplane/atr_72-600.webp'),
+  'boeing_737-800': require('@/assets/images/airplane/boeing_737-800.webp'),
+  'boeing_747-8': require('@/assets/images/airplane/boeing_747-8.webp'),
+  'boeing_777-300ER': require('@/assets/images/airplane/boeing_777-300ER.webp'),
+  'boeing_787-9': require('@/assets/images/airplane/boeing_787-9.webp'),
+  bombardier_q400: require('@/assets/images/airplane/bombardier_q400.webp'),
+  cessna_citation_cj4: require('@/assets/images/airplane/cessna_citation_cj4.webp'),
+  comac_c919: require('@/assets/images/airplane/comac_c919.webp'),
+  'douglas_md-11f': require('@/assets/images/airplane/douglas_md-11f.webp'),
+  embraer_e190: require('@/assets/images/airplane/embraer_e190.webp'),
+  fokker_100: require('@/assets/images/airplane/fokker_100.webp'),
+  'ilyushin_II-76': require('@/assets/images/airplane/ilyushin_II-76.webp'),
 }
 
 const imageList = [
@@ -101,12 +101,12 @@ const familyMappings: { [key: string]: ImageType } = {
   Tupolev: 'ilyushin_II-76',
 }
 
-const getAirplaneImageKey = (aircraftType: string): ImageType => {
+const getAirplaneImageKey = (airplaneType: string): ImageType => {
   const defaultImage: ImageType = 'airbus_a320neo'
   let imageName: ImageType = defaultImage
 
-  const normalizedForFile = aircraftType?.toLowerCase()?.replace(/[\s-]/g, '_')
-  const normalizedLower = aircraftType?.toLowerCase()
+  const normalizedForFile = airplaneType?.toLowerCase()?.replace(/[\s-]/g, '_')
+  const normalizedLower = airplaneType?.toLowerCase()
 
   if (imageList?.some(img => img === normalizedForFile)) {
     imageName = normalizedForFile as ImageType

@@ -1,6 +1,6 @@
-import firebase from '@react-native-firebase/app'
+import { getApp } from '@react-native-firebase/app'
 import type { FirebaseAuthTypes } from '@react-native-firebase/auth'
-import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth'
+import { getAuth, getIdToken, onAuthStateChanged } from '@react-native-firebase/auth'
 import type { QueryClient } from '@tanstack/react-query'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { router } from 'expo-router'
@@ -19,7 +19,8 @@ import {
 import { login, logout, register, social } from '@/store/auth'
 import type { AuthCredentials } from '@/types/feature/auth'
 
-const auth = getAuth(firebase.app())
+const app = getApp()
+const auth = getAuth(app)
 
 const handleAuthSuccess = async <T extends AuthCredentials>(
   userCredential: FirebaseAuthTypes.UserCredential,
@@ -28,7 +29,7 @@ const handleAuthSuccess = async <T extends AuthCredentials>(
   queryClient: QueryClient,
 ) => {
   try {
-    const token = await userCredential.user.getIdToken()
+    const token = await getIdToken(userCredential.user, true)
     await authFunction({ ...authData, token })
     queryClient.invalidateQueries({ queryKey: ['user'] })
   } catch (error) {}

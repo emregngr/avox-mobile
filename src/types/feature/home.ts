@@ -3,7 +3,7 @@ import type { JSX } from 'react'
 import type { Airline } from '@/types/feature/airline'
 import type { Airport } from '@/types/feature/airport'
 
-export type BreakingNew = {
+export type BreakingNews = {
   description: string
   id: number
   image: string
@@ -26,7 +26,7 @@ export type TotalAirplane = {
 }
 
 export type Home = {
-  breakingNews: BreakingNew[]
+  breakingNews: BreakingNews[]
   popularAirlines: Airline[]
   popularAirports: Airport[]
   popularDestinations: PopularDestination[]
@@ -34,7 +34,7 @@ export type Home = {
 }
 
 export type NewsSection = {
-  data: BreakingNew[]
+  data: BreakingNews[]
   type: 'news'
 }
 

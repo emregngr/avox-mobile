@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import { FlatList, RefreshControl, View } from 'react-native'
 
-import { AirportFavoriteItemCard } from '@/components/feature'
+import { AirportFavoriteItemCard } from '@/components/feature/Airport/AirportFavoriteItemCard'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'

@@ -1,19 +1,24 @@
 import { Stack } from 'expo-router'
 import { useMemo } from 'react'
 
+import useThemeStore from '@/store/theme'
+import { themeColors } from '@/themes'
+
 interface AppNavigatorProps {
-  backgroundColor: string
   isAppReady: boolean | null
 }
 
-export const AppNavigator = ({ backgroundColor, isAppReady }: AppNavigatorProps) => {
+export const AppNavigator = ({ isAppReady }: AppNavigatorProps) => {
+  const { selectedTheme } = useThemeStore()
+  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
+
   const stackScreenOptions = useMemo(
     () => ({
       animation: 'slide_from_bottom' as const,
-      contentStyle: { backgroundColor },
+      contentStyle: { backgroundColor: colors?.background?.blur },
       headerShown: false,
     }),
-    [backgroundColor],
+    [colors],
   )
 
   if (!isAppReady) {
@@ -36,7 +41,7 @@ export const AppNavigator = ({ backgroundColor, isAppReady }: AppNavigatorProps)
       <Stack.Screen name="(settings)" options={{ presentation: 'modal' }} />
       <Stack.Screen name="(airline)" />
       <Stack.Screen name="(airport)" />
-      <Stack.Screen name="(breaking-new)" />
+      <Stack.Screen name="(breaking-news)" />
       <Stack.Screen name="(destination)" />
       <Stack.Screen name="(airplane)" />
       <Stack.Screen name="token-expire" />

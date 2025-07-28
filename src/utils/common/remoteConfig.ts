@@ -1,4 +1,11 @@
-import remoteConfig from '@react-native-firebase/remote-config'
+import {
+  fetchAndActivate,
+  getAll,
+  getRemoteConfig,
+  getValue,
+  setConfigSettings,
+  setDefaults,
+} from '@react-native-firebase/remote-config'
 
 import { Logger } from '@/utils/common/logger'
 
@@ -9,18 +16,23 @@ const defaultConfigs: Readonly<Record<string, string | boolean>> = {
 
 type ConfigKey = keyof typeof defaultConfigs
 
+const remoteConfig = getRemoteConfig()
+
 const setFirebaseConfig = async (): Promise<boolean> => {
   try {
-    await remoteConfig().setDefaults(defaultConfigs)
-    await remoteConfig().setConfigSettings({
+    await setDefaults(remoteConfig, defaultConfigs)
+    await setConfigSettings(remoteConfig, {
       minimumFetchIntervalMillis: __DEV__ ? 300 : 3600000,
     })
-    const activated = await remoteConfig().fetchAndActivate()
+
+    const activated = await fetchAndActivate(remoteConfig)
+
     const log = {
       activated,
-      all: remoteConfig().getAll(),
+      all: getAll(remoteConfig),
       default: defaultConfigs,
     }
+
     Logger.breadcrumb('REMOTE CONFIG', 'info', log)
     return activated
   } catch (error: any) {
@@ -30,7 +42,7 @@ const setFirebaseConfig = async (): Promise<boolean> => {
 }
 
 const getBooleanValue = (key: ConfigKey): boolean => {
-  const remoteValue = remoteConfig().getValue(key)
+  const remoteValue = getValue(remoteConfig, key)
 
   if (remoteValue && remoteValue.getSource() !== 'default') {
     return remoteValue.asBoolean()
@@ -40,7 +52,7 @@ const getBooleanValue = (key: ConfigKey): boolean => {
 }
 
 const getStringValue = (key: ConfigKey): string => {
-  const remoteValue = remoteConfig().getValue(key)
+  const remoteValue = getValue(remoteConfig, key)
 
   if (remoteValue && remoteValue.getSource() !== 'default') {
     return remoteValue.asString()

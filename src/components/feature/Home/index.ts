@@ -1,5 +1,5 @@
 export * from './AirplaneCard'
-export * from './BreakingNewCard'
+export * from './BreakingNewsCard'
 export * from './DestinationCard'
 export * from './HomeAirlineCard'
 export * from './HomeAirportCard'

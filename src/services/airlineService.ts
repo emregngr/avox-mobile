@@ -1,10 +1,11 @@
-import firebase from '@react-native-firebase/app'
+import { getApp } from '@react-native-firebase/app'
 import type { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
-import { collection, getDocs, getFirestore } from '@react-native-firebase/firestore'
+import { collection, doc, getDoc, getDocs, getFirestore } from '@react-native-firebase/firestore'
 
 import type { Airline } from '@/types/feature/airline'
 
-const db = getFirestore(firebase.app())
+const app = getApp()
+const db = getFirestore(app)
 
 export const getAllAirlines = async (locale: string): Promise<Airline[]> => {
   try {
@@ -24,5 +25,29 @@ export const getAllAirlines = async (locale: string): Promise<Airline[]> => {
     return airlines.sort((a, b) => (a.name || '').localeCompare(b.name || ''))
   } catch (error) {
     return []
+  }
+}
+
+export const getAirlineById = async (id: string, locale: string): Promise<Airline | null> => {
+  try {
+    if (!id?.trim()) {
+      return null
+    }
+
+    const collectionName = locale === 'en' ? 'enAirlines' : 'trAirlines'
+    const airlineDocRef = doc(db, collectionName, id)
+    const airlineDoc = await getDoc(airlineDocRef)
+
+    if (airlineDoc.exists()) {
+      const data = airlineDoc.data()
+      return {
+        ...data,
+        id: airlineDoc.id,
+      } as unknown as Airline
+    }
+
+    return null
+  } catch (error) {
+    return null
   }
 }

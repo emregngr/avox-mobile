@@ -1,5 +1,5 @@
 import NetInfo from '@react-native-community/netinfo'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { Alert } from 'react-native'
 
 import { getLocale } from '@/locales/i18next'
@@ -13,6 +13,8 @@ export const useConnectionAlert = ({
   isConnected,
   onConnectionChange,
 }: UseConnectionAlertProps) => {
+  const isAlertShowing = useRef<boolean>(false)
+
   const checkConnection = useCallback(async () => {
     try {
       const state = await NetInfo.fetch()
@@ -29,12 +31,17 @@ export const useConnectionAlert = ({
   }, [onConnectionChange])
 
   const showConnectionAlert = useCallback(() => {
-    if (isConnected === false) {
+    if (isConnected === false && !isAlertShowing.current) {
+      isAlertShowing.current = true
+
       Alert.alert(
         getLocale('connectionError'),
         getLocale('connectionErrorDescription'),
         [
           {
+            onPress: () => {
+              isAlertShowing.current = false
+            },
             style: 'cancel',
             text: getLocale('cancel'),
           },
@@ -42,13 +49,23 @@ export const useConnectionAlert = ({
             onPress: async () => {
               const connected = await checkConnection()
               if (!connected) {
-                setTimeout(() => showConnectionAlert(), 500)
+                setTimeout(() => {
+                  isAlertShowing.current = false
+                  showConnectionAlert()
+                }, 500)
+              } else {
+                isAlertShowing.current = false
               }
             },
             text: getLocale('retry'),
           },
         ],
-        { cancelable: false },
+        {
+          cancelable: false,
+          onDismiss: () => {
+            isAlertShowing.current = false
+          },
+        },
       )
     }
   }, [isConnected, checkConnection])

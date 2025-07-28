@@ -43,7 +43,7 @@ export default function AllPopularAirports() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={getLocale('popularAirports')} />
+      <Header backIconOnPress={handleBackPress} title={getLocale('popularAirports')} />
       <FlatList
         className="flex-1"
         columnWrapperClassName="justify-between"

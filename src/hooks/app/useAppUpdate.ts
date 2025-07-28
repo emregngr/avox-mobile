@@ -1,7 +1,9 @@
-import crashlytics from '@react-native-firebase/crashlytics'
+import { getCrashlytics, recordError } from '@react-native-firebase/crashlytics'
 import * as Updates from 'expo-updates'
 import { useCallback, useEffect } from 'react'
 import { InteractionManager } from 'react-native'
+
+const crashlytics = getCrashlytics()
 
 export const checkForAppUpdate = async (): Promise<void> => {
   try {
@@ -10,7 +12,9 @@ export const checkForAppUpdate = async (): Promise<void> => {
       await Updates.fetchUpdateAsync()
     }
   } catch (error) {
-    if (!__DEV__) crashlytics().recordError(error as Error)
+    if (!__DEV__) {
+      recordError(crashlytics, error as Error)
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import firebase from '@react-native-firebase/app'
+import { getApp } from '@react-native-firebase/app'
 import { getAuth } from '@react-native-firebase/auth'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { router } from 'expo-router'
@@ -20,7 +20,8 @@ import { deleteUser } from '@/store/user'
 import type { AddPasswordCredentials, ChangePasswordCredentials } from '@/types/feature/password'
 import type { ProfileData } from '@/types/feature/user'
 
-const auth = getAuth(firebase.app())
+const app = getApp()
+const auth = getAuth(app)
 
 export const useGetUser = () => {
   const userId = auth?.currentUser?.uid

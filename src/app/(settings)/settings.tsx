@@ -1,4 +1,4 @@
-import firebase from '@react-native-firebase/app'
+import { getApp } from '@react-native-firebase/app'
 import { getAuth } from '@react-native-firebase/auth'
 import { router } from 'expo-router'
 import * as StoreReview from 'expo-store-review'
@@ -18,7 +18,8 @@ import { themeColors } from '@/themes'
 import { Logger } from '@/utils/common/logger'
 import remoteConfig from '@/utils/common/remoteConfig'
 
-const authInstance = getAuth(firebase.app())
+const app = getApp()
+const authInstance = getAuth(app)
 
 export default function Settings() {
   const { selectedTheme } = useThemeStore()
@@ -67,7 +68,7 @@ export default function Settings() {
   }, [])
 
   const handleAppStateChange = useCallback(
-    (nextAppState: any) => {
+    (nextAppState: string) => {
       if (nextAppState === 'active') {
         checkNotificationPermission()
       }
@@ -175,7 +176,7 @@ export default function Settings() {
   return (
     <SafeLayout>
       <Header
-        leftIcon={false}
+        backIcon={false}
         rightIcon={rightIcon}
         rightIconOnPress={handleBackPress}
         title={getLocale('settings')}

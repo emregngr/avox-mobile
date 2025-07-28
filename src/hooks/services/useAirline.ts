@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
 
-import { getAllAirlines } from '@/services/airlineService'
+import { getAirlineById, getAllAirlines } from '@/services/airlineService'
 import useLocaleStore from '@/store/locale'
 import type { Airline } from '@/types/feature/airline'
 import { useDebounce } from '@/utils/common/useDebounce'
@@ -198,4 +198,15 @@ export function useAirline() {
     setFilters,
     setSearchTerm,
   }
+}
+
+export function useAirlineById(id: string) {
+  const { selectedLocale } = useLocaleStore()
+
+  return useQuery({
+    enabled: !!id,
+    queryFn: () => getAirlineById(id, selectedLocale),
+    queryKey: ['airline', id, selectedLocale],
+    staleTime: 5 * 60 * 1000,
+  })
 }

@@ -1,4 +1,4 @@
-import firebase from '@react-native-firebase/app'
+import { getApp } from '@react-native-firebase/app'
 import { getAuth } from '@react-native-firebase/auth'
 import { useFocusEffect } from '@react-navigation/native'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -13,7 +13,8 @@ import {
 import useLocaleStore from '@/store/locale'
 import type { FavoriteItem } from '@/types/feature/favorite'
 
-const auth = getAuth(firebase.app())
+const app = getApp()
+const auth = getAuth(app)
 
 const QUERY_KEYS = {
   favoriteDetails: (userId: string, locale: string) => ['favoriteDetails', userId, locale],

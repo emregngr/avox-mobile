@@ -96,7 +96,7 @@ export default function PrivacyPolicy() {
 
   return (
     <SafeLayout>
-      <Header leftIconOnPress={handleBackPress} title={getLocale('privacyPolicy')} />
+      <Header backIconOnPress={handleBackPress} title={getLocale('privacyPolicy')} />
 
       <ScrollView
         className="flex-1"

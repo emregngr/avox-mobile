@@ -16,12 +16,12 @@ export const SkeletonAirportCard = memo(() => {
   }, [])
 
   const animatedStyle = useAnimatedStyle(() => ({
-      opacity: interpolate(pulse.value, [0, 1], [0.3, 0.7]),
-    }))
+    opacity: interpolate(pulse.value, [0, 1], [0.3, 0.7]),
+  }))
 
   return (
     <View className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary">
-      <View className="rounded-t-xl overflow-hidden border-b border-background-quaternary w-full justify-center">
+      <View className="rounded-t-xl overflow-hidden w-full justify-center">
         <Animated.View
           className="w-full bg-background-quaternary"
           style={[{ height: 130 }, animatedStyle]}
