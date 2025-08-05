@@ -12,10 +12,10 @@ const db = admin.firestore()
 
 const COLLECTIONS = {
   EN_AIRLINES: 'enAirlines',
-  TR_AIRLINES: 'trAirlines',
   EN_AIRPORTS: 'enAirports',
-  TR_AIRPORTS: 'trAirports',
   EN_HOME: 'enHome',
+  TR_AIRLINES: 'trAirlines',
+  TR_AIRPORTS: 'trAirports',
   TR_HOME: 'trHome',
 }
 

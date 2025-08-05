@@ -26,6 +26,7 @@ module.exports = [
   ...compat.extends('plugin:jsx-a11y/recommended'),
   ...compat.extends('plugin:import/recommended'),
   ...compat.extends('plugin:@typescript-eslint/recommended'),
+  ...compat.extends('prettier'),
   {
     ignores: [
       '**/__tests__/**',

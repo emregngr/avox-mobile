@@ -6,11 +6,12 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     match /devices/{deviceId} {
-      allow create: if request.resource.data.get('userId', null) == null;
-      allow read, delete: if request.auth != null && resource.data.get('userId', null) == request.auth.uid;
-      allow update: if request.auth != null && (
-      (resource.data.get('userId', null) == null && request.resource.data.userId == request.auth.uid) || (resource.data.get('userId', null) == request.auth.uid));
-    } 
+      allow create, read, update, delete: if request.auth != null && (
+        request.resource.data.get('userId', null) == request.auth.uid ||
+        resource.data.get('userId', null) == request.auth.uid ||
+        resource.data.get('userId', null) == null
+      );
+    }
     match /enAirlines/{document=**} {
       allow read: if true;
       allow write: if false;
