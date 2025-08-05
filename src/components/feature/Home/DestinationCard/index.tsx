@@ -14,7 +14,7 @@ interface DestinationCardProps {
 export const DestinationCard = memo(({ destination }: DestinationCardProps) => {
   const { selectedLocale } = useLocaleStore()
 
-  const { country, distance_km, flight_count, route, type } = destination
+  const { country, destinations_type, distance_km, flight_count, route } = destination ?? {}
 
   const formattedFlightCount = useMemo(() => formatNumber(flight_count), [flight_count])
 
@@ -34,6 +34,18 @@ export const DestinationCard = memo(({ destination }: DestinationCardProps) => {
     [formattedDistance, localeStrings.km],
   )
 
+
+   const destinationType = useMemo((): string => {
+    if (destinations_type === 'Domestic') {
+    return getLocale('domestic')
+    } else if (destinations_type === 'International') {
+    return getLocale('international')
+    }
+
+    return destinations_type
+  }, [destinations_type, selectedLocale])
+
+
   return (
     <View className="w-36 mb-4 bg-background-secondary rounded-xl border border-background-quaternary shadow shadow-background-quaternary">
       <View className="bg-background-primary rounded-xl overflow-hidden relative px-2 border-b border-background-quaternary w-full h-44 justify-center">
@@ -49,7 +61,7 @@ export const DestinationCard = memo(({ destination }: DestinationCardProps) => {
             color="text-100" ellipsizeMode="tail" numberOfLines={1}
             type="button2"
           >
-            {type}
+            {destinationType}
           </ThemedText>
         </View>
       </View>

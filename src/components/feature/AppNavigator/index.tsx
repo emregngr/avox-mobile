@@ -10,6 +10,7 @@ interface AppNavigatorProps {
 
 export const AppNavigator = ({ isAppReady }: AppNavigatorProps) => {
   const { selectedTheme } = useThemeStore()
+
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const stackScreenOptions = useMemo(

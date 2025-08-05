@@ -17,7 +17,7 @@ interface FacilitiesProps {
 export const Facilities = ({ facilities, infrastructure }: FacilitiesProps) => {
   const { selectedLocale } = useLocaleStore()
 
-  const { fireCategory, towerHeightM } = infrastructure || {}
+  const { fireCategory, towerHeightM } = infrastructure ?? {}
 
   const {
     checkinTimeAvg,
@@ -27,7 +27,7 @@ export const Facilities = ({ facilities, infrastructure }: FacilitiesProps) => {
     loungeCount,
     parkingCapacityVehicles,
     securityQueueTime,
-  } = facilities || {}
+  } = facilities ?? {}
 
   const formattedParkingCapacity = useMemo(
     () => formatNumber(parkingCapacityVehicles),

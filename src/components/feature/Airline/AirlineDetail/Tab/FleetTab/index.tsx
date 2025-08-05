@@ -7,8 +7,6 @@ import { FleetList } from '@/components/feature/Airline/AirlineDetail/Tab/FleetT
 import { FleetStats } from '@/components/feature/Airline/AirlineDetail/Tab/FleetTab/Sections/FleetStats'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import useThemeStore from '@/store/theme'
-import { themeColors } from '@/themes'
 import type { Airline } from '@/types/feature/airline'
 
 interface FleetTabProps {
@@ -16,37 +14,26 @@ interface FleetTabProps {
 }
 
 export const FleetTab = ({ airlineData }: FleetTabProps) => {
-  const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
 
-  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
-
-  const { fleet, operations } = airlineData || {}
-
-  const { region } = operations || {}
-
-  const { airplaneTypeCount, airplanes, averageAgeYears, totalAirplane } = fleet || {}
+  const { fleet, operations } = airlineData ?? {}
+  const { region } = operations ?? {}
+  const { airplaneTypeCount, airplanes, averageAgeYears, totalAirplane } = fleet ?? {}
 
   const sortedAirplanes = useMemo(
-    () => airplanes?.sort((a, b) => b.count - a.count) || [],
+    () => airplanes?.sort((a, b) => b.count - a.count),
     [airplanes],
   )
 
-  const regionLower = useMemo(() => region?.toLowerCase(), [region])
-
-  const handleImagePress = useCallback(
-    (airplaneType: string, imageKey: string) => {
-      router.navigate({
-        params: {
-          regionLower,
-          selectedImageKey: imageKey,
-          title: airplaneType,
-        },
-        pathname: '/image-modal',
-      })
-    },
-    [regionLower],
-  )
+  const handleImagePress = useCallback((airplaneType: string, imageKey: string) => {
+    router.navigate({
+      params: {
+        selectedImageKey: imageKey,
+        title: airplaneType,
+      },
+      pathname: '/image-modal',
+    })
+  }, [])
 
   const localeStrings = useMemo(
     () => ({
@@ -63,11 +50,10 @@ export const FleetTab = ({ airlineData }: FleetTabProps) => {
         totalAirplane={totalAirplane}
       />
 
-      <FleetHeader colors={colors} fleetDetailText={localeStrings.fleetDetail} />
+      <FleetHeader fleetDetailText={localeStrings.fleetDetail} />
 
       <FleetList
         airplanes={sortedAirplanes}
-        colors={colors}
         onImagePress={handleImagePress}
         region={region}
         totalAirplane={totalAirplane}

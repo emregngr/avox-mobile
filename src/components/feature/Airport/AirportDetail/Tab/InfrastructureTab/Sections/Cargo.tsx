@@ -14,7 +14,7 @@ interface CargoProps {
 export const Cargo = ({ cargo }: CargoProps) => {
   const { selectedLocale } = useLocaleStore()
 
-  const { annualCargoTonnes, coldStorage, dangerousGoods, terminalCapacityTonnes } = cargo || {}
+  const { annualCargoTonnes, coldStorage, dangerousGoods, terminalCapacityTonnes } = cargo ?? {}
 
   const formattedAnnualCargo = useMemo(() => formatNumber(annualCargoTonnes), [annualCargoTonnes])
 

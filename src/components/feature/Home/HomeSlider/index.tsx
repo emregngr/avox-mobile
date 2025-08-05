@@ -3,15 +3,10 @@ import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import { FlatList, View } from 'react-native'
 
 import { BreakingNewsCard } from '@/components/feature/Home/BreakingNewsCard'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import type { BreakingNews } from '@/types/feature/home'
 import { cn } from '@/utils/common/cn'
 import { responsive } from '@/utils/common/responsive'
-
-const ITEMS_PER_PAGE = 3
-const AUTO_SCROLL_INTERVAL = 5000
-const RESTART_DELAY = 100
-
-const itemWidth = responsive.deviceWidth
 
 interface HomeSliderProps {
   breakingNews: BreakingNews[]
@@ -28,6 +23,15 @@ interface DotsContainerProps {
   breakingNews: BreakingNews[]
   currentIndex: number
 }
+
+const INITIAL_ITEMS_PER_PAGE = 4
+const MAX_ITEMS_PER_BATCH = 3
+const ITEM_WIDTH = responsive.deviceWidth
+const WINDOW_SIZE = 7
+
+const AUTO_SCROLL_INTERVAL = 5000
+
+const RESTART_DELAY = 300
 
 const Dot = memo(({ isActive }: DotProps) => {
   const dotClassName = useMemo(
@@ -57,11 +61,13 @@ const DotsContainer = memo(({ breakingNews, currentIndex }: DotsContainerProps) 
 DotsContainer.displayName = 'DotsContainer'
 
 export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
-  const flatListRef = useRef<FlatList>(null)
   const [currentIndex, setCurrentIndex] = useState<number>(0)
+
+  const flatListRef = useRef<FlatList>(null)
+
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
-  const memoizedBreakingNews = useMemo(() => breakingNews || [], [breakingNews])
+  const memoizedBreakingNews = useMemo(() => breakingNews ?? [], [breakingNews])
 
   const clearAutoScroll = useCallback(() => {
     if (intervalRef?.current) {
@@ -78,10 +84,9 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
         setCurrentIndex(prevIndex => {
           const nextIndex = (prevIndex + 1) % memoizedBreakingNews?.length
 
-          const targetOffset = nextIndex * itemWidth
-          flatListRef?.current?.scrollToOffset({
+          flatListRef?.current?.scrollToIndex({
             animated: true,
-            offset: targetOffset,
+            index: nextIndex,
           })
 
           return nextIndex
@@ -93,7 +98,7 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
   const onScroll = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const scrollX = e?.nativeEvent?.contentOffset?.x
-      const newIndex = Math?.round(scrollX / itemWidth)
+      const newIndex = Math?.round(scrollX / ITEM_WIDTH)
 
       if (newIndex !== currentIndex && newIndex >= 0 && newIndex < memoizedBreakingNews?.length) {
         setCurrentIndex(newIndex)
@@ -105,7 +110,7 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
   const onMomentumScrollEnd = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const scrollX = e?.nativeEvent?.contentOffset?.x
-      const newIndex = Math?.round(scrollX / itemWidth)
+      const newIndex = Math?.round(scrollX / ITEM_WIDTH)
 
       if (newIndex !== currentIndex && newIndex >= 0 && newIndex < memoizedBreakingNews?.length) {
         setCurrentIndex(newIndex)
@@ -122,6 +127,19 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
     clearAutoScroll()
   }, [clearAutoScroll])
 
+  const BATCHING_PERIOD = useBatchingPeriod()
+
+  useEffect(() => {
+    startAutoScroll()
+
+    return () => clearAutoScroll()
+  }, [startAutoScroll, clearAutoScroll])
+
+  const shouldRender = useMemo(
+    () => memoizedBreakingNews && memoizedBreakingNews?.length > 0,
+    [memoizedBreakingNews],
+  )
+
   const renderItem = useCallback(
     ({ item }: BreakingNewsCardProps) => <BreakingNewsCard item={item} />,
     [],
@@ -130,22 +148,12 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
   const keyExtractor = useCallback((item: BreakingNews) => item?.id?.toString(), [])
 
   const getItemLayout = useCallback(
-    (data: ArrayLike<BreakingNews> | null | undefined, index: number) => ({
+    (_: ArrayLike<BreakingNews> | null | undefined, index: number) => ({
       index,
-      length: itemWidth,
-      offset: itemWidth * index,
+      length: ITEM_WIDTH,
+      offset: ITEM_WIDTH * index,
     }),
     [],
-  )
-
-  useEffect(() => {
-    startAutoScroll()
-    return () => clearAutoScroll()
-  }, [startAutoScroll, clearAutoScroll])
-
-  const shouldRender = useMemo(
-    () => memoizedBreakingNews && memoizedBreakingNews?.length > 0,
-    [memoizedBreakingNews],
   )
 
   if (!shouldRender) {
@@ -159,26 +167,23 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
         data={memoizedBreakingNews}
         decelerationRate="fast"
         getItemLayout={getItemLayout}
-        initialNumToRender={ITEMS_PER_PAGE}
+        initialNumToRender={INITIAL_ITEMS_PER_PAGE}
         keyExtractor={keyExtractor}
-        maxToRenderPerBatch={ITEMS_PER_PAGE}
+        maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
         onMomentumScrollEnd={onMomentumScrollEnd}
         onScroll={onScroll}
         onScrollBeginDrag={onScrollBeginDrag}
+        overScrollMode="never"
         ref={flatListRef}
         renderItem={renderItem}
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
-        snapToAlignment="center"
-        snapToInterval={itemWidth}
-        updateCellsBatchingPeriod={200}
-        windowSize={5}
+        updateCellsBatchingPeriod={BATCHING_PERIOD}
+        windowSize={WINDOW_SIZE}
         disableIntervalMomentum
         horizontal
         pagingEnabled
-        removeClippedSubviews
       />
-
       <DotsContainer breakingNews={memoizedBreakingNews} currentIndex={currentIndex} />
     </View>
   )

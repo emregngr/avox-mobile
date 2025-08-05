@@ -9,18 +9,18 @@ import { themeColors } from '@/themes'
 import { cn } from '@/utils/common/cn'
 
 type HeaderProps = {
-  backIcon?: boolean,
-  backIconOnPress?: () => void,
-  containerClassName?: string,
-  rightButtonLabel?: string,
-  rightButtonOnPress?: () => void,
-  rightIcon?: ReactNode,
-  rightIconClassName?: string,
-  rightIconOnPress?: () => void,
-  shareIcon?: ReactNode,
-  shareIconClassName?: string,
-  shareIconOnPress?: () => void,
-  title?: string | string[],
+  backIcon?: boolean
+  backIconOnPress?: () => void
+  containerClassName?: string
+  rightButtonLabel?: string
+  rightButtonOnPress?: () => void
+  rightIcon?: ReactNode
+  rightIconClassName?: string
+  rightIconOnPress?: () => void
+  shareIcon?: ReactNode
+  shareIconClassName?: string
+  shareIconOnPress?: () => void
+  title?: string | string[]
   titleClassName?: string
 }
 
@@ -40,13 +40,14 @@ export const Header = ({
   titleClassName,
 }: HeaderProps) => {
   const { selectedTheme } = useThemeStore()
+
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   return (
     <View className={cn('h-11 justify-center items-center', containerClassName)}>
       {title ? (
         <ThemedText
-          className={cn(titleClassName)}
+          className={titleClassName ?? ''}
           color="text-100"
           ellipsizeMode="tail"
           numberOfLines={2}

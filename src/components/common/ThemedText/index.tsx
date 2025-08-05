@@ -117,7 +117,7 @@ export const ThemedText = ({
       const categoryColors = colorMap[category as keyof typeof colorMap]
 
       if (typeof categoryColors === 'object') {
-        return categoryColors[shade as keyof typeof categoryColors] || ''
+        return categoryColors[shade as keyof typeof categoryColors] ?? ''
       }
     }
 

@@ -8,6 +8,14 @@ interface OnboardingItemProps {
   item: OnBoardingType
 }
 
+const STATIC_STYLES = {
+  image: {
+    height: '45%' as const,
+    marginVertical: 20,
+    width: '100%' as const,
+  },
+}
+
 export const OnboardingItem = ({ item }: OnboardingItemProps) => {
   const { image, text, title } = item
   return (
@@ -16,7 +24,7 @@ export const OnboardingItem = ({ item }: OnboardingItemProps) => {
         cachePolicy="memory-disk"
         contentFit="contain"
         source={image}
-        style={{ height: '45%', marginBottom: 20, marginTop: 80, width: '100%' }}
+        style={STATIC_STYLES.image}
         transition={0}
       />
       <View className="mx-4 z-10">

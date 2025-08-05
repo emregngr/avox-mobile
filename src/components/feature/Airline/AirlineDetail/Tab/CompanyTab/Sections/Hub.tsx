@@ -13,8 +13,8 @@ interface HubProps {
 export const Hub = ({ operations }: HubProps) => {
   const { selectedLocale } = useLocaleStore()
 
-  const { country, hub } = operations || {}
-  const { city } = hub || {}
+  const { country, hub } = operations ?? {}
+  const { city } = hub ?? {}
 
   const localeStrings = useMemo(
     () => ({

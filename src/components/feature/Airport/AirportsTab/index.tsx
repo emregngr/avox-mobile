@@ -2,7 +2,6 @@ import { Ionicons } from '@expo/vector-icons'
 import type BottomSheet from '@gorhom/bottom-sheet'
 import React, { memo, useCallback, useMemo, useRef } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import type { SharedValue } from 'react-native-reanimated'
 import Animated, {
   Extrapolation,
   interpolate,
@@ -17,16 +16,19 @@ import { SearchInput } from '@/components/common/SearchInput'
 import { ThemedText } from '@/components/common/ThemedText'
 import { ActiveFilters } from '@/components/feature/ActiveFilters'
 import { AirportCard, AirportsLoadMoreFooter } from '@/components/feature/Airport/AirportCard'
-import { SkeletonAirportCard } from '@/components/feature/Airport/SkeletonAirportCard'
+import { AirportCardSkeleton } from '@/components/feature/Airport/AirportCardSkeleton'
 import { FilterModal } from '@/components/feature/FilterModal'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import type { Airport } from '@/types/feature/airport'
 import { cn } from '@/utils/common/cn'
 
-const ITEMS_PER_PAGE = 6
-const itemHeight = 500
+const INITIAL_ITEMS_PER_PAGE = 6
+const MAX_ITEMS_PER_BATCH = 4
+const NUM_COLUMNS = 2
+const WINDOW_SIZE = 7
 
 const HEADER_HEIGHT = 160
 const OPACITY_START_THRESHOLD = 20
@@ -40,19 +42,13 @@ interface AirportCardProps {
   item: Airport
 }
 
-const skeletonData = Array(6)
+interface Skeleton {
+  id: string
+}
+
+const skeletonData: Skeleton[] = Array(6)
   .fill(null)
   .map((_, index) => ({ id: `skeleton-${index}` }))
-
-const renderAirportSkeleton = () => <SkeletonAirportCard />
-
-const renderAirportCard = ({ item }: AirportCardProps) => <AirportCard airport={item} />
-
-const getItemLayout = (data: ArrayLike<Airport> | null | undefined, index: number) => ({
-  index,
-  length: itemHeight,
-  offset: itemHeight * index,
-})
 
 interface AirportsTabProps {
   airportsFilters: AirportsFilters
@@ -111,10 +107,12 @@ export const AirportsTab = memo(
 
     const scrollHandler = useAnimatedScrollHandler({
       onBeginDrag: () => {
+        'worklet'
         isScrolling.value = true
       },
 
       onEndDrag: () => {
+        'worklet'
         isScrolling.value = false
         const currentScrollY = scrollY.value
 
@@ -128,6 +126,7 @@ export const AirportsTab = memo(
       },
 
       onMomentumEnd: () => {
+        'worklet'
         isScrolling.value = false
         const currentScrollY = scrollY.value
 
@@ -141,6 +140,7 @@ export const AirportsTab = memo(
       },
 
       onScroll: event => {
+        'worklet'
         const currentScrollY = event.contentOffset.y
         const scrollDelta = currentScrollY - lastScrollY.value
 
@@ -205,6 +205,7 @@ export const AirportsTab = memo(
     })
 
     const headerAnimatedStyle = useAnimatedStyle(() => {
+      'worklet'
       const parallaxOffset = interpolate(
         scrollY.value,
         [0, HEADER_HEIGHT, HEADER_HEIGHT * 2],
@@ -219,9 +220,10 @@ export const AirportsTab = memo(
           { scale: headerScale.value },
         ],
       }
-    })
+    }, [])
 
     const searchInputStyle = useAnimatedStyle(() => {
+      'worklet'
       const inputScale = interpolate(
         headerOpacity.value,
         [0, 0.5, 1],
@@ -234,9 +236,10 @@ export const AirportsTab = memo(
         opacity: headerOpacity.value,
         transform: [{ scale: inputScale }],
       }
-    })
+    }, [])
 
     const filterButtonStyle = useAnimatedStyle(() => {
+      'worklet'
       const buttonScale = interpolate(
         headerOpacity.value,
         [0, 0.5, 1],
@@ -248,9 +251,7 @@ export const AirportsTab = memo(
         opacity: headerOpacity.value,
         transform: [{ scale: buttonScale }],
       }
-    })
-
-    const searchPlaceholder = useMemo(() => getLocale('airportSearchPlaceholder'), [])
+    }, [])
 
     const hasActiveFilters = useMemo(
       () => Object?.keys(airportsFilters)?.length > 0,
@@ -276,14 +277,23 @@ export const AirportsTab = memo(
       [airportsSearchLoading, paginatedAirports],
     )
 
+    const BATCHING_PERIOD = useBatchingPeriod()
+
+    const renderAirportSkeleton = useCallback(() => <AirportCardSkeleton />, [])
+
+    const renderAirportCard = useCallback(
+      ({ item }: AirportCardProps) => <AirportCard airport={item} />,
+      [],
+    )
+
+    const keyExtractor = useCallback((item: Airport) => item?.id?.toString(), [])
+
     const renderItem = useMemo(() => {
       if (airportsSearchLoading) {
         return renderAirportSkeleton
       }
       return renderAirportCard
     }, [airportsSearchLoading])
-
-    const keyExtractor = useCallback((item: Airport) => item?.id?.toString(), [])
 
     const listFooterComponent = useMemo(
       () =>
@@ -306,7 +316,7 @@ export const AirportsTab = memo(
           <Animated.View style={searchInputStyle}>
             <SearchInput
               onChangeText={setAirportsSearchTerm}
-              placeholder={searchPlaceholder}
+              placeholder={getLocale('airportSearchPlaceholder')}
               value={airportsSearchTerm}
             />
           </Animated.View>
@@ -321,7 +331,7 @@ export const AirportsTab = memo(
               <TouchableOpacity
                 activeOpacity={0.7}
                 className={filterButtonClassName}
-                hitSlop={20}
+                hitSlop={{ bottom: 20, right: 20 }}
                 onPress={handleOpenPress}
               >
                 {hasActiveFilters ? (
@@ -338,35 +348,27 @@ export const AirportsTab = memo(
         </Animated.View>
 
         <Animated.FlatList
-          data={
-            flatListData as
-              | ArrayLike<Airport>
-              | SharedValue<ArrayLike<Airport> | null | undefined>
-              | null
-              | undefined
-          }
-          alwaysBounceVertical={false}
+          bounces={false}
           bouncesZoom={false}
-          className="flex-1"
           columnWrapperClassName="justify-between"
           contentContainerClassName="pt-[148px] px-4 pb-10"
-          decelerationRate="normal"
-          getItemLayout={getItemLayout}
-          initialNumToRender={ITEMS_PER_PAGE}
+          data={flatListData as Airport[]}
+          initialNumToRender={INITIAL_ITEMS_PER_PAGE}
           keyboardDismissMode="on-drag"
           keyboardShouldPersistTaps="handled"
           keyExtractor={keyExtractor}
           ListFooterComponent={listFooterComponent}
-          maxToRenderPerBatch={ITEMS_PER_PAGE}
-          numColumns={2}
+          maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
+          numColumns={NUM_COLUMNS}
           onEndReached={loadMoreAirports}
           onEndReachedThreshold={0.1}
           onScroll={scrollHandler}
+          overScrollMode="never"
           renderItem={renderItem}
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
-          updateCellsBatchingPeriod={200}
-          windowSize={5}
+          updateCellsBatchingPeriod={BATCHING_PERIOD}
+          windowSize={WINDOW_SIZE}
           removeClippedSubviews
         />
 

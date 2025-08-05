@@ -18,8 +18,9 @@ export const SafetyEnvTab = ({ airlineData }: SafetyEnvTabProps) => {
   const { selectedLocale } = useLocaleStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
-  const { environmental, safety } = airlineData
-  const { certifications, safetyRecord } = safety || {}
+
+  const { environmental, safety } = airlineData ?? {}
+  const { certifications, safetyRecord } = safety ?? {}
 
   const localeStrings = useMemo(
     () => ({
@@ -35,7 +36,7 @@ export const SafetyEnvTab = ({ airlineData }: SafetyEnvTabProps) => {
   return (
     <View className="px-4 gap-y-4">
       <Safety
-        certifications={certifications || []}
+        certifications={certifications}
         certificationsTitle={localeStrings.certifications}
         iconColor={colors.onPrimary100}
         safetyRecord={safetyRecord}

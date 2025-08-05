@@ -19,7 +19,8 @@ export const Services = ({ facilities }: ServicesProps) => {
   const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
-  const { services } = facilities || {}
+
+  const { services } = facilities ?? {}
 
   if (!services?.length) return null
 

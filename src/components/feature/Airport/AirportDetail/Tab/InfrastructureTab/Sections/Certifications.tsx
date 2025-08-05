@@ -20,7 +20,7 @@ export const Certifications = ({ safety }: CertificationsProps) => {
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const { certifications } = safety || {}
+  const { certifications } = safety ?? {}
 
   const localeStrings = useMemo(
     () => ({

@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from 'react'
-import { Pressable, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useMemo, useRef, useState } from 'react'
+import { TextInput, TouchableOpacity, View } from 'react-native'
 
 import ColoredClear from '@/assets/icons/coloredClear'
 import Search from '@/assets/icons/tab/search.svg'
-import { ThemedText } from '@/components/common/ThemedText'
+import { ThemedButtonText } from '@/components/common/ThemedButtonText'
+import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import { cn } from '@/utils/common/cn'
@@ -21,6 +22,8 @@ export const SearchInput = ({ className, onChangeText, placeholder, value }: Sea
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
+  const textInputRef = useRef<TextInput>(null)
+
   const [isFocused, setIsFocused] = useState<boolean>(false)
 
   const handleClear = () => {
@@ -30,6 +33,7 @@ export const SearchInput = ({ className, onChangeText, placeholder, value }: Sea
   const handleCancel = () => {
     onChangeText('')
     setIsFocused(false)
+    textInputRef.current?.blur()
   }
 
   return (
@@ -41,25 +45,24 @@ export const SearchInput = ({ className, onChangeText, placeholder, value }: Sea
     >
       <View
         className={cn(
-          'flex-row items-center px-4 rounded-xl overflow-hidden bg-background-tertiary transition-all duration-200',
+          'flex-row items-center px-4 rounded-xl overflow-hidden bg-background-tertiary transition-all duration-300',
           isFocused ? 'flex-1' : '',
         )}
       >
         <Search color={colors?.onPrimary100} height={20} width={20} />
         <TextInput
-          className={cn(
-            'flex-1 py-3 ml-3 text-text-100 placeholder:text-text-50 text-[16px] font-inter-medium',
-          )}
           onBlur={() => {
             setIsFocused(false)
           }}
           allowFontScaling={false}
           autoCorrect={false}
-          keyboardAppearance={selectedTheme === 'dark' ? 'dark' : 'light'}
+          className="flex-1 py-3 ml-3 text-text-100 placeholder:text-text-50 text-[16px] font-inter-medium"
+          keyboardAppearance={selectedTheme}
           maxFontSizeMultiplier={1.0}
           onChangeText={onChangeText}
           onFocus={() => setIsFocused(true)}
           placeholder={placeholder}
+          ref={textInputRef}
           returnKeyType="search"
           spellCheck={false}
           textAlignVertical="center"
@@ -79,11 +82,14 @@ export const SearchInput = ({ className, onChangeText, placeholder, value }: Sea
         ) : null}
       </View>
       {isFocused ? (
-        <Pressable className="ml-2" onPress={handleCancel}>
-          <ThemedText color="text-100" type="body1">
-            İptal Et
-          </ThemedText>
-        </Pressable>
+        <ThemedButtonText
+          containerStyle="ml-2"
+          hitSlop={10}
+          label={getLocale('cancel')}
+          onPress={handleCancel}
+          textColor="text-100"
+          type="body1"
+        />
       ) : null}
     </View>
   )

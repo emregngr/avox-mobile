@@ -17,10 +17,9 @@ export const Runway = ({ infrastructure }: RunwayProps) => {
   const {
     runwayCount,
     runways: { ilsCategory, lengthM, pcn, surface },
-  } = infrastructure || {}
+  } = infrastructure ?? {}
 
   const formattedRunwayLength = useMemo(() => formatNumber(lengthM), [lengthM])
-  const capitalizedSurface = useMemo(() => surface, [surface])
 
   const localeStrings = useMemo(
     () => ({
@@ -41,10 +40,9 @@ export const Runway = ({ infrastructure }: RunwayProps) => {
       <AirportRowItem icon="resize" label={localeStrings.runwaym} value={formattedRunwayLength} />
 
       <AirportRowItem
-        className="capitalize"
         icon="layers"
         label={localeStrings.surface}
-        value={capitalizedSurface}
+        value={surface}
       />
 
       <AirportRowItem icon="code" label={localeStrings.pcn} value={pcn} />

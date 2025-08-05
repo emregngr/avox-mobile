@@ -1,5 +1,4 @@
 export * from './AirlineCard'
+export * from './AirlineCardSkeleton'
 export * from './AirlineDetail'
-export * from './AirlineFavoriteItemCard'
 export * from './AirlinesTab'
-export * from './SkeletonAirlineCard'

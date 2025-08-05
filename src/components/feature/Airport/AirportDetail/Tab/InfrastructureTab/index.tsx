@@ -13,7 +13,7 @@ interface InfrastructureTabProps {
 }
 
 export const InfrastructureTab = ({ airportData }: InfrastructureTabProps) => {
-  const { cargo, facilities, infrastructure, safety } = airportData || {}
+  const { cargo, facilities, infrastructure, safety } = airportData ?? {}
 
   return (
     <View className="px-4 gap-y-4">

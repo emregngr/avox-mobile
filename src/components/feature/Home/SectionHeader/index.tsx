@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -11,8 +11,6 @@ interface SectionHeaderProps {
 }
 
 export const SectionHeader = ({ onViewAll, showViewAll = false, title }: SectionHeaderProps) => {
-  const viewAllText = useMemo(() => getLocale('viewAll'), [])
-
   const handleViewAllPress = useCallback(() => {
     onViewAll?.()
   }, [onViewAll])
@@ -35,7 +33,7 @@ export const SectionHeader = ({ onViewAll, showViewAll = false, title }: Section
           onPress={handleViewAllPress}
         >
           <ThemedText color="text-100" type="body2">
-            {viewAllText}
+            {getLocale('viewAll')}
           </ThemedText>
         </TouchableOpacity>
       ) : null}

@@ -38,7 +38,7 @@ export const FilterSection = ({
     [handlerType, filterKey, onMultiSelectToggle, onSingleSelectToggle],
   )
 
-  if (!options || options.length === 0) return null
+  if (!options || options?.length === 0) return null
 
   return (
     <View className="mb-6">

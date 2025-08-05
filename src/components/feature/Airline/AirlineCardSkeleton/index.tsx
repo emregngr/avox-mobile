@@ -8,23 +8,23 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
-export const SkeletonAirlineCard = memo(() => {
+export const AirlineCardSkeleton = memo(() => {
   const pulse = useSharedValue<number>(0)
 
   useEffect(() => {
     pulse.value = withRepeat(withTiming(1, { duration: 1000 }), -1, true)
   }, [])
 
-  const animatedStyle = useAnimatedStyle(
-    () => ({
+  const animatedStyle = useAnimatedStyle(() => {
+    'worklet'
+    return {
       opacity: interpolate(pulse.value, [0, 1], [0.3, 0.7]),
-    }),
-    [],
-  )
+    }
+  }, [])
 
   return (
     <View className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary">
-      <View
+      <Animated.View
         className="bg-background-primary rounded-t-xl overflow-hidden w-full justify-center"
         style={[{ height: 130 }, animatedStyle]}
       >
@@ -48,7 +48,7 @@ export const SkeletonAirlineCard = memo(() => {
           className="absolute top-2 right-2 w-8 h-8 bg-background-quaternary rounded-full overflow-hidden"
           style={animatedStyle}
         />
-      </View>
+      </Animated.View>
 
       <View className="px-3 py-3">
         <View className="h-56 justify-between">

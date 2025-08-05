@@ -4,6 +4,7 @@ import { ErrorToast, SuccessToast } from 'react-native-toast-message'
 
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
+import { responsive } from '@/utils/common/responsive'
 
 interface ToastConfigProps extends ToastProps {
   style?: any
@@ -16,7 +17,10 @@ interface ToastConfigProps extends ToastProps {
 
 export const useToastConfig = () => {
   const { selectedTheme } = useThemeStore()
+
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
+
+  const containerWidth = responsive.deviceWidth - 32
 
   const toastConfig = useMemo(() => {
     const baseToastProps = {
@@ -27,8 +31,10 @@ export const useToastConfig = () => {
 
     const baseStyle = {
       backgroundColor: colors?.background?.tertiary,
+      borderRadius: 12,
       height: 70,
       marginTop: 20,
+      width: containerWidth,
     }
 
     const baseTextStyle = {
@@ -39,7 +45,7 @@ export const useToastConfig = () => {
         lineHeight: 18,
       },
       text2Style: {
-        color: colors?.text100,
+        color: colors?.text90,
         fontFamily: 'Inter-Regular',
         fontSize: 14,
         lineHeight: 16,

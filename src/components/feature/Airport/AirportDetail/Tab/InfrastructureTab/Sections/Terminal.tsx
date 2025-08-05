@@ -21,7 +21,7 @@ export const Terminal = ({ infrastructure }: TerminalProps) => {
     passengerCapacity,
     terminalAreaHectares,
     terminalCount,
-  } = infrastructure || {}
+  } = infrastructure ?? {}
 
   const localeStrings = useMemo(
     () => ({

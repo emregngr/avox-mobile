@@ -116,9 +116,6 @@ const TextFormFieldComponent = <T extends FieldValues>(
             )}
           >
             <TextInput
-              className={cn(
-                'flex-1 py-3 text-text-100 placeholder:text-text-50 text-[16px] font-inter-medium',
-              )}
               onBlur={() => {
                 setIsFocused(false)
                 onBlur()
@@ -132,9 +129,10 @@ const TextFormFieldComponent = <T extends FieldValues>(
               autoCapitalize={autoCapitalize}
               autoComplete={getAutoCompleteType()}
               autoCorrect={autoCorrect}
+              className="flex-1 py-3 text-text-100 placeholder:text-text-50 text-[16px] font-inter-medium"
               clearTextOnFocus={clearTextOnFocus}
               editable={editable}
-              keyboardAppearance={selectedTheme === 'dark' ? 'dark' : 'light'}
+              keyboardAppearance={selectedTheme}
               keyboardType={keyboardType}
               maxFontSizeMultiplier={1.0}
               onChangeText={onChange}

@@ -1,16 +1,14 @@
 import React, { useCallback, useMemo } from 'react'
 import { FlatList, RefreshControl, View } from 'react-native'
 
-import { AirlineFavoriteItemCard } from '@/components/feature/Airline/AirlineFavoriteItemCard'
+import { AirlineFavoriteItemCard } from '@/components/feature/Favorites/AirlineFavoriteItemCard'
+import { EmptyState } from '@/components/feature/Favorites/EmptyState'
+import { FavoriteSkeleton } from '@/components/feature/Favorites/FavoriteSkeleton'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import type { Airline } from '@/types/feature/airline'
-
-import { EmptyState } from './EmptyState'
-import { SkeletonList } from './SkeletonList'
-
-const ITEMS_PER_PAGE = 6
 
 interface FavoriteAirlinesListProps {
   airlines: Airline[]
@@ -22,21 +20,36 @@ interface AirlineFavoriteItemCard {
   item: Airline
 }
 
-export const FavoriteAirlinesList = ({
-  airlines,
-  isLoading,
-  onRefresh,
-}: FavoriteAirlinesListProps) => {
+const INITIAL_ITEMS_PER_PAGE = 6
+const MAX_ITEMS_PER_BATCH = 4
+const NUM_COLUMNS = 2
+const ITEM_HEIGHT = 500
+const WINDOW_SIZE = 7
+
+export const FavoriteAirlines = ({ airlines, isLoading, onRefresh }: FavoriteAirlinesListProps) => {
   const { selectedTheme } = useThemeStore()
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
+
+  const BATCHING_PERIOD = useBatchingPeriod()
 
   const renderAirlineCard = useCallback(
     ({ item }: AirlineFavoriteItemCard) => <AirlineFavoriteItemCard airline={item} />,
     [],
   )
 
+  const keyExtractor = useCallback((item: Airline) => item?.id?.toString(), [])
+
+  const getItemLayout = useCallback(
+    (_: ArrayLike<Airline> | null | undefined, index: number) => ({
+      index,
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+    }),
+    [],
+  )
+
   if (isLoading) {
-    return <SkeletonList type="airline" />
+    return <FavoriteSkeleton type="airline" />
   }
 
   if (airlines?.length === 0) {
@@ -65,15 +78,17 @@ export const FavoriteAirlinesList = ({
       columnWrapperClassName="justify-between"
       contentContainerClassName="px-4 pb-10"
       data={airlines}
-      initialNumToRender={ITEMS_PER_PAGE}
-      keyExtractor={(item, index) => `airline-${item?.id || index}`}
-      maxToRenderPerBatch={ITEMS_PER_PAGE}
-      numColumns={2}
+      getItemLayout={getItemLayout}
+      initialNumToRender={INITIAL_ITEMS_PER_PAGE}
+      keyExtractor={keyExtractor}
+      maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
+      numColumns={NUM_COLUMNS}
       refreshControl={refreshControl}
       renderItem={renderAirlineCard}
+      scrollEventThrottle={16}
       showsVerticalScrollIndicator={false}
-      updateCellsBatchingPeriod={200}
-      windowSize={5}
+      updateCellsBatchingPeriod={BATCHING_PERIOD}
+      windowSize={WINDOW_SIZE}
       removeClippedSubviews
     />
   )

@@ -21,7 +21,8 @@ export const SocialMedia = ({ companyInfo }: SocialMediaProps) => {
   const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
-  const { socialMedia: { instagram, linkedin, tiktok, x } = {} } = companyInfo || {}
+
+  const { socialMedia: { instagram, linkedin, tiktok, x } = {} } = companyInfo ?? {}
 
   const handleSocialMediaPress = useCallback(async (url: string) => {
     await Linking?.openURL(url)

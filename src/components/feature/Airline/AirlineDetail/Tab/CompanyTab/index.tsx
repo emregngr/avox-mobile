@@ -13,13 +13,13 @@ interface CompanyTabProps {
 }
 
 export const CompanyTab = ({ airlineData }: CompanyTabProps) => {
-  const { companyInfo, operations } = airlineData
+  const { companyInfo, operations } = airlineData ?? {}
 
   return (
     <View className="px-4 gap-y-4">
       <Company airlineData={airlineData} />
 
-      <Contact companyInfo={companyInfo} operations={operations} />
+      <Contact companyInfo={companyInfo} />
 
       <SocialMedia companyInfo={companyInfo} />
 

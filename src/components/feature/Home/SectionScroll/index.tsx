@@ -3,13 +3,16 @@ import React, { useCallback } from 'react'
 import { FlatList, View } from 'react-native'
 
 import { SectionHeader } from '@/components/feature/Home/SectionHeader'
-import { cn } from '@/utils/common/cn'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 
-const ITEMS_PER_PAGE = 4
+const INITIAL_ITEMS_PER_PAGE = 10
+const MAX_ITEMS_PER_BATCH = 10
+const WINDOW_SIZE = 7
+
 interface SectionScrollProps<T> {
   data: T[]
   isHorizontal: boolean
-  keyExtractor: (item: T) => string | number
+  keyExtractor: (item: T) => string
   onViewAll?: () => void
   renderItemProp: (item: T, index: number) => ReactNode
   showViewAll?: boolean
@@ -30,9 +33,11 @@ export function SectionScroll<T>({
   showViewAll = false,
   title,
 }: SectionScrollProps<T>) {
+  const BATCHING_PERIOD = useBatchingPeriod()
+
   const renderItem = useCallback(
     ({ index, item }: RenderItemProps<T>) => (
-      <View className={cn(`${isHorizontal && index !== data?.length - 1 ? 'mr-4' : ''}`)}>
+      <View className={`${isHorizontal && index !== data?.length - 1 ? 'mr-4' : ''}`}>
         {renderItemProp(item, index)}
       </View>
     ),
@@ -43,20 +48,19 @@ export function SectionScroll<T>({
     <View className="mb-8">
       <SectionHeader onViewAll={onViewAll as () => void} showViewAll={showViewAll} title={title} />
       <FlatList
-        className={cn('flex-1', !isHorizontal ? 'px-4' : '')}
+        className={!isHorizontal ? 'px-4' : ''}
         contentContainerClassName={isHorizontal ? 'px-4' : ''}
         data={data}
         horizontal={isHorizontal}
-        initialNumToRender={ITEMS_PER_PAGE}
-        keyExtractor={(item: T) => keyExtractor?.(item)?.toString()}
-        maxToRenderPerBatch={ITEMS_PER_PAGE}
+        initialNumToRender={INITIAL_ITEMS_PER_PAGE}
+        keyExtractor={(item: T) => keyExtractor?.(item)}
+        maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
         renderItem={renderItem}
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
-        updateCellsBatchingPeriod={200}
-        windowSize={5}
-        removeClippedSubviews
+        updateCellsBatchingPeriod={BATCHING_PERIOD}
+        windowSize={WINDOW_SIZE}
       />
     </View>
   )

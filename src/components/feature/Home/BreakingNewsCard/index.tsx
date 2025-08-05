@@ -13,8 +13,18 @@ interface BreakingNewsCardProps {
   item: BreakingNews
 }
 
+const STATIC_STYLES = {
+  cardWidth: { width: itemWidth - 32 },
+  containerWidth: { width: itemWidth },
+  image: {
+    height: '100%' as const,
+    width: '100%' as const,
+  },
+}
+
 export const BreakingNewsCard = memo(({ item }: BreakingNewsCardProps) => {
-  const { image, title } = item || {}
+  const { image, title } = item ?? {}
+
   const imageSource = useMemo(() => ({ uri: image }), [image])
 
   const handlePress = useCallback(() => {
@@ -26,31 +36,20 @@ export const BreakingNewsCard = memo(({ item }: BreakingNewsCardProps) => {
     })
   }, [item])
 
-  const dimensions = useMemo(
-    () => ({
-      cardWidth: itemWidth - 32,
-      containerWidth: itemWidth,
-    }),
-    [],
-  )
-
   return (
-    <View className="items-center px-4" style={{ width: dimensions.containerWidth }}>
+    <View className="items-center px-4" style={STATIC_STYLES.containerWidth}>
       <TouchableOpacity
         activeOpacity={0.7}
         className="h-64 rounded-xl overflow-hidden"
         hitSlop={20}
         onPress={handlePress}
-        style={{ width: dimensions.cardWidth }}
+        style={STATIC_STYLES.cardWidth}
       >
         <Image
-          style={{
-            height: '100%',
-            width: '100%',
-          }}
           cachePolicy="memory-disk"
           contentFit="cover"
           source={imageSource}
+          style={STATIC_STYLES.image}
           transition={0}
         />
         <View className="absolute bottom-2 mx-3 bg-background-blur px-2 py-1 overflow-hidden rounded-xl">

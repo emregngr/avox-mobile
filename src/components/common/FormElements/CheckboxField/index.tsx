@@ -2,8 +2,9 @@ import { Ionicons } from '@expo/vector-icons'
 import React, { useCallback, useMemo } from 'react'
 import type { Control } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
-import { Pressable, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 
+import { ThemedButtonText } from '@/components/common/ThemedButtonText'
 import { ThemedText } from '@/components/common/ThemedText'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
@@ -68,11 +69,15 @@ export const CheckboxField = ({
           name={name}
         />
 
-        <Pressable className="flex-1 ml-3" hitSlop={10} onPress={onPressLabel}>
-          <ThemedText className="underline" color="text-100" type="body1">
-            {getLocale(labelKey)}
-          </ThemedText>
-        </Pressable>
+        <ThemedButtonText
+          containerStyle="flex-1 ml-3"
+          hitSlop={10}
+          label={getLocale(labelKey)}
+          onPress={onPressLabel as () => void}
+          textColor="text-100"
+          textStyle="underline"
+          type="body1"
+        />
       </View>
 
       {error ? (

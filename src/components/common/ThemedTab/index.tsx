@@ -53,15 +53,14 @@ const Icon = ({ Icon: IconComponent, currentIndex, index }: IconProps) => {
 }
 
 export const ThemedTab = ({ state }: TabProps) => {
-  const { index: currentIndex = 0 } = state || {}
-  const insets = useSafeAreaInsets()
+  const { index: currentIndex = 0 } = state ?? {}
 
-  const paddingBottom = Platform.OS === 'ios' ? 20 : insets.bottom
+  const { bottom } = useSafeAreaInsets()
 
   return (
     <View
       style={{
-        paddingBottom,
+        paddingBottom: bottom,
       }}
       className="w-full flex-row justify-around bg-background-primary"
     >

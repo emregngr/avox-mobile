@@ -7,10 +7,8 @@ import type { SvgProps } from 'react-native-svg'
 import { ThemedText } from '@/components/common/ThemedText'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import { cn } from '@/utils/common/cn'
 
 interface AirlineRowItemProps {
-  className?: string
   customIcon?: ComponentType<SvgProps>
   icon?: any
   label: string
@@ -19,7 +17,6 @@ interface AirlineRowItemProps {
 }
 
 export const AirlineRowItem = ({
-  className,
   customIcon: CustomIcon,
   icon,
   label,
@@ -33,8 +30,6 @@ export const AirlineRowItem = ({
   const iconColor = useMemo(() => colors?.onPrimary100, [colors?.onPrimary100])
 
   const chevronColor = useMemo(() => colors?.onPrimary100, [colors?.onPrimary100])
-
-  const valueClassName = useMemo(() => cn(className), [className])
 
   const isDisabled = useMemo(() => !onPress, [onPress])
 
@@ -80,11 +75,10 @@ export const AirlineRowItem = ({
 
   const valueTextProps = useMemo(
     () => ({
-      className: valueClassName,
       color: 'text-100' as const,
       type: 'body2' as const,
     }),
-    [valueClassName],
+    [],
   )
 
   const hitSlop = useMemo(() => ({ left: 20, right: 20 }), [])

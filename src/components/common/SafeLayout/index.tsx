@@ -8,7 +8,7 @@ import { getSafeAreaEdges } from '@/utils/common/getSafeAreaEdges'
 interface SafeLayoutProps {
   children: ReactNode
   className?: string
-  edges?: ('top' | 'bottom' | 'left' | 'right')[]
+  edges?: 'bottom'
 }
 
 export const SafeLayout = ({ children, className, edges }: SafeLayoutProps) => {
@@ -17,7 +17,7 @@ export const SafeLayout = ({ children, className, edges }: SafeLayoutProps) => {
   return (
     <SafeAreaView
       className={cn('flex-1 bg-background-primary', className)}
-      edges={edges ?? safeAreaEdges}
+      edges={[...safeAreaEdges, edges as 'bottom']}
     >
       {children}
     </SafeAreaView>

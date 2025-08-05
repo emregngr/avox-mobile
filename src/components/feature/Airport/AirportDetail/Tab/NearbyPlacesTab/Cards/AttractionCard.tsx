@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -7,7 +7,6 @@ import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
 interface AttractionCardProps {
-  attractionId: number
   attractionName: string
   description: string
   formattedDistance: string
@@ -16,7 +15,6 @@ interface AttractionCardProps {
 }
 
 export const AttractionCard = ({
-  attractionId,
   attractionName,
   description,
   formattedDistance,
@@ -25,13 +23,10 @@ export const AttractionCard = ({
 }: AttractionCardProps) => {
   const { selectedTheme } = useThemeStore()
 
-  const colors = themeColors?.[selectedTheme]
+  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   return (
-    <View
-      className="p-4 rounded-xl overflow-hidden flex-row justify-between items-center bg-background-secondary"
-      key={attractionId}
-    >
+    <View className="p-4 rounded-xl overflow-hidden flex-row justify-between items-center bg-background-secondary">
       <View className="w-[70px] h-[80px] items-center justify-between">
         <View className="w-10 h-10 rounded-full overflow-hidden bg-background-tertiary items-center justify-center">
           <Ionicons color={colors?.onPrimary100} name="location" size={24} />

@@ -20,7 +20,7 @@ export const AirportFlightTab = ({ airportData }: AirportFlightTabProps) => {
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const { flightOperations } = airportData || {}
+  const { flightOperations } = airportData ?? {}
   const {
     airlines,
     destinationCount,
@@ -28,7 +28,7 @@ export const AirportFlightTab = ({ airportData }: AirportFlightTabProps) => {
     domesticConnections,
     internationalConnections,
     routes,
-  } = flightOperations || {}
+  } = flightOperations ?? {}
 
   const memoizedStats = useMemo(
     () => ({

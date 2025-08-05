@@ -20,6 +20,28 @@ interface AirlineCardProps {
   airline: Airline
 }
 
+const AD_UNIT_ID = __DEV__
+  ? TestIds.INTERSTITIAL
+  : Platform.OS === 'ios'
+    ? 'ca-app-pub-4123130377375974/1756124081'
+    : 'ca-app-pub-4123130377375974/2330839152'
+
+const STATIC_STYLES = {
+  badge: {
+    bottom: 4,
+    height: 40,
+    left: 4,
+    position: 'absolute' as const,
+    width: 40,
+  },
+  containerWidth: {
+    width: responsive.deviceWidth / 2 - 44,
+  },
+  title: {
+    height: 130,
+  },
+}
+
 const AirlineCard = memo(({ airline }: AirlineCardProps) => {
   const { selectedLocale } = useLocaleStore()
 
@@ -38,25 +60,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
       region,
       skytraxRating,
     },
-  } = airline || {}
-
-  const logAirlineCardPress = useCallback(async () => {
-    await AnalyticsService.sendEvent('airline_card_press', {
-      airline_id: id,
-      airline_name: name,
-      iata_code: iataCode,
-      user_locale: selectedLocale,
-    })
-  }, [id, name, iataCode, selectedLocale])
-
-  const handlePress = useCallback(() => {
-    router.navigate({
-      params: {
-        airline: JSON.stringify(airline),
-      },
-      pathname: '/airline-detail',
-    })
-  }, [airline])
+  } = airline ?? {}
 
   const localeStrings = useMemo(
     () => ({
@@ -76,53 +80,56 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
 
   const popularDestinations = useMemo(() => destinations?.slice(0, 4).join(', '), [destinations])
 
-  const containerWidth = useMemo(() => responsive.deviceWidth / 2 - 44, [])
-
-  const isCargo = useMemo(() => businessModel === 'cargo', [businessModel])
-
-  const styles = useMemo(
-    () => ({
-      badgeImage: {
-        height: 40,
-        left: 4,
-        position: 'absolute' as const,
-        top: 4,
-        width: 40,
-      },
-      title: {
-        height: 130,
-      },
-    }),
-    [],
+  const cargoLabel = useMemo(
+    () =>
+      businessModel === 'cargo' ? (
+        <View className="bg-error px-2 py-1 rounded-xl overflow-hidden absolute top-2 left-2">
+          <ThemedText color="text-100" type="button2">
+            {localeStrings.cargo}
+          </ThemedText>
+        </View>
+      ) : null,
+    [businessModel, localeStrings],
   )
 
-  const adUnitId = useMemo(() => {
-    if (__DEV__) {
-      return TestIds.INTERSTITIAL
-    }
-    return Platform.OS === 'ios'
-      ? 'ca-app-pub-4123130377375974/1756124081'
-      : 'ca-app-pub-4123130377375974/2330839152'
-  }, [])
+  const logAirlineCardPress = useCallback(async () => {
+    await AnalyticsService.sendEvent('airline_card_press', {
+      airline_id: id,
+      airline_name: name,
+      iata_code: iataCode,
+      user_locale: selectedLocale,
+    })
+  }, [id, name, iataCode, selectedLocale])
+
+  const handlePress = useCallback(() => {
+    router.navigate({
+      params: {
+        airline: JSON.stringify(airline),
+      },
+      pathname: '/airline-detail',
+    })
+  }, [airline])
 
   const { showInterstitialAd } = useInterstitialAdHandler({
-    adUnitId,
+    adUnitId: AD_UNIT_ID,
   })
+
+  const onCardPress = useCallback(() => {
+    logAirlineCardPress()
+    handlePress()
+    showInterstitialAd()
+  }, [logAirlineCardPress, handlePress, showInterstitialAd])
 
   return (
     <TouchableOpacity
-      onPress={() => {
-        logAirlineCardPress()
-        handlePress()
-        showInterstitialAd()
-      }}
       activeOpacity={0.7}
       className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary"
       hitSlop={20}
+      onPress={onCardPress}
     >
       <View
         className="bg-background-primary rounded-t-xl overflow-hidden w-full justify-center"
-        style={styles.title}
+        style={STATIC_STYLES.title}
       >
         <ThemedText color="tertiary-100" type="title" center>
           {iataCode}
@@ -132,7 +139,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
           cachePolicy="memory-disk"
           contentFit="contain"
           source={badge}
-          style={styles.badgeImage}
+          style={STATIC_STYLES.badge}
           transition={0}
         />
 
@@ -142,13 +149,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
           </ThemedText>
         </View>
 
-        {isCargo ? (
-          <View className="bg-error px-2 py-1 rounded-xl overflow-hidden absolute top-2 left-2">
-            <ThemedText color="text-100" type="button2">
-              {localeStrings.cargo}
-            </ThemedText>
-          </View>
-        ) : null}
+        {cargoLabel}
 
         <FavoriteButton id={String(id)} type="airline" />
       </View>
@@ -247,7 +248,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
 
         <View
           className="bg-background-quaternary px-2 py-1 rounded-xl overflow-hidden mt-2"
-          style={{ width: containerWidth }}
+          style={STATIC_STYLES.containerWidth}
         >
           <View className="flex-row items-center px-1">
             <ThemedText
@@ -283,22 +284,20 @@ const AirlinesLoadMoreFooter = memo(
       [selectedLocale],
     )
 
-    const isInitialLoading = useMemo(
-      () => airlinesLoading && flatAirlinesData?.length === 0,
-      [airlinesLoading, flatAirlinesData?.length],
-    )
+    const state = useMemo(() => {
+      const hasData = flatAirlinesData?.length > 0
+      const isLoading = airlinesLoading
+      const hasNext = airlinesHasNext
 
-    const isEmptyWithNoMore = useMemo(
-      () => !airlinesHasNext && flatAirlinesData?.length === 0,
-      [airlinesHasNext, flatAirlinesData?.length],
-    )
+      return {
+        dataLength: flatAirlinesData?.length ?? 0,
+        isEmpty: !hasNext && !hasData,
+        isEndOfList: !hasNext && hasData,
+        isInitialLoading: isLoading && !hasData,
+      }
+    }, [airlinesLoading, airlinesHasNext, flatAirlinesData?.length])
 
-    const isEndOfList = useMemo(
-      () => !airlinesHasNext && flatAirlinesData?.length > 0,
-      [airlinesHasNext, flatAirlinesData?.length],
-    )
-
-    if (isInitialLoading) {
+    if (state.isInitialLoading) {
       return (
         <View className="py-8 items-center">
           <FullScreenLoading />
@@ -306,11 +305,11 @@ const AirlinesLoadMoreFooter = memo(
       )
     }
 
-    if (isEmptyWithNoMore) {
+    if (state.isEmpty) {
       return (
         <View className="p-4 items-center">
           <View className="px-4 py-2 rounded-full overflow-hidden bg-background-tertiary items-center justify-center">
-            <ThemedText color="text-100" type="body1">
+            <ThemedText color="text-100" type="body1" center>
               {localeStrings.noAirline}
             </ThemedText>
           </View>
@@ -318,12 +317,12 @@ const AirlinesLoadMoreFooter = memo(
       )
     }
 
-    if (isEndOfList) {
+    if (state.isEndOfList) {
       return (
         <View className="p-4 items-center">
           <View className="px-4 py-2 rounded-full overflow-hidden bg-background-tertiary">
-            <ThemedText color="text-100" type="body1">
-              {localeStrings.allAirlinesShown} ({flatAirlinesData?.length})
+            <ThemedText color="text-100" type="body1" center>
+              {localeStrings.allAirlinesShown} ({state.dataLength})
             </ThemedText>
           </View>
         </View>

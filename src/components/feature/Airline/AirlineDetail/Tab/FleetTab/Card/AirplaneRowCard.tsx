@@ -6,24 +6,34 @@ import { TouchableOpacity, View } from 'react-native'
 import { ThemedText } from '@/components/common/ThemedText'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { ThemeColors } from '@/themes'
+import useThemeStore from '@/store/theme'
+import { themeColors } from '@/themes'
 import type { Airplane } from '@/types/feature/airline'
 import { cn } from '@/utils/common/cn'
 import { getAirplaneImageKey, getAirplaneImageSource } from '@/utils/feature/getAirplaneImage'
 
 interface AirplaneRowCardProps {
   airplane: Airplane
-  colors: ThemeColors
   onImagePress: (type: string, image: string) => void
   region: string
   totalAirplane: number
 }
 
-export const AirplaneRowCard = memo(
-  ({ airplane, colors, onImagePress, region, totalAirplane }: AirplaneRowCardProps) => {
-    const { selectedLocale } = useLocaleStore()
+const STATIC_STYLES = {
+  image: {
+    height: '100%' as const,
+    width: '100%' as const,
+  },
+}
 
-    const { bodyType, capacitySeats, capacityTons, count, rangeKm, speedKmh, type } = airplane || {}
+export const AirplaneRowCard = memo(
+  ({ airplane, onImagePress, region, totalAirplane }: AirplaneRowCardProps) => {
+    const { selectedLocale } = useLocaleStore()
+    const { selectedTheme } = useThemeStore()
+
+    const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
+
+    const { bodyType, capacitySeats, capacityTons, count, rangeKm, speedKmh, type } = airplane ?? {}
 
     const percentage: string = useMemo(
       () => ((count / totalAirplane) * 100).toFixed(0),
@@ -48,6 +58,16 @@ export const AirplaneRowCard = memo(
       [selectedLocale],
     )
 
+    const bodyTypeValue = useMemo((): string => {
+      if (bodyType === 'narrow_body') {
+        return getLocale('narrowBody')
+      } else if (bodyType === 'wide_body') {
+        return getLocale('wideBody')
+      }
+
+      return bodyType?.replace('-', ' ')
+    }, [bodyType, selectedLocale])
+
     return (
       <View className="mb-4 p-4 rounded-xl overflow-hidden bg-background-secondary">
         <View className="flex-row items-center mb-4">
@@ -58,13 +78,10 @@ export const AirplaneRowCard = memo(
             onPress={handleImagePress}
           >
             <Image
-              style={{
-                height: '100%',
-                width: '100%',
-              }}
               cachePolicy="memory-disk"
               contentFit="cover"
               source={imageSource}
+              style={STATIC_STYLES.image}
               transition={0}
             />
           </TouchableOpacity>
@@ -82,7 +99,7 @@ export const AirplaneRowCard = memo(
 
             <View className="px-2.5 py-1 rounded-xl overflow-hidden self-start mt-1 bg-background-tertiary">
               <ThemedText className="capitalize" color="text-90" type="body4">
-                {bodyType?.replace('-', ' ')}
+                {bodyTypeValue}
               </ThemedText>
             </View>
           </View>

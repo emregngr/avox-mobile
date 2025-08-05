@@ -7,7 +7,7 @@ import { ThemedText } from '@/components/common/ThemedText'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import { useActiveFilterLabel } from '@/utils/feature/useActiveFilterLabel'
+import { getActiveFilterLabel } from '@/utils/feature/getActiveFilterLabel'
 
 interface ActiveFiltersProps {
   filters: any
@@ -15,12 +15,14 @@ interface ActiveFiltersProps {
   onRemove: (key: string) => void
 }
 
+const AUTO_SCROLL_DELAY = 300
+
 export const ActiveFilters = memo(({ filters, onClearAll, onRemove }: ActiveFiltersProps) => {
   const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const getActiveFilterLabel = useActiveFilterLabel()
+  const getActiveFilterLabelValue = getActiveFilterLabel()
 
   const scrollViewRef = useRef<ScrollView>(null)
 
@@ -47,8 +49,6 @@ export const ActiveFilters = memo(({ filters, onClearAll, onRemove }: ActiveFilt
     [filters],
   )
 
-  const clearText = useMemo(() => getLocale('clear'), [])
-
   const handleRemove = useCallback(
     (key: string) => {
       const elementIndex = filterEntries.findIndex(([k, _]) => k === key)
@@ -59,7 +59,7 @@ export const ActiveFilters = memo(({ filters, onClearAll, onRemove }: ActiveFilt
       if (isInLastThree) {
         setTimeout(() => {
           scrollViewRef?.current?.scrollToEnd({ animated: true })
-        }, 100)
+        }, AUTO_SCROLL_DELAY)
       }
     },
     [filterEntries, onRemove],
@@ -70,7 +70,7 @@ export const ActiveFilters = memo(({ filters, onClearAll, onRemove }: ActiveFilt
   return (
     <View className="mr-12">
       <ScrollView
-        contentContainerClassName="flex-row items-center"
+        contentContainerClassName="items-center"
         ref={scrollViewRef}
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -83,7 +83,7 @@ export const ActiveFilters = memo(({ filters, onClearAll, onRemove }: ActiveFilt
             onPress={onClearAll}
           >
             <ThemedText color="text-100" type="body3">
-              {clearText} ({filterCount})
+              {getLocale('clear')} ({filterCount})
             </ThemedText>
           </TouchableOpacity>
 
@@ -93,7 +93,7 @@ export const ActiveFilters = memo(({ filters, onClearAll, onRemove }: ActiveFilt
               key={key}
             >
               <ThemedText color="text-100" type="body3">
-                {getActiveFilterLabel(key, filterValue)}
+                {getActiveFilterLabelValue(key, filterValue)}
               </ThemedText>
               <TouchableOpacity
                 activeOpacity={0.7}

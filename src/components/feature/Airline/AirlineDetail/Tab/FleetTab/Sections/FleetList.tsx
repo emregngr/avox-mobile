@@ -3,47 +3,43 @@ import type { ListRenderItem } from 'react-native'
 import { FlatList } from 'react-native'
 
 import { AirplaneRowCard } from '@/components/feature/Airline/AirlineDetail/Tab/FleetTab/Card/AirplaneRowCard'
-import type { ThemeColors } from '@/themes'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import type { Airplane } from '@/types/feature/airline'
-
-const ITEMS_PER_PAGE = 3
-const itemHeight = 200
 
 interface FleetListProps {
   airplanes: Airplane[]
-  colors: ThemeColors
   onImagePress: (airplaneType: string, imageKey: string) => void
   region: string
   totalAirplane: number
 }
 
-export const FleetList = ({
-  airplanes,
-  colors,
-  onImagePress,
-  region,
-  totalAirplane,
-}: FleetListProps) => {
+const INITIAL_ITEMS_PER_PAGE = 4
+const MAX_ITEMS_PER_BATCH = 3
+const ITEM_HEIGHT = 200
+const WINDOW_SIZE = 7
+
+export const FleetList = ({ airplanes, onImagePress, region, totalAirplane }: FleetListProps) => {
+  const BATCHING_PERIOD = useBatchingPeriod()
+
   const renderAirplaneItem = useCallback<ListRenderItem<Airplane>>(
     ({ item }) => (
       <AirplaneRowCard
         airplane={item}
-        colors={colors}
         onImagePress={onImagePress}
         region={region}
         totalAirplane={totalAirplane}
       />
     ),
-    [totalAirplane, region, colors, onImagePress],
+    [],
   )
 
   const keyExtractor = useCallback((item: Airplane) => item?.type, [])
 
   const getItemLayout = useCallback(
-    (data: any, index: number) => ({
+    (_: any, index: number) => ({
       index,
-      length: itemHeight,
-      offset: itemHeight * index,
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
     }),
     [],
   )
@@ -52,14 +48,14 @@ export const FleetList = ({
     <FlatList
       data={airplanes}
       getItemLayout={getItemLayout}
-      initialNumToRender={ITEMS_PER_PAGE}
+      initialNumToRender={INITIAL_ITEMS_PER_PAGE}
       keyExtractor={keyExtractor}
-      maxToRenderPerBatch={ITEMS_PER_PAGE}
+      maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
       renderItem={renderAirplaneItem}
       scrollEventThrottle={16}
       showsVerticalScrollIndicator={false}
-      updateCellsBatchingPeriod={200}
-      windowSize={5}
+      updateCellsBatchingPeriod={BATCHING_PERIOD}
+      windowSize={WINDOW_SIZE}
       removeClippedSubviews
     />
   )

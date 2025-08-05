@@ -10,14 +10,12 @@ import type { Airport } from '@/types/feature/airport'
 
 interface ContactProps {
   airportInfo: Airport['airportInfo']
-  operations: Airport['operations']
 }
 
-export const Contact = ({ airportInfo, operations }: ContactProps) => {
+export const Contact = ({ airportInfo }: ContactProps) => {
   const { selectedLocale } = useLocaleStore()
 
-  const { contactInfo: { email, phone } = {}, website } = airportInfo || {}
-  const { region } = operations || {}
+  const { contactInfo: { email, phone } = {}, website } = airportInfo ?? {}
 
   const handlePhonePress = useCallback(async () => {
     if (phone) {
@@ -33,19 +31,17 @@ export const Contact = ({ airportInfo, operations }: ContactProps) => {
 
   const handleWebsitePress = useCallback(() => {
     if (website) {
-      const formattedUrl = website.startsWith('http') ? website : `https://${website}`
-      const regionLower = region?.toLowerCase()
+      const formattedUrl = website?.startsWith('http') ? website : `https://${website}`
 
       router.navigate({
         params: {
-          regionLower,
-          selectedWebsite: website,
+          title: website,
           webViewUrl: formattedUrl,
         },
         pathname: '/web-view-modal',
       })
     }
-  }, [website, region])
+  }, [website])
 
   const localeStrings = useMemo(
     () => ({

@@ -20,8 +20,9 @@ export const AirlineFlightTab = ({ airlineData }: AirlineFlightTabProps) => {
   const { selectedLocale } = useLocaleStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
-  const { network, operations } = airlineData || {}
-  const { alliance } = operations || {}
+
+  const { network, operations } = airlineData ?? {}
+  const { alliance } = operations ?? {}
   const {
     destinationCount,
     destinationCountries,
@@ -29,7 +30,7 @@ export const AirlineFlightTab = ({ airlineData }: AirlineFlightTabProps) => {
     domesticConnections,
     internationalConnections,
     routes,
-  } = network || {}
+  } = network ?? {}
 
   const memoizedStats = useMemo(
     () => ({

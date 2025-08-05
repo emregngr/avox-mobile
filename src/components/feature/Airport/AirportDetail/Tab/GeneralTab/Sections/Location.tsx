@@ -17,7 +17,9 @@ export const Location = ({ operations }: LocationProps) => {
   const {
     country,
     location: { city, elevationFt },
-  } = operations || {}
+  } = operations ?? {}
+
+  const formattedElevation = useMemo(() => formatNumber(elevationFt), [elevationFt])
 
   const localeStrings = useMemo(
     () => ({
@@ -38,7 +40,7 @@ export const Location = ({ operations }: LocationProps) => {
       <AirportRowItem
         icon="trending-up"
         label={localeStrings.elevation}
-        value={formatNumber(elevationFt)}
+        value={formattedElevation}
       />
     </AirportSectionRow>
   )

@@ -14,7 +14,7 @@ interface GeneralTabProps {
 }
 
 export const GeneralTab = ({ airportData }: GeneralTabProps) => {
-  const { airportInfo, facilities, operations } = airportData
+  const { airportInfo, facilities, operations } = airportData ?? {}
 
   return (
     <View className="px-4 gap-y-4">
@@ -22,7 +22,7 @@ export const GeneralTab = ({ airportData }: GeneralTabProps) => {
 
       <Services facilities={facilities} />
 
-      <Contact airportInfo={airportInfo} operations={operations} />
+      <Contact airportInfo={airportInfo} />
 
       <SocialMedia airportInfo={airportInfo} />
 

@@ -14,9 +14,9 @@ interface CompanyProps {
 export const Company = ({ airlineData }: CompanyProps) => {
   const { selectedLocale } = useLocaleStore()
 
-  const { companyInfo, isoCountry, isoRegion, operations } = airlineData || {}
-  const { employeeCount, foundingYear, parentCompany, passengerCapacity } = companyInfo || {}
-  const { businessModel, businessType, skytraxRating, slogan } = operations || {}
+  const { companyInfo, isoCountry, isoRegion, operations } = airlineData ?? {}
+  const { employeeCount, foundingYear, parentCompany, passengerCapacity } = companyInfo ?? {}
+  const { businessModel, businessType, skytraxRating, slogan } = operations ?? {}
 
   const localeStrings = useMemo(
     () => ({
@@ -37,12 +37,51 @@ export const Company = ({ airlineData }: CompanyProps) => {
     [selectedLocale],
   )
 
+  const formattedYearOfEstablishment = useMemo(
+    () =>
+      `${foundingYear} (${new Date().getFullYear() - parseInt(foundingYear)} ${localeStrings.year})`,
+    [foundingYear, localeStrings],
+  )
+
+  const formattedPassengerCapacity = useMemo(
+    () => `${passengerCapacity} ${localeStrings.millionPerYear}`,
+    [passengerCapacity, localeStrings],
+  )
+
+  const formattedEmployeeCount = useMemo(() => formatNumber(employeeCount), [employeeCount])
+
+  const businessModelValue = useMemo((): string => {
+    if (businessModel === 'cargo') {
+      return getLocale('cargo')
+    } else if (businessModel === 'passenger') {
+      return getLocale('passenger')
+    }
+
+    return businessModel?.replace('_', ' ')
+  }, [businessModel, selectedLocale])
+
+  const businessTypeValue = useMemo((): string => {
+    if (businessType === 'cargo') {
+      return getLocale('cargo')
+    } else if (businessType === 'low_cost') {
+      return getLocale('lowCost')
+    } else if (businessType === 'regional') {
+      return getLocale('regional')
+    } else if (businessType === 'major_international') {
+      return getLocale('majorInternational')
+    }
+
+    return businessType?.replace('_', ' ')
+  }, [businessType, selectedLocale])
+
+  const skytraxRatingValue = useMemo(() => `${skytraxRating?.toFixed(1)} / 5`, [skytraxRating])
+
   return (
     <AirlineSectionRow title={localeStrings.airlineInfo}>
       <AirlineRowItem
         icon="calendar"
         label={localeStrings.yearOfEstablishment}
-        value={`${foundingYear} (${new Date().getFullYear() - parseInt(foundingYear)} ${localeStrings.year})`}
+        value={formattedYearOfEstablishment}
       />
 
       <AirlineRowItem icon="business" label={localeStrings.parentCompany} value={parentCompany} />
@@ -50,38 +89,32 @@ export const Company = ({ airlineData }: CompanyProps) => {
       <AirlineRowItem
         icon="people"
         label={localeStrings.numberOfPassengers}
-        value={`${passengerCapacity} ${localeStrings.millionPerYear}`}
+        value={formattedPassengerCapacity}
       />
 
       <AirlineRowItem
         icon="people"
         label={localeStrings.numberOfEmployees}
-        value={formatNumber(employeeCount)}
+        value={formattedEmployeeCount}
       />
 
       <AirlineRowItem
-        className="capitalize"
         icon="briefcase"
         label={localeStrings.businessModel}
-        value={businessModel?.replace('_', ' ')}
+        value={businessModelValue}
       />
 
       <AirlineRowItem
-        className="capitalize"
         icon="airplane"
         label={localeStrings.businessType}
-        value={businessType?.replace('_', ' ')}
+        value={businessTypeValue}
       />
 
       <AirlineRowItem icon="flag" label={localeStrings.isoCountryCode} value={isoCountry} />
 
       <AirlineRowItem icon="location" label={localeStrings.isoRegionCode} value={isoRegion} />
 
-      <AirlineRowItem
-        icon="star"
-        label={localeStrings.skytraxRating}
-        value={`${skytraxRating?.toFixed(1)} / 5`}
-      />
+      <AirlineRowItem icon="star" label={localeStrings.skytraxRating} value={skytraxRatingValue} />
 
       <AirlineRowItem icon="chatbox-ellipses" label={localeStrings.slogan} value={slogan} />
     </AirlineSectionRow>

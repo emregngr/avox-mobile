@@ -1,27 +1,10 @@
 import React, { memo, useState } from 'react'
-import { Platform, View } from 'react-native'
+import { View } from 'react-native'
 import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
+import { AD_KEYWORDS } from '@/constants/adKeywords'
 import { cn } from '@/utils/common/cn'
-
-const DEFAULT_KEYWORDS = [
-  'cheap flights',
-  'flight tickets',
-  'airline tickets',
-  'flight booking',
-  'business travel',
-  'travel deals',
-  'last minute flights',
-  'weekend flights',
-  'international flights',
-  'travel insurance',
-  'aviation',
-  'air cargo',
-  'hotel booking',
-  'car rental',
-  'travel apps',
-]
 
 interface AdBannerProps {
   adUnitId: string
@@ -31,7 +14,7 @@ export const AdBanner = memo(({ adUnitId }: AdBannerProps) => {
   const [isAdLoaded, setIsAdLoaded] = useState<boolean>(false)
 
   const requestOptions = {
-    keywords: DEFAULT_KEYWORDS,
+    keywords: AD_KEYWORDS,
     requestNonPersonalizedAdsOnly: true,
   }
 
@@ -43,14 +26,12 @@ export const AdBanner = memo(({ adUnitId }: AdBannerProps) => {
     setIsAdLoaded(false)
   }
 
-  const insets = useSafeAreaInsets()
-
-  const paddingBottom = Platform.OS === 'ios' ? 20 : insets.bottom
+  const { bottom } = useSafeAreaInsets()
 
   return (
     <View
       className={cn('bg-background-primary', isAdLoaded ? 'h-auto' : 'h-0')}
-      style={{ paddingBottom }}
+      style={{ paddingBottom: bottom }}
     >
       <BannerAd
         onAdFailedToLoad={handleAdFailedToLoad}

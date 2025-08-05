@@ -18,6 +18,25 @@ interface HomeAirlineCardProps {
   airline: Airline
 }
 
+const AD_UNIT_ID = __DEV__
+  ? TestIds.INTERSTITIAL
+  : Platform.OS === 'ios'
+    ? 'ca-app-pub-4123130377375974/1756124081'
+    : 'ca-app-pub-4123130377375974/2330839152'
+
+const STATIC_STYLES = {
+  badge: {
+    bottom: 4,
+    height: 40,
+    left: 4,
+    position: 'absolute' as const,
+    width: 40,
+  },
+  title: {
+    height: 130,
+  },
+}
+
 export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
   const { selectedLocale } = useLocaleStore()
 
@@ -33,45 +52,11 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
       hub: { city },
       region,
     },
-  } = airline || {}
+  } = airline ?? {}
 
   const badge = useMemo(() => getAirlineBadge(businessType as AirlineType), [businessType])
 
-  const logAirlineCardPress = useCallback(async () => {
-    await AnalyticsService.sendEvent('airline_card_press', {
-      airline_id: id,
-      airline_name: name,
-      iata_code: iataCode,
-      user_locale: selectedLocale,
-    })
-  }, [id, name, iataCode, selectedLocale])
-
-  const handlePress = useCallback(() => {
-    router.navigate({
-      params: {
-        airline: JSON.stringify(airline),
-      },
-      pathname: '/airline-detail',
-    })
-  }, [airline])
-
   const locationText = useMemo(() => `${city}, ${country}, ${region}`, [city, country, region])
-
-  const styles = useMemo(
-    () => ({
-      badgeImage: {
-        height: 40,
-        left: 4,
-        position: 'absolute' as const,
-        top: 4,
-        width: 40,
-      },
-      title: {
-        height: 130,
-      },
-    }),
-    [],
-  )
 
   const classNames = useMemo(
     () => ({
@@ -101,31 +86,42 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
     [businessModel, classNames.cargoContainer],
   )
 
-  const adUnitId = useMemo(() => {
-    if (__DEV__) {
-      return TestIds.INTERSTITIAL
-    }
-    return Platform.OS === 'ios'
-      ? 'ca-app-pub-4123130377375974/1756124081'
-      : 'ca-app-pub-4123130377375974/2330839152'
-  }, [])
+  const logAirlineCardPress = useCallback(async () => {
+    await AnalyticsService.sendEvent('airline_card_press', {
+      airline_id: id,
+      airline_name: name,
+      iata_code: iataCode,
+      user_locale: selectedLocale,
+    })
+  }, [id, name, iataCode, selectedLocale])
+
+  const handlePress = useCallback(() => {
+    router.navigate({
+      params: {
+        airline: JSON.stringify(airline),
+      },
+      pathname: '/airline-detail',
+    })
+  }, [airline])
 
   const { showInterstitialAd } = useInterstitialAdHandler({
-    adUnitId,
+    adUnitId: AD_UNIT_ID,
   })
+
+  const onCardPress = useCallback(() => {
+    logAirlineCardPress()
+    handlePress()
+    showInterstitialAd()
+  }, [logAirlineCardPress, handlePress, showInterstitialAd])
 
   return (
     <TouchableOpacity
-      onPress={() => {
-        logAirlineCardPress()
-        handlePress()
-        showInterstitialAd()
-      }}
       activeOpacity={0.7}
       className={classNames.container}
       hitSlop={20}
+      onPress={onCardPress}
     >
-      <View className={classNames.header} style={styles.title}>
+      <View className={classNames.header} style={STATIC_STYLES.title}>
         <ThemedText color="tertiary-100" type="title" center>
           {iataCode}
         </ThemedText>
@@ -134,7 +130,7 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
           cachePolicy="memory-disk"
           contentFit="contain"
           source={badge}
-          style={styles.badgeImage}
+          style={STATIC_STYLES.badge}
           transition={0}
         />
 

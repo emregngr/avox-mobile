@@ -8,7 +8,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
-export const SkeletonAirportCard = memo(() => {
+export const AirportCardSkeleton = memo(() => {
   const pulse = useSharedValue<number>(0)
 
   useEffect(() => {

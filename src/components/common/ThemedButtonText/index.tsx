@@ -33,6 +33,8 @@ type ThemedButtonTextProps = {
 
 export const ThemedButtonText = ({
   containerStyle,
+  disabled = false,
+  hitSlop = 20,
   icon,
   label,
   textColor = 'text-100',
@@ -40,7 +42,7 @@ export const ThemedButtonText = ({
   type = 'button2',
   ...rest
 }: ThemedButtonTextProps) => (
-  <Pressable className={cn('flex-row', containerStyle)} hitSlop={30} {...rest}>
+  <Pressable className={cn('flex-row items-center', containerStyle)} hitSlop={hitSlop} {...rest}>
     <ThemedText className={textStyle as string} color={textColor} type={type}>
       {label}
     </ThemedText>

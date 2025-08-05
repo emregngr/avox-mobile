@@ -88,13 +88,13 @@ export const Map = ({ airlineData }: MapProps) => {
   const { selectedLocale } = useLocaleStore()
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const { iataCode, id, name, operations } = airlineData || {}
+  const { iataCode, id, name, operations } = airlineData ?? {}
   const {
     hub: {
       coordinates: { latitude, longitude },
     },
     region,
-  } = operations || {}
+  } = operations ?? {}
 
   const googleMapsHTML = useMemo(
     () => createDynamicGoogleMapsHTML(name, latitude, longitude, selectedTheme),

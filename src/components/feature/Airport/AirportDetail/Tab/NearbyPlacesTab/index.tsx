@@ -23,7 +23,7 @@ interface AttractionCard {
 export const NearbyPlacesTab = ({ airportData }: NearbyPlacesTabProps) => {
   const { selectedLocale } = useLocaleStore()
 
-  const { nearbyAttractions } = airportData || {}
+  const { nearbyAttractions } = airportData ?? {}
 
   const localeStrings = useMemo(
     () => ({
@@ -71,14 +71,13 @@ export const NearbyPlacesTab = ({ airportData }: NearbyPlacesTabProps) => {
           formattedDistance,
           handleDirectionPress,
         }
-      }) || [],
+      }) ?? [],
     [nearbyAttractions, openMapNavigation, localeStrings.km],
   )
 
   const renderAttraction = useCallback(
     (item: AttractionCard) => (
       <AttractionCard
-        attractionId={item.attractionId}
         attractionName={item.attractionName}
         description={item.description}
         formattedDistance={item.formattedDistance}

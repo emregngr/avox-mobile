@@ -8,7 +8,6 @@ import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import type { Airport } from '@/types/feature/airport'
-import { cn } from '@/utils/common/cn'
 
 interface AirportHeaderProps {
   airportData: Airport
@@ -20,14 +19,13 @@ export const AirportHeader = ({ airportData }: AirportHeaderProps) => {
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const { iataCode, icaoCode, isoCountry, isoRegion, operations } = airportData || {}
-
+  const { iataCode, icaoCode, isoCountry, isoRegion, operations } = airportData ?? {}
   const {
     location: { address },
     region,
-  } = operations || {}
+  } = operations ?? {}
 
-  const backgroundClass = useMemo(() => cn(`bg-${region?.toLowerCase()}`), [region])
+  const backgroundClass = useMemo(() => `bg-${region?.toLowerCase()}`, [region])
 
   const locationIconColor = useMemo(() => colors?.onPrimary100, [colors])
 
@@ -57,7 +55,9 @@ export const AirportHeader = ({ airportData }: AirportHeaderProps) => {
               {iataCode}
             </ThemedText>
           </View>
+
           <View className="w-px h-8 bg-background-quaternary" />
+
           <View className="flex-1 items-center">
             <ThemedText
               color="text-70" lineBreakMode="tail" numberOfLines={1}
@@ -69,7 +69,9 @@ export const AirportHeader = ({ airportData }: AirportHeaderProps) => {
               {icaoCode}
             </ThemedText>
           </View>
+
           <View className="w-px h-8 bg-background-quaternary" />
+
           <View className="flex-1 items-center">
             <ThemedText
               className="uppercase"
@@ -84,7 +86,9 @@ export const AirportHeader = ({ airportData }: AirportHeaderProps) => {
               {isoCountry}
             </ThemedText>
           </View>
+
           <View className="w-px h-8 bg-background-quaternary" />
+
           <View className="flex-1 items-center">
             <ThemedText
               className="uppercase"
@@ -99,7 +103,9 @@ export const AirportHeader = ({ airportData }: AirportHeaderProps) => {
               {isoRegion}
             </ThemedText>
           </View>
+
           <View className="w-px h-8 bg-background-quaternary" />
+
           <View className="flex-1 items-center">
             <ThemedText
               className="uppercase"

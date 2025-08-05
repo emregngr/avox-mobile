@@ -2,22 +2,21 @@ import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { Linking } from 'react-native'
 
-import { AirportRowItem, AirportSectionRow } from '@/components/feature/Airport'
+import { AirlineRowItem } from '@/components/feature/Airline/AirlineDetail/AirlineRowItem'
+import { AirlineSectionRow } from '@/components/feature/Airline/AirlineDetail/AirlineSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import type { Airline } from '@/types/feature/airline'
 
 interface ContactProps {
   companyInfo: Airline['companyInfo']
-  operations: Airline['operations']
 }
 
-export const Contact = ({ companyInfo, operations }: ContactProps) => {
+export const Contact = ({ companyInfo }: ContactProps) => {
   const { selectedLocale } = useLocaleStore()
 
-  const { contactInfo, website } = companyInfo || {}
-  const { region } = operations || {}
-  const { email, phone } = contactInfo || {}
+  const { contactInfo, website } = companyInfo ?? {}
+  const { email, phone } = contactInfo ?? {}
 
   const handlePhonePress = useCallback(async () => {
     if (phone) {
@@ -33,19 +32,17 @@ export const Contact = ({ companyInfo, operations }: ContactProps) => {
 
   const handleWebsitePress = useCallback(() => {
     if (website) {
-      const formattedUrl = website.startsWith('http') ? website : `https://${website}`
-      const regionLower = region?.toLowerCase()
+      const formattedUrl = website?.startsWith('http') ? website : `https://${website}`
 
       router.navigate({
         params: {
-          regionLower,
-          selectedWebsite: website,
+          title: website,
           webViewUrl: formattedUrl,
         },
         pathname: '/web-view-modal',
       })
     }
-  }, [website, region])
+  }, [website])
 
   const localeStrings = useMemo(
     () => ({
@@ -58,27 +55,27 @@ export const Contact = ({ companyInfo, operations }: ContactProps) => {
   )
 
   return (
-    <AirportSectionRow title={localeStrings.contactInformation}>
-      <AirportRowItem
+    <AirlineSectionRow title={localeStrings.contactInformation}>
+      <AirlineRowItem
         icon="globe"
         label={localeStrings.website}
         onPress={handleWebsitePress}
         value={website}
       />
 
-      <AirportRowItem
+      <AirlineRowItem
         icon="call"
         label={localeStrings.phone}
         onPress={handlePhonePress}
         value={phone}
       />
 
-      <AirportRowItem
+      <AirlineRowItem
         icon="mail"
         label={localeStrings.email}
         onPress={handleEmailPress}
         value={email}
       />
-    </AirportSectionRow>
+    </AirlineSectionRow>
   )
 }

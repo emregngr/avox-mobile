@@ -1,16 +1,15 @@
 import React, { useCallback, useMemo } from 'react'
 import { FlatList, RefreshControl, View } from 'react-native'
 
-import { AirportFavoriteItemCard } from '@/components/feature/Airport/AirportFavoriteItemCard'
+import { AirportFavoriteItemCard } from '@/components/feature/Favorites/AirportFavoriteItemCard'
+import { EmptyState } from '@/components/feature/Favorites/EmptyState'
+import { FavoriteSkeleton } from '@/components/feature/Favorites/FavoriteSkeleton'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import type { Airport } from '@/types/feature/airport'
 
-import { EmptyState } from './EmptyState'
-import { SkeletonList } from './SkeletonList'
-
-const ITEMS_PER_PAGE = 6
 interface FavoriteAirportsListProps {
   airports: Airport[]
   isLoading: boolean
@@ -21,21 +20,36 @@ interface AirportFavoriteItemCard {
   item: Airport
 }
 
-export const FavoriteAirportsList = ({
-  airports,
-  isLoading,
-  onRefresh,
-}: FavoriteAirportsListProps) => {
+const INITIAL_ITEMS_PER_PAGE = 6
+const MAX_ITEMS_PER_BATCH = 4
+const NUM_COLUMNS = 2
+const ITEM_HEIGHT = 500
+const WINDOW_SIZE = 7
+
+export const FavoriteAirports = ({ airports, isLoading, onRefresh }: FavoriteAirportsListProps) => {
   const { selectedTheme } = useThemeStore()
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
+
+  const BATCHING_PERIOD = useBatchingPeriod()
 
   const renderAirportCard = useCallback(
     ({ item }: AirportFavoriteItemCard) => <AirportFavoriteItemCard airport={item} />,
     [],
   )
 
+  const keyExtractor = useCallback((item: Airport) => item?.id?.toString(), [])
+
+  const getItemLayout = useCallback(
+    (_: ArrayLike<Airport> | null | undefined, index: number) => ({
+      index,
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+    }),
+    [],
+  )
+
   if (isLoading) {
-    return <SkeletonList type="airport" />
+    return <FavoriteSkeleton type="airport" />
   }
 
   if (airports?.length === 0) {
@@ -64,15 +78,17 @@ export const FavoriteAirportsList = ({
       columnWrapperClassName="justify-between"
       contentContainerClassName="px-4 pb-10"
       data={airports}
-      initialNumToRender={ITEMS_PER_PAGE}
-      keyExtractor={(item, index) => `airport-${item?.id || index}`}
-      maxToRenderPerBatch={ITEMS_PER_PAGE}
-      numColumns={2}
+      getItemLayout={getItemLayout}
+      initialNumToRender={INITIAL_ITEMS_PER_PAGE}
+      keyExtractor={keyExtractor}
+      maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
+      numColumns={NUM_COLUMNS}
       refreshControl={refreshControl}
       renderItem={renderAirportCard}
+      scrollEventThrottle={16}
       showsVerticalScrollIndicator={false}
-      updateCellsBatchingPeriod={200}
-      windowSize={5}
+      updateCellsBatchingPeriod={BATCHING_PERIOD}
+      windowSize={WINDOW_SIZE}
       removeClippedSubviews
     />
   )

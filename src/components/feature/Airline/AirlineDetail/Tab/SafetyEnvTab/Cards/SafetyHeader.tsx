@@ -20,7 +20,6 @@ export const SafetyHeader = ({
 }: SafetyHeaderProps) => (
   <View className={cn('flex-row items-center', className)}>
     <Ionicons color={iconColor} name={iconName} size={20} />
-
     <ThemedText className="ml-2.5" color="text-90" type="h4">
       {title}
     </ThemedText>

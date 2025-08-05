@@ -15,8 +15,8 @@ interface GeneralProps {
 export const General = ({ airportInfo, operations }: GeneralProps) => {
   const { selectedLocale } = useLocaleStore()
 
-  const { employeeCount, foundingYear } = airportInfo || {}
-  const { airportType, is24Hour, scheduledService } = operations || {}
+  const { employeeCount, foundingYear } = airportInfo ?? {}
+  const { airportType, is24Hour, scheduledService } = operations ?? {}
 
   const yearsSinceEstablishment = useMemo(
     () => (foundingYear ? new Date().getFullYear() - parseInt(foundingYear) : 0),
@@ -36,37 +36,56 @@ export const General = ({ airportInfo, operations }: GeneralProps) => {
     [selectedLocale],
   )
 
+  const formattedYearOfEstablishment = useMemo(
+    () => `${foundingYear} (${yearsSinceEstablishment} ${localeStrings.year})`,
+    [foundingYear, yearsSinceEstablishment, localeStrings],
+  )
+
+  const formattedEmployeeCount = useMemo(() => formatNumber(employeeCount), [employeeCount])
+
+  const airportTypeValue = useMemo((): string => {
+    if (airportType === 'small_airport') {
+      return getLocale('small')
+    } else if (airportType === 'medium_airport') {
+      return getLocale('medium')
+    } else if (airportType === 'large_airport') {
+      return getLocale('large')
+    } else if (airportType === 'mega_airport') {
+      return getLocale('mega')
+    }
+
+    return airportType?.replace('_', ' ')
+  }, [airportType])
+
+  const is24HourValue = useMemo(() => (is24Hour ? getLocale('yes') : getLocale('no')), [is24Hour])
+
+  const scheduledServiceValue = useMemo(
+    () => (scheduledService ? getLocale('yes') : getLocale('no')),
+    [scheduledService],
+  )
+
   return (
     <AirportSectionRow title={localeStrings.airportInfo}>
       <AirportRowItem
         icon="calendar"
         label={localeStrings.yearOfEstablishment}
-        value={`${foundingYear} (${yearsSinceEstablishment} ${localeStrings.year})`}
+        value={formattedYearOfEstablishment}
       />
 
       <AirportRowItem
         icon="people"
         label={localeStrings.numberOfEmployees}
-        value={formatNumber(employeeCount)}
+        value={formattedEmployeeCount}
       />
 
-      <AirportRowItem
-        className="capitalize"
-        icon="airplane"
-        label={localeStrings.airportType}
-        value={airportType?.replace('_', ' ')}
-      />
+      <AirportRowItem icon="airplane" label={localeStrings.airportType} value={airportTypeValue} />
 
-      <AirportRowItem
-        icon="time"
-        label={localeStrings.open24Hours}
-        value={is24Hour ? getLocale('yes') : getLocale('no')}
-      />
+      <AirportRowItem icon="time" label={localeStrings.open24Hours} value={is24HourValue} />
 
       <AirportRowItem
         icon="calendar-outline"
         label={localeStrings.scheduledService}
-        value={scheduledService ? getLocale('yes') : getLocale('no')}
+        value={scheduledServiceValue}
       />
     </AirportSectionRow>
   )
