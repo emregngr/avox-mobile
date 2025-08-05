@@ -1,9 +1,7 @@
-import { getCrashlytics, recordError } from '@react-native-firebase/crashlytics'
 import * as Updates from 'expo-updates'
 import { useCallback, useEffect } from 'react'
-import { InteractionManager } from 'react-native'
 
-const crashlytics = getCrashlytics()
+import { Logger } from '@/utils/common/logger'
 
 export const checkForAppUpdate = async (): Promise<void> => {
   try {
@@ -12,15 +10,13 @@ export const checkForAppUpdate = async (): Promise<void> => {
       await Updates.fetchUpdateAsync()
     }
   } catch (error) {
-    if (!__DEV__) {
-      recordError(crashlytics, error as Error)
-    }
+    Logger.breadcrumb('Failed to check for app update', 'error', error as Error)
   }
 }
 
 export const useAppUpdate = () => {
   const checkUpdate = useCallback(() => {
-    InteractionManager.runAfterInteractions(checkForAppUpdate)
+    checkForAppUpdate
   }, [])
 
   useEffect(() => {

@@ -1,0 +1,17 @@
+export const AD_KEYWORDS = [
+  'cheap flights',
+  'flight tickets',
+  'airline tickets',
+  'flight booking',
+  'business travel',
+  'travel deals',
+  'last minute flights',
+  'weekend flights',
+  'international flights',
+  'travel insurance',
+  'aviation',
+  'air cargo',
+  'hotel booking',
+  'car rental',
+  'travel apps',
+]

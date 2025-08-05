@@ -16,6 +16,7 @@ import {
   updateUser,
 } from '@/services/userService'
 import { setIsAuthenticated } from '@/store/auth'
+import useThemeStore from '@/store/theme'
 import { deleteUser } from '@/store/user'
 import type { AddPasswordCredentials, ChangePasswordCredentials } from '@/types/feature/password'
 import type { ProfileData } from '@/types/feature/user'
@@ -35,16 +36,24 @@ export const useGetUser = () => {
 export const useUpdateUser = () => {
   const queryClient = useQueryClient()
   const userId = auth?.currentUser?.uid
+  const { selectedTheme } = useThemeStore()
 
   return useMutation<any, Error, ProfileData, { previousProfile: any }>({
-    mutationFn: (profileData: ProfileData) => updateUser(profileData),
+    mutationFn: async (profileData: ProfileData) => await updateUser(profileData),
     onError: (error, newProfileData, context) => {
       queryClient.setQueryData(['userProfile', userId], context?.previousProfile)
-      Alert.alert(getLocale('error'), getLocale('profileUpdateFailed'), [
+      Alert.alert(
+        getLocale('error'),
+        getLocale('profileUpdateFailed'),
+        [
+          {
+            text: getLocale('ok'),
+          },
+        ],
         {
-          text: getLocale('ok'),
+          userInterfaceStyle: selectedTheme,
         },
-      ])
+      )
     },
     onMutate: async newProfileData => {
       await queryClient.cancelQueries({ queryKey: ['userProfile', userId] })
@@ -70,15 +79,25 @@ export const useUpdateUser = () => {
   })
 }
 
-export const useChangePassword = () =>
-  useMutation({
-    mutationFn: (credentials: ChangePasswordCredentials) => changeUserPassword(credentials),
+export const useChangePassword = () => {
+  const { selectedTheme } = useThemeStore()
+
+  return useMutation({
+    mutationFn: async (credentials: ChangePasswordCredentials) =>
+      await changeUserPassword(credentials),
     onError: () => {
-      Alert.alert(getLocale('error'), getLocale('passwordChangeFailed'), [
+      Alert.alert(
+        getLocale('error'),
+        getLocale('passwordChangeFailed'),
+        [
+          {
+            text: getLocale('ok'),
+          },
+        ],
         {
-          text: getLocale('ok'),
+          userInterfaceStyle: selectedTheme,
         },
-      ])
+      )
     },
     onSuccess: () => {
       Toast.show({
@@ -89,16 +108,26 @@ export const useChangePassword = () =>
       router.back()
     },
   })
+}
 
-export const useAddPassword = () =>
-  useMutation({
-    mutationFn: (credentials: AddPasswordCredentials) => addUserPassword(credentials),
+export const useAddPassword = () => {
+  const { selectedTheme } = useThemeStore()
+
+  return useMutation({
+    mutationFn: async (credentials: AddPasswordCredentials) => await addUserPassword(credentials),
     onError: () => {
-      Alert.alert(getLocale('error'), getLocale('passwordAddFailed'), [
+      Alert.alert(
+        getLocale('error'),
+        getLocale('passwordAddFailed'),
+        [
+          {
+            text: getLocale('ok'),
+          },
+        ],
         {
-          text: getLocale('ok'),
+          userInterfaceStyle: selectedTheme,
         },
-      ])
+      )
     },
     onSuccess: () => {
       Toast.show({
@@ -109,6 +138,7 @@ export const useAddPassword = () =>
       router.back()
     },
   })
+}
 
 export const useDeleteUser = () => {
   const queryClient = useQueryClient()
@@ -122,8 +152,8 @@ export const useDeleteUser = () => {
         },
       ])
     },
-    onSuccess: () => {
-      deleteUser()
+    onSuccess: async () => {
+      await deleteUser()
       setIsAuthenticated(false)
       queryClient.clear()
       Toast.show({
@@ -137,10 +167,10 @@ export const useDeleteUser = () => {
 
 export const useRegisterDevice = () =>
   useMutation({
-    mutationFn: registerDevice,
+    mutationFn: async () => await registerDevice(),
   })
 
 export const useRegisterDeviceToUser = () =>
   useMutation({
-    mutationFn: registerDeviceToUser,
+    mutationFn: async () => await registerDeviceToUser(),
   })

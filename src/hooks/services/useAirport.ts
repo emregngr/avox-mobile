@@ -4,10 +4,12 @@ import { useEffect, useMemo, useState } from 'react'
 import { getAirportById, getAllAirports } from '@/services/airportService'
 import useLocaleStore from '@/store/locale'
 import type { Airport } from '@/types/feature/airport'
-import { useDebounce } from '@/utils/common/useDebounce'
+import { debounce } from '@/utils/common/debounce'
 import { parseFilterRange } from '@/utils/feature/parseFilterRange'
 
 const ITEMS_PER_PAGE = 20
+
+const DELAY = 300
 
 export function useAirport() {
   const { selectedLocale } = useLocaleStore()
@@ -15,14 +17,14 @@ export function useAirport() {
   const [filters, setFilters] = useState<any>({})
   const [page, setPage] = useState<number>(1)
   const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false)
-  const debouncedSearch = useDebounce<string>(searchTerm, 500)
+  const debouncedSearch = debounce<string>(searchTerm, 500)
 
   const {
     data: allAirportsData,
     error,
     isLoading,
   } = useQuery({
-    queryFn: () => getAllAirports(selectedLocale),
+    queryFn: async () => await getAllAirports(selectedLocale),
     queryKey: ['allAirports', selectedLocale],
     staleTime: 5 * 60 * 1000,
   })
@@ -51,7 +53,7 @@ export function useAirport() {
         }
       }
 
-      const airportServices = airport?.facilities?.services?.map(s => s?.toLowerCase()) || []
+      const airportServices = airport?.facilities?.services?.map(s => s?.toLowerCase()) ?? []
 
       const serviceKeywords: Record<string, string[]> = {
         hasCarRental: ['car rental'],
@@ -183,11 +185,11 @@ export function useAirport() {
         filtered = exactMatches
       } else {
         filtered = filtered.filter(airport => {
-          const name = airport?.name?.toLowerCase() || ''
-          const city = airport?.operations?.location?.city?.toLowerCase() || ''
-          const country = airport?.operations?.country?.toLowerCase() || ''
-          const iata = airport?.iataCode?.toLowerCase() || ''
-          const ident = airport?.icaoCode?.toLowerCase() || ''
+          const name = airport?.name?.toLowerCase() ?? ''
+          const city = airport?.operations?.location?.city?.toLowerCase() ?? ''
+          const country = airport?.operations?.country?.toLowerCase() ?? ''
+          const iata = airport?.iataCode?.toLowerCase() ?? ''
+          const ident = airport?.icaoCode?.toLowerCase() ?? ''
 
           return (
             name.includes(searchLower) ||
@@ -220,7 +222,7 @@ export function useAirport() {
     if (searchTerm !== debouncedSearch) {
       setIsSearchLoading(true)
     } else {
-      setTimeout(() => setIsSearchLoading(false), 300)
+      setTimeout(() => setIsSearchLoading(false), DELAY)
     }
   }, [searchTerm, debouncedSearch])
 
@@ -248,7 +250,7 @@ export function useAirportById(id: string) {
 
   return useQuery({
     enabled: !!id,
-    queryFn: () => getAirportById(id, selectedLocale),
+    queryFn: async () => await getAirportById(id, selectedLocale),
     queryKey: ['airport', id, selectedLocale],
     staleTime: 5 * 60 * 1000,
   })

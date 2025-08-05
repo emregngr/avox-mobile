@@ -17,7 +17,9 @@ import {
   signUpWithEmail,
 } from '@/services/authService'
 import { login, logout, register, social } from '@/store/auth'
-import type { AuthCredentials } from '@/types/feature/auth'
+import useThemeStore from '@/store/theme'
+import type { AuthCredentials, LoginCredentials, RegisterCredentials } from '@/types/feature/auth'
+import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const auth = getAuth(app)
@@ -32,7 +34,9 @@ const handleAuthSuccess = async <T extends AuthCredentials>(
     const token = await getIdToken(userCredential.user, true)
     await authFunction({ ...authData, token })
     queryClient.invalidateQueries({ queryKey: ['user'] })
-  } catch (error) {}
+  } catch (error) {
+    Logger.breadcrumb('Failed to handle auth success', 'error', error as Error)
+  }
 }
 
 export const useUser = () =>
@@ -50,15 +54,24 @@ export const useUser = () =>
 
 export const useEmailRegister = () => {
   const queryClient = useQueryClient()
+  const { selectedTheme } = useThemeStore()
 
   return useMutation({
-    mutationFn: signUpWithEmail,
+    mutationFn: async ({ email, firstName, lastName, password }: RegisterCredentials) =>
+      await signUpWithEmail({ email, firstName, lastName, password }),
     onError: () =>
-      Alert.alert(getLocale('error'), getLocale('emailRegisterFailed'), [
+      Alert.alert(
+        getLocale('error'),
+        getLocale('emailRegisterFailed'),
+        [
+          {
+            text: getLocale('ok'),
+          },
+        ],
         {
-          text: getLocale('ok'),
+          userInterfaceStyle: selectedTheme,
         },
-      ]),
+      ),
     onSuccess: async (userCredential, variables) => {
       await handleAuthSuccess(
         userCredential,
@@ -78,15 +91,24 @@ export const useEmailRegister = () => {
 
 export const useEmailLogin = () => {
   const queryClient = useQueryClient()
+  const { selectedTheme } = useThemeStore()
 
   return useMutation({
-    mutationFn: signInWithEmail,
+    mutationFn: async ({ email, password }: LoginCredentials) =>
+      await signInWithEmail({ email, password }),
     onError: () =>
-      Alert.alert(getLocale('error'), getLocale('emailLoginFailed'), [
+      Alert.alert(
+        getLocale('error'),
+        getLocale('emailLoginFailed'),
+        [
+          {
+            text: getLocale('ok'),
+          },
+        ],
         {
-          text: getLocale('ok'),
+          userInterfaceStyle: selectedTheme,
         },
-      ]),
+      ),
     onSuccess: async (userCredential, variables) => {
       await handleAuthSuccess(
         userCredential,
@@ -106,15 +128,23 @@ const useSocialLogin = (
   provider: 'google' | 'apple',
 ) => {
   const queryClient = useQueryClient()
+  const { selectedTheme } = useThemeStore()
 
   return useMutation({
-    mutationFn: signInMethod,
+    mutationFn: async () => await signInMethod(),
     onError: () =>
-      Alert.alert(getLocale('error'), getLocale('socialLoginFailed'), [
+      Alert.alert(
+        getLocale('error'),
+        getLocale('socialLoginFailed'),
+        [
+          {
+            text: getLocale('ok'),
+          },
+        ],
         {
-          text: getLocale('ok'),
+          userInterfaceStyle: selectedTheme,
         },
-      ]),
+      ),
     onSuccess: async userCredential => {
       await handleAuthSuccess(userCredential, social, { provider }, queryClient)
     },
@@ -127,33 +157,50 @@ export const useAppleLogin = () => useSocialLogin(signInWithApple, 'apple')
 
 export const useLogout = () => {
   const queryClient = useQueryClient()
+  const { selectedTheme } = useThemeStore()
 
   return useMutation({
-    mutationFn: handleLogout,
+    mutationFn: async () => await handleLogout(),
     onError: () => {
-      Alert.alert(getLocale('error'), getLocale('logoutFailed'), [
+      Alert.alert(
+        getLocale('error'),
+        getLocale('logoutFailed'),
+        [
+          {
+            text: getLocale('ok'),
+          },
+        ],
         {
-          text: getLocale('ok'),
+          userInterfaceStyle: selectedTheme,
         },
-      ])
+      )
     },
-    onSuccess: () => {
-      logout()
+    onSuccess: async () => {
+      await logout()
       queryClient.setQueryData(['user'], null)
       queryClient.removeQueries()
     },
   })
 }
 
-export const useForgotPassword = () =>
-  useMutation({
+export const useForgotPassword = () => {
+  const { selectedTheme } = useThemeStore()
+
+  return useMutation({
     mutationFn: sendPasswordResetLink,
     onError: () =>
-      Alert.alert(getLocale('error'), getLocale('passwordResetLinkSentMessageFailed'), [
+      Alert.alert(
+        getLocale('error'),
+        getLocale('passwordResetLinkSentMessageFailed'),
+        [
+          {
+            text: getLocale('ok'),
+          },
+        ],
         {
-          text: getLocale('ok'),
+          userInterfaceStyle: selectedTheme,
         },
-      ]),
+      ),
     onSuccess: () => {
       Toast.show({
         text1: getLocale('successful'),
@@ -163,3 +210,4 @@ export const useForgotPassword = () =>
       router.back()
     },
   })
+}

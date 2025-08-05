@@ -4,6 +4,7 @@ import { useCallback, useMemo } from 'react'
 import { useAddFavorite, useIsFavorite, useRemoveFavorite } from '@/hooks/services/useFavorite'
 import useAuthStore from '@/store/auth'
 import type { FavoriteItem } from '@/types/feature/favorite'
+import { Logger } from '@/utils/common/logger'
 
 export function useFavoriteToggle({ id, type }: FavoriteItem) {
   const { isAuthenticated } = useAuthStore()
@@ -33,7 +34,9 @@ export function useFavoriteToggle({ id, type }: FavoriteItem) {
       } else {
         await addFavoriteMutation({ id, type })
       }
-    } catch (error) {}
+    } catch (error) {
+      Logger.breadcrumb('Failed to toggle favorite', 'error', error as Error)
+    }
   }, [
     isAuthenticated,
     isPending,

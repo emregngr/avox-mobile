@@ -11,8 +11,8 @@ export function useHome() {
     error,
     isLoading,
   } = useQuery({
-    queryFn: () => getAllHomeData(selectedLocale),
-    queryKey: ['home', selectedLocale],
+    queryFn: async () => await getAllHomeData(selectedLocale),
+    queryKey: ['homeData', selectedLocale],
     staleTime: 5 * 60 * 1000,
   })
 

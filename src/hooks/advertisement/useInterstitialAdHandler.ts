@@ -1,23 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { AdEventType, InterstitialAd } from 'react-native-google-mobile-ads'
 
-const DEFAULT_KEYWORDS = [
-  'cheap flights',
-  'flight tickets',
-  'airline tickets',
-  'flight booking',
-  'business travel',
-  'travel deals',
-  'last minute flights',
-  'weekend flights',
-  'international flights',
-  'travel insurance',
-  'aviation',
-  'air cargo',
-  'hotel booking',
-  'car rental',
-  'travel apps',
-]
+import { AD_KEYWORDS } from '@/constants/adKeywords'
 
 interface InterstitialAdHandler {
   adUnitId: string
@@ -26,14 +10,17 @@ interface InterstitialAdHandler {
 export const useInterstitialAdHandler = ({ adUnitId }: InterstitialAdHandler) => {
   const cleanupFunctionsRef = useRef<(() => void)[]>([])
 
-  useEffect(() => () => {
+  useEffect(
+    () => () => {
       cleanupFunctionsRef.current.forEach(cleanup => cleanup())
       cleanupFunctionsRef.current = []
-    }, [])
+    },
+    [],
+  )
 
   const showInterstitialAd = useCallback(() => {
     const requestOptions = {
-      keywords: DEFAULT_KEYWORDS,
+      keywords: AD_KEYWORDS,
       requestNonPersonalizedAdsOnly: true,
     }
 

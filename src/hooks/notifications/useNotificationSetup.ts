@@ -1,4 +1,6 @@
 import { getApp } from '@react-native-firebase/app'
+import type {
+  FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import {
   getMessaging,
   onMessage,
@@ -7,6 +9,8 @@ import {
 } from '@react-native-firebase/messaging'
 import { router } from 'expo-router'
 import { useCallback, useEffect } from 'react'
+
+import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const messaging = getMessaging(app)
@@ -28,30 +32,41 @@ export const useNotificationSetup = () => {
 
   const setupNotifications = useCallback(() => {
     try {
-      setBackgroundMessageHandler(messaging, async remoteMessage => {
-        console.log('Message handled in the background!', remoteMessage)
-      })
+      setBackgroundMessageHandler(
+        messaging,
+        async (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
+          Logger.breadcrumb('Message handled in the background!', 'info', remoteMessage as any)
+        },
+      )
 
-      const unsubscribeMessage = onMessage(messaging, async remoteMessage => {
-        console.log('Push Notification received:', remoteMessage)
-      })
+      const unsubscribeMessage = onMessage(
+        messaging,
+        async (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
+          Logger.breadcrumb('Message handled in the foreground!', 'info', remoteMessage as any)
+        },
+      )
 
-      const unsubscribeNotificationOpened = onNotificationOpenedApp(messaging, remoteMessage => {
-        console.log('App opened from background:', remoteMessage)
-        const type = remoteMessage?.data?.type as string
-        const id = remoteMessage?.data?.id?.toString()
+      const unsubscribeNotificationOpened = onNotificationOpenedApp(
+        messaging,
+        (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
+          Logger.breadcrumb('App opened from background!', 'info', remoteMessage as any)
+          const type = remoteMessage?.data?.type as string
+          const id = remoteMessage?.data?.id?.toString()
 
-        if (type && id) {
-          handleNotificationNavigation(type, id)
-        }
-      })
+          if (type && id) {
+            handleNotificationNavigation(type, id)
+          }
+        },
+      )
 
       return () => {
         unsubscribeMessage?.()
         unsubscribeNotificationOpened?.()
       }
     } catch (error) {
-      return () => {}
+      return () => {
+        Logger.breadcrumb('Failed to setup notifications', 'error', error as Error)
+      }
     }
   }, [handleNotificationNavigation])
 

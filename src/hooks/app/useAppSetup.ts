@@ -2,36 +2,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import NetInfo from '@react-native-community/netinfo'
 import { getApp } from '@react-native-firebase/app'
 import { getAuth, signOut } from '@react-native-firebase/auth'
-import { getCrashlytics, recordError } from '@react-native-firebase/crashlytics'
 import { getMessaging, requestPermission } from '@react-native-firebase/messaging'
-import dayjs from 'dayjs'
 import {
   getTrackingPermissionsAsync,
   requestTrackingPermissionsAsync,
 } from 'expo-tracking-transparency'
 import { useCallback, useEffect, useState } from 'react'
-import {
-  Appearance,
-  AppState,
-  InteractionManager,
-  PermissionsAndroid,
-  Platform,
-} from 'react-native'
+import { AppState, PermissionsAndroid, Platform } from 'react-native'
 import mobileAds from 'react-native-google-mobile-ads'
 import { Notifications } from 'react-native-notifications'
 
 import { ENUMS } from '@/enums'
 import { useUserSession } from '@/hooks/app/useUserSession'
-import { i18nChangeLocale } from '@/locales/i18next'
 import { setIsAuthenticated } from '@/store/auth'
-import useLocaleStore from '@/store/locale'
-import useThemeStore from '@/store/theme'
-
-interface AppStateType {
-  isConnected: boolean | null
-  isReady: boolean
-  splashDelayComplete: boolean
-}
+import { Logger } from '@/utils/common/logger'
 
 const BADGE_CLEAR_DELAY = {
   BACKGROUND_TO_FOREGROUND: 500,
@@ -41,17 +25,9 @@ const BADGE_CLEAR_DELAY = {
 const app = getApp()
 const messaging = getMessaging(app)
 const auth = getAuth()
-const crashlytics = getCrashlytics()
 
 export const useAppSetup = () => {
-  const { selectedLocale } = useLocaleStore()
-  const { selectedTheme } = useThemeStore()
-
-  const [appState, setAppState] = useState<AppStateType>({
-    isConnected: true,
-    isReady: false,
-    splashDelayComplete: false,
-  })
+  const [isConnected, setIsConnected] = useState<boolean | null>(null)
 
   const clearBadge = useCallback(() => {
     try {
@@ -60,7 +36,9 @@ export const useAppSetup = () => {
       } else if (Platform.OS === 'android') {
         Notifications.removeAllDeliveredNotifications()
       }
-    } catch (error) {}
+    } catch (error) {
+      Logger.breadcrumb('Failed to clear badge', 'error', error as Error)
+    }
   }, [])
 
   const setupIOSTrackingListener = useCallback(async () => {
@@ -87,7 +65,7 @@ export const useAppSetup = () => {
         await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS)
       }
     } catch (error) {
-      console.error('Error requesting notification permissions:', error)
+      Logger.breadcrumb('Failed to setup notification permissions', 'error', error as Error)
     }
   }, [])
 
@@ -105,16 +83,13 @@ export const useAppSetup = () => {
         setIsAuthenticated(false)
       }
     } catch (error) {
-      await signOut(auth)
+      Logger.breadcrumb('Failed to setup authentication', 'error', error as Error)
       setIsAuthenticated(false)
     }
   }, [])
 
   const setupApp = useCallback(async () => {
     try {
-      Appearance.setColorScheme(selectedTheme)
-      dayjs.locale(selectedLocale)
-      await i18nChangeLocale(selectedLocale)
       await mobileAds().initialize()
 
       await Promise.all([
@@ -123,28 +98,20 @@ export const useAppSetup = () => {
         setupAuthentication(),
       ])
     } catch (error) {
+      Logger.breadcrumb('Failed to setup app', 'error', error as Error)
       setIsAuthenticated(false)
-      if (!__DEV__) {
-        recordError(crashlytics, error as Error)
-      }
     }
-  }, [
-    selectedLocale,
-    selectedTheme,
-    setupIOSTrackingListener,
-    setupNotificationPermissions,
-    setupAuthentication,
-  ])
+  }, [setupIOSTrackingListener, setupNotificationPermissions, setupAuthentication])
 
   const setupNetworkListener = useCallback(
     () =>
       NetInfo?.addEventListener(state => {
-        setAppState(prev => ({ ...prev, isConnected: state?.isConnected }))
+        setIsConnected(state?.isConnected)
       }),
     [],
   )
 
-  const setupAppStateListener = useCallback(() => {
+  const setupClearBadgeListener = useCallback(() => {
     const handleAppStateChange = (nextAppState: string) => {
       if (nextAppState === 'active') {
         setTimeout(clearBadge, BADGE_CLEAR_DELAY.BACKGROUND_TO_FOREGROUND)
@@ -156,17 +123,15 @@ export const useAppSetup = () => {
 
   useEffect(() => {
     const networkUnsubscribe = setupNetworkListener()
-    const appStateUnsubscribe = setupAppStateListener()
+    const clearBadgeUnsubscribe = setupClearBadgeListener()
 
-    InteractionManager.runAfterInteractions(() => {
-      setupApp()
-    })
+    setupApp()
 
     return () => {
       networkUnsubscribe?.()
-      appStateUnsubscribe?.remove()
+      clearBadgeUnsubscribe?.remove()
     }
-  }, [setupApp, setupNetworkListener, setupAppStateListener])
+  }, [setupApp, setupNetworkListener, setupClearBadgeListener])
 
   useEffect(() => {
     const badgeTimer = setTimeout(clearBadge, BADGE_CLEAR_DELAY.INITIAL)
@@ -174,13 +139,5 @@ export const useAppSetup = () => {
     return () => clearTimeout(badgeTimer)
   }, [clearBadge])
 
-  useEffect(() => {
-    const splashTimer = setTimeout(() => {
-      setAppState(prev => ({ ...prev, splashDelayComplete: true }))
-    }, BADGE_CLEAR_DELAY.INITIAL)
-
-    return () => clearTimeout(splashTimer)
-  }, [])
-
-  return { appState, setAppState }
+  return { isConnected, setIsConnected }
 }

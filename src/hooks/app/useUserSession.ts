@@ -1,10 +1,10 @@
 import { getApp } from '@react-native-firebase/app'
 import { getAuth, getIdToken } from '@react-native-firebase/auth'
-import { getCrashlytics, recordError } from '@react-native-firebase/crashlytics'
+
+import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const auth = getAuth(app)
-const crashlytics = getCrashlytics()
 
 export const useUserSession = async (): Promise<boolean> => {
   const user = auth?.currentUser
@@ -14,7 +14,7 @@ export const useUserSession = async (): Promise<boolean> => {
     await getIdToken(user, true)
     return true
   } catch (error) {
-    recordError(crashlytics, error as Error)
+    Logger.breadcrumb('Failed to check user session', 'error', error as Error)
     return false
   }
 }

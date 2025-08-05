@@ -1,7 +1,7 @@
 import { getApp } from '@react-native-firebase/app'
 import { getAuth } from '@react-native-firebase/auth'
-import { useFocusEffect } from '@react-navigation/native'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useFocusEffect } from 'expo-router'
 import { useCallback } from 'react'
 
 import {
@@ -21,7 +21,7 @@ const QUERY_KEYS = {
   favorites: (userId: string) => ['favorites', userId],
 } as const
 
-const getCurrentUserId = () => auth?.currentUser?.uid
+const getCurrentUserId = () => auth?.currentUser?.uid as string
 
 export const useFavoriteIds = (refetchOnFocus = false) => {
   const userId = getCurrentUserId()
@@ -31,17 +31,20 @@ export const useFavoriteIds = (refetchOnFocus = false) => {
     enabled: !!userId,
     gcTime: 5 * 60 * 1000,
     queryFn: fetchFavoriteIds,
-    queryKey: QUERY_KEYS?.favorites(userId || ''),
-    staleTime: 0,
+    queryKey: QUERY_KEYS?.favorites(userId),
+    staleTime: 1 * 60 * 1000,
   })
 
   useFocusEffect(
     useCallback(() => {
-      if (refetchOnFocus && userId) {
-        queryClient.invalidateQueries({
-          queryKey: QUERY_KEYS?.favorites(userId),
-        })
+      const getFavorites = async () => {
+        if (refetchOnFocus && userId) {
+          await queryClient.invalidateQueries({
+            queryKey: QUERY_KEYS?.favorites(userId),
+          })
+        }
       }
+      getFavorites()
     }, [refetchOnFocus, userId, queryClient]),
   )
 
@@ -56,21 +59,25 @@ export const useFavoriteDetails = (refetchOnFocus = false) => {
 
   const query = useQuery({
     enabled: !!userId && !!selectedLocale,
-    queryFn: () => {
+    queryFn: async () => {
       if (!favoriteIds || favoriteIds?.length === 0) return Promise.resolve([])
-      return fetchFavoriteDetails(favoriteIds, selectedLocale)
+      const favoriteDetails = await fetchFavoriteDetails(favoriteIds, selectedLocale)
+      return favoriteDetails
     },
-    queryKey: QUERY_KEYS?.favoriteDetails(userId || '', selectedLocale),
-    staleTime: 0,
+    queryKey: QUERY_KEYS?.favoriteDetails(userId, selectedLocale),
+    staleTime: 1 * 60 * 1000,
   })
 
   useFocusEffect(
     useCallback(() => {
-      if (refetchOnFocus && userId) {
-        queryClient?.invalidateQueries({
-          queryKey: QUERY_KEYS?.favoriteDetails(userId, selectedLocale),
-        })
+      const getFavoriteDetails = async () => {
+        if (refetchOnFocus && userId) {
+          await queryClient?.invalidateQueries({
+            queryKey: QUERY_KEYS?.favoriteDetails(userId, selectedLocale),
+          })
+        }
       }
+      getFavoriteDetails()
     }, [refetchOnFocus, userId, selectedLocale, queryClient, favoriteIds]),
   )
 
@@ -113,19 +120,15 @@ export const useAddFavorite = () => {
       return { previousFavorites }
     },
 
-    onSuccess: () => {
+    onSuccess: async () => {
       if (!userId) return
 
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.favorites(userId),
       })
 
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.favoriteDetails(userId, selectedLocale),
-      })
-
-      queryClient.refetchQueries({
-        queryKey: QUERY_KEYS.favorites(userId),
       })
     },
   })
@@ -164,19 +167,15 @@ export const useRemoveFavorite = () => {
       return { previousFavorites }
     },
 
-    onSuccess: () => {
+    onSuccess: async () => {
       if (!userId) return
 
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.favorites(userId),
       })
 
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.favoriteDetails(userId, selectedLocale),
-      })
-
-      queryClient.refetchQueries({
-        queryKey: QUERY_KEYS.favorites(userId),
       })
     },
   })

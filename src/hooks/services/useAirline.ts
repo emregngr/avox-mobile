@@ -4,10 +4,12 @@ import { useEffect, useMemo, useState } from 'react'
 import { getAirlineById, getAllAirlines } from '@/services/airlineService'
 import useLocaleStore from '@/store/locale'
 import type { Airline } from '@/types/feature/airline'
-import { useDebounce } from '@/utils/common/useDebounce'
+import { debounce } from '@/utils/common/debounce'
 import { parseFilterRange } from '@/utils/feature/parseFilterRange'
 
 const ITEMS_PER_PAGE = 20
+
+const DELAY = 300
 
 export function useAirline() {
   const { selectedLocale } = useLocaleStore()
@@ -15,14 +17,14 @@ export function useAirline() {
   const [filters, setFilters] = useState<any>({})
   const [page, setPage] = useState<number>(1)
   const [isSearchLoading, setIsSearchLoading] = useState<boolean>(false)
-  const debouncedSearch = useDebounce<string>(searchTerm, 500)
+  const debouncedSearch = debounce<string>(searchTerm, 500)
 
   const {
     data: allAirlinesData,
     error,
     isLoading,
   } = useQuery({
-    queryFn: () => getAllAirlines(selectedLocale),
+    queryFn: async () => await getAllAirlines(selectedLocale),
     queryKey: ['allAirlines', selectedLocale],
     staleTime: 5 * 60 * 1000,
   })
@@ -140,11 +142,11 @@ export function useAirline() {
         filtered = exactMatches
       } else {
         filtered = filtered.filter(airline => {
-          const name = airline?.name?.toLowerCase() || ''
-          const city = airline?.operations?.hub?.city?.toLowerCase() || ''
-          const country = airline?.operations?.country?.toLowerCase() || ''
-          const iata = airline?.iataCode?.toLowerCase() || ''
-          const icao = airline?.icaoCode?.toLowerCase() || ''
+          const name = airline?.name?.toLowerCase() ?? ''
+          const city = airline?.operations?.hub?.city?.toLowerCase() ?? ''
+          const country = airline?.operations?.country?.toLowerCase() ?? ''
+          const iata = airline?.iataCode?.toLowerCase() ?? ''
+          const icao = airline?.icaoCode?.toLowerCase() ?? ''
 
           return (
             name.includes(searchLower) ||
@@ -177,7 +179,7 @@ export function useAirline() {
     if (searchTerm !== debouncedSearch) {
       setIsSearchLoading(true)
     } else {
-      setTimeout(() => setIsSearchLoading(false), 300)
+      setTimeout(() => setIsSearchLoading(false), DELAY)
     }
   }, [searchTerm, debouncedSearch])
 
@@ -205,7 +207,7 @@ export function useAirlineById(id: string) {
 
   return useQuery({
     enabled: !!id,
-    queryFn: () => getAirlineById(id, selectedLocale),
+    queryFn: async () => await getAirlineById(id, selectedLocale),
     queryKey: ['airline', id, selectedLocale],
     staleTime: 5 * 60 * 1000,
   })

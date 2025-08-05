@@ -3,16 +3,22 @@ import { useCallback, useEffect, useRef } from 'react'
 import { Alert } from 'react-native'
 
 import { getLocale } from '@/locales/i18next'
+import useThemeStore from '@/store/theme'
+import { Logger } from '@/utils/common/logger'
 
 interface UseConnectionAlertProps {
   isConnected: boolean | null
   onConnectionChange?: (connected: boolean) => void
 }
 
+const DELAY = 500
+
 export const useConnectionAlert = ({
   isConnected,
   onConnectionChange,
 }: UseConnectionAlertProps) => {
+  const { selectedTheme } = useThemeStore()
+
   const isAlertShowing = useRef<boolean>(false)
 
   const checkConnection = useCallback(async () => {
@@ -26,6 +32,7 @@ export const useConnectionAlert = ({
 
       return connected ?? false
     } catch (error) {
+      Logger.breadcrumb('Failed to check connection', 'error', error as Error)
       return false
     }
   }, [onConnectionChange])
@@ -52,7 +59,7 @@ export const useConnectionAlert = ({
                 setTimeout(() => {
                   isAlertShowing.current = false
                   showConnectionAlert()
-                }, 500)
+                }, DELAY)
               } else {
                 isAlertShowing.current = false
               }
@@ -65,6 +72,7 @@ export const useConnectionAlert = ({
           onDismiss: () => {
             isAlertShowing.current = false
           },
+          userInterfaceStyle: selectedTheme,
         },
       )
     }
