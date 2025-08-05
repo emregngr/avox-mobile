@@ -7,6 +7,14 @@ import { getLocale } from '@/locales/i18next'
 
 const Icon = require('@/assets/images/icon-ios.png')
 
+const STATIC_STYLES = {
+  icon: {
+    borderRadius: 75,
+    height: 150,
+    width: 150,
+  },
+}
+
 export default function Maintenance() {
   return (
     <View className="flex-1 justify-center items-center px-4 bg-background-primary">
@@ -14,7 +22,7 @@ export default function Maintenance() {
         cachePolicy="memory-disk"
         contentFit="contain"
         source={Icon}
-        style={{ borderRadius: 75, height: 150, width: 150 }}
+        style={STATIC_STYLES.icon}
         transition={0}
       />
 

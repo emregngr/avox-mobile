@@ -1,24 +1,29 @@
-import { router, useLocalSearchParams } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { router } from 'expo-router'
+import React, { useCallback } from 'react'
 import { FlatList } from 'react-native'
 
 import { Header, SafeLayout } from '@/components/common'
-import { AirlineCard } from '@/components/feature'
+import { AirlineCard, PopularCardSkeleton } from '@/components/feature'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
+import { useHome } from '@/hooks/services/useHome'
 import { getLocale } from '@/locales/i18next'
 import type { Airline } from '@/types/feature/airline'
-
-const ITEMS_PER_PAGE = 6
-
-const itemHeight = 500
 
 interface AirlineCardProps {
   item: Airline
 }
 
-export default function AllPopularAirports() {
-  const params = useLocalSearchParams()
-  const { airlines } = params as { airlines: string }
-  const airlinesData = useMemo(() => JSON.parse(airlines) as Airline[], [airlines])
+const INITIAL_ITEMS_PER_PAGE = 6
+const MAX_ITEMS_PER_BATCH = 4
+const NUM_COLUMNS = 2
+const ITEM_HEIGHT = 500
+const WINDOW_SIZE = 7
+
+export default function AllPopularAirlines() {
+  const { homeData, isLoading } = useHome()
+  const { popularAirlines: airlinesData } = homeData ?? {}
+
+  const BATCHING_PERIOD = useBatchingPeriod()
 
   const renderAirlineCard = useCallback(
     ({ item }: AirlineCardProps) => <AirlineCard airline={item} />,
@@ -28,10 +33,10 @@ export default function AllPopularAirports() {
   const keyExtractor = useCallback((item: Airline) => item?.id?.toString(), [])
 
   const getItemLayout = useCallback(
-    (data: ArrayLike<Airline> | null | undefined, index: number) => ({
+    (_: ArrayLike<Airline> | null | undefined, index: number) => ({
       index,
-      length: itemHeight,
-      offset: itemHeight * index,
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
     }),
     [],
   )
@@ -40,23 +45,27 @@ export default function AllPopularAirports() {
     router.back()
   }, [])
 
+  if (isLoading) {
+    return <PopularCardSkeleton type="airline" />
+  }
+
   return (
     <SafeLayout>
       <Header backIconOnPress={handleBackPress} title={getLocale('popularAirlines')} />
       <FlatList
-        className="flex-1"
         columnWrapperClassName="justify-between"
         contentContainerClassName="pt-5 px-4 pb-10"
         data={airlinesData}
         getItemLayout={getItemLayout}
-        initialNumToRender={ITEMS_PER_PAGE}
+        initialNumToRender={INITIAL_ITEMS_PER_PAGE}
         keyExtractor={keyExtractor}
-        maxToRenderPerBatch={ITEMS_PER_PAGE}
-        numColumns={2}
+        maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
+        numColumns={NUM_COLUMNS}
         renderItem={renderAirlineCard}
+        scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
-        updateCellsBatchingPeriod={200}
-        windowSize={5}
+        updateCellsBatchingPeriod={BATCHING_PERIOD}
+        windowSize={WINDOW_SIZE}
         removeClippedSubviews
       />
     </SafeLayout>

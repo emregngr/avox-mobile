@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons'
-import { router, useFocusEffect, useLocalSearchParams } from 'expo-router'
-import React, { useCallback, useMemo, useState } from 'react'
+import { router, useLocalSearchParams } from 'expo-router'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ActivityIndicator, Platform } from 'react-native'
 import { Tabs } from 'react-native-collapsible-tab-view'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -25,7 +25,7 @@ import type { Airport } from '@/types/feature/airport'
 import type { RegionKey } from '@/types/feature/region'
 import { AnalyticsService } from '@/utils/common/analyticsService'
 import { cn } from '@/utils/common/cn'
-import { LinkingService } from '@/utils/common/linkingService'
+import { shareAirport } from '@/utils/common/linkingService'
 import { setSystemColors } from '@/utils/common/setSystemColors'
 
 export default function AirportDetail() {
@@ -50,17 +50,16 @@ export default function AirportDetail() {
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const { id: currentAirportId, name, operations } = airportData || {}
-  const { region } = operations || {}
+  const { id: currentAirportId, name, operations } = airportData ?? {}
+  const { region } = operations ?? {}
 
   const regionLower = useMemo(() => region?.toLowerCase() as RegionKey, [region])
 
-  useFocusEffect(
-    useCallback(() => {
-      setSystemColors(colors?.[regionLower], selectedTheme)
-      return () => setSystemColors(colors?.background?.primary, selectedTheme)
-    }, [regionLower, colors, selectedTheme]),
-  )
+  const regionColor = useMemo(() => colors?.[regionLower as RegionKey], [colors, regionLower])
+
+  useEffect(() => {
+    setSystemColors(regionColor)
+  }, [regionColor])
 
   const [activeIndex, setActiveIndex] = useState<number>(0)
 
@@ -70,13 +69,15 @@ export default function AirportDetail() {
   const { handleFavoritePress, isFavorite, isPending } = useFavoriteToggle({ id, type })
 
   const handleBackPress = useCallback(() => {
+    setSystemColors(colors?.background?.primary)
+
     if (airportId) {
       router.dismissAll()
       router.replace('/home')
     } else {
       router.back()
     }
-  }, [airportId])
+  }, [colors, airportId])
 
   const handleIndexChange = useCallback((index: number) => setActiveIndex(index), [])
 
@@ -98,7 +99,7 @@ export default function AirportDetail() {
     [airportData],
   )
 
-  const tabRoutes = useMemo(
+  const tabRoutes = useCallback(
     () => [
       { key: 'general', label: getLocale('general') },
       { key: 'infrastructure', label: getLocale('infrastructure') },
@@ -120,7 +121,7 @@ export default function AirportDetail() {
   )
 
   const shareIconOnPress = useCallback(async () => {
-    await LinkingService.shareAirport(airportData as Airport)
+    await shareAirport(airportData as Airport)
 
     await AnalyticsService.sendEvent('airport_shared', {
       airport_id: airportData?.id,
@@ -128,11 +129,11 @@ export default function AirportDetail() {
       iata_code: airportData?.iataCode,
       user_locale: selectedLocale,
     })
-  }, [])
+  }, [airportData, selectedLocale])
 
   const shareIcon = useMemo(
     () => <Ionicons color={colors.onPrimary100} name="share-outline" size={20} />,
-    [],
+    [colors?.onPrimary100],
   )
 
   const rightIcon = useMemo(() => {
@@ -173,7 +174,7 @@ export default function AirportDetail() {
       title: name as string,
       titleClassName: 'ml-[46px] mr-[100px]',
     }),
-    [name, handleBackPress, rightIcon, handleFavoritePress],
+    [name, handleBackPress, rightIcon, handleFavoritePress, shareIcon, shareIconOnPress],
   )
 
   const scrollViewProps = useMemo(
@@ -220,7 +221,7 @@ export default function AirportDetail() {
 
       <ScrollView {...scrollViewProps}>
         <Tabs.Container {...tabsContainerProps}>
-          {tabRoutes.map((route, index) => {
+          {tabRoutes().map((route, index) => {
             const TabComponent = tabViews[index]
             return (
               <Tabs.Tab key={route.key} name={route.label}>

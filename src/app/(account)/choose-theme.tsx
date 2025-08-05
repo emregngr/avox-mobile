@@ -2,15 +2,15 @@ import 'dayjs/locale/en'
 import 'dayjs/locale/tr'
 
 import { Ionicons } from '@expo/vector-icons'
-import { getCrashlytics, recordError } from '@react-native-firebase/crashlytics'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
-import { Alert, ScrollView, TouchableOpacity, View } from 'react-native'
+import { Platform, ScrollView, TouchableOpacity, View } from 'react-native'
 
 import { Header, SafeLayout, ThemedText } from '@/components/common'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore, { changeTheme } from '@/store/theme'
 import { themeColors } from '@/themes'
+import { cn } from '@/utils/common/cn'
 import { responsive } from '@/utils/common/responsive'
 
 interface ThemeItem {
@@ -20,7 +20,7 @@ interface ThemeItem {
   value: 'dark' | 'light'
 }
 
-const crashlytics = getCrashlytics()
+const HEIGHT = responsive.deviceWidth / 2 - 24
 
 export default function ChooseTheme() {
   const { selectedTheme } = useThemeStore()
@@ -46,24 +46,13 @@ export default function ChooseTheme() {
   )
 
   const handleChangeTheme = useCallback((theme: 'light' | 'dark') => {
-    try {
-      changeTheme(theme)
-      router.back()
-    } catch (error: any) {
-      Alert.alert(getLocale('error'), error?.message, [{ text: getLocale('ok') }])
-      recordError(crashlytics, error as Error)
-    }
+    changeTheme(theme)
+    router.back()
   }, [])
 
   const handleBackPress = useCallback(() => {
-    router?.back()
+    router.back()
   }, [])
-
-  const height = useMemo(() => responsive.deviceWidth / 2 - 24, [])
-
-  const headerTitle = useMemo(() => getLocale('chooseTheme'), [])
-
-  const modeSelectionText = useMemo(() => getLocale('modeSelection'), [])
 
   const getRadioButtonProps = useCallback(
     (themeValue: 'dark' | 'light'): { color: string; name: any } => {
@@ -88,9 +77,14 @@ export default function ChooseTheme() {
           hitSlop={10}
           key={id}
           onPress={() => handleChangeTheme(value)}
-          style={{ height }}
+          style={{ height: HEIGHT }}
         >
-          <View className="flex-1 justify-between items-center p-6">
+          <View
+            className={cn(
+              'flex-1 justify-between items-center',
+              Platform.OS === 'ios' ? 'p-6' : 'p-4',
+            )}
+          >
             <ThemedText color="text-100" type="bigTitle">
               {icon}
             </ThemedText>
@@ -106,20 +100,16 @@ export default function ChooseTheme() {
         </TouchableOpacity>
       )
     },
-    [height, handleChangeTheme, getRadioButtonProps],
+    [handleChangeTheme, getRadioButtonProps],
   )
 
   return (
     <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={headerTitle} />
+      <Header backIconOnPress={handleBackPress} title={getLocale('chooseTheme')} />
 
-      <ScrollView
-        className="flex-1"
-        contentContainerClassName="px-4 py-5"
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView contentContainerClassName="px-4 py-5" showsVerticalScrollIndicator={false}>
         <ThemedText className="my-8" color="text-100" type="h3">
-          {modeSelectionText}
+          {getLocale('modeSelection')}
         </ThemedText>
         <View className="flex-row justify-between gap-4">{themes?.map(renderThemeItem)}</View>
       </ScrollView>

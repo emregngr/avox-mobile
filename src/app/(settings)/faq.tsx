@@ -1,24 +1,35 @@
 import { router } from 'expo-router'
-import React, { useCallback, useMemo, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
+import { FlatList, TouchableOpacity, View } from 'react-native'
 import Collapsible from 'react-native-collapsible'
-import { ScrollView } from 'react-native-gesture-handler'
 
 import Right from '@/assets/icons/right.svg'
 import { Header, SafeLayout, ThemedText } from '@/components/common'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
+interface FaqItem {
+  description: string
+  title: string
+}
+
+const INITIAL_ITEMS_PER_PAGE = 15
+const MAX_ITEMS_PER_BATCH = 10
+const ITEM_HEIGHT = 75
+const WINDOW_SIZE = 7
+
+const AUTO_SCROLL_DELAY = 300
+
 export default function Faq() {
   const { selectedLocale } = useLocaleStore()
-
   const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const trFaqList = [
+  const trFaqList: FaqItem[] = [
     {
       description:
         'Avox, havalimanları ve havayolları hakkında kapsamlı bir mobil rehber uygulamasıdır. Seyahat edenlerin veya havacılık meraklılarının, havalimanı detaylarına, anlık uçuş bilgilerine, havayolu şirketlerinin profillerine ve daha birçok bilgiye kolayca ulaşmasını sağlar.',
@@ -122,7 +133,7 @@ export default function Faq() {
     },
   ]
 
-  const enFaqList = [
+  const enFaqList: FaqItem[] = [
     {
       description:
         'Avox is a comprehensive mobile guide for airports and airlines. It allows travelers and aviation enthusiasts to easily access detailed airport information, real-time flight status, airline profiles, and much more.',
@@ -227,11 +238,98 @@ export default function Faq() {
 
   const faqList = selectedLocale === 'en' ? enFaqList : trFaqList
 
+  const flatListRef = useRef<FlatList>(null)
   const [collapsedIndex, setCollapsedIndex] = useState<number | null>(null)
 
-  const toggleExpanded = (index: number) => {
-    setCollapsedIndex(collapsedIndex === index ? null : index)
-  }
+  const BATCHING_PERIOD = useBatchingPeriod()
+
+  const toggleExpanded = useCallback(
+    (index: number) => {
+      const newIndex = collapsedIndex === index ? null : index
+      setCollapsedIndex(newIndex)
+
+      if (newIndex !== null && flatListRef.current) {
+        setTimeout(() => {
+          flatListRef?.current?.scrollToIndex({
+            animated: true,
+            index: newIndex,
+            viewPosition: 0.1,
+          })
+        }, AUTO_SCROLL_DELAY)
+      }
+    },
+    [collapsedIndex],
+  )
+
+  const onScrollToIndexFailed = useCallback(
+    (info: { averageItemLength: number; highestMeasuredFrameIndex: number; index: number }) => {
+      const wait = new Promise(resolve => setTimeout(resolve, AUTO_SCROLL_DELAY))
+      wait.then(() => {
+        flatListRef.current?.scrollToIndex({
+          animated: true,
+          index: info.index,
+          viewPosition: 0.1,
+        })
+      })
+    },
+    [],
+  )
+
+  const renderItem = useCallback(
+    ({ index, item }: { index: number; item: FaqItem }) => {
+      const { description, title } = item
+      return (
+        <View className="mb-2">
+          <TouchableOpacity
+            activeOpacity={0.7}
+            className="p-4 rounded-xl overflow-hidden bg-background-secondary"
+            hitSlop={10}
+            onPress={() => toggleExpanded(index)}
+          >
+            <View className="flex-row justify-between items-center">
+              <View className="flex-1 pr-4">
+                <ThemedText color="text-100" type="body1">
+                  {title}
+                </ThemedText>
+              </View>
+              <Right
+                style={{
+                  transform: [
+                    {
+                      rotate: collapsedIndex !== index ? '90deg' : '-90deg',
+                    },
+                  ],
+                }}
+                color={colors?.onPrimary50}
+                height={24}
+                width={24}
+              />
+            </View>
+          </TouchableOpacity>
+
+          <Collapsible collapsed={collapsedIndex !== index}>
+            <View className="mt-2 p-4 rounded-xl overflow-hidden bg-background-tertiary">
+              <ThemedText color="text-90" type="body2">
+                {description}
+              </ThemedText>
+            </View>
+          </Collapsible>
+        </View>
+      )
+    },
+    [collapsedIndex, colors?.onPrimary50, toggleExpanded],
+  )
+
+  const keyExtractor = useCallback((item: FaqItem, index: number) => `faq-${index}`, [])
+
+  const getItemLayout = useCallback(
+    (_: ArrayLike<FaqItem> | null | undefined, index: number) => ({
+      index,
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+    }),
+    [],
+  )
 
   const handleBackPress = useCallback(() => {
     router?.back()
@@ -240,51 +338,22 @@ export default function Faq() {
   return (
     <SafeLayout>
       <Header backIconOnPress={handleBackPress} title={getLocale('faq')} />
-
-      <ScrollView
-        className="flex-1"
-        contentContainerClassName="pt-5 pb-20 px-4"
+      <FlatList
+        contentContainerClassName="pt-5 px-4 pb-20"
+        data={faqList}
+        getItemLayout={getItemLayout}
+        initialNumToRender={INITIAL_ITEMS_PER_PAGE}
+        keyExtractor={keyExtractor}
+        maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
+        onScrollToIndexFailed={onScrollToIndexFailed}
+        ref={flatListRef}
+        renderItem={renderItem}
+        scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
-      >
-        {faqList?.map((item, index) => (
-          <View className="mb-2" key={index}>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              className="p-4 rounded-xl overflow-hidden bg-background-secondary"
-              hitSlop={10}
-              onPress={() => toggleExpanded(index)}
-            >
-              <View className="flex-row justify-between items-center">
-                <View className="flex-1 pr-4">
-                  <ThemedText color="text-100" type="body1">
-                    {item?.title}
-                  </ThemedText>
-                </View>
-                <Right
-                  style={{
-                    transform: [
-                      {
-                        rotate: collapsedIndex !== index ? '90deg' : '-90deg',
-                      },
-                    ],
-                  }}
-                  color={colors?.text50}
-                  height={24}
-                  width={24}
-                />
-              </View>
-            </TouchableOpacity>
-
-            <Collapsible collapsed={collapsedIndex !== index}>
-              <View className="mt-2 p-4 rounded-xl overflow-hidden bg-background-tertiary">
-                <ThemedText color="text-90" type="body2">
-                  {item?.description}
-                </ThemedText>
-              </View>
-            </Collapsible>
-          </View>
-        ))}
-      </ScrollView>
+        updateCellsBatchingPeriod={BATCHING_PERIOD}
+        windowSize={WINDOW_SIZE}
+        removeClippedSubviews
+      />
     </SafeLayout>
   )
 }

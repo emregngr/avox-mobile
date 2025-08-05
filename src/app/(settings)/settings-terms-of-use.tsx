@@ -70,7 +70,7 @@ export default function SettingsTermsOfUse() {
   }, [])
 
   const indicatorStyle = useMemo(
-    () => (selectedTheme === 'light' ? 'black' : 'white'),
+    () => (selectedTheme === 'dark' ? 'white' : 'black'),
     [selectedTheme],
   )
 
@@ -78,11 +78,7 @@ export default function SettingsTermsOfUse() {
     <SafeLayout>
       <Header backIconOnPress={handleBackPress} title={getLocale('termsOfUse')} />
 
-      <ScrollView
-        className="flex-1"
-        contentContainerClassName="pt-5 pb-20 px-4"
-        indicatorStyle={indicatorStyle}
-      >
+      <ScrollView contentContainerClassName="pt-5 pb-20 px-4" indicatorStyle={indicatorStyle}>
         <ThemedText color="text-100" type="body1">
           {text}
         </ThemedText>

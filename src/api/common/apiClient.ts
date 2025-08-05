@@ -7,7 +7,7 @@ import { ENUMS } from '@/enums'
 import type { ApiError, ApiRequestConfig, ApiResponse } from '@/types/common/api'
 
 const axiosInstance = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_API_URL || '',
+  baseURL: process.env.EXPO_PUBLIC_API_URL ?? '',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -45,8 +45,8 @@ axiosInstance.interceptors.response.use(
 
     const apiError: ApiError = {
       errors: {},
-      message: 'Bir hata oluştu',
-      status: error.response?.status || 500,
+      message: 'An error occurred',
+      status: error.response?.status ?? 500,
     }
 
     if (error.response?.data) {

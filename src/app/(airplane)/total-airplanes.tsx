@@ -1,30 +1,33 @@
-import { router, useLocalSearchParams } from 'expo-router'
+import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { FlatList } from 'react-native'
 
-import { Header, SafeLayout } from '@/components/common'
+import { FullScreenLoading, Header, SafeLayout } from '@/components/common'
 import { AirplaneCard } from '@/components/feature'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
+import { useHome } from '@/hooks/services/useHome'
 import { getLocale } from '@/locales/i18next'
 import type { TotalAirplane } from '@/types/feature/home'
-
-const ITEMS_PER_PAGE = 6
-
-const itemHeight = 50
 
 interface AirplaneCardProps {
   item: TotalAirplane
 }
 
-export default function TotalAirplanes() {
-  const params = useLocalSearchParams()
-  const { airplanes } = params as { airplanes: string }
+const INITIAL_ITEMS_PER_PAGE = 6
+const MAX_ITEMS_PER_BATCH = 4
+const ITEM_HEIGHT = 50
+const WINDOW_SIZE = 7
 
-  const airplanesData = useMemo(() => JSON.parse(airplanes) as TotalAirplane[], [airplanes])
+export default function TotalAirplanes() {
+  const { homeData, isLoading } = useHome()
+  const { totalAirplanes: airplanesData } = homeData ?? {}
 
   const sortedAirplanesData = useMemo(
-    () => airplanesData.sort((a, b) => b.count - a.count),
+    () => airplanesData?.sort((a, b) => b.count - a.count),
     [airplanesData],
   )
+
+  const BATCHING_PERIOD = useBatchingPeriod()
 
   const renderAirplaneCard = useCallback(
     ({ item }: AirplaneCardProps) => <AirplaneCard airplane={item} />,
@@ -34,10 +37,10 @@ export default function TotalAirplanes() {
   const keyExtractor = useCallback((item: TotalAirplane) => item?.id?.toString(), [])
 
   const getItemLayout = useCallback(
-    (data: ArrayLike<TotalAirplane> | null | undefined, index: number) => ({
+    (_: ArrayLike<TotalAirplane> | null | undefined, index: number) => ({
       index,
-      length: itemHeight,
-      offset: itemHeight * index,
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
     }),
     [],
   )
@@ -46,21 +49,25 @@ export default function TotalAirplanes() {
     router.back()
   }, [])
 
+  if (isLoading) {
+    return <FullScreenLoading />
+  }
+
   return (
     <SafeLayout>
       <Header backIconOnPress={handleBackPress} title={getLocale('totalAirplanes')} />
       <FlatList
-        className="flex-1"
         contentContainerClassName="pt-5 px-4 pb-10"
         data={sortedAirplanesData}
         getItemLayout={getItemLayout}
-        initialNumToRender={ITEMS_PER_PAGE}
+        initialNumToRender={INITIAL_ITEMS_PER_PAGE}
         keyExtractor={keyExtractor}
-        maxToRenderPerBatch={ITEMS_PER_PAGE}
+        maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
         renderItem={renderAirplaneCard}
+        scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
-        updateCellsBatchingPeriod={200}
-        windowSize={5}
+        updateCellsBatchingPeriod={BATCHING_PERIOD}
+        windowSize={WINDOW_SIZE}
         removeClippedSubviews
       />
     </SafeLayout>

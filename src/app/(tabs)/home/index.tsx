@@ -1,8 +1,9 @@
 import { router } from 'expo-router'
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { FlatList } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { FullScreenLoading, SafeLayout } from '@/components/common'
+import { FullScreenLoading } from '@/components/common'
 import {
   AirplaneCard,
   DestinationCard,
@@ -11,6 +12,7 @@ import {
   NewsSection,
   SectionScroll,
 } from '@/components/feature'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { useHome } from '@/hooks/services/useHome'
 import { useRegisterDevice, useRegisterDeviceToUser } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
@@ -26,7 +28,8 @@ interface SectionProps {
 export default function Home() {
   const { homeData, isLoading } = useHome()
   const { breakingNews, popularAirlines, popularAirports, popularDestinations, totalAirplanes } =
-    homeData || {}
+    homeData ?? {}
+
   const { isAuthenticated } = useAuthStore()
 
   const { mutateAsync: handleAddDevice } = useRegisterDevice()
@@ -60,37 +63,25 @@ export default function Home() {
   )
 
   const navigateToAllAirlines = useCallback(() => {
-    router.navigate({
-      params: { airlines: JSON.stringify(popularAirlines) },
-      pathname: '/all-popular-airlines',
-    })
-  }, [popularAirlines])
+    router.navigate('/all-popular-airlines')
+  }, [])
 
   const navigateToAllAirports = useCallback(() => {
-    router.navigate({
-      params: { airports: JSON.stringify(popularAirports) },
-      pathname: '/all-popular-airports',
-    })
-  }, [popularAirports])
+    router.navigate('/all-popular-airports')
+  }, [])
 
   const navigateToAllDestinations = useCallback(() => {
-    router.navigate({
-      params: { destinations: JSON.stringify(popularDestinations) },
-      pathname: '/all-popular-destinations',
-    })
-  }, [popularDestinations])
+    router.navigate('/all-popular-destinations')
+  }, [])
 
   const navigateToAllAirplanes = useCallback(() => {
-    router.navigate({
-      params: { airplanes: JSON.stringify(totalAirplanes) },
-      pathname: '/total-airplanes',
-    })
-  }, [totalAirplanes])
+    router.navigate('/total-airplanes')
+  }, [])
 
   const sections = useMemo(
     (): Section[] => [
       {
-        data: breakingNews || [],
+        data: breakingNews ?? [],
         type: 'news',
       },
       {
@@ -136,6 +127,8 @@ export default function Home() {
     ],
   )
 
+  const BATCHING_PERIOD = useBatchingPeriod()
+
   const renderSection = useCallback(({ item: section }: SectionProps) => {
     if (section.type === 'news') {
       return <NewsSection breakingNews={section.data} />
@@ -156,19 +149,20 @@ export default function Home() {
     )
   }, [])
 
-  return (
-    <SafeLayout>
-      {isLoading ? (
-        <FullScreenLoading />
-      ) : (
-        <FlatList
-          className="flex-1"
-          data={sections}
-          keyExtractor={(item, index) => `${item.type}-${index}`}
-          renderItem={renderSection}
-          showsVerticalScrollIndicator={false}
-        />
-      )}
-    </SafeLayout>
+  const { top } = useSafeAreaInsets()
+
+  return isLoading ? (
+    <FullScreenLoading />
+  ) : (
+    <FlatList
+      className="bg-background-primary"
+      contentContainerStyle={{ paddingTop: top }}
+      data={sections}
+      keyExtractor={(item, index) => `${item.type}-${index}`}
+      renderItem={renderSection}
+      scrollEventThrottle={16}
+      showsVerticalScrollIndicator={false}
+      updateCellsBatchingPeriod={BATCHING_PERIOD}
+    />
   )
 }

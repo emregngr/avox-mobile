@@ -1,5 +1,5 @@
-import { router, useFocusEffect, useLocalSearchParams } from 'expo-router'
-import { useCallback } from 'react'
+import { router, useLocalSearchParams } from 'expo-router'
+import { useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import WebView from 'react-native-webview'
 
@@ -7,25 +7,17 @@ import Close from '@/assets/icons/close'
 import { SafeLayout, ThemedText } from '@/components/common'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { RegionKey } from '@/types/feature/region'
-import { setSystemColors } from '@/utils/common/setSystemColors'
 
-export default function ImageModal() {
-  const params = useLocalSearchParams()
-  const { regionLower, selectedWebsite, webViewUrl } = params
+export default function WebViewModal() {
+  const { title, webViewUrl } = useLocalSearchParams()
 
   const { selectedTheme } = useThemeStore()
-  const colors = themeColors?.[selectedTheme]
+
+  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const handleBackPress = useCallback(() => {
     router?.back()
   }, [])
-
-  useFocusEffect(
-    useCallback(() => {
-      setSystemColors(colors?.[regionLower as RegionKey], selectedTheme)
-    }, [regionLower, colors, selectedTheme]),
-  )
 
   return (
     <SafeLayout>
@@ -36,7 +28,7 @@ export default function ImageModal() {
               color="text-100" ellipsizeMode="tail" numberOfLines={2}
               type="h3"
             >
-              {selectedWebsite}
+              {title}
             </ThemedText>
           </View>
           <TouchableOpacity activeOpacity={0.7} hitSlop={20} onPress={handleBackPress}>

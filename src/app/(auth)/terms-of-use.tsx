@@ -6,6 +6,7 @@ import { Header, SafeLayout, ThemedButton, ThemedText } from '@/components/commo
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
+import { getSafeAreaEdges } from '@/utils/common/getSafeAreaEdges'
 
 export default function TermsOfUse() {
   const { selectedTheme } = useThemeStore()
@@ -84,24 +85,22 @@ export default function TermsOfUse() {
   }, [])
 
   const indicatorStyle = useMemo(
-    () => (selectedTheme === 'light' ? 'black' : 'white'),
+    () => (selectedTheme === 'dark' ? 'white' : 'black'),
     [selectedTheme],
   )
 
+  const safeAreaEdges = useMemo(() => getSafeAreaEdges(), [])
+
   return (
-    <SafeLayout>
+    <SafeLayout edges="bottom">
       <Header backIconOnPress={handleBackPress} title={getLocale('termsOfUse')} />
 
-      <ScrollView
-        className="flex-1"
-        contentContainerClassName="py-5 px-4"
-        indicatorStyle={indicatorStyle}
-      >
+      <ScrollView contentContainerClassName="py-5 px-4" indicatorStyle={indicatorStyle}>
         <ThemedText color="text-100" type="body1">
           {text}
         </ThemedText>
       </ScrollView>
-      <View className="mt-5 mb-10 mx-4">
+      <View className="my-5 mx-4">
         <ThemedButton label={getLocale('accept')} onPress={handleAccept} type="border" />
       </View>
     </SafeLayout>

@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { Tabs } from 'react-native-collapsible-tab-view'
 
 import { RenderTabBar, SafeLayout } from '@/components/common'
-import { FavoriteAirlinesList, FavoriteAirportsList } from '@/components/feature'
+import { FavoriteAirlines, FavoriteAirports } from '@/components/feature'
 import { useFavoriteDetails } from '@/hooks/services/useFavorite'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
@@ -33,13 +33,10 @@ export default function Favorites() {
     refetch?.()
   }, [refetch])
 
-  const routes = useMemo(
-    () => [
+  const routes = useCallback(() => [
       { key: 'airports', label: getLocale('airports') },
       { key: 'airlines', label: getLocale('airlines') },
-    ],
-    [selectedLocale],
-  )
+    ], [selectedLocale])
 
   const containerStyle = useMemo(
     () => ({
@@ -63,7 +60,7 @@ export default function Favorites() {
       switch (key) {
         case 'airports':
           return (
-            <FavoriteAirportsList
+            <FavoriteAirports
               airports={favoriteAirports}
               isLoading={isLoading}
               onRefresh={onRefresh}
@@ -71,7 +68,7 @@ export default function Favorites() {
           )
         case 'airlines':
           return (
-            <FavoriteAirlinesList
+            <FavoriteAirlines
               airlines={favoriteAirlines}
               isLoading={isLoading}
               onRefresh={onRefresh}
@@ -92,7 +89,7 @@ export default function Favorites() {
         onIndexChange={setActiveIndex}
         renderTabBar={props => <RenderTabBar activeIndex={activeIndex} props={props} />}
       >
-        {routes.map(route => (
+        {routes().map(route => (
           <Tabs.Tab key={route.key} name={route.label}>
             {renderTabContent(route.key)}
           </Tabs.Tab>

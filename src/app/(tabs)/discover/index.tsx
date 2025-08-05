@@ -20,13 +20,10 @@ export default function Discover() {
 
   const airlineProps = useAirline()
 
-  const routes = useMemo(
-    () => [
+  const routes = useCallback(() => [
       { key: 'airports', label: getLocale('airports') },
       { key: 'airlines', label: getLocale('airlines') },
-    ],
-    [selectedLocale],
-  )
+    ], [selectedLocale])
 
   const containerStyle = useMemo(
     () => ({
@@ -106,7 +103,7 @@ export default function Discover() {
         onIndexChange={setActiveIndex}
         renderTabBar={props => <RenderTabBar activeIndex={activeIndex} props={props} />}
       >
-        {routes.map(route => (
+        {routes().map(route => (
           <Tabs.Tab key={route.key} name={route.label}>
             {renderTabContent(route.key)}
           </Tabs.Tab>

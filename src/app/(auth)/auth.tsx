@@ -13,10 +13,21 @@ import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
+const Icon = require('@/assets/images/icon-ios.png')
+
+const STATIC_STYLES = {
+  icon: {
+    borderRadius: 75,
+    height: 150,
+    width: 150,
+  },
+}
+
 export default function Auth() {
+  const { tab } = useLocalSearchParams()
+
   const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
-  const { tab } = useLocalSearchParams()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
@@ -49,15 +60,6 @@ export default function Auth() {
   const handleRegisterPress = useCallback(() => {
     router.navigate('/register')
   }, [])
-
-  const imageStyle = useMemo(
-    () => ({
-      borderRadius: 75,
-      height: 150,
-      width: 150,
-    }),
-    [],
-  )
 
   const closeIcon = useMemo(
     () => (
@@ -96,17 +98,13 @@ export default function Auth() {
     <SafeLayout>
       <Header backIcon={false} rightIcon={closeIcon} rightIconOnPress={handleBackPress} />
 
-      <ScrollView
-        className="flex-1"
-        contentContainerClassName="pt-10 pb-5 px-4"
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView contentContainerClassName="pt-10 pb-5 px-4" showsVerticalScrollIndicator={false}>
         <View className="flex-1 justify-center items-center">
           <Image
             cachePolicy="memory-disk"
             contentFit="contain"
-            source={require('@/assets/images/icon-ios.png')}
-            style={imageStyle}
+            source={Icon}
+            style={STATIC_STYLES.icon}
             transition={0}
           />
           <View className="items-center gap-y-4 mt-6">

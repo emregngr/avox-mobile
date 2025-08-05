@@ -1,7 +1,6 @@
-import { getCrashlytics, recordError } from '@react-native-firebase/crashlytics'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
-import { Alert, ScrollView, TouchableOpacity, View } from 'react-native'
+import { ScrollView, TouchableOpacity, View } from 'react-native'
 
 import CheckMark from '@/assets/icons/checkmark.svg'
 import { Header, SafeLayout, ThemedText } from '@/components/common'
@@ -9,6 +8,7 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore, { changeLocale } from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
+import { Logger } from '@/utils/common/logger'
 
 type LanguageItem = {
   code: string
@@ -16,8 +16,6 @@ type LanguageItem = {
   id: number
   text: string
 }
-
-const crashlytics = getCrashlytics()
 
 export default function ChooseLanguage() {
   const { selectedTheme } = useThemeStore()
@@ -37,17 +35,14 @@ export default function ChooseLanguage() {
     try {
       await changeLocale(lang)
       router.back()
-    } catch (error: any) {
-      Alert.alert(getLocale('error'), error?.message, [{ text: getLocale('ok') }])
-      recordError(crashlytics, error as Error)
+    } catch (error) {
+      Logger.breadcrumb('changeLocaleError', 'error', error as Error)
     }
   }, [])
 
   const handleBackPress = useCallback(() => {
     router.back()
   }, [])
-
-  const headerTitle = useMemo(() => getLocale('chooseLanguage'), [])
 
   const checkMarkColor = useMemo(() => colors?.onPrimary100, [colors])
 
@@ -84,12 +79,8 @@ export default function ChooseLanguage() {
 
   return (
     <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={headerTitle} />
-      <ScrollView
-        className="flex-1"
-        contentContainerClassName="px-4 py-5"
-        showsVerticalScrollIndicator={false}
-      >
+      <Header backIconOnPress={handleBackPress} title={getLocale('chooseLanguage')} />
+      <ScrollView contentContainerClassName="px-4 py-5" showsVerticalScrollIndicator={false}>
         <View className="rounded-xl overflow-hidden bg-background-secondary">
           {languages?.map(renderLanguageItem)}
         </View>

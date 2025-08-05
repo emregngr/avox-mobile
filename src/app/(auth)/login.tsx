@@ -4,20 +4,36 @@ import { router, useLocalSearchParams } from 'expo-router'
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { TextInput } from 'react-native'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 import { z } from 'zod'
 
-import { Header, SafeLayout, TextFormField, ThemedButton, ThemedText } from '@/components/common'
+import {
+  Header,
+  SafeLayout,
+  TextFormField,
+  ThemedButton,
+  ThemedButtonText,
+  ThemedText,
+} from '@/components/common'
 import { useEmailLogin } from '@/hooks/services/useAuth'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 
+const Icon = require('@/assets/images/icon-ios.png')
+
+const STATIC_STYLES = {
+  icon: {
+    borderRadius: 50,
+    height: 100,
+    width: 100,
+  },
+}
+
 export default function Login() {
   const { selectedLocale } = useLocaleStore()
 
-  const params = useLocalSearchParams()
-  const { isRegisterParam } = params
+  const { isRegisterParam } = useLocalSearchParams()
 
   const { isPending, mutateAsync: loginWithEmail } = useEmailLogin()
 
@@ -135,15 +151,6 @@ export default function Login() {
     return !isValid || isPending
   }, [hasBeenSubmitted, isValid, isPending])
 
-  const imageStyle = useMemo(
-    () => ({
-      borderRadius: 50,
-      height: 100,
-      width: 100,
-    }),
-    [],
-  )
-
   const localeStrings = useMemo(
     () => ({
       createAccount: getLocale('createAccount'),
@@ -206,8 +213,8 @@ export default function Login() {
           <Image
             cachePolicy="memory-disk"
             contentFit="contain"
-            source={require('@/assets/images/icon-ios.png')}
-            style={imageStyle}
+            source={Icon}
+            style={STATIC_STYLES.icon}
             transition={0}
           />
         </View>
@@ -216,16 +223,15 @@ export default function Login() {
           {formLabels.map((fieldConfig, index) => renderFormField(fieldConfig, index))}
         </View>
 
-        <Pressable
-          className="self-end px-4 my-6"
+        <ThemedButtonText
+          containerStyle="self-end my-6"
           disabled={isPending}
           hitSlop={10}
+          label={localeStrings.forgotPassword}
           onPress={handleForgotPasswordPress}
-        >
-          <ThemedText color="text-100" type="body2">
-            {localeStrings.forgotPassword}
-          </ThemedText>
-        </Pressable>
+          textColor="text-100"
+          type="body2"
+        />
 
         <ThemedButton
           disabled={buttonDisabled}
@@ -239,11 +245,15 @@ export default function Login() {
           <ThemedText color="text-70" type="body2">
             {localeStrings.dontHaveAccount}
           </ThemedText>
-          <Pressable disabled={isPending} hitSlop={10} onPress={handleRegisterPress}>
-            <ThemedText className="ml-1" color="text-100" type="body2">
-              {localeStrings.createAccount}
-            </ThemedText>
-          </Pressable>
+          <ThemedButtonText
+            disabled={isPending}
+            hitSlop={10}
+            label={localeStrings.createAccount}
+            onPress={handleRegisterPress}
+            textColor="text-100"
+            textStyle="ml-1"
+            type="body2"
+          />
         </View>
       </KeyboardAwareScrollView>
     </SafeLayout>

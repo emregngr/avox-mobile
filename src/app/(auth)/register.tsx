@@ -4,7 +4,7 @@ import { router, useLocalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { TextInput } from 'react-native'
-import { Pressable, View } from 'react-native'
+import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 import { z } from 'zod'
 
@@ -14,6 +14,7 @@ import {
   SafeLayout,
   TextFormField,
   ThemedButton,
+  ThemedButtonText,
   ThemedText,
 } from '@/components/common'
 import { useEmailRegister } from '@/hooks/services/useAuth'
@@ -21,11 +22,20 @@ import { getLocale } from '@/locales/i18next'
 import useFormStore from '@/store/form'
 import useLocaleStore from '@/store/locale'
 
+const Icon = require('@/assets/images/icon-ios.png')
+
+const STATIC_STYLES = {
+  icon: {
+    borderRadius: 50,
+    height: 100,
+    width: 100,
+  },
+}
+
 export default function Register() {
   const { selectedLocale } = useLocaleStore()
 
-  const params = useLocalSearchParams()
-  const { isLoginParam, privacyPolicyParam, termsOfUseParam } = params
+  const { isLoginParam, privacyPolicyParam, termsOfUseParam } = useLocalSearchParams()
 
   const { isPending, mutateAsync: registerWithEmail } = useEmailRegister()
 
@@ -60,10 +70,10 @@ export default function Register() {
 
   const defaultValues = useMemo(
     () => ({
-      email: formValues.email || '',
-      firstName: formValues.firstName || '',
-      lastName: formValues.lastName || '',
-      password: formValues.password || '',
+      email: formValues.email ?? '',
+      firstName: formValues.firstName ?? '',
+      lastName: formValues.lastName ?? '',
+      password: formValues.password ?? '',
       privacyPolicy: formValues.privacyPolicy ?? isParamTrue(privacyPolicyParam),
       termsOfUse: formValues.termsOfUse ?? isParamTrue(termsOfUseParam),
     }),
@@ -234,15 +244,6 @@ export default function Register() {
     return !isValid || isPending
   }, [hasBeenSubmitted, isValid, isPending])
 
-  const imageStyle = useMemo(
-    () => ({
-      borderRadius: 50,
-      height: 100,
-      width: 100,
-    }),
-    [],
-  )
-
   const renderFormField = useCallback(
     (fieldConfig: (typeof formLabels)[0], index: number) => {
       const getRef = () => {
@@ -308,8 +309,8 @@ export default function Register() {
           <Image
             cachePolicy="memory-disk"
             contentFit="contain"
-            source={require('@/assets/images/icon-ios.png')}
-            style={imageStyle}
+            source={Icon}
+            style={STATIC_STYLES.icon}
             transition={0}
           />
         </View>
@@ -351,11 +352,15 @@ export default function Register() {
             <ThemedText color="text-70" type="body2">
               {localeStrings.alreadyHaveAccount}
             </ThemedText>
-            <Pressable disabled={isPending} hitSlop={10} onPress={handleLoginPress}>
-              <ThemedText className="ml-1" color="text-100" type="body2">
-                {localeStrings.login}
-              </ThemedText>
-            </Pressable>
+            <ThemedButtonText
+              disabled={isPending}
+              hitSlop={10}
+              label={localeStrings.login}
+              onPress={handleLoginPress}
+              textColor="text-100"
+              textStyle="ml-1"
+              type="body2"
+            />
           </View>
         </View>
       </KeyboardAwareScrollView>

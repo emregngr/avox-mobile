@@ -16,8 +16,11 @@ import {
 } from '@/components/common'
 import { useGetUser, useUpdateUser } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
+import useThemeStore from '@/store/theme'
 
 export default function UpdateProfile() {
+  const { selectedTheme } = useThemeStore()
+
   const { data: userProfile, isLoading: isProfileLoading } = useGetUser()
   const { isPending: isUpdatingProfile, mutateAsync: updateUser } = useUpdateUser()
 
@@ -87,9 +90,9 @@ export default function UpdateProfile() {
   const resetFormData = useCallback(() => {
     if (userProfile) {
       reset({
-        email: userProfile.email || '',
-        firstName: userProfile.firstName || '',
-        lastName: userProfile.lastName || '',
+        email: userProfile.email ?? '',
+        firstName: userProfile.firstName ?? '',
+        lastName: userProfile.lastName ?? '',
       })
     }
   }, [userProfile, reset])
@@ -99,10 +102,15 @@ export default function UpdateProfile() {
   }, [resetFormData])
 
   const showNoChangesAlert = useCallback(() => {
-    Alert.alert(getLocale('information'), getLocale('havenNotMadeChanges'), [
-      { text: getLocale('ok') },
-    ])
-  }, [])
+    Alert.alert(
+      getLocale('information'),
+      getLocale('havenNotMadeChanges'),
+      [{ text: getLocale('ok') }],
+      {
+        userInterfaceStyle: selectedTheme,
+      },
+    )
+  }, [selectedTheme])
 
   const onSubmit = useCallback(
     (data: ProfileUpdateFormValues) => {
@@ -146,10 +154,6 @@ export default function UpdateProfile() {
     router.back()
   }, [])
 
-  const headerTitle = useMemo(() => getLocale('updateProfile'), [])
-
-  const updateButtonLabel = useMemo(() => getLocale('update'), [])
-
   const renderFormField = (fieldConfig: (typeof formLabels)[0], index: number) => {
     const getRef = () => {
       if (fieldConfig.name === 'firstName') return firstNameRef
@@ -188,7 +192,7 @@ export default function UpdateProfile() {
         <FullScreenLoading />
       ) : (
         <>
-          <Header backIconOnPress={handleBackPress} title={headerTitle} />
+          <Header backIconOnPress={handleBackPress} title={getLocale('updateProfile')} />
           <KeyboardAwareScrollView
             bottomOffset={50}
             contentContainerClassName="my-5 pb-24 px-4"
@@ -203,7 +207,7 @@ export default function UpdateProfile() {
             <View className="mt-6">
               <ThemedButton
                 disabled={buttonDisabled}
-                label={updateButtonLabel}
+                label={getLocale('update')}
                 loading={isLoading}
                 onPress={handleFormSubmit}
               />

@@ -2,18 +2,14 @@ import { router } from 'expo-router'
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import { FlatList, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { OnboardingItem, SafeLayout, ThemedButton, ThemedButtonText } from '@/components/common'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { getLocale } from '@/locales/i18next'
 import { setIsOnBoardingSeen } from '@/store/user'
 import type { OnBoardingsType, OnBoardingType } from '@/types/common/onBoarding'
 import { cn } from '@/utils/common/cn'
 import { responsive } from '@/utils/common/responsive'
-
-const ITEMS_PER_PAGE = 3
-
-const itemWidth = responsive.deviceWidth
 
 interface OnboardingItemProps {
   item: OnBoardingType
@@ -27,9 +23,14 @@ interface DotsContainerProps {
   length: number
 }
 
+const INITIAL_ITEMS_PER_PAGE = 4
+const MAX_ITEMS_PER_BATCH = 3
+const ITEM_WIDTH = responsive.deviceWidth
+const WINDOW_SIZE = 7
+
 export default function OnBoarding() {
-  const insets = useSafeAreaInsets()
   const flatListRef = useRef<FlatList>(null)
+
   const [currentIndex, setCurrentIndex] = useState<number>(0)
 
   const onBoardings = useMemo(
@@ -62,8 +63,8 @@ export default function OnBoarding() {
     [],
   )
 
-  const handleScroll = useCallback((e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const index = Math.round(e.nativeEvent.contentOffset.x / itemWidth)
+  const onScroll = useCallback((e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const index = Math.round(e.nativeEvent.contentOffset.x / ITEM_WIDTH)
     setCurrentIndex(index)
   }, [])
 
@@ -81,6 +82,13 @@ export default function OnBoarding() {
     router.replace('/home')
   }, [])
 
+  const BATCHING_PERIOD = useBatchingPeriod()
+
+  const buttonLabel = useMemo(
+    () => (currentIndex === onBoardings?.length - 1 ? getLocale('skip') : getLocale('continue')),
+    [currentIndex, onBoardings?.length],
+  )
+
   const renderItem = useCallback(
     ({ item }: OnboardingItemProps) => <OnboardingItem item={item} />,
     [],
@@ -89,74 +97,52 @@ export default function OnBoarding() {
   const keyExtractor = useCallback((item: OnBoardingType) => item?.id?.toString(), [])
 
   const getItemLayout = useCallback(
-    (data: ArrayLike<OnBoardingType> | null | undefined, index: number) => ({
+    (_: ArrayLike<OnBoardingType> | null | undefined, index: number) => ({
       index,
-      length: itemWidth,
-      offset: itemWidth * index,
+      length: ITEM_WIDTH,
+      offset: ITEM_WIDTH * index,
     }),
     [],
   )
 
-  const skipButtonStyle = useMemo(
-    () => ({
-      top: insets.top + 20,
-    }),
-    [insets.top],
-  )
-
-  const bottomContainerStyle = useMemo(
-    () => ({
-      paddingBottom: insets.bottom + 20,
-    }),
-    [insets.bottom],
-  )
-
-  const buttonLabel = useMemo(
-    () => (currentIndex === onBoardings?.length - 1 ? getLocale('skip') : getLocale('continue')),
-    [currentIndex, onBoardings?.length],
-  )
-
   return (
-    <View className="flex-1 bg-background-primary">
-      <View className="absolute right-4 z-10" style={skipButtonStyle}>
-        <ThemedButtonText
-          containerStyle="p-2 rounded-full overflow-hidden bg-background-quaternary"
-          label={getLocale('skip')}
-          onPress={handleSkip}
-          textColor="text-100"
-          type="h4"
-        />
-      </View>
+    <SafeLayout edges="bottom">
+      <ThemedButtonText
+        containerStyle="self-end mr-4 mt-6 z-10 p-2 rounded-full overflow-hidden bg-background-quaternary"
+        hitSlop={20}
+        label={getLocale('skip')}
+        onPress={handleSkip}
+        textColor="text-100"
+        type="h4"
+      />
 
-      <SafeLayout edges={['top', 'left', 'right', 'bottom']}>
-        <FlatList
-          bounces={false}
-          data={onBoardings}
-          decelerationRate="fast"
-          getItemLayout={getItemLayout}
-          initialNumToRender={ITEMS_PER_PAGE}
-          keyExtractor={keyExtractor}
-          maxToRenderPerBatch={ITEMS_PER_PAGE}
-          onScroll={handleScroll}
-          ref={flatListRef}
-          renderItem={renderItem}
-          scrollEventThrottle={16}
-          showsHorizontalScrollIndicator={false}
-          updateCellsBatchingPeriod={200}
-          windowSize={5}
-          disableIntervalMomentum
-          horizontal
-          pagingEnabled
-          removeClippedSubviews
-        />
-      </SafeLayout>
+      <FlatList
+        bounces={false}
+        data={onBoardings}
+        decelerationRate="fast"
+        getItemLayout={getItemLayout}
+        initialNumToRender={INITIAL_ITEMS_PER_PAGE}
+        keyExtractor={keyExtractor}
+        maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
+        onScroll={onScroll}
+        overScrollMode="never"
+        ref={flatListRef}
+        renderItem={renderItem}
+        scrollEventThrottle={16}
+        showsHorizontalScrollIndicator={false}
+        updateCellsBatchingPeriod={BATCHING_PERIOD}
+        windowSize={WINDOW_SIZE}
+        disableIntervalMomentum
+        horizontal
+        pagingEnabled
+      />
 
-      <View className="absolute bottom-0 w-full px-4" style={bottomContainerStyle}>
+      <View className="w-full px-4 pb-6">
         <ThemedButton label={buttonLabel} onPress={handlePressNext} type="border" />
 
         <DotsContainer currentIndex={currentIndex} length={onBoardings?.length} />
       </View>
-    </View>
+    </SafeLayout>
   )
 }
 

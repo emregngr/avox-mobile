@@ -1,18 +1,21 @@
-import { router, Stack, useFocusEffect, useLocalSearchParams } from 'expo-router'
+import { router, Stack, useFocusEffect, useGlobalSearchParams } from 'expo-router'
 import React, { useCallback } from 'react'
 
 import useAuthStore from '@/store/auth'
 
 export default function AuthLayout() {
   const { isAuthenticated } = useAuthStore()
-  const { tab } = useLocalSearchParams()
+  const { tab } = useGlobalSearchParams()
+
+  const validTabs = ['home', 'discover', 'favorites', 'profile']
 
   useFocusEffect(
     useCallback(() => {
       if (isAuthenticated) {
-        router.replace(tab as string)
+        const target = typeof tab === 'string' && validTabs.includes(tab) ? `/${tab}` : '/home'
+        router.replace(target)
       }
-    }, [isAuthenticated]),
+    }, [isAuthenticated, tab]),
   )
 
   return (

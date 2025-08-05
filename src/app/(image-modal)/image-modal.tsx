@@ -1,7 +1,7 @@
 import { Zoomable } from '@likashefqet/react-native-image-zoom'
 import { Image } from 'expo-image'
-import { router, useFocusEffect, useLocalSearchParams } from 'expo-router'
-import { useCallback } from 'react'
+import { router, useLocalSearchParams } from 'expo-router'
+import { useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -9,36 +9,45 @@ import Close from '@/assets/icons/close'
 import { SafeLayout, ThemedText } from '@/components/common'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { RegionKey } from '@/types/feature/region'
-import { setSystemColors } from '@/utils/common/setSystemColors'
 import type { ImageType } from '@/utils/feature/getAirplaneImage'
 import { getAirplaneImageSource } from '@/utils/feature/getAirplaneImage'
 
-export default function ImageModal() {
-  const params = useLocalSearchParams()
-  const { regionLower, selectedImageKey, title } = params
+const STATIC_STYLES = {
+  image: {
+    height: '100%' as const,
+    width: '100%' as const,
+  },
+  imageContainer: {
+    alignItems: 'center' as const,
+    flex: 1,
+    justifyContent: 'center' as const,
+  },
+  zoomableContainer: {
+    flex: 1,
+    width: '100%' as const,
+  },
+}
 
-  const selectedImage = selectedImageKey
-    ? getAirplaneImageSource(selectedImageKey as ImageType)
-    : null
+export default function ImageModal() {
+  const { selectedImageKey, title } = useLocalSearchParams()
+
+  const selectedImage = useMemo(
+    () => (selectedImageKey ? getAirplaneImageSource(selectedImageKey as ImageType) : null),
+    [selectedImageKey],
+  )
 
   const { selectedTheme } = useThemeStore()
-  const colors = themeColors?.[selectedTheme]
+
+  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const handleBackPress = useCallback(() => {
     router?.back()
   }, [])
 
-  useFocusEffect(
-    useCallback(() => {
-      setSystemColors(colors?.[regionLower as RegionKey], selectedTheme)
-    }, [regionLower, colors, selectedTheme]),
-  )
-
   return (
     <SafeLayout>
       <GestureHandlerRootView className="flex-1 bg-background-primary">
-        <View className="flex-row items-center justify-between p-4 z-10 bg-background-primary">
+        <View className="flex-row items-center justify-between p-4 z-10 bg-transparent">
           <View className="flex-1 ml-10 mr-4">
             <ThemedText
               color="text-100" ellipsizeMode="tail" numberOfLines={2}
@@ -62,17 +71,19 @@ export default function ImageModal() {
           maxScale={5}
           minScale={1}
           pointerEvents="box-none"
-          style={{ flex: 1, width: '100%' }}
+          style={STATIC_STYLES.zoomableContainer}
           isDoubleTapEnabled
           isSingleTapEnabled
         >
-          <Image
-            cachePolicy="memory-disk"
-            contentFit="contain"
-            source={selectedImage}
-            style={{ flex: 1, width: '100%' }}
-            transition={0}
-          />
+          <View style={STATIC_STYLES.imageContainer}>
+            <Image
+              cachePolicy="memory-disk"
+              contentFit="contain"
+              source={selectedImage}
+              style={STATIC_STYLES.image}
+              transition={0}
+            />
+          </View>
         </Zoomable>
       </GestureHandlerRootView>
     </SafeLayout>

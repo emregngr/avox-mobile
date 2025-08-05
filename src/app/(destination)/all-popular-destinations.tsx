@@ -1,29 +1,29 @@
-import { router, useLocalSearchParams } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { router } from 'expo-router'
+import React, { useCallback } from 'react'
 import { FlatList } from 'react-native'
 
-import { Header, SafeLayout } from '@/components/common'
+import { FullScreenLoading, Header, SafeLayout } from '@/components/common'
 import { DestinationCard } from '@/components/feature'
+import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
+import { useHome } from '@/hooks/services/useHome'
 import { getLocale } from '@/locales/i18next'
 import type { PopularDestination } from '@/types/feature/home'
-
-const ITEMS_PER_PAGE = 6
-
-const itemHeight = 280
 
 interface DestinationCardProps {
   item: PopularDestination
 }
 
+const INITIAL_ITEMS_PER_PAGE = 6
+const MAX_ITEMS_PER_BATCH = 4
+const NUM_COLUMNS = 2
+const ITEM_HEIGHT = 280
+const WINDOW_SIZE = 7
+
 export default function AllPopularDestinations() {
-  const params = useLocalSearchParams()
+  const { homeData, isLoading } = useHome()
+  const { popularDestinations: destinationsData } = homeData ?? {}
 
-  const { destinations } = params as { destinations: string }
-
-  const destinationsData = useMemo(
-    () => JSON.parse(destinations) as PopularDestination[],
-    [destinations],
-  )
+  const BATCHING_PERIOD = useBatchingPeriod()
 
   const renderDestinationCard = useCallback(
     ({ item }: DestinationCardProps) => <DestinationCard destination={item} />,
@@ -33,10 +33,10 @@ export default function AllPopularDestinations() {
   const keyExtractor = useCallback((item: PopularDestination) => item?.id?.toString(), [])
 
   const getItemLayout = useCallback(
-    (data: ArrayLike<PopularDestination> | null | undefined, index: number) => ({
+    (_: ArrayLike<PopularDestination> | null | undefined, index: number) => ({
       index,
-      length: itemHeight,
-      offset: itemHeight * index,
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
     }),
     [],
   )
@@ -45,23 +45,27 @@ export default function AllPopularDestinations() {
     router.back()
   }, [])
 
+  if (isLoading) {
+    return <FullScreenLoading />
+  }
+
   return (
     <SafeLayout>
       <Header backIconOnPress={handleBackPress} title={getLocale('popularDestinations')} />
       <FlatList
-        className="flex-1"
         columnWrapperClassName="justify-between gap-x-4"
         contentContainerClassName="pt-5 px-4 pb-10 self-center"
         data={destinationsData}
         getItemLayout={getItemLayout}
-        initialNumToRender={ITEMS_PER_PAGE}
+        initialNumToRender={INITIAL_ITEMS_PER_PAGE}
         keyExtractor={keyExtractor}
-        maxToRenderPerBatch={ITEMS_PER_PAGE}
-        numColumns={2}
+        maxToRenderPerBatch={MAX_ITEMS_PER_BATCH}
+        numColumns={NUM_COLUMNS}
         renderItem={renderDestinationCard}
+        scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
-        updateCellsBatchingPeriod={200}
-        windowSize={5}
+        updateCellsBatchingPeriod={BATCHING_PERIOD}
+        windowSize={WINDOW_SIZE}
         removeClippedSubviews
       />
     </SafeLayout>

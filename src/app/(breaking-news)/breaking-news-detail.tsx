@@ -10,27 +10,26 @@ import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import type { BreakingNews } from '@/types/feature/home'
 
+const STATIC_STYLES = {
+  image: {
+    borderRadius: 12,
+    height: 256,
+    width: '100%' as const,
+  },
+}
+
 export default function BreakingNewsDetail() {
-  const params = useLocalSearchParams()
-  const { item } = params as { item: string }
+  const { item } = useLocalSearchParams() as { item: string }
 
   const itemData = useMemo(() => JSON.parse(item) as BreakingNews, [item])
 
-  const { description, image, title } = itemData
+  const { description, image, title } = itemData ?? {}
+
   const { selectedTheme } = useThemeStore()
 
   const indicatorStyle = useMemo(
-    () => (selectedTheme === 'light' ? 'black' : 'white'),
+    () => (selectedTheme === 'dark' ? 'white' : 'black'),
     [selectedTheme],
-  )
-
-  const imageStyle = useMemo(
-    () => ({
-      borderRadius: 12,
-      height: 256,
-      width: '100%' as const,
-    }),
-    [],
   )
 
   const handleBackPress = useCallback(() => {
@@ -50,16 +49,12 @@ export default function BreakingNewsDetail() {
     <SafeLayout>
       <Header backIconOnPress={handleBackPress} title={getLocale('breakingNewsDetailTitle')} />
 
-      <ScrollView
-        className="flex-1"
-        contentContainerClassName="pt-5 pb-20 px-4"
-        indicatorStyle={indicatorStyle}
-      >
+      <ScrollView contentContainerClassName="pt-5 pb-20 px-4" indicatorStyle={indicatorStyle}>
         <Image
           cachePolicy="memory-disk"
           contentFit="cover"
           source={{ uri: image }}
-          style={imageStyle}
+          style={STATIC_STYLES.image}
           transition={0}
         />
 

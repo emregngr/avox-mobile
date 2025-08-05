@@ -2,23 +2,11 @@ import { router, Tabs, useFocusEffect, useSegments } from 'expo-router'
 import React, { useCallback } from 'react'
 
 import { ThemedTab } from '@/components/common'
-import { i18nChangeLocale } from '@/locales/i18next'
 import useAuthStore from '@/store/auth'
-import useLocaleStore from '@/store/locale'
 
 export default function TabLayout() {
-  const { selectedLocale } = useLocaleStore()
   const { isAuthenticated } = useAuthStore()
   const segments: string[] = useSegments()
-
-  useFocusEffect(
-    useCallback(() => {
-      const changeLanguage = async () => {
-        await i18nChangeLocale(selectedLocale)
-      }
-      changeLanguage()
-    }, [selectedLocale]),
-  )
 
   useFocusEffect(
     useCallback(() => {

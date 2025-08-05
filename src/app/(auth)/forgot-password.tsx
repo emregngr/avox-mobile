@@ -86,9 +86,6 @@ export default function ForgotPassword() {
     return !isValid || isPending
   }, [hasBeenSubmitted, isValid, isPending])
 
-  const headerTitle = useMemo(() => getLocale('forgotPassword'), [])
-  const buttonLabel = useMemo(() => getLocale('sendResetLink'), [])
-
   const renderFormField = useCallback(
     (fieldConfig: (typeof formLabels)[0], index: number) => {
       const getRef = () => {
@@ -124,7 +121,7 @@ export default function ForgotPassword() {
 
   return (
     <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={headerTitle} />
+      <Header backIconOnPress={handleBackPress} title={getLocale('forgotPassword')} />
 
       <KeyboardAwareScrollView
         bottomOffset={50}
@@ -140,7 +137,7 @@ export default function ForgotPassword() {
         <View className="mt-6">
           <ThemedButton
             disabled={buttonDisabled}
-            label={buttonLabel}
+            label={getLocale('sendResetLink')}
             loading={isPending}
             onPress={handleFormSubmit}
           />
