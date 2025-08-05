@@ -1,12 +1,10 @@
 import 'dayjs/locale/en'
 import 'dayjs/locale/tr'
-import 'react-native-reanimated'
 import '../global.css'
 
 import { useReactQueryDevTools } from '@dev-plugins/react-query'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { getCrashlytics, recordError } from '@react-native-firebase/crashlytics'
 import * as Sentry from '@sentry/react-native'
 import { QueryClientProvider } from '@tanstack/react-query'
 import dayjs from 'dayjs'
@@ -16,14 +14,15 @@ import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { useFonts } from 'expo-font'
 import * as Linking from 'expo-linking'
-import { router, useFocusEffect } from 'expo-router'
+import { router } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
-import { StatusBar } from 'expo-status-bar'
-import React, { useCallback, useEffect, useMemo } from 'react'
-import { InteractionManager, View } from 'react-native'
+import React, { useEffect } from 'react'
+import { View } from 'react-native'
+import { SystemBars } from 'react-native-edge-to-edge'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { Notifications } from 'react-native-notifications'
+import { configureReanimatedLogger, ReanimatedLogLevel } from 'react-native-reanimated'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Toast from 'react-native-toast-message'
 
@@ -35,14 +34,20 @@ import { useAppSetup } from '@/hooks/app/useAppSetup'
 import { useAppUpdate } from '@/hooks/app/useAppUpdate'
 import { useConnectionAlert } from '@/hooks/network/useConnectionAlert'
 import { useNotificationSetup } from '@/hooks/notifications/useNotificationSetup'
-import { useSystemUI } from '@/hooks/ui/useSystemUI'
+import { useSystemUI } from '@/hooks/systemUI/useSystemUI'
 import useThemeStore from '@/store/theme'
-import { themeColors, themes } from '@/themes'
-import { versionControl } from '@/utils/common/useCompareVersion'
-import { maintenanceControl } from '@/utils/common/useIsMaintenance'
+import { themes } from '@/themes'
+import { Logger } from '@/utils/common/logger'
+import { maintenanceControl } from '@/utils/common/maintenanceControl'
+import { versionControl } from '@/utils/common/versionControl'
+
+configureReanimatedLogger({
+  level: __DEV__ ? ReanimatedLogLevel.warn : ReanimatedLogLevel.error,
+  strict: false,
+})
 
 Sentry.init({
-  dsn: process.env.EXPO_PUBLIC_DSN || '',
+  dsn: process.env.EXPO_PUBLIC_DSN ?? '',
   enabled: !__DEV__,
 })
 
@@ -51,14 +56,15 @@ dayjs.extend(localizedFormat)
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-SplashScreen.preventAutoHideAsync()
+SplashScreen.setOptions({
+  duration: 2000,
+  fade: true,
+})
 
-const crashlytics = getCrashlytics()
+SplashScreen.preventAutoHideAsync()
 
 const RootLayout = () => {
   const { selectedTheme } = useThemeStore()
-
-  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   useReactQueryDevTools(queryClient)
 
@@ -69,110 +75,99 @@ const RootLayout = () => {
     'Inter-SemiBold': require('@/assets/fonts/Inter-SemiBold.ttf'),
   })
 
-  const { appState, setAppState } = useAppSetup()
+  const { isConnected, setIsConnected } = useAppSetup()
   const toastConfig = useToastConfig()
 
   useSystemUI()
   useConnectionAlert({
-    isConnected: appState.isConnected,
+    isConnected,
     onConnectionChange: connected => {
-      setAppState(prev => ({
-        ...prev,
-        isConnected: connected,
-      }))
+      setIsConnected(connected)
     },
   })
   useAppUpdate()
   useNotificationSetup()
 
-  useFocusEffect(
-    useCallback(() => {
-      let isActive = true
+  useEffect(() => {
+    const checkAppState = async () => {
+      try {
+        const [maintenance, versionInvalid] = await Promise.all([
+          maintenanceControl(),
+          versionControl(),
+        ])
+        const seenOnboarding = await AsyncStorage.getItem(ENUMS.IS_ONBOARDING_SEEN)
 
-      const checkAppState = async () => {
-        try {
-          const [maintenance, versionInvalid] = await Promise.all([
-            maintenanceControl(),
-            versionControl(),
-          ])
-          const seenOnboarding = await AsyncStorage.getItem(ENUMS.IS_ONBOARDING_SEEN)
+        if (maintenance) return router.replace('/maintenance')
+        if (versionInvalid) return router.replace('/force-update')
+        if (!seenOnboarding) return router.replace('/onboarding')
 
-          if (!isActive) return
+        const initialUrl = await Linking.getInitialURL()
+        if (initialUrl) {
+          try {
+            const parsedUrl = Linking.parse(initialUrl)
+            const { hostname, queryParams } = parsedUrl as {
+              hostname: string
+              queryParams: Linking.QueryParams
+            }
+            const id = queryParams?.id?.toString()
 
-          if (maintenance) return router.replace('/maintenance')
-          if (versionInvalid) return router.replace('/force-update')
-          if (!seenOnboarding) return router.replace('/onboarding')
-
-          const initialUrl = await Linking.getInitialURL()
-          if (initialUrl) {
-            try {
-              const parsedUrl = Linking.parse(initialUrl)
-              const { hostname, queryParams } = parsedUrl
-
-              if (hostname === 'airline') {
-                return router.replace({
-                  params: { airlineId: queryParams?.id },
-                  pathname: '/airline-detail',
-                })
-              }
-
-              if (hostname === 'airport') {
-                return router.replace({
-                  params: { airportId: queryParams?.id },
-                  pathname: '/airport-detail',
-                })
-              }
-            } catch (urlError) {}
-          }
-
-          const initialNotification = await Notifications?.getInitialNotification()
-          if (initialNotification) {
-            const type = initialNotification?.payload?.type
-            const id = initialNotification?.payload?.id?.toString()
-
-            if (type === 'airline') {
+            if (hostname === 'airline') {
               return router.replace({
                 params: { airlineId: id },
                 pathname: '/airline-detail',
               })
             }
 
-            if (type === 'airport') {
+            if (hostname === 'airport') {
               return router.replace({
                 params: { airportId: id },
                 pathname: '/airport-detail',
               })
             }
+          } catch (error) {
+            Logger.breadcrumb('initialUrlError', 'error', error as Error)
           }
-
-          if (!initialUrl && !initialNotification) {
-            return router.replace('/home')
-          }
-        } catch (error) {
-          if (!__DEV__) {
-            recordError(crashlytics, error as Error)
-          }
-        } finally {
-          setAppState(prev => ({ ...prev, isReady: true }))
         }
+
+        const initialNotification = await Notifications?.getInitialNotification()
+        if (initialNotification) {
+          const type = initialNotification?.payload?.type as string
+          const id = initialNotification?.payload?.id?.toString()
+
+          if (type === 'airline') {
+            return router.replace({
+              params: { airlineId: id },
+              pathname: '/airline-detail',
+            })
+          }
+
+          if (type === 'airport') {
+            return router.replace({
+              params: { airportId: id },
+              pathname: '/airport-detail',
+            })
+          }
+        }
+
+        const shouldGoHome =
+          !initialUrl || (__DEV__ && initialUrl?.includes('expo-development-client'))
+
+        if (shouldGoHome && !initialNotification) {
+          return router.replace('/home')
+        }
+      } catch (error) {
+        Logger.breadcrumb('checkAppStateError', 'error', error as Error)
       }
+    }
 
-      InteractionManager.runAfterInteractions(checkAppState)
+    checkAppState()
+  }, [])
 
-      return () => {
-        isActive = false
-      }
-    }, [setAppState]),
-  )
-
-  const isAppReady =
-    fontsLoaded && appState.isConnected && appState.isReady && appState.splashDelayComplete
+  const isAppReady = fontsLoaded && isConnected
 
   useEffect(() => {
     if (isAppReady) {
-      InteractionManager.runAfterInteractions(() => {
-        SplashScreen.hideAsync()
-      })
+      SplashScreen.hideAsync()
     }
   }, [isAppReady])
 
@@ -180,11 +175,7 @@ const RootLayout = () => {
     <QueryClientProvider client={queryClient}>
       <ActionSheetProvider>
         <SafeAreaProvider>
-          <StatusBar
-            backgroundColor={colors?.background?.primary}
-            style={selectedTheme === 'dark' ? 'light' : 'dark'}
-            translucent={false}
-          />
+          <SystemBars hidden={false} style={selectedTheme === 'dark' ? 'light' : 'dark'} />
           <GestureHandlerRootView className="flex-1">
             <KeyboardProvider>
               <View className="flex-1" style={themes?.[selectedTheme]}>

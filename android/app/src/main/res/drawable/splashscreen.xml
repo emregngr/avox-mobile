@@ -2,6 +2,8 @@
     <item android:drawable="@color/splashscreen_background" />
     <item>
         <bitmap
+            android:width="200dp"
+            android:height="200dp"
             android:gravity="center"
             android:src="@drawable/splashscreen_logo" />
     </item>

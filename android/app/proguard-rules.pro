@@ -18,3 +18,13 @@
 
 
 -keepattributes Signature,InnerClasses,EnclosingMethod,*Annotation*
+
+-keep class androidx.appcompat.app.AppCompatDelegate { *; }
+-keep class android.content.res.Configuration { *; }
+-keep class androidx.appcompat.** { *; }
+
+-keep class com.facebook.react.modules.appearance.** { *; }
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
