@@ -22,6 +22,7 @@ import type { AddPasswordCredentials, ChangePasswordCredentials } from '@/types/
 import type { ProfileData, UserProfile } from '@/types/feature/user'
 import { AnalyticsService } from '@/utils/common/analyticsService'
 import Device from '@/utils/common/device'
+import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const auth = getAuth(app)
@@ -42,28 +43,29 @@ export const getUser = async (): Promise<UserProfile | null> => {
       const firestoreData = userDoc.data()
       const userData: UserProfile = {
         createdAt: firestoreData?.createdAt,
-        displayName: user.displayName || null,
-        email: user.email || null,
-        firstName: firestoreData?.firstName || null,
-        lastName: firestoreData?.lastName || null,
-        photoURL: user.photoURL || null,
+        displayName: user.displayName ?? null,
+        email: user.email ?? null,
+        firstName: firestoreData?.firstName ?? null,
+        lastName: firestoreData?.lastName ?? null,
+        photoURL: user.photoURL ?? null,
         uid: user.uid,
       }
       await AnalyticsService.setUser(userData)
       return userData
     } else {
       const userData: UserProfile = {
-        displayName: user.displayName || null,
-        email: user.email || null,
+        displayName: user.displayName ?? null,
+        email: user.email ?? null,
         firstName: null,
         lastName: null,
-        photoURL: user.photoURL || null,
+        photoURL: user.photoURL ?? null,
         uid: user.uid,
       }
       await AnalyticsService.setUser(userData)
       return userData
     }
   } catch (error) {
+    Logger.breadcrumb('Failed to get user', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -83,6 +85,7 @@ export const updateUser = async (profileData: ProfileData): Promise<void> => {
       updateProfile(user, { displayName: `${firstName} ${lastName}` }),
     ])
   } catch (error) {
+    Logger.breadcrumb('Failed to update user', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -100,6 +103,7 @@ export const changeUserPassword = async (credentials: ChangePasswordCredentials)
     await reauthenticateWithCredential(user, credential)
     await updatePassword(user, newPassword)
   } catch (error) {
+    Logger.breadcrumb('Failed to change user password', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -115,7 +119,8 @@ export const addUserPassword = async (credentials: AddPasswordCredentials): Prom
   try {
     const credential = EmailAuthProvider.credential(user?.email, newPassword)
     await linkWithCredential(user, credential)
-  } catch (error: any) {
+  } catch (error) {
+    Logger.breadcrumb('Failed to add user password', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -129,8 +134,9 @@ export const deleteUserAccount = async (): Promise<void> => {
   try {
     const userDocRef = doc(db, 'users', user?.uid)
     await deleteDoc(userDocRef)
-    await user?.delete()
-  } catch (error: any) {
+    await user.delete()
+  } catch (error) {
+    Logger.breadcrumb('Failed to delete user account', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -153,7 +159,8 @@ export const registerDevice = async (): Promise<void> => {
     }
 
     await setDoc(deviceRef, deviceData)
-  } catch (error: any) {
+  } catch (error) {
+    Logger.breadcrumb('Failed to register device', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -182,7 +189,7 @@ export const registerDeviceToUser = async (): Promise<void> => {
 
     await runTransaction(db, async transaction => {
       const userDoc = await transaction.get(userRef)
-      const devices = userDoc?.data()?.devices || []
+      const devices = userDoc?.data()?.devices ?? []
 
       const existingDeviceIndex = devices?.findIndex(
         (device: typeof updatedDevice) => device?.unique_id === deviceId,
@@ -202,6 +209,7 @@ export const registerDeviceToUser = async (): Promise<void> => {
       })
     })
   } catch (error) {
+    Logger.breadcrumb('Failed to register device to user', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }

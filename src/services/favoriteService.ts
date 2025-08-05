@@ -14,6 +14,7 @@ import { getLocale } from '@/locales/i18next'
 import type { Airline } from '@/types/feature/airline'
 import type { Airport } from '@/types/feature/airport'
 import type { FavoriteItem, Favorites } from '@/types/feature/favorite'
+import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const auth = getAuth(app)
@@ -37,6 +38,7 @@ export const fetchFavoriteIds = async (): Promise<Favorites> => {
     }
     return []
   } catch (error) {
+    Logger.breadcrumb('Failed to fetch favorite ids', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -79,6 +81,7 @@ export const fetchFavoriteDetails = async (
 
     return fetchedItems
   } catch (error) {
+    Logger.breadcrumb('Failed to fetch favorite details', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -102,7 +105,8 @@ export const addToFavorites = async ({ id, type }: FavoriteItem): Promise<void> 
         favorites: [favoriteObject],
       })
     }
-  } catch (error: any) {
+  } catch (error) {
+    Logger.breadcrumb('Failed to add to favorites', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -123,6 +127,7 @@ export const removeFromFavorites = async ({ id, type }: FavoriteItem): Promise<v
       })
     }
   } catch (error) {
+    Logger.breadcrumb('Failed to remove from favorites', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }

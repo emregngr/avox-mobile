@@ -17,6 +17,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { getLocale } from '@/locales/i18next'
 import { updateUser } from '@/services/userService'
 import type { LoginCredentials, RegisterCredentials } from '@/types/feature/auth'
+import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const auth = getAuth(app)
@@ -39,6 +40,7 @@ export const signUpWithEmail = async ({
     await updateUser({ email, firstName, lastName })
     return userCredential
   } catch (error) {
+    Logger.breadcrumb('Failed to sign up with email', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -51,6 +53,7 @@ export const signInWithEmail = async ({
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     return userCredential
   } catch (error) {
+    Logger.breadcrumb('Failed to sign in with email', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -75,6 +78,7 @@ export const signInWithGoogle = async (): Promise<FirebaseAuthTypes.UserCredenti
     }
     return userCredential
   } catch (error) {
+    Logger.breadcrumb('Failed to sign in with google', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -99,6 +103,7 @@ export const signInWithApple = async (): Promise<FirebaseAuthTypes.UserCredentia
     }
     return userCredential
   } catch (error) {
+    Logger.breadcrumb('Failed to sign in with apple', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -109,11 +114,9 @@ export const handleLogout = async () => {
     if (currentUser) {
       await GoogleSignin.signOut()
     }
-  } catch (error) {}
-
-  try {
     await signOut(auth)
   } catch (error) {
+    Logger.breadcrumb('Failed to handle logout', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }
@@ -125,6 +128,7 @@ export const sendPasswordResetLink = async (email: string): Promise<void> => {
   try {
     await sendPasswordResetEmail(auth, email)
   } catch (error) {
+    Logger.breadcrumb('Failed to send password reset link', 'error', error as Error)
     throw new Error(getLocale('somethingWentWrong'))
   }
 }

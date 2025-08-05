@@ -4,7 +4,6 @@ import { create } from 'zustand'
 import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 
 export type ThemeStateType = {
-  loading: boolean
   selectedTheme: 'light' | 'dark'
 }
 
@@ -20,11 +19,15 @@ const useThemeStore = create<ThemeStateType & ThemeActions>()(
           set({ selectedTheme: selectedThemeValue })
           Appearance.setColorScheme(selectedThemeValue)
         },
-        loading: false,
-        selectedTheme: Appearance.getColorScheme() as 'light' | 'dark',
+        selectedTheme: Appearance.getColorScheme() ?? 'dark',
       }),
       {
         name: 'theme',
+        onRehydrateStorage: () => state => {
+          if (state) {
+            Appearance.setColorScheme(state.selectedTheme)
+          }
+        },
         storage: createJSONStorage(() => AsyncStorage),
       },
     ),

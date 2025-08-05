@@ -24,26 +24,26 @@ const useAuthStore = create<AuthStateType & AuthActions>()(
     loading: false,
     login: async params => {
       set({ loading: false })
-      set({ isAuthenticated: true, loading: false })
       await AsyncStorage.setItem(ENUMS.API_TOKEN, params?.token)
+      set({ isAuthenticated: true, loading: false })
     },
     logout: async () => {
       set({ loading: true })
-      set({ isAuthenticated: false, loading: false })
       await AsyncStorage.removeItem(ENUMS.API_TOKEN)
+      set({ isAuthenticated: false, loading: false })
     },
     register: async params => {
       set({ loading: true })
-      set({ isAuthenticated: true, loading: false })
       await AsyncStorage.setItem(ENUMS.API_TOKEN, params?.token)
+      set({ isAuthenticated: true, loading: false })
     },
     setIsAuthenticated: value => {
       set({ isAuthenticated: value })
     },
     social: async params => {
       set({ loading: true })
-      set({ isAuthenticated: true, loading: false })
       await AsyncStorage.setItem(ENUMS.API_TOKEN, params?.token)
+      set({ isAuthenticated: true, loading: false })
     },
   })),
 )

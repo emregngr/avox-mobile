@@ -3,6 +3,7 @@ import type { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 import { collection, doc, getDoc, getDocs, getFirestore } from '@react-native-firebase/firestore'
 
 import type { Airline } from '@/types/feature/airline'
+import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const db = getFirestore(app)
@@ -22,8 +23,9 @@ export const getAllAirlines = async (locale: string): Promise<Airline[]> => {
         }) as unknown as Airline,
     ) as Airline[]
 
-    return airlines.sort((a, b) => (a.name || '').localeCompare(b.name || ''))
+    return airlines.sort((a, b) => (a.name ?? '').localeCompare(b.name ?? ''))
   } catch (error) {
+    Logger.breadcrumb('Failed to get all airlines', 'error', error as Error)
     return []
   }
 }
@@ -48,6 +50,7 @@ export const getAirlineById = async (id: string, locale: string): Promise<Airlin
 
     return null
   } catch (error) {
+    Logger.breadcrumb('Failed to get airline by id', 'error', error as Error)
     return null
   }
 }

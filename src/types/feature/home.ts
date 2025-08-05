@@ -12,11 +12,11 @@ export type BreakingNews = {
 
 export type PopularDestination = {
   country: string
-  distance_km: number
-  flight_count: number
-  id: number
+  destinations_type: string,
+  distance_km: number,
+  flight_count: number,
+  id: number,
   route: string
-  type: string
 }
 
 export type TotalAirplane = {
