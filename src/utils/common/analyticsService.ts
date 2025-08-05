@@ -15,9 +15,9 @@ const app = getApp()
 const analytics = getAnalytics(app)
 
 export const AnalyticsService = {
-  async sendEvent(tag: string, values: any) {
+  async sendEvent(tag: string, values: any): Promise<void> {
     try {
-      const analyticObject = values || {}
+      const analyticObject = values ?? {}
       const userId = await AsyncStorage.getItem('user-id')
 
       if (analyticObject && typeof analyticObject === 'object') {
@@ -28,27 +28,27 @@ export const AnalyticsService = {
 
       await logEvent(analytics, tag, {
         ...analyticObject,
-        userId: userId || 'anonymous',
+        userId: userId ?? 'anonymous',
       })
-    } catch (e) {
-      Logger.breadcrumb('[sendEvent] error', 'error', e as LogData)
+    } catch (error) {
+      Logger.breadcrumb('analyticsSendEventError', 'error', error as LogData)
     }
   },
 
-  async setUser(user: UserProfile) {
+  async setUser(user: UserProfile): Promise<void> {
     try {
       if (!user?.uid) {
-        Logger.breadcrumb('[setUser] Invalid user data', 'warning', { user })
+        Logger.breadcrumb('analyticsNoUserIdError', 'warning', { user })
         return
       }
 
       await setUserId(analytics, user.uid)
       await setUserProperties(analytics, {
-        email: user?.email || '',
-        firstName: user?.firstName || '',
+        email: user?.email ?? '',
+        firstName: user?.firstName ?? '',
       })
-    } catch (e) {
-      Logger.breadcrumb('[setUser] error', 'error', e as LogData)
+    } catch (error) {
+      Logger.breadcrumb('analyticsSetUserError', 'error', error as LogData)
     }
   },
 }

@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react'
 import { getFilterLabelMap } from '@/constants/activeFilterOptions'
 import { getLocale } from '@/locales/i18next'
 
-export function useActiveFilterLabel() {
+export const getActiveFilterLabel = () => {
   const filterLabelMap = useMemo(() => getFilterLabelMap(), [])
 
   const booleanLabelMap: Record<string, string> = useMemo(
@@ -23,7 +23,7 @@ export function useActiveFilterLabel() {
     [],
   )
 
-  const getActiveFilterLabel = useCallback(
+  const getActiveFilterLabelValue = useCallback(
     (key: string, value: any): string | number | undefined => {
       if (key === 'minGoogleRating') {
         return `${getLocale('googleRating')}: ${value}+`
@@ -55,5 +55,5 @@ export function useActiveFilterLabel() {
     [booleanLabelMap, filterLabelMap],
   )
 
-  return getActiveFilterLabel
+  return getActiveFilterLabelValue
 }

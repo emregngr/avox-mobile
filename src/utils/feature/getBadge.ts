@@ -42,7 +42,7 @@ const getAirportBadge = (airportType: AirportType): string => {
     [AirportType.MegaAirport]: airportImageFiles.mega_airport,
   }
 
-  return imageMap[airportType] || airportImageFiles.small_airport
+  return imageMap?.[airportType] ?? airportImageFiles.small_airport
 }
 
 const getAirlineBadge = (airlineType: AirlineType): string => {
@@ -53,7 +53,7 @@ const getAirlineBadge = (airlineType: AirlineType): string => {
     [AirlineType.MajorInternational]: airlineImageFiles.major_international,
   }
 
-  return imageMap[airlineType] || airlineImageFiles.cargo
+  return imageMap?.[airlineType] ?? airlineImageFiles.cargo
 }
 
 export { getAirlineBadge, getAirportBadge }

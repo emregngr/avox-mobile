@@ -1,4 +1,4 @@
-export interface ParsedRange {
+interface ParsedRange {
   max: number
   min: number
 }

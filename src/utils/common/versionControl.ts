@@ -2,15 +2,15 @@ import compareVersions from 'compare-versions'
 
 import Device from '@/utils/common/device'
 import { Logger } from '@/utils/common/logger'
-import remoteConfig from '@/utils/common/remoteConfig'
+import { getStringValue, setFirebaseConfig } from '@/utils/common/remoteConfig'
 
 const isValidVersion = (version: string): boolean => /^\d+\.\d+\.\d+$/.test(version)
 
-const getRemoteVersion = (): string => remoteConfig.getStringValue('MIN_VERSION_SUPPORT') ?? '0.0.0'
+const getRemoteVersion = (): string => getStringValue('MIN_VERSION_SUPPORT') ?? '0.0.0'
 
 export const versionControl = async (): Promise<boolean> => {
   try {
-    await remoteConfig.setFirebaseConfig()
+    await setFirebaseConfig()
     const minSupportVersion = getRemoteVersion()
     const currentVersion = Device.getVersion()
 
@@ -24,8 +24,8 @@ export const versionControl = async (): Promise<boolean> => {
 
     const isUpdateAvailable = compareVersions.compare(currentVersion, minSupportVersion, '<')
     return isUpdateAvailable
-  } catch (error: any) {
-    Logger.breadcrumb('[versionControl] error', 'error', error)
+  } catch (error) {
+    Logger.breadcrumb('versionControlError', 'error', error as Error)
     return false
   }
 }

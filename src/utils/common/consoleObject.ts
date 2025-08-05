@@ -1,22 +1,24 @@
-export const consoleObject = (object: unknown) => {
+import { Logger } from '@/utils/common/logger'
+
+export const consoleObject = (object: unknown): void => {
   if (object == null) {
-    console.log('Object is null or undefined')
+    Logger.breadcrumb('Object is null or undefined', 'warning', object as any)
     return
   }
 
   if (typeof object !== 'object') {
-    console.log('Input is not an object')
+    Logger.breadcrumb('Input is not an object', 'warning', object as any)
     return
   }
 
   const entries = Object.entries(object)
 
   if (entries.length === 0) {
-    console.log('Object is empty')
+    Logger.breadcrumb('Object is empty', 'warning', object as any)
     return
   }
 
   entries.forEach(([key, value]) => {
-    console.log(`${key}: ${value}`)
+    Logger.breadcrumb(`${key}: ${value}`, 'info', object as any)
   })
 }

@@ -11,7 +11,7 @@ interface AirportImageMap {
   [key: string]: string
 }
 
-const getAirportImage = (airportType: AirportType): string => {
+export const getAirportImage = (airportType: AirportType): string => {
   const imageMap: AirportImageMap = {
     [AirportType.SmallAirport]: imageFiles.small_airport,
     [AirportType.MediumAirport]: imageFiles.medium_airport,
@@ -19,7 +19,5 @@ const getAirportImage = (airportType: AirportType): string => {
     [AirportType.MegaAirport]: imageFiles.mega_airport,
   }
 
-  return imageMap[airportType] || imageFiles.small_airport
+  return imageMap?.[airportType] ?? imageFiles.small_airport
 }
-
-export default getAirportImage

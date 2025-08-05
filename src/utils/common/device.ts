@@ -13,9 +13,9 @@ const messaging = getMessaging(app)
 const Device = {
   getBrand(): string {
     try {
-      return DeviceInfo.getBrand() || 'unknown'
+      return DeviceInfo.getBrand() ?? 'unknown'
     } catch (error: any) {
-      Logger.log('getBrand', error)
+      Logger.breadcrumb('Failed to get device brand', 'warning', error)
       return 'unknown'
     }
   },
@@ -23,7 +23,7 @@ const Device = {
     try {
       return await DeviceInfo.getBuildId()
     } catch (error: any) {
-      Logger.log('getBuildId', error)
+      Logger.breadcrumb('Failed to get build ID', 'warning', error)
       return 'unknown'
     }
   },
@@ -31,7 +31,7 @@ const Device = {
     try {
       return await DeviceInfo.getBuildNumber()
     } catch (error: any) {
-      Logger.log('getBuildNumber', error)
+      Logger.breadcrumb('Failed to get build number', 'warning', error)
       return 'unknown'
     }
   },
@@ -39,7 +39,7 @@ const Device = {
     try {
       return await DeviceInfo.getCarrier()
     } catch (error: any) {
-      Logger.log('getCarrier', error)
+      Logger.breadcrumb('Failed to get carrier info', 'warning', error)
       return 'unknown'
     }
   },
@@ -47,7 +47,7 @@ const Device = {
     try {
       return await getToken(messaging)
     } catch (error: any) {
-      Logger.log('getFcmToken', error)
+      Logger.breadcrumb('Failed to get FCM token', 'warning', error)
       return 'unknown'
     }
   },
@@ -55,7 +55,7 @@ const Device = {
     try {
       return await DeviceInfo.getHost()
     } catch (error: any) {
-      Logger.log('getHost', error)
+      Logger.breadcrumb('Failed to get host info', 'warning', error)
       return 'unknown'
     }
   },
@@ -63,23 +63,23 @@ const Device = {
     try {
       return await DeviceInfo.getIpAddress()
     } catch (error: any) {
-      Logger.log('getIpAddress', error)
+      Logger.breadcrumb('Failed to get IP address', 'warning', error)
       return 'unknown'
     }
   },
   getModel(): string {
     try {
-      return DeviceInfo.getModel() || 'unknown'
+      return DeviceInfo.getModel() ?? 'unknown'
     } catch (error: any) {
-      Logger.log('getModel', error)
+      Logger.breadcrumb('Failed to get device model', 'warning', error)
       return 'unknown'
     }
   },
   getSystemVersion(): string {
     try {
-      return DeviceInfo.getSystemVersion() || 'unknown'
+      return DeviceInfo.getSystemVersion() ?? 'unknown'
     } catch (error: any) {
-      Logger.log('getSystemVersion', error)
+      Logger.breadcrumb('Failed to get system version', 'warning', error)
       return 'unknown'
     }
   },
@@ -88,7 +88,7 @@ const Device = {
       const calendars = getCalendars()
       return calendars?.[0]?.timeZone ?? Intl.DateTimeFormat().resolvedOptions().timeZone
     } catch (error: any) {
-      Logger.log('getTimezone', error)
+      Logger.breadcrumb('Failed to get timezone', 'warning', error)
       return 'unknown'
     }
   },
@@ -96,7 +96,7 @@ const Device = {
     try {
       return await DeviceInfo.getUniqueId()
     } catch (error: any) {
-      Logger.log('getUniqueId', error)
+      Logger.breadcrumb('Failed to get unique ID', 'warning', error)
       return 'unknown'
     }
   },
@@ -104,15 +104,15 @@ const Device = {
     try {
       return await DeviceInfo.getUserAgent()
     } catch (error: any) {
-      Logger.log('getUserAgent', error)
+      Logger.breadcrumb('Failed to get user agent', 'warning', error)
       return 'unknown'
     }
   },
   getVersion(): string {
     try {
-      return DeviceInfo.getVersion() || 'unknown'
+      return DeviceInfo.getVersion() ?? 'unknown'
     } catch (error: any) {
-      Logger.log('getVersion', error)
+      Logger.breadcrumb('Failed to get app version', 'warning', error)
       return 'unknown'
     }
   },
@@ -147,7 +147,7 @@ const Device = {
         user_agent,
       }
     } catch (error: any) {
-      Logger.log('registerDevice', error)
+      Logger.breadcrumb('Device registration failed', 'error', error)
       return {
         base_os: Platform.OS,
         brand: 'unknown',

@@ -35,8 +35,8 @@ const setFirebaseConfig = async (): Promise<boolean> => {
 
     Logger.breadcrumb('REMOTE CONFIG', 'info', log)
     return activated
-  } catch (error: any) {
-    Logger.breadcrumb('[setFirebaseConfig] error', 'error', error)
+  } catch (error) {
+    Logger.breadcrumb('remoteConfigError', 'error', error as Error)
     return false
   }
 }
@@ -61,9 +61,4 @@ const getStringValue = (key: ConfigKey): string => {
   return defaultConfigs[key] as string
 }
 
-export default {
-  defaultConfigs,
-  getBooleanValue,
-  getStringValue,
-  setFirebaseConfig,
-}
+export { defaultConfigs, getBooleanValue, getStringValue, setFirebaseConfig }
