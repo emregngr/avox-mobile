@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`RouteRowCard Component Snapshot should render the RouteRowCard Component successfully 1`] = `
+<View
+  className="flex-row items-center py-3"
+>
+  <View
+    className="flex-row items-center px-3 py-2 rounded-full overflow-hidden bg-background-tertiary"
+  >
+    <Text
+      className="mr-1.5"
+      color="text-90"
+      type="body1"
+    >
+      IST
+    </Text>
+    <View
+      color="#1E90FF"
+      name="map-marker-outline"
+      size={16}
+      testID="mocked-material-community-icon"
+    />
+  </View>
+  <View
+    className="flex-1 mx-2.5 relative"
+  >
+    <View
+      className="absolute top-[-10] self-center"
+      color="#1E90FF"
+      name="airplane"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+  </View>
+  <View
+    className="flex-row items-center px-3 py-2 rounded-full overflow-hidden bg-background-tertiary"
+  >
+    <View
+      color="#1E90FF"
+      name="map-marker-outline"
+      size={16}
+      testID="mocked-material-community-icon"
+    />
+    <Text
+      className="ml-1.5"
+      color="text-90"
+      type="body1"
+    >
+      ESB
+    </Text>
+  </View>
+</View>
+`;

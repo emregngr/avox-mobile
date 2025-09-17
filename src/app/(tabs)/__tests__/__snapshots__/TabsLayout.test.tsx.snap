@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`TabsLayout Snapshot should render the TabsLayout successfully 1`] = `
+[
+  <View
+    data-screen-options="{"headerShown":false,"tabBarStyle":{"display":"none"}}"
+    testID="tabs"
+  >
+    <View
+      data-name="home"
+      testID="tab-screen-home"
+    />
+    <View
+      data-name="discover"
+      testID="tab-screen-discover"
+    />
+    <View
+      data-name="favorites"
+      testID="tab-screen-favorites"
+    />
+    <View
+      data-name="profile"
+      testID="tab-screen-profile"
+    />
+  </View>,
+  <View
+    testID="themed-tab"
+  />,
+]
+`;

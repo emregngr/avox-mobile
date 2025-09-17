@@ -1,0 +1,918 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Faq Screen Snapshot should render the Faq Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  >
+    Frequently Asked Questions
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    data={
+      [
+        {
+          "description": "Avox is a comprehensive mobile guide for airports and airlines. It allows travelers and aviation enthusiasts to easily access detailed airport information, real-time flight status, airline profiles, and much more.",
+          "id": "1",
+          "title": "What is the Avox app and what does it do?",
+        },
+        {
+          "description": "Downloading and using the core features of Avox is completely free. You can access all airport and airline information without any charge.",
+          "id": "2",
+          "title": "Is the app free to use?",
+        },
+        {
+          "description": "Avox covers thousands of international and domestic airports worldwide. You can easily find the airport you're looking for by using the search feature or filtering by region.",
+          "id": "3",
+          "title": "Which airports can I find information about?",
+        },
+        {
+          "description": "On an airport's page, you can find details such as terminal information, location and map, contact details, live departure and arrival boards, and information about services like shops, restaurants, and lounges.",
+          "id": "4",
+          "title": "What details can I see for an airport?",
+        },
+        {
+          "description": "Yes, our app provides live flight boards from reliable sources. You can track delays, cancellations, and gate information by searching for a flight number or by viewing the airport's page. However, we always recommend confirming with your airline for the most accurate information.",
+          "id": "5",
+          "title": "Can I track flight information (departures/arrivals) in real-time?",
+        },
+        {
+          "description": "On our airline pages, you can access information such as the company's headquarters, airplane types and fleet size, flight destinations, contact details, and its airline alliance affiliation.",
+          "id": "6",
+          "title": "What information can I find about airlines?",
+        },
+        {
+          "description": "The information in our app is regularly updated from official airport and airline authorities, trusted aviation data providers, and public sources. Dynamic data, like live flight information, is refreshed continuously.",
+          "id": "7",
+          "title": "How up-to-date is the data? Where does the information come from?",
+        },
+        {
+          "description": "Yes, you can add your frequently used airports or followed airlines to your favorites for quick and easy access.",
+          "id": "8",
+          "title": "Can I add a favorite airport or airline?",
+        },
+        {
+          "description": "You can easily find an airport by typing its name, IATA (3-letter) code, or ICAO (4-letter) code into the search bar on the main page. Similarly, you can search for airlines by their names.",
+          "id": "9",
+          "title": "How can I find a specific airport or airline?",
+        },
+        {
+          "description": "Yes, we provide terminal maps for major and popular airports. With these maps, you can easily locate check-in counters, security checkpoints, gates, and other service areas.",
+          "id": "10",
+          "title": "Are there indoor maps for airports?",
+        },
+        {
+          "description": "Absolutely. On the airport details page, you can find dining options, duty-free shops, currency exchange offices, ATMs, and car rental services, along with their locations and operating hours (if available).",
+          "id": "11",
+          "title": "Is there information about shops, restaurants, and services at the airport?",
+        },
+        {
+          "description": "Yes, for many airports, we provide information on public transport options (bus, train, metro), as well as taxi and private transfer services from the city center or other key locations.",
+          "id": "12",
+          "title": "Can I see transportation options to the airport (bus, metro, taxi)?",
+        },
+        {
+          "description": "Yes, in each airline's profile, under the "Route Network" or "Destinations" section, you can see all the cities and airports the company regularly flies to.",
+          "id": "13",
+          "title": "Can I list the destinations an airline flies to?",
+        },
+        {
+          "description": "No, you can access all of Avox's informational content without an account. However, creating a free account may be required for features like adding favorites and personalizing your settings.",
+          "id": "14",
+          "title": "Do I need to sign up or create an account to use the app?",
+        },
+        {
+          "description": "An active internet connection is required for live data such as real-time flight information. However, basic information for airports and airlines you have previously viewed may be cached for offline access.",
+          "id": "15",
+          "title": "Does the app work without an internet connection?",
+        },
+        {
+          "description": "Your feedback is very valuable to us. You can contact us using the "Send Feedback" or "Report an Error" option found on the relevant airport/airline page or in the settings menu.",
+          "id": "16",
+          "title": "What should I do if I notice incorrect or missing information?",
+        },
+        {
+          "description": "To maintain the best user experience, we avoid disruptive ads. Minimal and relevant ads may be displayed to support the app's sustainability.",
+          "id": "17",
+          "title": "Are there ads in the app?",
+        },
+        {
+          "description": "Avox is available for download on both the Apple App Store (iOS) and the Google Play Store (Android).",
+          "id": "18",
+          "title": "On which platforms (iOS, Android) is Avox available?",
+        },
+        {
+          "description": "You can contact us directly through the "Support" or "Contact Us" section in the app's "Settings" menu. We carefully review all suggestions and bug reports.",
+          "id": "19",
+          "title": "Who should I contact if I have a problem with the app or want to make a suggestion?",
+        },
+        {
+          "description": "We are constantly improving Avox. Our future plans include features like flight ticket search integration, the ability for users to add airport and airline reviews, loyalty program tracking, and more personalization options.",
+          "id": "20",
+          "title": "What new features are planned for Avox in the future?",
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    getItemLayout={[Function]}
+    initialNumToRender={15}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    onScrollToIndexFailed={[Function]}
+    removeClippedSubviews={true}
+    renderItem={[Function]}
+    scrollEventThrottle={16}
+    showsVerticalScrollIndicator={false}
+    stickyHeaderIndices={[]}
+    testID="faq-flatlist"
+    updateCellsBatchingPeriod={150}
+    viewabilityConfigCallbackPairs={[]}
+    windowSize={7}
+  >
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              What is the Avox app and what does it do?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              Is the app free to use?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              Which airports can I find information about?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              What details can I see for an airport?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              Can I track flight information (departures/arrivals) in real-time?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              What information can I find about airlines?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              How up-to-date is the data? Where does the information come from?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              Can I add a favorite airport or airline?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              How can I find a specific airport or airline?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              Are there indoor maps for airports?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              Is there information about shops, restaurants, and services at the airport?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              Can I see transportation options to the airport (bus, metro, taxi)?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              Can I list the destinations an airline flies to?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              Do I need to sign up or create an account to use the app?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <Text>
+              Does the app work without an internet connection?
+            </Text>
+            <Text>
+              chevron-down
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          {
+            "height": 375,
+          }
+        }
+      />
+    </View>
+  </RCTScrollView>
+</View>
+`;

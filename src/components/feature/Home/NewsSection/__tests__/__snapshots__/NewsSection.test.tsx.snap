@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`NewsSection Component Snapshot should render the NewsSection Component successfully 1`] = `
+<View
+  className="mt-3 mb-8"
+>
+  <View
+    testID="section-header"
+  >
+    <Text
+      testID="section-title"
+    >
+      News
+    </Text>
+  </View>
+  <View
+    data-news-count={2}
+    testID="home-slider"
+  />
+</View>
+`;

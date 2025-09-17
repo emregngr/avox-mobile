@@ -1,0 +1,283 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirportHeader Component Snapshot should render the AirportHeader Component successfully 1`] = `
+<View
+  className="bg-europe"
+>
+  <View
+    className="p-4 gap-y-4"
+  >
+    <View
+      className="flex-row items-center bg-background-primary py-3 rounded-xl overflow-hidden"
+    >
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          iata
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          TA
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          icao
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          TST
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          className="uppercase"
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          ctry
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          TR
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          className="uppercase"
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          reg
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          TR-34
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          className="uppercase"
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          cont
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          Europe
+        </Text>
+      </View>
+    </View>
+    <View
+      className="flex-row items-center px-5 py-3 rounded-xl overflow-hidden bg-background-primary"
+    >
+      <View
+        color="#000000"
+        name="map-marker-outline"
+        size={16}
+        testID="mocked-material-community-icon"
+      />
+      <View
+        className="mx-4"
+      >
+        <Text
+          color="text-100"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body2"
+        >
+          123 Test St, Test City
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`AirportHeader Component Snapshot should render the AirportHeader Component with missing address data successfully 1`] = `
+<View
+  className="bg-north america"
+>
+  <View
+    className="p-4 gap-y-4"
+  >
+    <View
+      className="flex-row items-center bg-background-primary py-3 rounded-xl overflow-hidden"
+    >
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          iata
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          NA
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          icao
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          NAA
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          className="uppercase"
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          ctry
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          US
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          className="uppercase"
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          reg
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          US-CA
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          className="uppercase"
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          cont
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          North America
+        </Text>
+      </View>
+    </View>
+    <View
+      className="flex-row items-center px-5 py-3 rounded-xl overflow-hidden bg-background-primary"
+    >
+      <View
+        color="#000000"
+        name="map-marker-outline"
+        size={16}
+        testID="mocked-material-community-icon"
+      />
+      <View
+        className="mx-4"
+      >
+        <Text
+          color="text-100"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body2"
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;

@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ThemedTab Component Snapshot should render the ThemedTab Component successfully 1`] = `
+[
+  <View
+    className="absolute bottom-0 left-0 right-0 z-10"
+    intensity={30}
+    style={
+      {
+        "backgroundColor": "#FFFFFFCC",
+        "height": 60,
+      }
+    }
+    testID="mocked-blur-view"
+    tint="light"
+  />,
+  <View
+    className="absolute bottom-0 left-0 right-0 bg-transparent z-50"
+    style={
+      {
+        "paddingBottom": 0,
+      }
+    }
+  >
+    <View
+      className="flex-row justify-around"
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessible={true}
+        className="w-[75px] py-2 justify-center items-center"
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        testID="home-tab"
+      >
+        <View
+          color="#000000"
+          name="home"
+          size={24}
+          testID="mocked-material-community-icon"
+        />
+        <Text
+          className="mt-1"
+          testID="themed-text-text-100-tabBar"
+        >
+          home
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessible={true}
+        className="w-[75px] py-2 justify-center items-center"
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        testID="discover-tab"
+      >
+        <View
+          color="#000000B2"
+          name="magnify"
+          size={24}
+          testID="mocked-material-community-icon"
+        />
+        <Text
+          className="mt-1"
+          testID="themed-text-text-70-tabBar"
+        >
+          discover
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessible={true}
+        className="w-[75px] py-2 justify-center items-center"
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        testID="favorites-tab"
+      >
+        <View
+          color="#000000B2"
+          name="star-outline"
+          size={24}
+          testID="mocked-material-community-icon"
+        />
+        <Text
+          className="mt-1"
+          testID="themed-text-text-70-tabBar"
+        >
+          favorites
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessible={true}
+        className="w-[75px] py-2 justify-center items-center"
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        testID="profile-tab"
+      >
+        <View
+          color="#000000B2"
+          name="account-outline"
+          size={24}
+          testID="mocked-material-community-icon"
+        />
+        <Text
+          className="mt-1"
+          testID="themed-text-text-70-tabBar"
+        >
+          profile
+        </Text>
+      </View>
+    </View>
+  </View>,
+]
+`;

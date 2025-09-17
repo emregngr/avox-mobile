@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SectionScroll Component Snapshot should render the SectionScroll Component successfully 1`] = `
+<View
+  className="mb-8"
+>
+  <View>
+    <Text>
+      SectionScroll
+    </Text>
+  </View>
+  <RCTScrollView
+    className=""
+    contentContainerClassName="px-4"
+    data={
+      [
+        {
+          "id": "1",
+          "name": "Product 1",
+        },
+        {
+          "id": "2",
+          "name": "Product 2",
+        },
+        {
+          "id": "3",
+          "name": "Product 3",
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={true}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={16}
+    showsHorizontalScrollIndicator={false}
+    showsVerticalScrollIndicator={false}
+    stickyHeaderIndices={[]}
+    updateCellsBatchingPeriod={150}
+    viewabilityConfigCallbackPairs={[]}
+    windowSize={7}
+  >
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          className="mr-4"
+        />
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          className="mr-4"
+        />
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        onLayout={[Function]}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          className=""
+        />
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

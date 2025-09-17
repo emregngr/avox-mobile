@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FleetStats Component Snapshot should render the FleetStats Component successfully 1`] = `
+<View
+  className="flex-row p-4 rounded-xl overflow-hidden bg-background-secondary"
+>
+  <View
+    className="flex-1 items-center"
+  >
+    <Text
+      className="mb-1"
+      color="text-100"
+      type="h1"
+    >
+      150
+    </Text>
+    <Text
+      center={true}
+      color="text-90"
+      lineBreakMode="tail"
+      numberOfLines={2}
+      type="body3"
+    >
+      Total Aircraft
+    </Text>
+  </View>
+  <View
+    className="w-px h-12 bg-background-tertiary"
+  />
+  <View
+    className="flex-1 items-center"
+  >
+    <Text
+      className="mb-1"
+      color="text-100"
+      type="h1"
+    >
+      12.5
+    </Text>
+    <Text
+      center={true}
+      color="text-90"
+      lineBreakMode="tail"
+      numberOfLines={2}
+      type="body3"
+    >
+      Average Age
+    </Text>
+  </View>
+  <View
+    className="w-px h-12 bg-background-tertiary"
+  />
+  <View
+    className="flex-1 items-center"
+  >
+    <Text
+      className="mb-1"
+      color="text-100"
+      type="h1"
+    >
+      8
+    </Text>
+    <Text
+      center={true}
+      color="text-90"
+      lineBreakMode="tail"
+      numberOfLines={2}
+      type="body3"
+    >
+      Aircraft Types
+    </Text>
+  </View>
+</View>
+`;

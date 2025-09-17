@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DestinationCard Component Snapshot should render the DestinationCard Component successfully 1`] = `
+<View
+  className="w-36 mb-4 bg-background-secondary rounded-xl border border-background-quaternary shadow shadow-background-quaternary"
+>
+  <View
+    className="bg-background-primary rounded-xl overflow-hidden relative px-2 border-b border-background-quaternary w-full h-44 justify-center"
+  >
+    <Text
+      center={true}
+      className="mx-2"
+      color="tertiary-100"
+      type="h4"
+    >
+      IST → JFK
+    </Text>
+    <View
+      className="bg-primary-100 px-2 py-1 rounded-xl overflow-hidden absolute bottom-2 left-2"
+    >
+      <Text
+        color="text-100"
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        type="button2"
+      >
+        International
+      </Text>
+    </View>
+  </View>
+  <View
+    className="px-3 py-3"
+  >
+    <View
+      className="h-32 justify-between"
+    >
+      <Text
+        className="mb-2"
+        color="text-100"
+        ellipsizeMode="tail"
+        numberOfLines={2}
+        type="body3"
+      >
+        Türkiye
+      </Text>
+      <View
+        className="absolute bottom-10"
+      >
+        <Text
+          color="text-70"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          Flights per year
+        </Text>
+        <Text
+          color="text-90"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body3"
+        >
+          678
+        </Text>
+      </View>
+      <View
+        className="absolute bottom-0"
+      >
+        <Text
+          color="text-70"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          Distance
+        </Text>
+        <Text
+          color="text-90"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body3"
+        >
+          12.345 km
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`DestinationCard should render the DestinationCard successfully 1`] = `
+<View
+  className="w-36 mb-4 bg-background-secondary rounded-xl border border-background-quaternary shadow shadow-background-quaternary"
+>
+  <View
+    className="bg-background-primary rounded-xl overflow-hidden relative px-2 border-b border-background-quaternary w-full h-44 justify-center"
+  >
+    <Text
+      center={true}
+      className="mx-2"
+      color="tertiary-100"
+      type="h4"
+    >
+      IST → JFK
+    </Text>
+    <View
+      className="bg-primary-100 px-2 py-1 rounded-xl overflow-hidden absolute bottom-2 left-2"
+    >
+      <Text
+        color="text-100"
+        ellipsizeMode="tail"
+        numberOfLines={1}
+        type="button2"
+      >
+        International
+      </Text>
+    </View>
+  </View>
+  <View
+    className="px-3 py-3"
+  >
+    <View
+      className="h-32 justify-between"
+    >
+      <Text
+        className="mb-2"
+        color="text-100"
+        ellipsizeMode="tail"
+        numberOfLines={2}
+        type="body3"
+      >
+        Türkiye
+      </Text>
+      <View
+        className="absolute bottom-10"
+      >
+        <Text
+          color="text-70"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          Flights per year
+        </Text>
+        <Text
+          color="text-90"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body3"
+        >
+          678
+        </Text>
+      </View>
+      <View
+        className="absolute bottom-0"
+      >
+        <Text
+          color="text-70"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          Distance
+        </Text>
+        <Text
+          color="text-90"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body3"
+        >
+          12.345 km
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

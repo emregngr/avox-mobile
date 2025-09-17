@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Company Component Snapshot should render the Company Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+  title="Airline Information"
+>
+  <Text
+    testID="row-item-calendar-month-outline"
+  >
+    Year of Establishment
+    : 
+    1933 (92 years)
+  </Text>
+  <Text
+    testID="row-item-domain"
+  >
+    Parent Company
+    : 
+    Turkish Airlines Group
+  </Text>
+  <Text
+    testID="row-item-account-group-outline"
+  >
+    Number of Passengers
+    : 
+    80.2 million/year
+  </Text>
+  <Text
+    testID="row-item-account-group-outline"
+  >
+    Number of Employees
+    : 
+    45,000
+  </Text>
+  <Text
+    testID="row-item-briefcase-outline"
+  >
+    Business Model
+    : 
+    Passenger
+  </Text>
+  <Text
+    testID="row-item-airplane"
+  >
+    Business Type
+    : 
+    Major International
+  </Text>
+  <Text
+    testID="row-item-flag-outline"
+  >
+    ISO Country Code
+    : 
+    TR
+  </Text>
+  <Text
+    testID="row-item-map-marker-outline"
+  >
+    ISO Region Code
+    : 
+    EU
+  </Text>
+  <Text
+    testID="row-item-star-outline"
+  >
+    Skytrax Rating
+    : 
+    4.2 / 5
+  </Text>
+  <Text
+    testID="row-item-chat-outline"
+  >
+    Slogan
+    : 
+    Widen Your World
+  </Text>
+</View>
+`;

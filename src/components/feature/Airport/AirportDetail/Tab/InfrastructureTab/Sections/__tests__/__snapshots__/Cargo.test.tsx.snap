@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Cargo Component Snapshot should render the Cargo Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+>
+  <View
+    testID="mocked-row-item-cube"
+  />
+  <View
+    testID="mocked-row-item-cube-outline"
+  />
+  <View
+    testID="mocked-row-item-snowflake"
+  />
+  <View
+    testID="mocked-row-item-alert-outline"
+  />
+</View>
+`;

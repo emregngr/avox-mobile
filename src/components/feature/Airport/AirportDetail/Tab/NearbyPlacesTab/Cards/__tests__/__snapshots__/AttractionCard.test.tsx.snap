@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AttractionCard Component Snapshot should render the AttractionCard Component successfully 1`] = `
+<View
+  className="p-4 rounded-xl overflow-hidden flex-row justify-between items-center bg-background-secondary"
+>
+  <View
+    className="w-[70px] h-[80px] items-center justify-between"
+  >
+    <View
+      className="w-10 h-10 rounded-full overflow-hidden bg-background-tertiary items-center justify-center"
+    >
+      <View
+        color="#000000"
+        name="map-marker-outline"
+        size={24}
+        testID="mocked-material-community-icon"
+      />
+    </View>
+    <View
+      className="px-2.5 py-1 rounded-xl overflow-hidden flex-row items-center bg-background-tertiary"
+    >
+      <View
+        color="#000000"
+        name="car-outline"
+        size={14}
+        testID="mocked-material-community-icon"
+      />
+      <Text
+        className="ml-1"
+        color="text-90"
+        type="body3"
+      >
+        2.5 km
+      </Text>
+    </View>
+  </View>
+  <View
+    className="flex-1 ml-4"
+  >
+    <Text
+      className="mb-2"
+      color="text-100"
+      ellipsizeMode="tail"
+      numberOfLines={1}
+      type="body1"
+    >
+      Sultanahmet Square
+    </Text>
+    <Text
+      className="mb-2"
+      color="text-70"
+      ellipsizeMode="tail"
+      numberOfLines={5}
+      type="body2"
+    >
+      A historic square in Istanbul with many famous landmarks.
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      hitSlop={20}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <View
+        color="#000000"
+        name="map-marker-outline"
+        size={14}
+        testID="mocked-material-community-icon"
+      />
+      <Text
+        className="ml-1"
+        color="text-90"
+        type="body3"
+      >
+        Get Directions
+      </Text>
+    </View>
+  </View>
+</View>
+`;

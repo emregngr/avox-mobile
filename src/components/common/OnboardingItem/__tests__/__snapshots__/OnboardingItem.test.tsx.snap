@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`OnboardingItem Component Snapshot should render the OnboardingItem Component successfully 1`] = `
+<View
+  className="w-screen h-screen bg-background-primary"
+>
+  <View
+    cachePolicy="memory-disk"
+    contentFit="contain"
+    source="https://example.com/image.png"
+    style={
+      {
+        "height": "45%",
+        "marginVertical": 20,
+        "width": "100%",
+      }
+    }
+    testID="mocked-image"
+    transition={0}
+  />
+  <View
+    className="mx-4 z-10"
+  >
+    <Text
+      allowFontScaling={false}
+      className="text-[24px] leading-[29px] font-inter-bold text-text-100 mb-4"
+      lineBreakMode="tail"
+      maxFontSizeMultiplier={1}
+      numberOfLines={2}
+    >
+      Welcome to the App
+    </Text>
+    <Text
+      allowFontScaling={false}
+      className="text-[18px] leading-[21px] font-inter-semibold text-text-100"
+      lineBreakMode="tail"
+      maxFontSizeMultiplier={1}
+      numberOfLines={4}
+    >
+      This is the onboarding description text
+    </Text>
+  </View>
+</View>
+`;

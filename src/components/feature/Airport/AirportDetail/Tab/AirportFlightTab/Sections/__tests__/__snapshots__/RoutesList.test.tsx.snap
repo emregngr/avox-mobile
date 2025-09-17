@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`RoutesList Component Snapshot should render the RoutesList Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+  title="Popular Routes"
+>
+  <View
+    testID="mocked-route-card"
+  />
+  <View
+    testID="mocked-route-card"
+  />
+</View>
+`;

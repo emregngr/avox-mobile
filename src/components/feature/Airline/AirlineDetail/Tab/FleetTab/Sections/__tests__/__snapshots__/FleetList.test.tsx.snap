@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FleetList Component Snapshot should render the FleetList Component successfully 1`] = `
+<RCTScrollView
+  data={
+    [
+      {
+        "id": "1",
+        "registration": "TC-JHM",
+        "type": "B737-800",
+      },
+      {
+        "id": "2",
+        "registration": "TC-JPT",
+        "type": "A320-200",
+      },
+      {
+        "id": "3",
+        "registration": "TC-LJA",
+        "type": "B777-300ER",
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  getItemLayout={[Function]}
+  initialNumToRender={4}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={3}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={true}
+  renderItem={[Function]}
+  scrollEventThrottle={16}
+  showsVerticalScrollIndicator={false}
+  stickyHeaderIndices={[]}
+  testID="fleet-list"
+  updateCellsBatchingPeriod={150}
+  viewabilityConfigCallbackPairs={[]}
+  windowSize={7}
+>
+  <View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        testID="airplane-row-B737-800"
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          testID="airplane-image-B737-800"
+        >
+          <Text>
+            B737-800
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        testID="airplane-row-A320-200"
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          testID="airplane-image-A320-200"
+        >
+          <Text>
+            A320-200
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        testID="airplane-row-B777-300ER"
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          testID="airplane-image-B777-300ER"
+        >
+          <Text>
+            B777-300ER
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

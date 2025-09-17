@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SettingsPrivacyPolicy Screen Snapshot should render the SettingsPrivacyPolicy Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  >
+    Privacy Policy
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    indicatorStyle="black"
+  >
+    <View>
+      <Text
+        testID="themed-text-body1-text-100"
+      >
+        Privacy Policy
+          
+This privacy policy explains how the application collects, uses, and protects your personal data.
+          
+1. Information Collected
+          
+Information we collect directly from you:
+- First and last name
+- Email address
+- Phone number
+- Date of birth
+- Profile photo
+- Account preferences
+
+Information collected automatically:
+- Device information (model, operating system)
+- IP address
+- Usage statistics
+- Application performance data
+- Location information (when you give permission)
+          
+2. Use of Information
+          
+We use the information we collect for the following purposes:
+- To create and manage your account
+- To provide and improve our services
+- To provide you with personalized content and recommendations
+- To ensure security and prevent fraud
+- To fulfill our legal obligations
+- To communicate with you and provide support
+          
+3. Information Sharing
+          
+We do not share your personal information with third parties except in the following circumstances:
+          
+- When we have your explicit consent
+- When required by law
+- With our service providers (such as data processing and hosting providers)
+- In the event of a merger or acquisition of the company
+          
+4. Data Security
+          
+We take the following measures to protect your personal data:
+          
+- Encryption technologies
+- Secure server infrastructure
+- Regular security assessments
+- Employee privacy training
+- Data access restrictions
+          
+5. User Rights
+          
+Under the KVKK, you have the following rights:
+- Right to access your data
+- Right to request correction
+- Right to request deletion
+- Right to restrict processing
+- Right to data portability
+- Right to object
+          
+6. Cookies and Tracking
+          
+Our application uses cookies and similar technologies for the following purposes:
+- Session management
+- Remembering your preferences
+- Usage analysis
+- Performance improvement
+          
+7. Children's Privacy
+          
+Our services are not intended for children under the age of 13. We do not knowingly collect personal information from children under the age of 13.
+          
+8. International Data Transfer
+          
+Your data may be stored and processed on secure servers in Turkey and/or EU countries. All data transfers are carried out in accordance with applicable data protection laws.
+          
+9. Advertising and Marketing
+          
+We always obtain your consent for marketing communications. You may opt out of these communications at any time.
+          
+10. Changes
+          
+We may update this privacy policy from time to time. We will notify you of any significant changes..
+          
+11. Contact
+          
+For questions about our privacy policy:
+Email: avox.aviation@gmail.com
+Phone: +90 xxx xxx xx xx
+Address: Istanbul, Turkey
+          
+12. Legal Basis
+          
+This privacy policy has been prepared in accordance with the Personal Data Protection Law No. 6698 (KVKK) and related legislation.
+      </Text>
+    </View>
+  </RCTScrollView>
+</View>
+`;

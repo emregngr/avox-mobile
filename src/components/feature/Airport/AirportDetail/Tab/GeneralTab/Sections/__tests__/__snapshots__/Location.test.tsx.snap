@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Location Component Snapshot should render the Location Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+>
+  <View
+    testID="mocked-row-item-city-variant-outline"
+  />
+  <View
+    testID="mocked-row-item-earth"
+  />
+  <View
+    testID="mocked-row-item-elevation-rise"
+  />
+</View>
+`;

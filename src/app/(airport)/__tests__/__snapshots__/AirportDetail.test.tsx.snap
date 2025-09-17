@@ -1,0 +1,352 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirportDetail Screen Snapshot should render the AirportDetail Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  >
+    Honiara International Airport
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="share-button"
+  >
+    <Text>
+      Share
+    </Text>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="favorite-button"
+  >
+    <Text>
+      Favorite
+    </Text>
+  </View>
+  <RCTScrollView
+    contentContainerClassName="flex-1"
+    showsVerticalScrollIndicator={false}
+  >
+    <View>
+      <View
+        airportData={
+          {
+            "airportInfo": {
+              "contactInfo": {
+                "email": "info@honiara-international-airport.com",
+                "phone": "+677-123-4567",
+              },
+              "employeeCount": 250,
+              "foundingYear": "1942",
+              "socialMedia": {
+                "instagram": "",
+                "linkedin": "https://www.linkedin.com/company/honiara-international-airport",
+                "tiktok": "",
+                "x": "https://x.com/honiaraairport",
+              },
+              "website": "www.honiara-international-airport.com",
+            },
+            "cargo": {
+              "annualCargoTonnes": 25000,
+              "coldStorage": true,
+              "dangerousGoods": true,
+              "terminalCapacityTonnes": 300,
+            },
+            "facilities": {
+              "checkinTimeAvg": 20,
+              "freeWifi": false,
+              "googleMapsRating": 3.8,
+              "hasMetro": false,
+              "loungeCount": 1,
+              "parkingCapacityVehicles": 200,
+              "securityQueueTime": 5,
+              "services": [
+                "check-in counters",
+                "small duty-free shop",
+                "basic dining options",
+                "lost and found",
+              ],
+            },
+            "flightOperations": {
+              "airlines": [
+                "All Nippon Airways",
+                "Japan Airlines",
+                "Jetstar Japan",
+              ],
+              "destinationCount": 4,
+              "destinationCountries": 4,
+              "domesticConnections": 1,
+              "internationalConnections": 3,
+              "routes": [
+                {
+                  "destinationIata": "HND",
+                  "frequency": "2x daily",
+                },
+                {
+                  "destinationIata": "CTS",
+                  "frequency": "daily",
+                },
+                {
+                  "destinationIata": "ITM",
+                  "frequency": "3x weekly",
+                },
+              ],
+            },
+            "iataCode": "HIR",
+            "icaoCode": "AGGH",
+            "id": "1",
+            "image": "",
+            "infrastructure": {
+              "airportAreaHectares": 280,
+              "apronCount": 3,
+              "baggageCapacity": 80,
+              "fireCategory": "Cat 5",
+              "passengerCapacity": 0.5,
+              "runwayCount": 1,
+              "runways": {
+                "ilsCategory": "CAT I",
+                "lengthM": 2200,
+                "pcn": "25/F/B/X/T",
+                "surface": "Asphalt",
+              },
+              "terminalAreaHectares": 0.5,
+              "terminalCount": 1,
+              "towerHeightM": 20,
+            },
+            "isoCountry": "SB",
+            "isoRegion": "SB-GU",
+            "name": "Honiara International Airport",
+            "nearbyAttractions": [
+              {
+                "attractionCoordinates": {
+                  "attractionLatitude": -9.4353,
+                  "attractionLongitude": 159.9556,
+                },
+                "attractionId": "1",
+                "attractionName": "Honiara Central Market",
+                "description": "A vibrant market offering fresh produce, crafts, and local delicacies, perfect for experiencing Solomon Islands' culture.",
+                "distanceKm": 10,
+              },
+              {
+                "attractionCoordinates": {
+                  "attractionLatitude": -9.3889,
+                  "attractionLongitude": 159.8667,
+                },
+                "attractionId": "2",
+                "attractionName": "Bonegi Beach",
+                "description": "Famous for WWII shipwrecks, this beach is a hotspot for diving and history enthusiasts.",
+                "distanceKm": 20,
+              },
+              {
+                "attractionCoordinates": {
+                  "attractionLatitude": -9.4333,
+                  "attractionLongitude": 159.9578,
+                },
+                "attractionId": "3",
+                "attractionName": "National Museum of Solomon Islands",
+                "description": "Showcases the history and culture of the Solomon Islands with artifacts and traditional art displays.",
+                "distanceKm": 10,
+              },
+              {
+                "attractionCoordinates": {
+                  "attractionLatitude": -9.4333,
+                  "attractionLongitude": 159.9544,
+                },
+                "attractionId": "4",
+                "attractionName": "Point Cruz",
+                "description": "A central hub in Honiara with a yacht harbor and nearby cafes, ideal for a relaxing stroll.",
+                "distanceKm": 11,
+              },
+              {
+                "attractionCoordinates": {
+                  "attractionLatitude": -9.4167,
+                  "attractionLongitude": 160.0667,
+                },
+                "attractionId": "5",
+                "attractionName": "Tenaru Falls",
+                "description": "A serene waterfall offering hiking and swimming opportunities in a peaceful natural setting.",
+                "distanceKm": 2,
+              },
+              {
+                "attractionCoordinates": {
+                  "attractionLatitude": -9.4333,
+                  "attractionLongitude": 159.9589,
+                },
+                "attractionId": "6",
+                "attractionName": "Botanical Gardens",
+                "description": "A tranquil oasis with tropical plants and walking paths, perfect for nature lovers.",
+                "distanceKm": 10,
+              },
+              {
+                "attractionCoordinates": {
+                  "attractionLatitude": -9.4167,
+                  "attractionLongitude": 159.9667,
+                },
+                "attractionId": "7",
+                "attractionName": "Mataniko Falls",
+                "description": "A stunning waterfall ideal for hiking and photography, surrounded by lush greenery.",
+                "distanceKm": 9,
+              },
+              {
+                "attractionCoordinates": {
+                  "attractionLatitude": -9.4344,
+                  "attractionLongitude": 159.9578,
+                },
+                "attractionId": "8",
+                "attractionName": "Honiara War Memorial",
+                "description": "A tribute to WWII history, offering a reflective space with views of Honiara's coastline.",
+                "distanceKm": 10,
+              },
+              {
+                "attractionCoordinates": {
+                  "attractionLatitude": -9.435,
+                  "attractionLongitude": 159.957,
+                },
+                "attractionId": "9",
+                "attractionName": "Holy Cross Cathedral",
+                "description": "A prominent landmark in Honiara, known for its striking architecture and spiritual significance.",
+                "distanceKm": 10,
+              },
+              {
+                "attractionCoordinates": {
+                  "attractionLatitude": -9.1,
+                  "attractionLongitude": 160.15,
+                },
+                "attractionId": "10",
+                "attractionName": "Tulagi Island",
+                "description": "A historic island with WWII relics and diving spots, accessible by boat from Honiara.",
+                "distanceKm": 37,
+              },
+            ],
+            "operations": {
+              "airportType": "small_airport",
+              "country": "Solomon Islands",
+              "is24Hour": true,
+              "location": {
+                "address": "Honiara, Solomon Islands",
+                "city": "Honiara",
+                "coordinates": {
+                  "latitude": -9.428,
+                  "longitude": 160.054993,
+                },
+                "elevationFt": 28,
+              },
+              "region": "OC",
+              "scheduledService": true,
+            },
+            "safety": {
+              "certifications": [
+                "ICAO Annex 17",
+              ],
+            },
+          }
+        }
+        testID="airport-header"
+      />
+    </View>
+  </RCTScrollView>
+</View>
+`;

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SwitchFilter should match snapshot 1`] = `
+<View
+  className="mb-6 flex-row items-center justify-between"
+>
+  <Text
+    className="mb-3"
+    color="text-100"
+    type="h3"
+  >
+    Enable Test Filter
+  </Text>
+  <RCTSwitch
+    accessibilityRole="switch"
+    onChange={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    onTintColor="#B3D9FF"
+    style={
+      [
+        {
+          "alignSelf": "flex-start",
+        },
+        {
+          "backgroundColor": "#D1D1D6",
+          "borderRadius": 16,
+        },
+      ]
+    }
+    thumbTintColor="#000000"
+    tintColor="#D1D1D6"
+    value={false}
+  />
+</View>
+`;

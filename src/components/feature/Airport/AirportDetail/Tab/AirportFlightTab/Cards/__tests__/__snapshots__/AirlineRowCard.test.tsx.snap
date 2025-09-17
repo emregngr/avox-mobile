@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirlineRowCard Component Snapshot should render the AirlineRowCard Component successfully 1`] = `
+<View
+  className="flex-row items-center py-2"
+>
+  <View
+    color="#E63946"
+    name="airplane"
+    size={20}
+    testID="mocked-material-community-icon"
+  />
+  <Text
+    className="ml-3"
+    color="text-90"
+    type="body2"
+  >
+    Turkish Airlines
+  </Text>
+</View>
+`;

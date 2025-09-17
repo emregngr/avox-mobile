@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`StatsCard Component Snapshot should render the StatsCard Component successfully 1`] = `
+<View
+  className="flex-1 p-4 rounded-xl overflow-hidden items-center bg-background-secondary"
+>
+  <View
+    color="#4CAF50"
+    name="airplane-takeoff"
+    size={28}
+    testID="mocked-material-community-icon"
+  />
+  <Text
+    className="my-2"
+    color="text-100"
+    type="h1"
+  >
+    150
+  </Text>
+  <Text
+    center={true}
+    color="text-90"
+    type="body3"
+  >
+    Total Destinations
+  </Text>
+</View>
+`;

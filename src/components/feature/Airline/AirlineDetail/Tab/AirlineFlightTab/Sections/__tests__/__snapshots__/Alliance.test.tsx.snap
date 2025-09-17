@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Alliance Component Snapshot should render the Alliance Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+  title="Global Alliance"
+>
+  <View
+    className="items-center my-5"
+  >
+    <View
+      color="#0033A0"
+      name="shield"
+      size={40}
+      testID="mocked-material-community-icon"
+    />
+    <Text
+      className="mt-2.5"
+      color="text-90"
+      type="h4"
+    >
+      Star Alliance
+    </Text>
+  </View>
+</View>
+`;

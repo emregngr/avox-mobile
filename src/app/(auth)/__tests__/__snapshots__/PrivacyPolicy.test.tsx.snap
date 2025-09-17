@@ -1,0 +1,214 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`PrivacyPolicy Screen Snapshot should render the PrivacyPolicy successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  >
+    privacyPolicy
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 76,
+        "paddingTop": 64,
+      }
+    }
+    indicatorStyle="black"
+  >
+    <View>
+      <Text
+        color="text-100"
+        type="body1"
+      >
+        Gizlilik Politikası
+          
+Bu gizlilik politikası, uygulamanın kişisel verilerinizi nasıl topladığını,kullandığını ve koruduğunu açıklamaktadır.
+          
+1. Toplanan Bilgiler
+          
+Sizden doğrudan topladığımız bilgiler:
+
+- Ad ve soyadı
+- E-posta adresi
+- Telefon numarası
+- Doğum tarihi
+- Profil fotoğrafı
+- Hesap tercihleri
+
+Otomatik olarak toplanan bilgiler:
+
+- Cihaz bilgileri (model, işletim sistemi)
+- IP adresi
+- Kullanım istatistikleri
+- Uygulama performans verileri
+- Konum bilgileri (izin verdiğinizde)
+          
+2. Bilgilerin Kullanımı
+          
+Topladığımız bilgileri aşağıdaki amaçlarla kullanıyoruz:
+- Hesabınızı oluşturmak ve yönetmek
+- Hizmetlerimizi sunmak ve geliştirmek
+- Size özelleştirilmiş içerik ve öneriler sunmak
+- Güvenliği sağlamak ve dolandırıcılığı önlemek
+- Yasal yükümlülüklerimizi yerine getirmek
+- Sizinle iletişim kurmak ve destek sağlamak
+          
+3. Bilgi Paylaşımı
+          
+Kişisel bilgilerinizi aşağıdaki durumlar dışında üçüncü taraflarla paylaşmıyoruz:
+          
+- Açık rızanız olduğunda
+- Yasal zorunluluk durumunda
+- Hizmet sağlayıcılarımızla (veri işleme, hosting gibi)
+- Şirket birleşmesi veya satın alma durumunda
+          
+4. Veri Güvenliği
+          
+Kişisel verilerinizi korumak için aşağıdaki önlemleri alıyoruz:
+          
+- Şifreleme teknolojileri
+- Güvenli sunucu altyapısı
+- Düzenli güvenlik değerlendirmeleri
+- Çalışan gizlilik eğitimleri
+- Veri erişim sınırlamaları
+          
+5. Kullanıcı Hakları
+          
+KVKK kapsamında aşağıdaki haklara sahipsiniz:
+- Verilerinize erişim hakkı
+- Düzeltme talep etme hakkı
+- Silme talep etme hakkı
+- İşlemeyi sınırlandırma hakkı
+- Veri taşınabilirliği hakkı
+- İtiraz etme hakkı
+          
+6. Çerezler ve İzleme
+          
+Uygulamamız çerezleri ve benzer teknolojileri aşağıdaki amaçlarla kullanır:
+- Oturum yönetimi
+- Tercihlerinizi hatırlama
+- Kullanım analizi
+- Performans iyileştirme
+          
+7. Çocukların Gizliliği
+          
+Hizmetlerimiz 13 yaşından küçük çocuklara yönelik değildir. Bilerek 13 yaşından küçük çocuklardan kişisel bilgi toplamıyoruz.
+          
+8. Uluslararası Veri Transferi
+          
+Verileriniz güvenli sunucularda, Türkiye'de ve/veya AB ülkelerinde saklanabilir ve işlenebilir. Tüm veri transferleri ilgili veri koruma yasalarına uygun olarak gerçekleştirilir.
+          
+9. Reklam ve Pazarlama
+          
+Pazarlama iletişimleri için her zaman izninizi alırız. İstediğiniz zaman bu iletişimleri durdurabilirsiniz.
+          
+10. Değişiklikler
+          
+Bu gizlilik politikasını zaman zaman güncelleyebiliriz. Önemli değişikliklerde sizi bilgilendireceğiz.
+          
+11. İletişim
+          
+Gizlilik politikamız hakkında sorularınız için:
+E-posta: avox.aviation@gmail.com
+Telefon: +90 xxx xxx xx xx
+Adres: İstanbul, Türkiye
+          
+12. Yasal Dayanak
+          
+Bu gizlilik politikası, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ve ilgili mevzuat uyarınca hazırlanmıştır.
+      </Text>
+    </View>
+  </RCTScrollView>
+  <View
+    className="mx-4 absolute bottom-0 left-0 right-0 bg-transparent z-50"
+    style={
+      {
+        "paddingBottom": 0,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="update-button"
+    >
+      <Text>
+        accept
+      </Text>
+    </View>
+  </View>
+</View>
+`;

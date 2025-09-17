@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SafetyEnvTab Component Snapshot should render the SafetyEnvTab Component successfully 1`] = `
+<View
+  className="px-4 gap-y-4"
+>
+  <View
+    testID="safety-component"
+  >
+    <Text
+      testID="safety-title"
+    >
+      Safety Information
+    </Text>
+    <Text
+      testID="certifications-title"
+    >
+      Certifications
+    </Text>
+    <Text
+      testID="safety-record-title"
+    >
+      Safety Record
+    </Text>
+  </View>
+  <View
+    testID="environmental-component"
+  >
+    <Text
+      testID="environmental-title"
+    >
+      Environmental Policy
+    </Text>
+    <Text
+      testID="environmental-subtitle"
+    >
+      Environmental Responsibility
+    </Text>
+  </View>
+</View>
+`;

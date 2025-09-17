@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirlinesList Component Snapshot should render the AirlinesList Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+  title="Operating Airlines"
+>
+  <View
+    testID="mocked-airline-card"
+  />
+  <View
+    testID="mocked-airline-card"
+  />
+  <View
+    testID="mocked-airline-card"
+  />
+</View>
+`;

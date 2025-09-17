@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`HomeAirportCard Component Snapshot should render the HomeAirportCard Component successfully 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  hitSlop={20}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "opacity": 1,
+    }
+  }
+>
+  <View
+    className="rounded-t-xl w-full justify-center overflow-hidden"
+  >
+    <View
+      cachePolicy="memory-disk"
+      contentFit="cover"
+      source="https://res.cloudinary.com/dzkssh0tp/image/upload/v1758030477/IST_vy5oim.jpg"
+      style={
+        {
+          "height": 130,
+          "width": "100%",
+        }
+      }
+      testID="mocked-image"
+      transition={0}
+    />
+    <View
+      cachePolicy="memory-disk"
+      contentFit="contain"
+      style={
+        {
+          "height": 40,
+          "left": 4,
+          "position": "absolute",
+          "top": 4,
+          "width": 40,
+        }
+      }
+      testID="mocked-image"
+      transition={0}
+    />
+    <View
+      className="bg-primary-100 px-2 py-1 rounded-xl overflow-hidden absolute bottom-2 left-2"
+    >
+      <Text
+        color="text-100"
+        type="button2"
+      >
+        IST
+      </Text>
+    </View>
+    <View
+      className="bg-primary-100 px-2 py-1 rounded-xl overflow-hidden absolute bottom-2 right-2"
+    >
+      <Text
+        color="text-100"
+        type="button2"
+      >
+        LTFM
+      </Text>
+    </View>
+  </View>
+  <View
+    className="px-3 py-3"
+  >
+    <View
+      className="h-28 justify-between"
+    >
+      <Text
+        color="text-100"
+        ellipsizeMode="tail"
+        numberOfLines={2}
+        type="body3"
+      >
+        İstanbul Airport
+      </Text>
+      <Text
+        className="mt-1"
+        color="text-90"
+        ellipsizeMode="tail"
+        numberOfLines={2}
+        type="body3"
+      >
+        Arnavutköy, İstanbul, Turkey, EU
+      </Text>
+    </View>
+  </View>
+</View>
+`;

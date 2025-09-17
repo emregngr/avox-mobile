@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirplaneRowCard Component Snapshot should render the AirplaneRowCard Component successfully 1`] = `
+<View
+  className="mb-4 p-4 rounded-xl overflow-hidden bg-background-secondary"
+>
+  <View
+    className="flex-row items-center mb-4"
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      hitSlop={20}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="airplane-row-card-Boeing 737-800"
+    >
+      <View
+        cachePolicy="memory-disk"
+        contentFit="cover"
+        source={
+          {
+            "uri": "mocked-image-uri",
+          }
+        }
+        style={
+          {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+        testID="mocked-image"
+        transition={0}
+      />
+    </View>
+    <View
+      className="flex-1 ml-3"
+    >
+      <Text
+        className="mb-1"
+        color="text-100"
+        lineBreakMode="tail"
+        numberOfLines={2}
+        type="body1"
+      >
+        Boeing 737-800
+      </Text>
+      <View
+        className="px-2.5 py-1 rounded-xl overflow-hidden self-start mt-1 bg-background-tertiary"
+      >
+        <Text
+          className="capitalize"
+          color="text-90"
+          type="body4"
+        >
+          narrowBody
+        </Text>
+      </View>
+    </View>
+    <View
+      className="px-4 py-2.5 rounded-xl overflow-hidden items-center bg-background-tertiary"
+    >
+      <Text
+        color="text-100"
+        type="h2"
+      >
+        50
+      </Text>
+      <Text
+        color="text-90"
+        type="body4"
+      >
+        count
+      </Text>
+    </View>
+  </View>
+  <View
+    className="flex-row justify-evenly py-3 mb-3"
+  >
+    <View
+      className="flex-row items-center"
+    >
+      <View
+        color="#000000B2"
+        name="speedometer"
+        size={16}
+        testID="mocked-material-community-icon"
+      />
+      <Text
+        className="mx-1"
+        color="text-100"
+        type="body2"
+      >
+        840
+      </Text>
+      <Text
+        color="text-70"
+        type="body2"
+      >
+        kmh
+      </Text>
+    </View>
+    <View
+      className="flex-row items-center"
+    >
+      <View
+        color="#000000B2"
+        name="map-marker-distance"
+        size={16}
+        testID="mocked-material-community-icon"
+      />
+      <Text
+        className="mx-1"
+        color="text-100"
+        type="body2"
+      >
+        5.5
+        k
+      </Text>
+      <Text
+        color="text-70"
+        type="body2"
+      >
+        km
+      </Text>
+    </View>
+    <View
+      className="flex-row items-center"
+    >
+      <View
+        color="#000000B2"
+        name="account-group-outline"
+        size={16}
+        testID="mocked-material-community-icon"
+      />
+      <Text
+        className="mx-1"
+        color="text-100"
+        type="body2"
+      >
+        189
+      </Text>
+      <Text
+        color="text-70"
+        type="body2"
+      >
+        person
+      </Text>
+    </View>
+    <View
+      className="flex-row items-center"
+    >
+      <View
+        color="#000000B2"
+        name="cube-outline"
+        size={16}
+        testID="mocked-material-community-icon"
+      />
+      <Text
+        className="mx-1"
+        color="text-100"
+        type="body2"
+      >
+        20
+      </Text>
+      <Text
+        color="text-70"
+        type="body2"
+      >
+        ton
+      </Text>
+    </View>
+  </View>
+  <View
+    className="h-6 rounded-xl overflow-hidden relative bg-background-tertiary"
+  >
+    <View
+      className="bg-europe h-full rounded-l-xl overflow-hidden"
+      style={
+        {
+          "width": "50%",
+        }
+      }
+    />
+    <View
+      className="absolute inset-0 justify-center items-center z-10"
+    >
+      <Text
+        color="text-100"
+        type="body3"
+      >
+        50
+        %
+      </Text>
+    </View>
+  </View>
+</View>
+`;

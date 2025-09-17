@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`RenderDetailTabBar Component Snapshot should render the RenderDetailTabBar Component successfully 1`] = `
+<View
+  className="self-center"
+>
+  <View
+    indicatorStyle={
+      {
+        "backgroundColor": undefined,
+        "borderRadius": 12,
+        "height": 36,
+        "zIndex": -1,
+      }
+    }
+    navigationState={
+      {
+        "index": 0,
+        "routes": [
+          {
+            "key": "tab1",
+            "title": "Tab 1",
+          },
+          {
+            "key": "tab2",
+            "title": "Tab 2",
+          },
+        ],
+      }
+    }
+    style={
+      {
+        "backgroundColor": "#E5E5EA",
+        "borderRadius": 12,
+        "height": 36,
+        "marginVertical": 16,
+      }
+    }
+    testID="material-tab-bar"
+    width={343}
+  >
+    <View
+      testID="tab-item-component"
+    >
+      <View
+        android_ripple={
+          {
+            "borderless": false,
+            "color": undefined,
+            "radius": 100,
+          }
+        }
+        index={0}
+        name="Test Tab"
+        pressOpacity={1}
+        testID="general-tab"
+      >
+        <View
+          testID="tab-label-container"
+        >
+          <View
+            className="h-[36px] flex-1 justify-center items-center"
+            style={
+              {
+                "width": 85.75,
+              }
+            }
+          >
+            <Text
+              color="text-100"
+              type="body2"
+            >
+              Test Tab
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

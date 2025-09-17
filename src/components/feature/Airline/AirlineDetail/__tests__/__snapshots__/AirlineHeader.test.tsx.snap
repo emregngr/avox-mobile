@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirlineHeader Component Snapshot should render the AirlineHeader Component successfully 1`] = `
+<View
+  className="bg-europe"
+>
+  <View
+    className="p-4 gap-y-4"
+  >
+    <View
+      className="flex-row items-center bg-background-primary py-3 rounded-xl overflow-hidden"
+    >
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          iata
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          TA
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          icao
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          TST
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          continent
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          Europe
+        </Text>
+      </View>
+    </View>
+    <View
+      className="flex-row items-center px-5 py-3 rounded-xl overflow-hidden bg-background-primary"
+    >
+      <View
+        color="#000000"
+        name="home-outline"
+        size={20}
+        testID="mocked-material-community-icon"
+      />
+      <View
+        className="mx-4"
+      >
+        <Text
+          color="text-100"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body1"
+        >
+          Test Hub Airport
+        </Text>
+        <Text
+          color="text-70"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body2"
+        >
+          123 Test St, Test City
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`AirlineHeader Component Snapshot should render the AirlineHeader Component with missing hub data successfully 1`] = `
+<View
+  className="bg-asia"
+>
+  <View
+    className="p-4 gap-y-4"
+  >
+    <View
+      className="flex-row items-center bg-background-primary py-3 rounded-xl overflow-hidden"
+    >
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          iata
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          NH
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          icao
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          NHB
+        </Text>
+      </View>
+      <View
+        className="w-px h-8 bg-background-quaternary"
+      />
+      <View
+        className="flex-1 items-center"
+      >
+        <Text
+          color="text-70"
+          lineBreakMode="tail"
+          numberOfLines={1}
+          type="body4"
+        >
+          continent
+        </Text>
+        <Text
+          color="text-100"
+          type="body1"
+        >
+          Asia
+        </Text>
+      </View>
+    </View>
+    <View
+      className="flex-row items-center px-5 py-3 rounded-xl overflow-hidden bg-background-primary"
+    >
+      <View
+        color="#000000"
+        name="home-outline"
+        size={20}
+        testID="mocked-material-community-icon"
+      />
+      <View
+        className="mx-4"
+      >
+        <Text
+          color="text-100"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body1"
+        />
+        <Text
+          color="text-70"
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          type="body2"
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;

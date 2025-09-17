@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`TextInputField Component Snapshot should render the TextInputField Component successfully 1`] = `
+<View
+  className="w-full"
+>
+  <Text
+    allowFontScaling={false}
+    className="text-[16px] leading-[19px] font-inter-medium text-text-70 my-1.5 mx-1"
+    maxFontSizeMultiplier={1}
+  >
+    Email
+  </Text>
+  <View
+    className="flex-row items-center px-4 rounded-xl overflow-hidden bg-background-tertiary border border-transparent"
+  >
+    <TextInput
+      allowFontScaling={false}
+      autoCapitalize="none"
+      autoComplete="email"
+      autoCorrect={false}
+      className="flex-1 py-3 text-text-100 placeholder:text-text-50 text-[16px] font-inter-medium"
+      clearTextOnFocus={false}
+      editable={true}
+      enablesReturnKeyAutomatically={true}
+      keyboardAppearance="light"
+      keyboardType="default"
+      maxFontSizeMultiplier={1}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
+      placeholder="Enter email"
+      returnKeyType="next"
+      secureTextEntry={false}
+      spellCheck={false}
+      submitBehavior="blurAndSubmit"
+      testID="textinput"
+      textAlignVertical="center"
+      textContentType="emailAddress"
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+</View>
+`;

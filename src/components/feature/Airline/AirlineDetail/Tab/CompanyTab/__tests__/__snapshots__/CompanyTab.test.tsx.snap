@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CompanyTab Component Snapshot should render the CompanyTab Component successfully 1`] = `
+<View
+  className="px-4 gap-y-4"
+>
+  <Text
+    testID="company-section"
+  >
+    Company Section - 
+    Turkish Airlines
+  </Text>
+  <Text
+    testID="contact-section"
+  >
+    Contact Section - 
+    info@turkishairlines.com
+  </Text>
+  <Text
+    testID="social-media-section"
+  >
+    Social Media Section
+  </Text>
+  <Text
+    testID="hub-section"
+  >
+    Hub Section - 
+    2
+  </Text>
+  <Text
+    testID="map-section"
+  >
+    Map Section - 
+    THY
+  </Text>
+</View>
+`;

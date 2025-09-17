@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`WebViewModal Screen Snapshot should render the WebViewModal Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <View
+    className="flex-1 bg-background-primary"
+  >
+    <View
+      className="flex-row items-center justify-between p-4"
+    >
+      <View
+        className="flex-1 mr-4"
+      >
+        <Text
+          color="text-100"
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          type="h3"
+        >
+          Test Web Page
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        hitSlop={20}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+        testID="close-button"
+      >
+        <Close
+          height={24}
+          primaryColor="#D1D1D6"
+          secondaryColor="#000000"
+          width={24}
+        />
+      </View>
+    </View>
+    <View
+      allowsInlineMediaPlayback={true}
+      domStorageEnabled={true}
+      javaScriptEnabled={true}
+      originWhitelist={
+        [
+          "*",
+        ]
+      }
+      scalesPageToFit={true}
+      source={
+        {
+          "uri": "https://www.google.com",
+        }
+      }
+      startInLoadingState={true}
+      style={
+        {
+          "flex": 1,
+        }
+      }
+      testID="mocked-webview"
+      useWebKit={true}
+    />
+  </View>
+</View>
+`;

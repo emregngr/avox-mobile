@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`EmptyFavorite Component Snapshot should render the EmptyFavorite Component successfully 1`] = `
+<View
+  className="flex-1 items-center justify-center mt-[52px] px-4"
+  style={
+    {
+      "marginBottom": 80,
+    }
+  }
+  testID="EmptyFavoriteContainer"
+>
+  <View
+    className="bg-background-secondary p-6 rounded-full overflow-hidden mb-6"
+  >
+    <View
+      color="#000000"
+      name="airplane"
+      size={64}
+      testID="mocked-material-community-icon"
+    />
+  </View>
+  <Text
+    center={true}
+    color="text-100"
+    type="h1"
+  >
+    No favorites yet
+  </Text>
+</View>
+`;

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`GeneralTab Component Snapshot should render the GeneralTab Component successfully 1`] = `
+<View
+  className="px-4 gap-y-4"
+>
+  <Text
+    testID="general-section"
+  >
+    General
+  </Text>
+  <Text
+    testID="services-section"
+  >
+    Services
+  </Text>
+  <Text
+    testID="contact-section"
+  >
+    Contact
+  </Text>
+  <Text
+    testID="social-media-section"
+  >
+    SocialMedia
+  </Text>
+  <Text
+    testID="location-section"
+  >
+    Location
+  </Text>
+  <Text
+    testID="map-section"
+  >
+    Map
+  </Text>
+</View>
+`;

@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirlineDetail Screen Snapshot should render the AirlineDetail Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  >
+    ABX Air
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="share-button"
+  >
+    <Text>
+      Share
+    </Text>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="favorite-button"
+  >
+    <Text>
+      Favorite
+    </Text>
+  </View>
+  <RCTScrollView
+    contentContainerClassName="flex-1"
+    showsVerticalScrollIndicator={false}
+  >
+    <View>
+      <View
+        airlineData={
+          {
+            "companyInfo": {
+              "contactInfo": {
+                "email": "info@abxair.com",
+                "phone": "+1-937-382-5591",
+              },
+              "employeeCount": 500,
+              "foundingYear": "1980",
+              "parentCompany": "Air Transport Services Group",
+              "socialMedia": {
+                "instagram": "",
+                "linkedin": "https://www.linkedin.com/company/abx-air-inc",
+                "tiktok": "",
+                "x": "https://x.com/abxair",
+              },
+              "website": "www.abxair.com",
+            },
+            "environmental": "Uses fuel-efficient freighter airplane, participates in carbon offset programs.",
+            "fleet": {
+              "airplaneTypeCount": 2,
+              "airplanes": [
+                {
+                  "bodyType": "wide_body",
+                  "capacityTons": 40,
+                  "count": 9,
+                  "rangeKm": 12000,
+                  "speedKmh": 956,
+                  "type": "Boeing 767-200F",
+                },
+                {
+                  "bodyType": "wide_body",
+                  "capacityTons": 52,
+                  "count": 18,
+                  "rangeKm": 11000,
+                  "speedKmh": 956,
+                  "type": "Boeing 767-300F",
+                },
+              ],
+              "averageAgeYears": 25.5,
+              "totalAirplane": 27,
+            },
+            "iataCode": "GB",
+            "icaoCode": "ABX",
+            "id": "1",
+            "isoCountry": "US",
+            "isoRegion": "US-OH",
+            "logo": "",
+            "name": "ABX Air",
+            "network": {
+              "destinationCount": 25,
+              "destinationCountries": 5,
+              "destinations": [
+                "Cincinnati",
+                "Miami",
+                "Los Angeles",
+                "Chicago",
+              ],
+              "domesticConnections": 10,
+              "internationalConnections": 15,
+              "routes": [
+                {
+                  "destinationIata": "MIA",
+                  "origin": "CVG",
+                },
+                {
+                  "destinationIata": "LAX",
+                  "origin": "CVG",
+                },
+              ],
+            },
+            "operations": {
+              "alliance": "none",
+              "businessModel": "cargo",
+              "businessType": "regional",
+              "country": "United States",
+              "hub": {
+                "address": "Wilmington, Ohio, USA",
+                "city": "Wilmington, Ohio",
+                "coordinates": {
+                  "latitude": 39.4283,
+                  "longitude": -83.7921,
+                },
+                "name": "Wilmington Air Park",
+              },
+              "region": "NA",
+              "skytraxRating": 4.1,
+              "slogan": "",
+            },
+            "safety": {
+              "certifications": [
+                "FAA AOC",
+              ],
+              "safetyRecord": "No fatal accidents. Cargo-focused, no EU ban.",
+            },
+          }
+        }
+        testID="airline-header"
+      />
+    </View>
+  </RCTScrollView>
+</View>
+`;

@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`BreakingNewsCard Component Snapshot should render the BreakingNewsCard Component successfully 1`] = `
+<View
+  className="items-center px-4"
+  style={
+    {
+      "width": 750,
+    }
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={20}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+        "width": 718,
+      }
+    }
+    testID="breaking-news-card-1"
+  >
+    <View
+      cachePolicy="memory-disk"
+      contentFit="cover"
+      source={
+        {
+          "uri": "https://example.com/image.jpg",
+        }
+      }
+      style={
+        {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+      testID="mocked-image"
+      transition={0}
+    />
+    <View
+      className="absolute bottom-2 mx-3 bg-background-blur px-2 py-1 overflow-hidden rounded-xl"
+    >
+      <Text
+        color="text-100"
+        ellipsizeMode="tail"
+        numberOfLines={3}
+        type="h4"
+      >
+        Breaking News Headline
+      </Text>
+    </View>
+  </View>
+</View>
+`;

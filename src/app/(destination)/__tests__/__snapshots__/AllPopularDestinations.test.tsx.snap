@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AllPopularDestinations Screen Snapshot should render the AllPopularDestinations Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  />
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    columnWrapperClassName="justify-between gap-x-4"
+    contentContainerClassName="px-4 self-center"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    data={
+      [
+        {
+          "country": "South Korea",
+          "destinations_type": "Domestic",
+          "distance_km": 451,
+          "flight_count": 206680,
+          "id": "1",
+          "route": "Jeju (CJU) - Seoul (GMP)",
+        },
+        {
+          "country": "Japan",
+          "destinations_type": "Domestic",
+          "distance_km": 831,
+          "flight_count": 178940,
+          "id": "2",
+          "route": "Sapporo (CTS) - Tokyo (HND)",
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    getItemLayout={[Function]}
+    initialNumToRender={6}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={4}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={true}
+    renderItem={[Function]}
+    scrollEventThrottle={16}
+    showsVerticalScrollIndicator={false}
+    stickyHeaderIndices={[]}
+    updateCellsBatchingPeriod={150}
+    viewabilityConfigCallbackPairs={[]}
+    windowSize={7}
+  >
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            testID="destination-card-1"
+          />
+          <View
+            testID="destination-card-2"
+          />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

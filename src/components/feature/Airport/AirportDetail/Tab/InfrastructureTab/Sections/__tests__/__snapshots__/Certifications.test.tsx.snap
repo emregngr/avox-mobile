@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Certifications Component Snapshot should render the Certifications Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+>
+  <View
+    className="flex-row items-center py-2"
+  >
+    <View
+      color="#000000"
+      name="certificate-outline"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+    <Text
+      className="ml-3"
+      color="text-100"
+      type="body2"
+    >
+      ISO 9001
+      ISO 14001
+    </Text>
+  </View>
+</View>
+`;

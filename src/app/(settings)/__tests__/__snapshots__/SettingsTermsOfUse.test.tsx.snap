@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SettingsTermsOfUse Screen Snapshot should render the SettingsTermsOfUse Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  >
+    Terms of Use
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    indicatorStyle="black"
+  >
+    <View>
+      <Text
+        testID="themed-text-body1-text-100"
+      >
+        Terms of Use
+         
+1. Terms of Service
+         
+By using our application, you agree to the following terms. You agree to use this application only for legal purposes and in accordance with these terms.
+         
+2. User Account and Security
+         
+When you create an account on our application, you are responsible for protecting the confidentiality of your account information. You are responsible for all activities performed with your account.
+         
+3. Privacy and Data Use
+         
+We collect and process your personal data in accordance with our Privacy Policy. By using the application, you consent to the collection and use of your data.
+         
+4. User Content
+         
+You are responsible for all content you upload to our application. The content you share must not infringe on copyrights and must comply with the law.
+         
+5. Prohibited Uses
+         
+The following actions are strictly prohibited:
+- Sharing illegal, harmful, or inappropriate content
+- Harming or harassing other users
+- Attempting to circumvent the application's security measures
+- Using the application for commercial purposes
+         
+6. Intellectual Property Rights
+         
+All content, design, and software in our application are the intellectual property of our company. It is prohibited to copy, modify, or distribute this content without permission.
+         
+7. Service Changes
+         
+We reserve the right to modify, suspend, or terminate our application and services at any time. We will notify you of such changes.
+         
+8. Limitation of Liability
+         
+We provide our application ‘as is’. We do not guarantee that our services will be uninterrupted or error-free. We are not liable for any damages arising from your use of the application.
+         
+9. Account Termination
+         
+We reserve the right to suspend or terminate accounts that violate the terms of use. You may terminate your account at any time.
+         
+10. Contact and Support
+         
+You can contact our support team with any questions or issues. We will will try to assist you as soon as possible.
+         
+11. Updates and Changes
+         
+We may update these terms of use from time to time. We will notify you of any significant changes. Your continued use of the application means that you accept the current terms.
+         
+12. Applicable Law
+         
+These terms are governed by and construed in accordance with the laws of the Republic of Turkey. Any disputes arising hereunder shall be resolved by the courts of Turkey.
+      </Text>
+    </View>
+  </RCTScrollView>
+</View>
+`;

@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ChooseLanguage Screen Snapshot should render the ChooseLanguage Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <View>
+    <Text
+      testID="header-title"
+    />
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="back-button"
+    />
+  </View>
+  <RCTScrollView
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    showsVerticalScrollIndicator={false}
+  >
+    <View>
+      <View
+        className="rounded-xl overflow-hidden bg-background-secondary"
+      >
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            hitSlop={10}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+            testID="language-item-tr"
+          >
+            <View
+              className="flex-row justify-center item-center"
+            >
+              <Text
+                color="text-100"
+                type="h2"
+              >
+                🇹🇷
+              </Text>
+              <Text
+                className="ml-4"
+                color="text-100"
+                type="body1"
+              >
+                Türkçe
+              </Text>
+            </View>
+          </View>
+          <View
+            className="border-b border-onPrimary-30 ml-4"
+          />
+        </View>
+        <View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            hitSlop={10}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+            testID="language-item-en"
+          >
+            <View
+              className="flex-row justify-center item-center"
+            >
+              <Text
+                color="text-100"
+                type="h2"
+              >
+                🇬🇧
+              </Text>
+              <Text
+                className="ml-4"
+                color="text-100"
+                type="body1"
+              >
+                English
+              </Text>
+            </View>
+            <View
+              color="#000000"
+              height={20}
+              testID="mocked-svg-icon"
+              width={20}
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

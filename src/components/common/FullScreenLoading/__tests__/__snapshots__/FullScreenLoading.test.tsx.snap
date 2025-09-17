@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FullScreenLoading Component Snapshot should render the FullScreenLoading Component successfully 1`] = `
+<View
+  className="flex-1 items-center justify-center bg-background-primary"
+  testID="full-screen-loading"
+>
+  <ActivityIndicator
+    className="color-text-100"
+    size="large"
+    testID="loading-indicator"
+  />
+</View>
+`;

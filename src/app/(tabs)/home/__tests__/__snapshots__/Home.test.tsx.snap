@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Home Screen Snapshot should render the Home screen successfully 1`] = `
+<View
+  testID="full-screen-loading"
+/>
+`;

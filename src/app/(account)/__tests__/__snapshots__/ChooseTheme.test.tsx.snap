@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ChooseTheme Screen Snapshot should render the ChooseTheme Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  >
+    chooseTheme
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    showsVerticalScrollIndicator={false}
+  >
+    <View>
+      <Text
+        className="my-8"
+        color="text-100"
+        type="h3"
+      >
+        modeSelection
+      </Text>
+      <View
+        className="flex-row justify-between gap-4"
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          hitSlop={10}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "height": 351,
+              "opacity": 1,
+            }
+          }
+          testID="theme-item-light"
+        >
+          <View
+            className="flex-1 justify-between items-center p-6"
+          >
+            <Text
+              color="text-100"
+              type="bigTitle"
+            >
+              ☀️
+            </Text>
+            <Text
+              color="text-100"
+              type="body1"
+            >
+              light
+            </Text>
+            <View
+              color="#86EFAC"
+              name="radiobox-marked"
+              size={24}
+              testID="mocked-material-community-icon"
+            />
+          </View>
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          hitSlop={10}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "height": 351,
+              "opacity": 1,
+            }
+          }
+          testID="theme-item-dark"
+        >
+          <View
+            className="flex-1 justify-between items-center p-6"
+          >
+            <Text
+              color="text-100"
+              type="bigTitle"
+            >
+              🌙
+            </Text>
+            <Text
+              color="text-100"
+              type="body1"
+            >
+              dark
+            </Text>
+            <View
+              color="#000000"
+              name="radiobox-blank"
+              size={24}
+              testID="mocked-material-community-icon"
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

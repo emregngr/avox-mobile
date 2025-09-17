@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Environmental Component Snapshot should render the Environmental Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+  title="Environmental Impact"
+>
+  <View
+    data-icon-color="#16a085"
+    data-icon-name="leaf"
+    testID="mocked-safety-header"
+  >
+    <Text>
+      Our Green Commitment
+    </Text>
+  </View>
+  <Text
+    color="text-70"
+    type="body2"
+  >
+    We are dedicated to reducing emissions through fleet modernization and sustainable aviation fuels.
+  </Text>
+</View>
+`;

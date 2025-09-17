@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`UpdateProfile Screen Snapshot should render the UpdateProfile Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  />
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    bottomOffset={50}
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    keyboardDismissMode="on-drag"
+    keyboardShouldPersistTaps="handled"
+    showsVerticalScrollIndicator={false}
+  >
+    <View>
+      <View
+        className="gap-y-2"
+      >
+        <View>
+          <Text />
+          <TextInput
+            editable={true}
+            keyboardType="default"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onSubmitEditing={[Function]}
+            returnKeyType="next"
+            testID="firstName"
+            value="John"
+          />
+        </View>
+        <View>
+          <Text />
+          <TextInput
+            editable={true}
+            keyboardType="default"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onSubmitEditing={[Function]}
+            returnKeyType="done"
+            testID="lastName"
+            value="Doe"
+          />
+        </View>
+        <View>
+          <Text />
+          <TextInput
+            editable={false}
+            keyboardType="email-address"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            returnKeyType="done"
+            testID="email"
+            value="test@example.com"
+          />
+        </View>
+      </View>
+      <View
+        className="mt-6"
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": true,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={false}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="submit-button"
+        >
+          <Text />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

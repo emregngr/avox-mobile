@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SafeLayout Component Snapshot should render the SafeLayout Component successfully 1`] = `
+<View
+  className="flex-1 bg-background-primary"
+  edges={
+    [
+      "left",
+      "right",
+    ]
+  }
+  testID="screen"
+>
+  <View
+    className="absolute top-0 left-0 right-0 z-10"
+    intensity={30}
+    style={
+      {
+        "backgroundColor": "#FFFFFFCC",
+        "height": 88,
+      }
+    }
+    testID="mocked-blur-view"
+    tint="light"
+  />
+  <Text>
+    Test Content
+  </Text>
+</View>
+`;

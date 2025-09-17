@@ -1,0 +1,228 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Contact Component Snapshot should render the Contact Component successfully 1`] = `
+<View
+  className="p-4 rounded-xl overflow-hidden bg-background-secondary"
+>
+  <Text
+    allowFontScaling={false}
+    className="text-[18px] leading-[21px] font-inter-semibold text-text-100 mb-4"
+    maxFontSizeMultiplier={1}
+  >
+    contactInformation
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={
+      {
+        "left": 20,
+        "right": 20,
+      }
+    }
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      color="#FFFFFF"
+      name="web"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+    <View
+      className="flex-1 ml-3"
+    >
+      <Text
+        allowFontScaling={false}
+        className="text-[13px] leading-[16px] font-inter-regular text-text-70 mb-1"
+        maxFontSizeMultiplier={1}
+      >
+        website
+      </Text>
+      <Text
+        allowFontScaling={false}
+        className="text-[14px] leading-[17px] font-inter-medium text-text-100"
+        maxFontSizeMultiplier={1}
+      >
+        example.com
+      </Text>
+    </View>
+    <View
+      color="#FFFFFF"
+      name="chevron-right"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={
+      {
+        "left": 20,
+        "right": 20,
+      }
+    }
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      color="#FFFFFF"
+      name="phone-outline"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+    <View
+      className="flex-1 ml-3"
+    >
+      <Text
+        allowFontScaling={false}
+        className="text-[13px] leading-[16px] font-inter-regular text-text-70 mb-1"
+        maxFontSizeMultiplier={1}
+      >
+        phone
+      </Text>
+      <Text
+        allowFontScaling={false}
+        className="text-[14px] leading-[17px] font-inter-medium text-text-100"
+        maxFontSizeMultiplier={1}
+      >
+        +905551112233
+      </Text>
+    </View>
+    <View
+      color="#FFFFFF"
+      name="chevron-right"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={
+      {
+        "left": 20,
+        "right": 20,
+      }
+    }
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      color="#FFFFFF"
+      name="email-outline"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+    <View
+      className="flex-1 ml-3"
+    >
+      <Text
+        allowFontScaling={false}
+        className="text-[13px] leading-[16px] font-inter-regular text-text-70 mb-1"
+        maxFontSizeMultiplier={1}
+      >
+        email
+      </Text>
+      <Text
+        allowFontScaling={false}
+        className="text-[14px] leading-[17px] font-inter-medium text-text-100"
+        maxFontSizeMultiplier={1}
+      >
+        test@example.com
+      </Text>
+    </View>
+    <View
+      color="#FFFFFF"
+      name="chevron-right"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+  </View>
+</View>
+`;

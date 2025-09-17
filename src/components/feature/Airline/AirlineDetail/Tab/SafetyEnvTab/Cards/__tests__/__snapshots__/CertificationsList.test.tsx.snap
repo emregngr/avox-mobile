@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CertificationsList Component Snapshot should render the CertificationsList Component successfully 1`] = `
+<View>
+  <Text
+    className="mb-2"
+    color="text-90"
+    type="body2"
+  >
+    Industry Certifications
+    :
+  </Text>
+  <View
+    testID="certification-card"
+  >
+    <Text>
+      IOSA Certified
+    </Text>
+  </View>
+  <View
+    testID="certification-card"
+  >
+    <Text>
+      EASA Compliant
+    </Text>
+  </View>
+  <View
+    testID="certification-card"
+  >
+    <Text>
+      Stage 4 Noise Certified
+    </Text>
+  </View>
+</View>
+`;

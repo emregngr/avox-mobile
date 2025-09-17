@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`TokenExpire Screen Snapshot should render the TokenExpire Screen successfully 1`] = `
+<View
+  cachePolicy="memory-disk"
+  contentFit="contain"
+  source={
+    {
+      "default": "mocked-test-file",
+    }
+  }
+  style={
+    {
+      "height": 1334,
+      "width": 750,
+    }
+  }
+  testID="token-expire-icon"
+  transition={0}
+/>
+`;

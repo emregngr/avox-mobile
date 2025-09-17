@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AppNavigator Component Snapshot should render the AppNavigator Component successfully 1`] = `
+<View
+  data-screenOptions={
+    {
+      "animation": "slide_from_bottom",
+      "contentStyle": {
+        "backgroundColor": "#FFFFFFCC",
+      },
+      "headerShown": false,
+    }
+  }
+  testID="MockStack"
+>
+  <View
+    testID="MockStackScreen-index"
+  />
+  <View
+    testID="MockStackScreen-(auth)"
+  />
+  <View
+    testID="MockStackScreen-(tabs)"
+  />
+  <View
+    testID="MockStackScreen-(onboarding)"
+  />
+  <View
+    testID="MockStackScreen-(maintenance)"
+  />
+  <View
+    testID="MockStackScreen-(force-update)"
+  />
+  <View
+    testID="MockStackScreen-(account)"
+  />
+  <View
+    testID="MockStackScreen-(settings)"
+  />
+  <View
+    testID="MockStackScreen-(airline)"
+  />
+  <View
+    testID="MockStackScreen-(airport)"
+  />
+  <View
+    testID="MockStackScreen-(breaking-news)"
+  />
+  <View
+    testID="MockStackScreen-(destination)"
+  />
+  <View
+    testID="MockStackScreen-(airplane)"
+  />
+  <View
+    testID="MockStackScreen-token-expire"
+  />
+  <View
+    testID="MockStackScreen-(web-view-modal)"
+  />
+  <View
+    testID="MockStackScreen-(image-modal)"
+  />
+</View>
+`;

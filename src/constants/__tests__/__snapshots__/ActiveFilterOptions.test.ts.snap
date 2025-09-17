@@ -1,0 +1,1106 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Filter Options Data Individual filter getters getAirplaneTypeCountRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "airplaneType: < 2",
+    "value": "0-2",
+  },
+  {
+    "label": "airplaneType: 3-4",
+    "value": "3-4",
+  },
+  {
+    "label": "airplaneType: 5-6",
+    "value": "5-6",
+  },
+  {
+    "label": "airplaneType: > 7+",
+    "value": "7+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getAirportAreaHectaresRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "airportArea: < 400",
+    "value": "0-400",
+  },
+  {
+    "label": "airportArea: 401-800",
+    "value": "401-800",
+  },
+  {
+    "label": "airportArea: 801-1.550",
+    "value": "801-1550",
+  },
+  {
+    "label": "airportArea: > 1.551",
+    "value": "1551+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getAirportTypes should return a valid array of options 1`] = `
+[
+  {
+    "label": "airportType: mega",
+    "value": "mega_airport",
+  },
+  {
+    "label": "airportType: large",
+    "value": "large_airport",
+  },
+  {
+    "label": "airportType: medium",
+    "value": "medium_airport",
+  },
+  {
+    "label": "airportType: small",
+    "value": "small_airport",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getAlliances should return a valid array of options 1`] = `
+[
+  {
+    "label": "Star Alliance",
+    "value": "star alliance",
+  },
+  {
+    "label": "OneWorld",
+    "value": "oneworld",
+  },
+  {
+    "label": "SkyTeam",
+    "value": "skyteam",
+  },
+  {
+    "label": "none",
+    "value": "none",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getApronCountRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "apron: < 5",
+    "value": "0-5",
+  },
+  {
+    "label": "apron: 6-8",
+    "value": "6-8",
+  },
+  {
+    "label": "apron: 9-15",
+    "value": "9-15",
+  },
+  {
+    "label": "apron: > 16",
+    "value": "16+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getAverageAgeRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "averageAgeYears: < 8",
+    "value": "0-8",
+  },
+  {
+    "label": "averageAgeYears: 8.1-11",
+    "value": "8.1-11",
+  },
+  {
+    "label": "averageAgeYears: 11.1-13",
+    "value": "11.1-13",
+  },
+  {
+    "label": "averageAgeYears: > 13.1",
+    "value": "13.1+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getBaggageCapacityRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "luggage: < 400",
+    "value": "0-400",
+  },
+  {
+    "label": "luggage: 401-700",
+    "value": "401-700",
+  },
+  {
+    "label": "luggage: 701-950",
+    "value": "701-950",
+  },
+  {
+    "label": "luggage: > 951",
+    "value": "951+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getBusinessModels should return a valid array of options 1`] = `
+[
+  {
+    "label": "cargo",
+    "value": "cargo",
+  },
+  {
+    "label": "passenger",
+    "value": "passenger",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getBusinessTypes should return a valid array of options 1`] = `
+[
+  {
+    "label": "majorInternational",
+    "value": "major_international",
+  },
+  {
+    "label": "regional",
+    "value": "regional",
+  },
+  {
+    "label": "lowCost",
+    "value": "low_cost",
+  },
+  {
+    "label": "cargo",
+    "value": "cargo",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getCheckinTimeAvgRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "checkIn: < 12",
+    "value": "0-12",
+  },
+  {
+    "label": "checkIn: 13-16",
+    "value": "13-16",
+  },
+  {
+    "label": "checkIn: 17-22",
+    "value": "17-22",
+  },
+  {
+    "label": "checkIn: > 23",
+    "value": "23+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getDestinationCountRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "numberOfDestination: < 10",
+    "value": "0-10",
+  },
+  {
+    "label": "numberOfDestination: 11-22",
+    "value": "11-22",
+  },
+  {
+    "label": "numberOfDestination: 23-50",
+    "value": "23-50",
+  },
+  {
+    "label": "numberOfDestination: > 51",
+    "value": "51+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getDestinationCountriesRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "numberOfCountries: < 10",
+    "value": "0-10",
+  },
+  {
+    "label": "numberOfCountries: 11-15",
+    "value": "11-15",
+  },
+  {
+    "label": "numberOfCountries: 16-20",
+    "value": "16-20",
+  },
+  {
+    "label": "numberOfCountries: > 21",
+    "value": "21+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getDomesticConnectionsRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "domesticDestinations: < 5",
+    "value": "0-5",
+  },
+  {
+    "label": "domesticDestinations: 6-10",
+    "value": "6-10",
+  },
+  {
+    "label": "domesticDestinations: 11-15",
+    "value": "11-15",
+  },
+  {
+    "label": "domesticDestinations: > 16",
+    "value": "16+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getElevationFtRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "elevation: < 54",
+    "value": "0-54",
+  },
+  {
+    "label": "elevation: 55-184",
+    "value": "55-184",
+  },
+  {
+    "label": "elevation: 185-782",
+    "value": "185-782",
+  },
+  {
+    "label": "elevation: > 783",
+    "value": "783+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getEmployeeCountRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "numberOfEmployees: < 200",
+    "value": "1-200",
+  },
+  {
+    "label": "numberOfEmployees: 201-600",
+    "value": "201-600",
+  },
+  {
+    "label": "numberOfEmployees: 601-1.000",
+    "value": "601-1000",
+  },
+  {
+    "label": "numberOfEmployees: > 1001",
+    "value": "1001+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getFoundingYearRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "yearOfEstablishment: < 1944",
+    "value": "0-1944",
+  },
+  {
+    "label": "yearOfEstablishment: 1945-1969",
+    "value": "1945-1969",
+  },
+  {
+    "label": "yearOfEstablishment: 1970-1999",
+    "value": "1970-1999",
+  },
+  {
+    "label": "yearOfEstablishment: > 2000",
+    "value": "2000+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getInternationalConnectionsRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "internationalDestination: < 12",
+    "value": "0-12",
+  },
+  {
+    "label": "internationalDestination: 13-25",
+    "value": "13-25",
+  },
+  {
+    "label": "internationalDestination: 26-40",
+    "value": "26-40",
+  },
+  {
+    "label": "internationalDestination: > 41",
+    "value": "41+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getLoungeCountRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "lounges: < 2",
+    "value": "0-2",
+  },
+  {
+    "label": "lounges: 3-5",
+    "value": "3-5",
+  },
+  {
+    "label": "lounges: > 6",
+    "value": "6+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getParkingCapacityVehiclesRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "parking: < 1.500",
+    "value": "0-1500",
+  },
+  {
+    "label": "parking: 1.501-4.000",
+    "value": "1501-4000",
+  },
+  {
+    "label": "parking: 4.001-8.000",
+    "value": "4001-8000",
+  },
+  {
+    "label": "parking: > 8.001",
+    "value": "8001+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getPassengerCapacityRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "numberOfPassengers: < 2M",
+    "value": "0-2",
+  },
+  {
+    "label": "numberOfPassengers: 2.1M-6.4M",
+    "value": "2.1-6.4",
+  },
+  {
+    "label": "numberOfPassengers: 6.5M-14.9M",
+    "value": "6.5-14.9",
+  },
+  {
+    "label": "numberOfPassengers: 15M-24.9M",
+    "value": "15-24.9",
+  },
+  {
+    "label": "numberOfPassengers: 25M-49.9M",
+    "value": "25-49.9",
+  },
+  {
+    "label": "numberOfPassengers: > 50M",
+    "value": "50+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getRegionOptions should return a valid array of options 1`] = `
+[
+  {
+    "label": "europe",
+    "value": "EU",
+  },
+  {
+    "label": "asia",
+    "value": "AS",
+  },
+  {
+    "label": "northAmerica",
+    "value": "NA",
+  },
+  {
+    "label": "southAmerica",
+    "value": "SA",
+  },
+  {
+    "label": "africa",
+    "value": "AF",
+  },
+  {
+    "label": "oceania",
+    "value": "OC",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getRunwayCountRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "runway: 1-2",
+    "value": "0-2",
+  },
+  {
+    "label": "runway: 3-4",
+    "value": "3-4",
+  },
+  {
+    "label": "runway: > 5",
+    "value": "5+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getRunwayLengthMRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "runwaym: < 2.930",
+    "value": "0-2930",
+  },
+  {
+    "label": "runwaym: 2.931-3.350",
+    "value": "2931-3350",
+  },
+  {
+    "label": "runwaym: 3.351-3.650",
+    "value": "3351-3650",
+  },
+  {
+    "label": "runwaym: > 3.651",
+    "value": "3651+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getSecurityQueueTimeRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "security: < 10",
+    "value": "0-10",
+  },
+  {
+    "label": "security: 11-15",
+    "value": "11-15",
+  },
+  {
+    "label": "security: 16-20",
+    "value": "16-20",
+  },
+  {
+    "label": "security: > 21",
+    "value": "21+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getTerminalAreaHectaresRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "terminalArea: < 4",
+    "value": "0-4",
+  },
+  {
+    "label": "terminalArea: 4.1-6",
+    "value": "4.1-6",
+  },
+  {
+    "label": "terminalArea: 6.1-15",
+    "value": "6.1-15",
+  },
+  {
+    "label": "terminalArea: > 15.1",
+    "value": "15.1+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getTerminalCountRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "terminal: 1-2",
+    "value": "0-2",
+  },
+  {
+    "label": "terminal: 3-4",
+    "value": "3-4",
+  },
+  {
+    "label": "terminal: > 5",
+    "value": "5+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getTotalAirplaneRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "totalAirplane: < 8",
+    "value": "0-8",
+  },
+  {
+    "label": "totalAirplane: 9-15",
+    "value": "9-15",
+  },
+  {
+    "label": "totalAirplane: 16-40",
+    "value": "16-40",
+  },
+  {
+    "label": "totalAirplane: 41-99",
+    "value": "41-99",
+  },
+  {
+    "label": "totalAirplane: 100-199",
+    "value": "100-199",
+  },
+  {
+    "label": "totalAirplane: > 200",
+    "value": "200+",
+  },
+]
+`;
+
+exports[`Filter Options Data Individual filter getters getTowerHeightMRanges should return a valid array of options 1`] = `
+[
+  {
+    "label": "tower: < 30",
+    "value": "0-30",
+  },
+  {
+    "label": "tower: 31-35",
+    "value": "31-35",
+  },
+  {
+    "label": "tower: 36-40",
+    "value": "36-40",
+  },
+  {
+    "label": "tower: > 41",
+    "value": "41+",
+  },
+]
+`;
+
+exports[`Filter Options Data getFilterLabelMap should return a map of all filter options that matches the snapshot 1`] = `
+{
+  "airplaneTypeCount": [
+    {
+      "label": "airplaneType: < 2",
+      "value": "0-2",
+    },
+    {
+      "label": "airplaneType: 3-4",
+      "value": "3-4",
+    },
+    {
+      "label": "airplaneType: 5-6",
+      "value": "5-6",
+    },
+    {
+      "label": "airplaneType: > 7+",
+      "value": "7+",
+    },
+  ],
+  "airportAreaHectares": [
+    {
+      "label": "airportArea: < 400",
+      "value": "0-400",
+    },
+    {
+      "label": "airportArea: 401-800",
+      "value": "401-800",
+    },
+    {
+      "label": "airportArea: 801-1.550",
+      "value": "801-1550",
+    },
+    {
+      "label": "airportArea: > 1.551",
+      "value": "1551+",
+    },
+  ],
+  "airportType": [
+    {
+      "label": "airportType: mega",
+      "value": "mega_airport",
+    },
+    {
+      "label": "airportType: large",
+      "value": "large_airport",
+    },
+    {
+      "label": "airportType: medium",
+      "value": "medium_airport",
+    },
+    {
+      "label": "airportType: small",
+      "value": "small_airport",
+    },
+  ],
+  "alliance": [
+    {
+      "label": "Star Alliance",
+      "value": "star alliance",
+    },
+    {
+      "label": "OneWorld",
+      "value": "oneworld",
+    },
+    {
+      "label": "SkyTeam",
+      "value": "skyteam",
+    },
+    {
+      "label": "none",
+      "value": "none",
+    },
+  ],
+  "apronCount": [
+    {
+      "label": "apron: < 5",
+      "value": "0-5",
+    },
+    {
+      "label": "apron: 6-8",
+      "value": "6-8",
+    },
+    {
+      "label": "apron: 9-15",
+      "value": "9-15",
+    },
+    {
+      "label": "apron: > 16",
+      "value": "16+",
+    },
+  ],
+  "averageAgeYears": [
+    {
+      "label": "averageAgeYears: < 8",
+      "value": "0-8",
+    },
+    {
+      "label": "averageAgeYears: 8.1-11",
+      "value": "8.1-11",
+    },
+    {
+      "label": "averageAgeYears: 11.1-13",
+      "value": "11.1-13",
+    },
+    {
+      "label": "averageAgeYears: > 13.1",
+      "value": "13.1+",
+    },
+  ],
+  "baggageCapacity": [
+    {
+      "label": "luggage: < 400",
+      "value": "0-400",
+    },
+    {
+      "label": "luggage: 401-700",
+      "value": "401-700",
+    },
+    {
+      "label": "luggage: 701-950",
+      "value": "701-950",
+    },
+    {
+      "label": "luggage: > 951",
+      "value": "951+",
+    },
+  ],
+  "businessModel": [
+    {
+      "label": "cargo",
+      "value": "cargo",
+    },
+    {
+      "label": "passenger",
+      "value": "passenger",
+    },
+  ],
+  "businessType": [
+    {
+      "label": "majorInternational",
+      "value": "major_international",
+    },
+    {
+      "label": "regional",
+      "value": "regional",
+    },
+    {
+      "label": "lowCost",
+      "value": "low_cost",
+    },
+    {
+      "label": "cargo",
+      "value": "cargo",
+    },
+  ],
+  "checkinTimeAvg": [
+    {
+      "label": "checkIn: < 12",
+      "value": "0-12",
+    },
+    {
+      "label": "checkIn: 13-16",
+      "value": "13-16",
+    },
+    {
+      "label": "checkIn: 17-22",
+      "value": "17-22",
+    },
+    {
+      "label": "checkIn: > 23",
+      "value": "23+",
+    },
+  ],
+  "destinationCount": [
+    {
+      "label": "numberOfDestination: < 10",
+      "value": "0-10",
+    },
+    {
+      "label": "numberOfDestination: 11-22",
+      "value": "11-22",
+    },
+    {
+      "label": "numberOfDestination: 23-50",
+      "value": "23-50",
+    },
+    {
+      "label": "numberOfDestination: > 51",
+      "value": "51+",
+    },
+  ],
+  "destinationCountries": [
+    {
+      "label": "numberOfCountries: < 10",
+      "value": "0-10",
+    },
+    {
+      "label": "numberOfCountries: 11-15",
+      "value": "11-15",
+    },
+    {
+      "label": "numberOfCountries: 16-20",
+      "value": "16-20",
+    },
+    {
+      "label": "numberOfCountries: > 21",
+      "value": "21+",
+    },
+  ],
+  "domesticConnections": [
+    {
+      "label": "domesticDestinations: < 5",
+      "value": "0-5",
+    },
+    {
+      "label": "domesticDestinations: 6-10",
+      "value": "6-10",
+    },
+    {
+      "label": "domesticDestinations: 11-15",
+      "value": "11-15",
+    },
+    {
+      "label": "domesticDestinations: > 16",
+      "value": "16+",
+    },
+  ],
+  "elevationFt": [
+    {
+      "label": "elevation: < 54",
+      "value": "0-54",
+    },
+    {
+      "label": "elevation: 55-184",
+      "value": "55-184",
+    },
+    {
+      "label": "elevation: 185-782",
+      "value": "185-782",
+    },
+    {
+      "label": "elevation: > 783",
+      "value": "783+",
+    },
+  ],
+  "employeeCount": [
+    {
+      "label": "numberOfEmployees: < 200",
+      "value": "1-200",
+    },
+    {
+      "label": "numberOfEmployees: 201-600",
+      "value": "201-600",
+    },
+    {
+      "label": "numberOfEmployees: 601-1.000",
+      "value": "601-1000",
+    },
+    {
+      "label": "numberOfEmployees: > 1001",
+      "value": "1001+",
+    },
+  ],
+  "foundingYear": [
+    {
+      "label": "yearOfEstablishment: < 1944",
+      "value": "0-1944",
+    },
+    {
+      "label": "yearOfEstablishment: 1945-1969",
+      "value": "1945-1969",
+    },
+    {
+      "label": "yearOfEstablishment: 1970-1999",
+      "value": "1970-1999",
+    },
+    {
+      "label": "yearOfEstablishment: > 2000",
+      "value": "2000+",
+    },
+  ],
+  "internationalConnections": [
+    {
+      "label": "internationalDestination: < 12",
+      "value": "0-12",
+    },
+    {
+      "label": "internationalDestination: 13-25",
+      "value": "13-25",
+    },
+    {
+      "label": "internationalDestination: 26-40",
+      "value": "26-40",
+    },
+    {
+      "label": "internationalDestination: > 41",
+      "value": "41+",
+    },
+  ],
+  "loungeCount": [
+    {
+      "label": "lounges: < 2",
+      "value": "0-2",
+    },
+    {
+      "label": "lounges: 3-5",
+      "value": "3-5",
+    },
+    {
+      "label": "lounges: > 6",
+      "value": "6+",
+    },
+  ],
+  "mainRunwayLengthM": [
+    {
+      "label": "runwaym: < 2.930",
+      "value": "0-2930",
+    },
+    {
+      "label": "runwaym: 2.931-3.350",
+      "value": "2931-3350",
+    },
+    {
+      "label": "runwaym: 3.351-3.650",
+      "value": "3351-3650",
+    },
+    {
+      "label": "runwaym: > 3.651",
+      "value": "3651+",
+    },
+  ],
+  "parkingCapacityVehicles": [
+    {
+      "label": "parking: < 1.500",
+      "value": "0-1500",
+    },
+    {
+      "label": "parking: 1.501-4.000",
+      "value": "1501-4000",
+    },
+    {
+      "label": "parking: 4.001-8.000",
+      "value": "4001-8000",
+    },
+    {
+      "label": "parking: > 8.001",
+      "value": "8001+",
+    },
+  ],
+  "passengerCapacity": [
+    {
+      "label": "numberOfPassengers: < 2M",
+      "value": "0-2",
+    },
+    {
+      "label": "numberOfPassengers: 2.1M-6.4M",
+      "value": "2.1-6.4",
+    },
+    {
+      "label": "numberOfPassengers: 6.5M-14.9M",
+      "value": "6.5-14.9",
+    },
+    {
+      "label": "numberOfPassengers: 15M-24.9M",
+      "value": "15-24.9",
+    },
+    {
+      "label": "numberOfPassengers: 25M-49.9M",
+      "value": "25-49.9",
+    },
+    {
+      "label": "numberOfPassengers: > 50M",
+      "value": "50+",
+    },
+  ],
+  "region": [
+    {
+      "label": "europe",
+      "value": "EU",
+    },
+    {
+      "label": "asia",
+      "value": "AS",
+    },
+    {
+      "label": "northAmerica",
+      "value": "NA",
+    },
+    {
+      "label": "southAmerica",
+      "value": "SA",
+    },
+    {
+      "label": "africa",
+      "value": "AF",
+    },
+    {
+      "label": "oceania",
+      "value": "OC",
+    },
+  ],
+  "runwayCount": [
+    {
+      "label": "runway: 1-2",
+      "value": "0-2",
+    },
+    {
+      "label": "runway: 3-4",
+      "value": "3-4",
+    },
+    {
+      "label": "runway: > 5",
+      "value": "5+",
+    },
+  ],
+  "securityQueueTime": [
+    {
+      "label": "security: < 10",
+      "value": "0-10",
+    },
+    {
+      "label": "security: 11-15",
+      "value": "11-15",
+    },
+    {
+      "label": "security: 16-20",
+      "value": "16-20",
+    },
+    {
+      "label": "security: > 21",
+      "value": "21+",
+    },
+  ],
+  "terminalAreaHectares": [
+    {
+      "label": "terminalArea: < 4",
+      "value": "0-4",
+    },
+    {
+      "label": "terminalArea: 4.1-6",
+      "value": "4.1-6",
+    },
+    {
+      "label": "terminalArea: 6.1-15",
+      "value": "6.1-15",
+    },
+    {
+      "label": "terminalArea: > 15.1",
+      "value": "15.1+",
+    },
+  ],
+  "terminalCount": [
+    {
+      "label": "terminal: 1-2",
+      "value": "0-2",
+    },
+    {
+      "label": "terminal: 3-4",
+      "value": "3-4",
+    },
+    {
+      "label": "terminal: > 5",
+      "value": "5+",
+    },
+  ],
+  "totalAirplane": [
+    {
+      "label": "totalAirplane: < 8",
+      "value": "0-8",
+    },
+    {
+      "label": "totalAirplane: 9-15",
+      "value": "9-15",
+    },
+    {
+      "label": "totalAirplane: 16-40",
+      "value": "16-40",
+    },
+    {
+      "label": "totalAirplane: 41-99",
+      "value": "41-99",
+    },
+    {
+      "label": "totalAirplane: 100-199",
+      "value": "100-199",
+    },
+    {
+      "label": "totalAirplane: > 200",
+      "value": "200+",
+    },
+  ],
+  "towerHeightM": [
+    {
+      "label": "tower: < 30",
+      "value": "0-30",
+    },
+    {
+      "label": "tower: 31-35",
+      "value": "31-35",
+    },
+    {
+      "label": "tower: 36-40",
+      "value": "36-40",
+    },
+    {
+      "label": "tower: > 41",
+      "value": "41+",
+    },
+  ],
+}
+`;

@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Onboarding Screen Snapshot should render the Onboarding Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="themed-button-text"
+  >
+    <Text>
+      Skip
+    </Text>
+  </View>
+  <RCTScrollView
+    bounces={false}
+    data={
+      [
+        {
+          "id": "1",
+          "image": {
+            "default": "mocked-test-file",
+          },
+          "text": "Text 1",
+          "title": "Title 1",
+        },
+        {
+          "id": "2",
+          "image": {
+            "default": "mocked-test-file",
+          },
+          "text": "Text 2",
+          "title": "Title 2",
+        },
+        {
+          "id": "3",
+          "image": {
+            "default": "mocked-test-file",
+          },
+          "text": "Text 3",
+          "title": "Title 3",
+        },
+        {
+          "id": "4",
+          "image": {
+            "default": "mocked-test-file",
+          },
+          "text": "Text 4",
+          "title": "Title 4",
+        },
+      ]
+    }
+    decelerationRate="fast"
+    disableIntervalMomentum={true}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    getItemLayout={[Function]}
+    horizontal={true}
+    initialNumToRender={4}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={3}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    overScrollMode="never"
+    pagingEnabled={true}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={16}
+    showsHorizontalScrollIndicator={false}
+    stickyHeaderIndices={[]}
+    testID="onboarding-flatlist"
+    updateCellsBatchingPeriod={150}
+    viewabilityConfigCallbackPairs={[]}
+    windowSize={7}
+  >
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "width": 750,
+            }
+          }
+        >
+          <Text>
+            Title 1
+          </Text>
+          <Text>
+            Text 1
+          </Text>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "width": 750,
+            }
+          }
+        >
+          <Text>
+            Title 2
+          </Text>
+          <Text>
+            Text 2
+          </Text>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "width": 750,
+            }
+          }
+        >
+          <Text>
+            Title 3
+          </Text>
+          <Text>
+            Text 3
+          </Text>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "width": 750,
+            }
+          }
+        >
+          <Text>
+            Title 4
+          </Text>
+          <Text>
+            Text 4
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+  <View
+    className="w-full px-4 pb-6"
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="themed-gradient-button"
+    >
+      <Text>
+        Continue
+      </Text>
+    </View>
+    <View
+      className="flex-row justify-center mt-8"
+    >
+      <View
+        className="w-2 h-2 mx-1.5"
+      >
+        <View
+          className="w-2 h-2 rounded-full overflow-hidden bg-onPrimary-100"
+        />
+      </View>
+      <View
+        className="w-2 h-2 mx-1.5"
+      >
+        <View
+          className="w-2 h-2 rounded-full overflow-hidden bg-onPrimary-50"
+        />
+      </View>
+      <View
+        className="w-2 h-2 mx-1.5"
+      >
+        <View
+          className="w-2 h-2 rounded-full overflow-hidden bg-onPrimary-50"
+        />
+      </View>
+      <View
+        className="w-2 h-2 mx-1.5"
+      >
+        <View
+          className="w-2 h-2 rounded-full overflow-hidden bg-onPrimary-50"
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;

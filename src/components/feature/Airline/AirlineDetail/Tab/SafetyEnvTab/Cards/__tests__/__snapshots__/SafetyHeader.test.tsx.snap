@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SafetyHeader Component Snapshot should render the SafetyHeader Component successfully 1`] = `
+<View>
+  <View
+    color="#3498db"
+    name="shield-check"
+    size={20}
+    testID="mocked-material-community-icon"
+  />
+  <Text
+    className="ml-2.5"
+    color="text-90"
+    type="h4"
+  >
+    Safety & Environment
+  </Text>
+</View>
+`;

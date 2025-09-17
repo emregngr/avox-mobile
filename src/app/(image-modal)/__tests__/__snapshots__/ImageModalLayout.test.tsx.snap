@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ImageModalLayout Snapshot should render the ImageModalLayout successfully 1`] = `null`;

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ENUMS Constants should have the correct and consistent values 1`] = `
+{
+  "API_TOKEN": "api_token",
+  "IS_ONBOARDING_SEEN": "is_onboarding_seen",
+  "USER_ID": "user_id",
+}
+`;

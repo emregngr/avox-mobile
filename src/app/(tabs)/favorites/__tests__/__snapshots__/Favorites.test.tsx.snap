@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Favorites Screen Snapshot should render the Favorites screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <View
+    testID="tabs-container"
+  >
+    <View
+      testID="render-tab-bar"
+    />
+    <View
+      testID="tab-content-airports"
+    >
+      <View
+        testID="favorite-airports"
+      >
+        <Text>
+          Airports count: 
+          0
+        </Text>
+      </View>
+    </View>
+    <View
+      testID="tab-content-airlines"
+    >
+      <View
+        testID="favorite-airlines"
+      >
+        <Text>
+          Airlines count: 
+          0
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

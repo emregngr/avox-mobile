@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirportFlightTab Component Snapshot should render the AirportFlightTab Component successfully 1`] = `
+<View
+  className="px-4 gap-y-4"
+>
+  <Text
+    testID="stats-grid-section"
+  >
+    StatsGrid
+  </Text>
+  <Text
+    testID="airlines-list-section"
+  >
+    AirlinesList
+  </Text>
+  <Text
+    testID="routes-list-section"
+  >
+    RoutesList
+  </Text>
+</View>
+`;

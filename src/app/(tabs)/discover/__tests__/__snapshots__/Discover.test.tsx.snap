@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Discover Screen Snapshot should render the Discover screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <View
+    testID="tabs-container"
+  >
+    <View
+      testID="render-tab-bar"
+    />
+    <View
+      testID="tab-content-airports"
+    >
+      <View
+        testID="airports-tab"
+      >
+        <Text>
+          AirportsLoading: 
+        </Text>
+        <Text>
+          AirportsSearch: 
+          IST
+        </Text>
+        <Text>
+          AirportsCount: 
+          1
+        </Text>
+      </View>
+    </View>
+    <View
+      testID="tab-content-airlines"
+    >
+      <View
+        testID="airlines-tab"
+      >
+        <Text>
+          AirlinesLoading: 
+        </Text>
+        <Text>
+          AirlinesSearch: 
+          THY
+        </Text>
+        <Text>
+          AirlinesCount: 
+          1
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

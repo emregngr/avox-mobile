@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FleetHeader Component Snapshot should render the FleetHeader Component successfully 1`] = `
+<View
+  className="flex-row items-center"
+>
+  <View
+    color="#FFFFFF"
+    name="airplane"
+    size={20}
+    testID="mocked-material-community-icon"
+  />
+  <Text
+    className="ml-3"
+    color="text-100"
+    type="h3"
+  >
+    Aircraft Details
+  </Text>
+</View>
+`;

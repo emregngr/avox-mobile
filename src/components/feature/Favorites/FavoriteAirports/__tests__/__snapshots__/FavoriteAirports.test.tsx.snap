@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FavoriteAirports Component Snapshot should render the FavoriteAirports Component successfully 1`] = `
+<Text>
+  Skeleton 
+  airport
+</Text>
+`;

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AD_KEYWORDS should match the expected list of keywords 1`] = `
+[
+  "cheap flights",
+  "flight tickets",
+  "airline tickets",
+  "flight booking",
+  "business travel",
+  "travel deals",
+  "last minute flights",
+  "weekend flights",
+  "international flights",
+  "travel insurance",
+  "aviation",
+  "air cargo",
+  "hotel booking",
+  "car rental",
+  "travel apps",
+]
+`;

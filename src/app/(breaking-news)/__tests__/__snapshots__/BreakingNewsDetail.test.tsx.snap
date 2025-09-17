@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`BreakingNewsDetail Screen Snapshot should render the BreakingNewsDetail Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  >
+    breakingNewsDetailTitle
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    indicatorStyle="black"
+    testID="breaking-news-scroll-view"
+  >
+    <View>
+      <View
+        cachePolicy="memory-disk"
+        contentFit="cover"
+        source={
+          {
+            "uri": "https://example.com/image.png",
+          }
+        }
+        style={
+          {
+            "borderRadius": 12,
+            "height": 256,
+            "width": "100%",
+          }
+        }
+        testID="mocked-image"
+        transition={0}
+      />
+      <View
+        className="mt-5"
+      >
+        <Text
+          className="mb-3"
+          color="text-100"
+          type="h3"
+        >
+          Major Tech Announcement
+        </Text>
+        <Text
+          color="text-90"
+          type="body1"
+        >
+          A new groundbreaking technology has been revealed today.
+        </Text>
+      </View>
+    </View>
+  </RCTScrollView>
+  <View
+    adUnitId="ca-app-pub-4123130377375974/8155997003"
+    testID="ad-banner"
+  />
+</View>
+`;

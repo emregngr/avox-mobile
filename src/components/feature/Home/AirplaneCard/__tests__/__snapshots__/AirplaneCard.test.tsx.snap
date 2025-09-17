@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirplaneCard Component Snapshot should render the AirplaneCard Component successfully 1`] = `
+<View
+  className="bg-background-primary rounded-xl border border-background-quaternary shadow shadow-background-quaternary flex-row items-center justify-between mb-4 p-4"
+>
+  <Text
+    color="text-90"
+    type="h4"
+  >
+    Boeing 737
+  </Text>
+  <Text
+    color="text-100"
+    type="h2"
+  >
+    5
+  </Text>
+</View>
+`;

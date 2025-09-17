@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FleetTab Component Snapshot should render the FleetTab Component successfully 1`] = `
+<View
+  className="px-4 gap-y-4"
+>
+  <View
+    airplaneTypeCount={3}
+    averageAgeYears={12.5}
+    testID="mocked-fleet-stats"
+    totalAirplane={60}
+  />
+  <View
+    fleetDetailText="Mocked Fleet Details"
+    testID="mocked-fleet-header"
+  />
+  <View
+    airplanes={
+      [
+        {
+          "airplaneType": "Boeing 777",
+          "count": 25,
+          "imageKeys": [],
+        },
+        {
+          "airplaneType": "Boeing 737",
+          "count": 20,
+          "imageKeys": [],
+        },
+        {
+          "airplaneType": "Airbus A320",
+          "count": 15,
+          "imageKeys": [],
+        },
+      ]
+    }
+    onImagePress={[Function]}
+    region="North America"
+    testID="mocked-fleet-list"
+    totalAirplane={60}
+  />
+</View>
+`;

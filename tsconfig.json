@@ -12,6 +12,10 @@
     "noPropertyAccessFromIndexSignature": false,
     "noUncheckedSideEffectImports": false,
 
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "useUnknownInCatchVariables": true,
+
     "verbatimModuleSyntax": false,
     "allowImportingTsExtensions": false,
     "resolveJsonModule": true,
@@ -22,6 +26,8 @@
 
     "incremental": true,
     "composite": false,
+
+    "types": ["jest", "node"],
 
     "paths": {
       "@/*": ["./src/*"],
@@ -52,6 +58,8 @@
     "**/*.tsx",
     "**/*.js",
     "**/*.jsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "custom.d.ts",
@@ -60,23 +68,15 @@
     "metro.config.js",
     "babel.config.js",
     "app.config.js",
-    "src/**/*"
+    "src/**/*",
+    "__tests__/**/*",
+    "__mocks__/**/*",
+    "jest/**/*",
+    "jest.config.js",
+    "e2e/**/*",
+    ".detoxrc.js"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "coverage",
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "**/*.spec.ts",
-    "**/*.spec.tsx",
-    "**/__tests__/**",
-    "**/__mocks__/**",
-    "android",
-    "ios",
-    ".expo"
-  ],
+  "exclude": ["node_modules", "dist", "build", "coverage", "android", "ios", ".expo"],
   "ts-node": {
     "esm": true,
     "compilerOptions": {

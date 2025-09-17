@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`WebViewModalLayout Snapshot should render the WebViewModalLayout successfully 1`] = `null`;

@@ -1,0 +1,324 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Register Screen Snapshot should render the Register successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  >
+    register
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    bottomOffset={50}
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    keyboardDismissMode="on-drag"
+    keyboardShouldPersistTaps="handled"
+    showsVerticalScrollIndicator={false}
+  >
+    <View>
+      <View
+        className="items-center my-8"
+      >
+        <View
+          cachePolicy="memory-disk"
+          contentFit="contain"
+          source={
+            {
+              "default": "mocked-test-file",
+            }
+          }
+          style={
+            {
+              "borderRadius": 50,
+              "height": 100,
+              "width": 100,
+            }
+          }
+          testID="mocked-image"
+          transition={0}
+        />
+      </View>
+      <View
+        className="gap-y-2"
+      >
+        <View>
+          <Text>
+            firstName
+          </Text>
+          <TextInput
+            accessibilityLabel="firstName"
+            control={{}}
+            editable={true}
+            keyboardType="default"
+            name="firstName"
+            onSubmitEditing={[Function]}
+            placeholder="firstNamePlaceholder"
+            returnKeyType="next"
+            secureTextEntry={false}
+            showToggle={false}
+            testID="firstName"
+          />
+        </View>
+        <View>
+          <Text>
+            lastName
+          </Text>
+          <TextInput
+            accessibilityLabel="lastName"
+            control={{}}
+            editable={true}
+            keyboardType="default"
+            name="lastName"
+            onSubmitEditing={[Function]}
+            placeholder="lastNamePlaceholder"
+            returnKeyType="next"
+            secureTextEntry={false}
+            showToggle={false}
+            testID="lastName"
+          />
+        </View>
+        <View>
+          <Text>
+            email
+          </Text>
+          <TextInput
+            accessibilityLabel="email"
+            control={{}}
+            editable={true}
+            keyboardType="email-address"
+            name="email"
+            onSubmitEditing={[Function]}
+            placeholder="emailPlaceholder"
+            returnKeyType="next"
+            secureTextEntry={false}
+            showToggle={false}
+            testID="email"
+          />
+        </View>
+        <View>
+          <Text>
+            password
+          </Text>
+          <TextInput
+            accessibilityLabel="password"
+            control={{}}
+            editable={true}
+            keyboardType="default"
+            name="password"
+            onSubmitEditing={[Function]}
+            placeholder="passwordPlaceholder"
+            returnKeyType="done"
+            secureTextEntry={true}
+            showToggle={true}
+            testID="password"
+          />
+        </View>
+      </View>
+      <View
+        className="my-6 gap-y-2"
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="checkbox-privacyPolicy"
+        />
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="checkbox-termsOfUse"
+        />
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+        testID="register-button"
+      >
+        <Text>
+          register
+        </Text>
+      </View>
+      <View
+        className="flex-row justify-center items-center mt-6"
+      >
+        <Text
+          color="text-70"
+          type="body2"
+        >
+          alreadyHaveAccount
+        </Text>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="button-login"
+        />
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Runway Component Snapshot should render the Runway Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+>
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+</View>
+`;

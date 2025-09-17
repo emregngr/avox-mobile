@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Services Component Snapshot should render the Services Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+>
+  <View
+    className="flex-row py-1.5 gap-x-2"
+  >
+    <View
+      color="#000000"
+      name="checkbox-marked-circle"
+      size={16}
+      testID="mocked-material-community-icon"
+    />
+    <Text
+      className="capitalize"
+      color="text-90"
+      type="body2"
+    >
+      Free Wi-Fi
+    </Text>
+  </View>
+  <View
+    className="flex-row py-1.5 gap-x-2"
+  >
+    <View
+      color="#000000"
+      name="checkbox-marked-circle"
+      size={16}
+      testID="mocked-material-community-icon"
+    />
+    <Text
+      className="capitalize"
+      color="text-90"
+      type="body2"
+    >
+      Lounge Access
+    </Text>
+  </View>
+  <View
+    className="flex-row py-1.5 gap-x-2"
+  >
+    <View
+      color="#000000"
+      name="checkbox-marked-circle"
+      size={16}
+      testID="mocked-material-community-icon"
+    />
+    <Text
+      className="capitalize"
+      color="text-90"
+      type="body2"
+    >
+      Duty-Free Shopping
+    </Text>
+  </View>
+</View>
+`;

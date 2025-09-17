@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FaqItem Component Snapshot should render the FaqItem Component successfully 1`] = `
+<View
+  className="mb-2"
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={10}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="faq-1"
+  >
+    <View
+      className="flex-row justify-between items-center"
+    >
+      <View
+        className="flex-1 pr-4"
+      >
+        <Text
+          allowFontScaling={false}
+          className="text-[16px] leading-[19px] font-inter-medium text-text-100"
+          maxFontSizeMultiplier={1}
+        >
+          Test Question?
+        </Text>
+      </View>
+      <View
+        color="#00000080"
+        name="chevron-down"
+        size={24}
+        testID="mocked-material-community-icon"
+      />
+    </View>
+  </View>
+  <View
+    collapsable={false}
+    pointerEvents="none"
+    style={
+      {
+        "height": 0,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <View
+      collapsable={false}
+      onLayout={[Function]}
+      style={{}}
+    >
+      <View
+        className="mt-2 p-4 rounded-xl overflow-hidden bg-background-tertiary"
+      >
+        <Text
+          allowFontScaling={false}
+          className="text-[14px] leading-[17px] font-inter-medium text-text-90"
+          maxFontSizeMultiplier={1}
+        >
+          Test Answer
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

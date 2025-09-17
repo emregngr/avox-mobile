@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ForceUpdate Screen Snapshot should render the ForceUpdate Screen successfully 1`] = `
+<View
+  className="flex-1 justify-center items-center px-4 bg-background-primary"
+  testID="forceUpdate-screen"
+>
+  <View
+    cachePolicy="memory-disk"
+    contentFit="contain"
+    source={
+      {
+        "default": "mocked-test-file",
+      }
+    }
+    style={
+      {
+        "borderRadius": 75,
+        "height": 150,
+        "width": 150,
+      }
+    }
+    testID="forceUpdate-icon"
+    transition={0}
+  />
+  <Text
+    center={true}
+    className="mt-5"
+    color="text-100"
+    testID="app-title"
+    type="h1"
+  >
+    avox
+  </Text>
+  <Text
+    center={true}
+    className="my-12"
+    color="text-100"
+    testID="forceUpdate-text"
+    type="body1"
+  >
+    forceUpdateText
+  </Text>
+  <View
+    className="w-1/2"
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="update-button"
+    >
+      <Text>
+        forceUpdateButton
+      </Text>
+    </View>
+  </View>
+</View>
+`;

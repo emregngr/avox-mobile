@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Hub Component Snapshot should render the Hub Component successfully 1`] = `
+<View
+  className="p-4 rounded-xl overflow-hidden bg-background-secondary"
+>
+  <Text
+    allowFontScaling={false}
+    className="text-[18px] leading-[21px] font-inter-semibold text-text-100 mb-4"
+    maxFontSizeMultiplier={1}
+  >
+    hubInformation
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    hitSlop={
+      {
+        "left": 20,
+        "right": 20,
+      }
+    }
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      color="#FFFFFF"
+      name="city-variant-outline"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+    <View
+      className="flex-1 ml-3"
+    >
+      <Text
+        allowFontScaling={false}
+        className="text-[13px] leading-[16px] font-inter-regular text-text-70 mb-1"
+        maxFontSizeMultiplier={1}
+      >
+        city
+      </Text>
+      <Text
+        allowFontScaling={false}
+        className="text-[14px] leading-[17px] font-inter-medium text-text-100"
+        maxFontSizeMultiplier={1}
+      >
+        İstanbul
+      </Text>
+    </View>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": true,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    hitSlop={
+      {
+        "left": 20,
+        "right": 20,
+      }
+    }
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      color="#FFFFFF"
+      name="earth"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+    <View
+      className="flex-1 ml-3"
+    >
+      <Text
+        allowFontScaling={false}
+        className="text-[13px] leading-[16px] font-inter-regular text-text-70 mb-1"
+        maxFontSizeMultiplier={1}
+      >
+        country
+      </Text>
+      <Text
+        allowFontScaling={false}
+        className="text-[14px] leading-[17px] font-inter-medium text-text-100"
+        maxFontSizeMultiplier={1}
+      >
+        Türkiye
+      </Text>
+    </View>
+  </View>
+</View>
+`;

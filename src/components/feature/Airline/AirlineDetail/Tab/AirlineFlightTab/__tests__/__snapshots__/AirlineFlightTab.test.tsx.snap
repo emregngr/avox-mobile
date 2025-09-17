@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirlineFlightTab Component Snapshot should render the AirlineFlightTab Component successfully 1`] = `
+<View
+  className="px-4 gap-y-4"
+>
+  <View
+    testID="stats-grid-section"
+  >
+    <Text
+      testID="destination-count-stat"
+    >
+      150
+    </Text>
+    <Text
+      testID="destination-countries-stat"
+    >
+      45
+    </Text>
+    <Text
+      testID="domestic-connections-stat"
+    >
+      80
+    </Text>
+    <Text
+      testID="international-connections-stat"
+    >
+      70
+    </Text>
+    <Text
+      testID="country"
+    >
+      country
+    </Text>
+    <Text
+      testID="domestic"
+    >
+      domesticDestinations
+    </Text>
+    <Text
+      testID="international"
+    >
+      internationalDestination
+    </Text>
+    <Text
+      testID="total"
+    >
+      totalDestination
+    </Text>
+  </View>
+  <View
+    testID="destination-list-section"
+  >
+    <Text
+      testID="destination-title"
+    >
+      mainDestinations
+    </Text>
+    <Text
+      testID="destination-count"
+    >
+      3
+    </Text>
+  </View>
+  <View
+    testID="routes-list-section"
+  >
+    <Text
+      testID="routes-title"
+    >
+      activeRoutes
+    </Text>
+    <Text
+      testID="routes-count"
+    >
+      2
+    </Text>
+  </View>
+  <View
+    testID="alliance-section"
+  >
+    <Text
+      testID="alliance-title"
+    >
+      alliance
+    </Text>
+    <Text
+      testID="alliance-value"
+    >
+      Star Alliance
+    </Text>
+  </View>
+</View>
+`;

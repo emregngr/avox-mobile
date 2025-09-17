@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Profile Screen Snapshot should render the Profile screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <View
+    testID="header"
+  >
+    <Text
+      testID="header-title"
+    />
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="settings-button"
+    >
+      <Settings
+        color="#000000"
+        height={24}
+        width={24}
+      />
+    </View>
+  </View>
+  <RCTScrollView
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 40,
+        "paddingTop": 44,
+      }
+    }
+    showsVerticalScrollIndicator={false}
+  >
+    <View>
+      <View
+        className="items-center mt-5"
+      >
+        <View
+          className="w-24 h-24 rounded-full overflow-hidden border-[3px] border-onPrimary-100 justify-center items-center mb-4"
+        >
+          <View
+            cachePolicy="memory-disk"
+            contentFit="contain"
+            source={
+              {
+                "default": "mocked-test-file",
+              }
+            }
+            style={
+              {
+                "borderRadius": 40,
+                "height": 80,
+                "width": 80,
+              }
+            }
+            testID="mocked-image"
+            transition={0}
+          />
+        </View>
+        <Text
+          color="text-100"
+          type="body2"
+        >
+          avox
+        </Text>
+      </View>
+      <Text
+        className="ml-4 mt-8 mb-2"
+        color="text-70"
+        type="body2"
+      >
+        profileInformation
+      </Text>
+      <View
+        className="rounded-xl overflow-hidden bg-background-secondary"
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="item-signInOrRegister"
+        >
+          <Text>
+            signInOrRegister
+          </Text>
+        </View>
+      </View>
+      <Text
+        className="ml-4 mt-8 mb-2"
+        color="text-70"
+        type="body2"
+      >
+        accountTransactions
+      </Text>
+      <View
+        className="rounded-xl overflow-hidden bg-background-secondary"
+      >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="item-chooseTheme"
+        >
+          <Text>
+            chooseTheme
+          </Text>
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="item-chooseLanguage"
+        >
+          <Text>
+            chooseLanguage
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

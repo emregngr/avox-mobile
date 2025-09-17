@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ProfileItem Component Snapshot renders the ProfileItem Component successfully 1`] = `
+[
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    hitSlop={
+      {
+        "left": 20,
+        "right": 20,
+      }
+    }
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="profile-item-touchable"
+  >
+    <View
+      className="flex-row items-center"
+    >
+      <Text
+        className="ml-4"
+        color="text-100"
+        type="body1"
+      >
+        Test Label
+      </Text>
+    </View>
+    <Right
+      color="#000000"
+      height={24}
+      testID="right-icon"
+      width={24}
+    />
+  </View>,
+  <View
+    className="border-b border-background-quaternary ml-14"
+    testID="separator"
+  />,
+]
+`;

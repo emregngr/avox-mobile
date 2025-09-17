@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirlineSectionRow Component Snapshot should render the AirlineSectionRow Component successfully 1`] = `
+<View
+  className="p-4 rounded-xl overflow-hidden bg-background-secondary"
+>
+  <Text
+    className="mb-4"
+    color="text-100"
+    type="h3"
+  >
+    Snapshot Title
+  </Text>
+  <Text>
+    Snapshot child content
+  </Text>
+</View>
+`;

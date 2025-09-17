@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FavoriteSkeleton Component Snapshot should render the FavoriteSkeleton Component successfully 1`] = `
+<RCTScrollView
+  className="mt-[52px]"
+  columnWrapperClassName="justify-between"
+  contentContainerClassName="px-4"
+  contentContainerStyle={
+    {
+      "paddingBottom": 72,
+    }
+  }
+  data={
+    [
+      {
+        "id": "skeleton-0",
+      },
+      {
+        "id": "skeleton-1",
+      },
+      {
+        "id": "skeleton-2",
+      },
+      {
+        "id": "skeleton-3",
+      },
+      {
+        "id": "skeleton-4",
+      },
+      {
+        "id": "skeleton-5",
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  getItemLayout={[Function]}
+  initialNumToRender={6}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={4}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={true}
+  renderItem={[Function]}
+  scrollEventThrottle={16}
+  showsVerticalScrollIndicator={false}
+  stickyHeaderIndices={[]}
+  testID="favorite-skeleton-flatlist"
+  updateCellsBatchingPeriod={150}
+  viewabilityConfigCallbackPairs={[]}
+  windowSize={7}
+>
+  <View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text>
+          Airport Skeleton
+        </Text>
+        <Text>
+          Airport Skeleton
+        </Text>
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text>
+          Airport Skeleton
+        </Text>
+        <Text>
+          Airport Skeleton
+        </Text>
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text>
+          Airport Skeleton
+        </Text>
+        <Text>
+          Airport Skeleton
+        </Text>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

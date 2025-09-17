@@ -1,0 +1,232 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AirlineCardSkeleton Component Snapshot should render the AirlineCardSkeleton Component successfully 1`] = `
+<View
+  className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary"
+  testID="skeleton-block"
+>
+  <View
+    className="bg-background-primary rounded-t-xl overflow-hidden w-full justify-center items-center"
+    style={
+      [
+        {
+          "height": 130,
+        },
+        {
+          "opacity": undefined,
+        },
+      ]
+    }
+  >
+    <View
+      className="bg-background-quaternary rounded-lg overflow-hidden"
+      style={
+        [
+          {
+            "height": 40,
+            "width": "50%",
+          },
+          {
+            "opacity": undefined,
+          },
+        ]
+      }
+    />
+    <View
+      className="bg-background-quaternary rounded overflow-hidden"
+      style={
+        [
+          {
+            "height": 40,
+            "left": 4,
+            "position": "absolute",
+            "top": 4,
+            "width": 40,
+          },
+          {
+            "opacity": undefined,
+          },
+        ]
+      }
+    />
+    <View
+      className="absolute bottom-2 left-2 w-12 h-6 bg-background-quaternary rounded-xl overflow-hidden"
+      style={
+        {
+          "opacity": undefined,
+        }
+      }
+    />
+    <View
+      className="absolute bottom-2 right-2 w-14 h-6 bg-background-quaternary rounded-xl overflow-hidden"
+      style={
+        {
+          "opacity": undefined,
+        }
+      }
+    />
+    <View
+      className="absolute top-2 right-2 w-8 h-8 bg-background-quaternary rounded-full overflow-hidden"
+      style={
+        {
+          "opacity": undefined,
+        }
+      }
+    />
+  </View>
+  <View
+    className="px-3 py-3"
+  >
+    <View
+      className="h-56 justify-between"
+    >
+      <View>
+        <View
+          className="h-6 bg-background-quaternary rounded-xl overflow-hidden"
+          style={
+            {
+              "opacity": undefined,
+            }
+          }
+        />
+        <View
+          className="h-4 bg-background-quaternary rounded-xl overflow-hidden w-3/4 mt-2"
+          style={
+            {
+              "opacity": undefined,
+            }
+          }
+        />
+      </View>
+      <View
+        className="bg-background-secondary rounded-xl p-2 shadow shadow-background-quaternary border border-background-quaternary"
+      >
+        <View
+          className="flex-row items-center justify-between"
+        >
+          <View
+            className="flex-1 items-center"
+          >
+            <View
+              className="h-6 w-8 bg-background-quaternary rounded mb-1"
+              style={
+                {
+                  "opacity": undefined,
+                }
+              }
+            />
+            <View
+              className="h-3 w-10 bg-background-quaternary rounded overflow-hidden"
+              style={
+                {
+                  "opacity": undefined,
+                }
+              }
+            />
+          </View>
+          <View
+            className="w-[1px] h-6 bg-background-quaternary"
+          />
+          <View
+            className="flex-1 items-center"
+          >
+            <View
+              className="h-6 w-8 bg-background-quaternary rounded overflow-hidden mb-1"
+              style={
+                {
+                  "opacity": undefined,
+                }
+              }
+            />
+            <View
+              className="h-3 w-12 bg-background-quaternary rounded overflow-hidden"
+              style={
+                {
+                  "opacity": undefined,
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          className="my-3 w-[100px] self-center flex-row justify-between"
+        >
+          <View
+            className="h-[1px] w-8 bg-background-quaternary"
+          />
+          <View
+            className="h-[1px] w-8 bg-background-quaternary"
+          />
+        </View>
+        <View
+          className="flex-row items-center justify-between"
+        >
+          <View
+            className="flex-1 items-center"
+          >
+            <View
+              className="h-6 w-8 bg-background-quaternary rounded overflow-hidden mb-1"
+              style={
+                {
+                  "opacity": undefined,
+                }
+              }
+            />
+            <View
+              className="h-3 w-12 bg-background-quaternary rounded overflow-hidden"
+              style={
+                {
+                  "opacity": undefined,
+                }
+              }
+            />
+          </View>
+          <View
+            className="w-[1px] h-6 bg-background-quaternary"
+          />
+          <View
+            className="flex-1 items-center"
+          >
+            <View
+              className="h-6 w-6 bg-background-quaternary rounded overflow-hidden mb-1"
+              style={
+                {
+                  "opacity": undefined,
+                }
+              }
+            />
+            <View
+              className="h-3 w-10 bg-background-quaternary rounded overflow-hidden"
+              style={
+                {
+                  "opacity": undefined,
+                }
+              }
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    className="h-20 px-3 mb-3"
+  >
+    <View
+      className="h-4 w-24 bg-background-quaternary rounded overflow-hidden mb-2"
+      style={
+        {
+          "opacity": undefined,
+        }
+      }
+    />
+    <View
+      className="bg-background-quaternary rounded-xl overflow-hidden mt-1 h-10"
+      style={
+        {
+          "opacity": undefined,
+        }
+      }
+    />
+  </View>
+</View>
+`;

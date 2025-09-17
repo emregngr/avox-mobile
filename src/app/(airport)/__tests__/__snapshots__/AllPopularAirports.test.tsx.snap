@@ -1,0 +1,527 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AllPopularAirports Screen Snapshot should render the AllPopularAirports Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  />
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    columnWrapperClassName="justify-between"
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    data={
+      [
+        {
+          "airportInfo": {
+            "contactInfo": {
+              "email": "info@İstanbulairport.aero",
+              "phone": "+90-212-891-1122",
+            },
+            "employeeCount": 5000,
+            "foundingYear": "2018",
+            "socialMedia": {
+              "instagram": "https://www.instagram.com/İstanbul_airport",
+              "linkedin": "https://www.linkedin.com/company/İstanbul-airport",
+              "tiktok": "https://www.tiktok.com/@İstanbul_airport",
+              "x": "https://x.com/İstanbul_airport",
+            },
+            "website": "www.istairport.com",
+          },
+          "cargo": {
+            "annualCargoTonnes": 1500000,
+            "coldStorage": true,
+            "dangerousGoods": true,
+            "terminalCapacityTonnes": 1000,
+          },
+          "facilities": {
+            "checkinTimeAvg": 25,
+            "freeWifi": true,
+            "googleMapsRating": 4.4,
+            "hasMetro": true,
+            "loungeCount": 6,
+            "parkingCapacityVehicles": 25000,
+            "securityQueueTime": 25,
+            "services": [
+              "duty-free shops",
+              "restaurants",
+              "lounge",
+              "car rental",
+            ],
+          },
+          "flightOperations": {
+            "airlines": [
+              "Turkish Airlines",
+              "Emirates",
+              "British Airways",
+            ],
+            "destinationCount": 220,
+            "destinationCountries": 80,
+            "domesticConnections": 20,
+            "internationalConnections": 200,
+            "routes": [
+              {
+                "destinationIata": "JFK",
+                "frequency": "2x daily",
+              },
+              {
+                "destinationIata": "LHR",
+                "frequency": "4x daily",
+              },
+              {
+                "destinationIata": "DXB",
+                "frequency": "3x daily",
+              },
+            ],
+          },
+          "iataCode": "IST",
+          "icaoCode": "LTFM",
+          "id": "1",
+          "image": "https://res.cloudinary.com/dzkssh0tp/image/upload/v1758030477/IST_vy5oim.jpg",
+          "infrastructure": {
+            "airportAreaHectares": 7650,
+            "apronCount": 371,
+            "baggageCapacity": 10800,
+            "fireCategory": "Cat 10",
+            "passengerCapacity": 90,
+            "runwayCount": 5,
+            "runways": {
+              "ilsCategory": "CAT III",
+              "lengthM": 4100,
+              "pcn": "80/F/A/X/T",
+              "surface": "Asphalt",
+            },
+            "terminalAreaHectares": 140,
+            "terminalCount": 1,
+            "towerHeightM": 50,
+          },
+          "isoCountry": "TR",
+          "isoRegion": "TR-34",
+          "name": "İstanbul Airport",
+          "nearbyAttractions": [
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0086,
+                "attractionLongitude": 28.98,
+              },
+              "attractionId": "1",
+              "attractionName": "Hagia Sophia",
+              "description": "A historic mosque and former cathedral with Byzantine mosaics.",
+              "distanceKm": 35,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0114,
+                "attractionLongitude": 28.9833,
+              },
+              "attractionId": "2",
+              "attractionName": "Topkapı Palace",
+              "description": "A grand Ottoman palace with museums and courtyards.",
+              "distanceKm": 35,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0053,
+                "attractionLongitude": 28.9758,
+              },
+              "attractionId": "3",
+              "attractionName": "Blue Mosque",
+              "description": "An iconic mosque with blue tiles and six minarets.",
+              "distanceKm": 35,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0108,
+                "attractionLongitude": 28.9681,
+              },
+              "attractionId": "4",
+              "attractionName": "Grand Bazaar",
+              "description": "One of the world’s oldest and largest covered markets.",
+              "distanceKm": 35,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0161,
+                "attractionLongitude": 28.9642,
+              },
+              "attractionId": "5",
+              "attractionName": "Süleymaniye Mosque",
+              "description": "A majestic Ottoman mosque with stunning views.",
+              "distanceKm": 35,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0083,
+                "attractionLongitude": 28.9778,
+              },
+              "attractionId": "6",
+              "attractionName": "Basilica Cistern",
+              "description": "An underground Byzantine water reservoir with columns.",
+              "distanceKm": 35,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0392,
+                "attractionLongitude": 29.0003,
+              },
+              "attractionId": "7",
+              "attractionName": "Dolmabahçe Palace",
+              "description": "A lavish 19th-century palace on the Bosphorus.",
+              "distanceKm": 40,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0256,
+                "attractionLongitude": 28.9741,
+              },
+              "attractionId": "8",
+              "attractionName": "Galata Tower",
+              "description": "A medieval tower with panoramic city views.",
+              "distanceKm": 35,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0167,
+                "attractionLongitude": 28.9708,
+              },
+              "attractionId": "9",
+              "attractionName": "Spice Bazaar",
+              "description": "A vibrant market with spices, sweets, and souvenirs.",
+              "distanceKm": 35,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0369,
+                "attractionLongitude": 29.0139,
+              },
+              "attractionId": "10",
+              "attractionName": "Bosphorus Cruise",
+              "description": "A scenic boat tour along the Bosphorus Strait.",
+              "distanceKm": 40,
+            },
+          ],
+          "operations": {
+            "airportType": "mega_airport",
+            "country": "Turkey",
+            "is24Hour": true,
+            "location": {
+              "address": "Arnavutköy, İstanbul, Turkey",
+              "city": "Arnavutköy, İstanbul",
+              "coordinates": {
+                "latitude": 41.261297,
+                "longitude": 28.741951,
+              },
+              "elevationFt": 325,
+            },
+            "region": "EU",
+            "scheduledService": true,
+          },
+          "safety": {
+            "certifications": [
+              "ICAO Annex 17",
+            ],
+          },
+        },
+        {
+          "airportInfo": {
+            "contactInfo": {
+              "email": "info@sabihagokcen.aero",
+              "phone": "+90-216-588-8888",
+            },
+            "employeeCount": 2500,
+            "foundingYear": "2001",
+            "socialMedia": {
+              "instagram": "https://www.instagram.com/sabiha_airport",
+              "linkedin": "https://www.linkedin.com/company/sabiha-gokcen-airport",
+              "tiktok": "",
+              "x": "https://x.com/sabiha_airport",
+            },
+            "website": "www.sabihagokcen.aero",
+          },
+          "cargo": {
+            "annualCargoTonnes": 200000,
+            "coldStorage": true,
+            "dangerousGoods": true,
+            "terminalCapacityTonnes": 500,
+          },
+          "facilities": {
+            "checkinTimeAvg": 20,
+            "freeWifi": true,
+            "googleMapsRating": 4.3,
+            "hasMetro": true,
+            "loungeCount": 3,
+            "parkingCapacityVehicles": 10000,
+            "securityQueueTime": 18,
+            "services": [
+              "duty-free shops",
+              "restaurants",
+              "lounge",
+              "car rental",
+            ],
+          },
+          "flightOperations": {
+            "airlines": [
+              "Pegasus Airlines",
+              "Turkish Airlines",
+              "Flydubai",
+            ],
+            "destinationCount": 80,
+            "destinationCountries": 40,
+            "domesticConnections": 20,
+            "internationalConnections": 60,
+            "routes": [
+              {
+                "destinationIata": "ESB",
+                "frequency": "4x daily",
+              },
+              {
+                "destinationIata": "LHR",
+                "frequency": "daily",
+              },
+              {
+                "destinationIata": "DXB",
+                "frequency": "daily",
+              },
+            ],
+          },
+          "iataCode": "SAW",
+          "icaoCode": "LTFJ",
+          "id": "2",
+          "image": "",
+          "infrastructure": {
+            "airportAreaHectares": 2550,
+            "apronCount": 20,
+            "baggageCapacity": 1000,
+            "fireCategory": "Cat 8",
+            "passengerCapacity": 41,
+            "runwayCount": 2,
+            "runways": {
+              "ilsCategory": "CAT II",
+              "lengthM": 3000,
+              "pcn": "70/F/A/X/T",
+              "surface": "Asphalt",
+            },
+            "terminalAreaHectares": 20,
+            "terminalCount": 2,
+            "towerHeightM": 40,
+          },
+          "isoCountry": "TR",
+          "isoRegion": "TR-34",
+          "name": "İstanbul Sabiha Gökçen International Airport",
+          "nearbyAttractions": [
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0086,
+                "attractionLongitude": 28.98,
+              },
+              "attractionId": "1",
+              "attractionName": "Hagia Sophia",
+              "description": "A historic mosque and former cathedral with Byzantine mosaics.",
+              "distanceKm": 45,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0114,
+                "attractionLongitude": 28.9833,
+              },
+              "attractionId": "2",
+              "attractionName": "Topkapı Palace",
+              "description": "A grand Ottoman palace with museums and courtyards.",
+              "distanceKm": 45,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0053,
+                "attractionLongitude": 28.9758,
+              },
+              "attractionId": "3",
+              "attractionName": "Blue Mosque",
+              "description": "An iconic mosque with blue tiles and six minarets.",
+              "distanceKm": 45,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0108,
+                "attractionLongitude": 28.9681,
+              },
+              "attractionId": "4",
+              "attractionName": "Grand Bazaar",
+              "description": "One of the world’s oldest and largest covered markets.",
+              "distanceKm": 45,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0161,
+                "attractionLongitude": 28.9642,
+              },
+              "attractionId": "5",
+              "attractionName": "Süleymaniye Mosque",
+              "description": "A majestic Ottoman mosque with stunning views.",
+              "distanceKm": 45,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0083,
+                "attractionLongitude": 28.9778,
+              },
+              "attractionId": "6",
+              "attractionName": "Basilica Cistern",
+              "description": "An underground Byzantine water reservoir with columns.",
+              "distanceKm": 45,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0392,
+                "attractionLongitude": 29.0003,
+              },
+              "attractionId": "7",
+              "attractionName": "Dolmabahçe Palace",
+              "description": "A lavish 19th-century palace on the Bosphorus.",
+              "distanceKm": 50,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0256,
+                "attractionLongitude": 28.9741,
+              },
+              "attractionId": "8",
+              "attractionName": "Galata Tower",
+              "description": "A medieval tower with panoramic city views.",
+              "distanceKm": 45,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0167,
+                "attractionLongitude": 28.9708,
+              },
+              "attractionId": "9",
+              "attractionName": "Spice Bazaar",
+              "description": "A vibrant market with spices, sweets, and souvenirs.",
+              "distanceKm": 45,
+            },
+            {
+              "attractionCoordinates": {
+                "attractionLatitude": 41.0369,
+                "attractionLongitude": 29.0139,
+              },
+              "attractionId": "10",
+              "attractionName": "Bosphorus Cruise",
+              "description": "A scenic boat tour along the Bosphorus Strait.",
+              "distanceKm": 50,
+            },
+          ],
+          "operations": {
+            "airportType": "large_airport",
+            "country": "Turkey",
+            "is24Hour": true,
+            "location": {
+              "address": "Pendik, İstanbul, Turkey",
+              "city": "Pendik, İstanbul",
+              "coordinates": {
+                "latitude": 40.898602,
+                "longitude": 29.3092,
+              },
+              "elevationFt": 312,
+            },
+            "region": "AS",
+            "scheduledService": true,
+          },
+          "safety": {
+            "certifications": [
+              "ICAO Annex 17",
+            ],
+          },
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    getItemLayout={[Function]}
+    initialNumToRender={6}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={4}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={true}
+    renderItem={[Function]}
+    scrollEventThrottle={16}
+    showsVerticalScrollIndicator={false}
+    stickyHeaderIndices={[]}
+    updateCellsBatchingPeriod={150}
+    viewabilityConfigCallbackPairs={[]}
+    windowSize={7}
+  >
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            testID="airport-card-1"
+          />
+          <View
+            testID="airport-card-2"
+          />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

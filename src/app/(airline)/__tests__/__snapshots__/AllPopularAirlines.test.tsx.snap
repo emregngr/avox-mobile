@@ -1,0 +1,349 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AllPopularAirlines Screen Snapshot should render the AllPopularAirlines Screen successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  />
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    columnWrapperClassName="justify-between"
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 20,
+        "paddingTop": 64,
+      }
+    }
+    data={
+      [
+        {
+          "companyInfo": {
+            "contactInfo": {
+              "email": "customer@thy.com",
+              "phone": "+90-850-333-0849",
+            },
+            "employeeCount": 64570,
+            "foundingYear": "1933",
+            "parentCompany": "Turkish Airlines Inc.",
+            "passengerCapacity": 80,
+            "socialMedia": {
+              "instagram": "https://www.instagram.com/turkishairlines",
+              "linkedin": "https://www.linkedin.com/company/turkish-airlines",
+              "tiktok": "https://www.tiktok.com/@turkishairlines",
+              "x": "https://x.com/turkishairlines",
+            },
+            "website": "www.turkishairlines.com",
+          },
+          "environmental": "Operates fuel-efficient airplane, participates in carbon offset programs.",
+          "fleet": {
+            "airplaneTypeCount": 6,
+            "airplanes": [
+              {
+                "bodyType": "narrow_body",
+                "capacitySeats": 159,
+                "count": 100,
+                "rangeKm": 5700,
+                "speedKmh": 871,
+                "type": "Boeing 737-800",
+              },
+              {
+                "bodyType": "narrow_body",
+                "capacitySeats": 180,
+                "count": 80,
+                "rangeKm": 6100,
+                "speedKmh": 871,
+                "type": "Airbus A321-200",
+              },
+              {
+                "bodyType": "wide_body",
+                "capacitySeats": 349,
+                "count": 50,
+                "rangeKm": 14600,
+                "speedKmh": 905,
+                "type": "Boeing 777-300ER",
+              },
+              {
+                "bodyType": "wide_body",
+                "capacitySeats": 289,
+                "count": 70,
+                "rangeKm": 11700,
+                "speedKmh": 905,
+                "type": "Airbus A330-300",
+              },
+              {
+                "bodyType": "wide_body",
+                "capacitySeats": 300,
+                "count": 50,
+                "rangeKm": 14140,
+                "speedKmh": 913,
+                "type": "Boeing 787-9",
+              },
+              {
+                "bodyType": "wide_body",
+                "capacitySeats": 329,
+                "count": 50,
+                "rangeKm": 15000,
+                "speedKmh": 913,
+                "type": "Airbus A350-900",
+              },
+            ],
+            "averageAgeYears": 7.5,
+            "totalAirplane": 400,
+          },
+          "iataCode": "TK",
+          "icaoCode": "THY",
+          "id": "1",
+          "isoCountry": "TR",
+          "isoRegion": "TR-34",
+          "logo": "https://res.cloudinary.com/dzkssh0tp/image/upload/v1758030467/TK_djxzx2.png",
+          "name": "Turkish Airlines",
+          "network": {
+            "destinationCount": 350,
+            "destinationCountries": 80,
+            "destinations": [
+              "İstanbul",
+              "New York",
+              "London",
+              "Tokyo",
+            ],
+            "domesticConnections": 50,
+            "internationalConnections": 300,
+            "routes": [
+              {
+                "destinationIata": "LAX",
+                "origin": "JFK",
+              },
+              {
+                "destinationIata": "MIA",
+                "origin": "JFK",
+              },
+            ],
+          },
+          "operations": {
+            "alliance": "Star Alliance",
+            "businessModel": "passenger",
+            "businessType": "major_international",
+            "country": "Turkey",
+            "hub": {
+              "address": "İstanbul, Turkey",
+              "city": "İstanbul",
+              "coordinates": {
+                "latitude": 41.2753,
+                "longitude": 28.7519,
+              },
+              "name": "İstanbul Airport",
+            },
+            "region": "EU",
+            "skytraxRating": 4.9,
+            "slogan": "Widen your world",
+          },
+          "safety": {
+            "certifications": [
+              "DGCA Turkey AOC",
+              "IATA IOSA",
+            ],
+            "safetyRecord": "One fatal accident (2009). Passenger-focused, no EU ban.",
+          },
+        },
+        {
+          "companyInfo": {
+            "contactInfo": {
+              "email": "info@flypgs.com",
+              "phone": "+90-850-250-6777",
+            },
+            "employeeCount": 200,
+            "foundingYear": "1990",
+            "parentCompany": "ESAS Holding",
+            "passengerCapacity": 30,
+            "socialMedia": {
+              "instagram": "https://www.instagram.com/pegasusairlines",
+              "linkedin": "https://www.linkedin.com/company/pegasus-airlines",
+              "tiktok": "https://www.tiktok.com/@pegasusairlines",
+              "x": "https://x.com/flypgs",
+            },
+            "website": "www.flypgs.com",
+          },
+          "environmental": "Operates fuel-efficient airplane, participates in carbon offset programs.",
+          "fleet": {
+            "airplaneTypeCount": 4,
+            "airplanes": [
+              {
+                "bodyType": "narrow_body",
+                "capacitySeats": 180,
+                "count": 40,
+                "rangeKm": 6100,
+                "speedKmh": 871,
+                "type": "Airbus A320-200",
+              },
+              {
+                "bodyType": "narrow_body",
+                "capacitySeats": 186,
+                "count": 30,
+                "rangeKm": 6500,
+                "speedKmh": 871,
+                "type": "Airbus A320neo",
+              },
+              {
+                "bodyType": "narrow_body",
+                "capacitySeats": 189,
+                "count": 20,
+                "rangeKm": 5700,
+                "speedKmh": 871,
+                "type": "Boeing 737-800",
+              },
+              {
+                "bodyType": "narrow_body",
+                "capacitySeats": 239,
+                "count": 10,
+                "rangeKm": 7400,
+                "speedKmh": 871,
+                "type": "Airbus A321neo",
+              },
+            ],
+            "averageAgeYears": 7,
+            "totalAirplane": 100,
+          },
+          "iataCode": "PC",
+          "icaoCode": "PGT",
+          "id": "2",
+          "isoCountry": "TR",
+          "isoRegion": "TR-34",
+          "logo": "",
+          "name": "Pegasus Airlines",
+          "network": {
+            "destinationCount": 120,
+            "destinationCountries": 40,
+            "destinations": [
+              "İstanbul",
+              "Antalya",
+              "London",
+              "Moscow",
+            ],
+            "domesticConnections": 20,
+            "internationalConnections": 100,
+            "routes": [
+              {
+                "destinationIata": "LAX",
+                "origin": "JFK",
+              },
+              {
+                "destinationIata": "MIA",
+                "origin": "JFK",
+              },
+            ],
+          },
+          "operations": {
+            "alliance": "none",
+            "businessModel": "passenger",
+            "businessType": "low_cost",
+            "country": "Turkey",
+            "hub": {
+              "address": "İstanbul, Turkey",
+              "city": "İstanbul",
+              "coordinates": {
+                "latitude": 40.8986,
+                "longitude": 29.3092,
+              },
+              "name": "Sabiha Gökçen International Airport",
+            },
+            "region": "EU",
+            "skytraxRating": 4.5,
+            "slogan": "We Make You Fly",
+          },
+          "safety": {
+            "certifications": [
+              "DGCA Turkey AOC",
+              "IATA IOSA",
+            ],
+            "safetyRecord": "No fatal accidents. Low-cost passenger-focused, no EU ban.",
+          },
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    getItemLayout={[Function]}
+    initialNumToRender={6}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={4}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={true}
+    renderItem={[Function]}
+    scrollEventThrottle={16}
+    showsVerticalScrollIndicator={false}
+    stickyHeaderIndices={[]}
+    updateCellsBatchingPeriod={150}
+    viewabilityConfigCallbackPairs={[]}
+    windowSize={7}
+  >
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            testID="airline-card-1"
+          />
+          <View
+            testID="airline-card-2"
+          />
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

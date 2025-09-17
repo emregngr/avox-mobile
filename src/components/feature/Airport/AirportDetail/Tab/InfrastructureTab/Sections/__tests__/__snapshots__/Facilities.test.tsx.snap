@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Facilities Component Snapshot should render the Facilities Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+>
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+  <View
+    testID="mocked-row-item"
+  />
+</View>
+`;

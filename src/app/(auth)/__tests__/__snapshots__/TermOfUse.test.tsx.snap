@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`TermsOfUse Screen Snapshot should render the TermsOfUse successfully 1`] = `
+<View
+  testID="safe-layout"
+>
+  <Text
+    testID="header-title"
+  >
+    termsOfUse
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="back-button"
+  >
+    <Text>
+      Back
+    </Text>
+  </View>
+  <RCTScrollView
+    contentContainerClassName="px-4"
+    contentContainerStyle={
+      {
+        "paddingBottom": 76,
+        "paddingTop": 64,
+      }
+    }
+    indicatorStyle="black"
+  >
+    <View>
+      <Text
+        color="text-100"
+        type="body1"
+      >
+        Kullanım Koşulları
+          
+1. Hizmet Kullanım Koşulları
+          
+Uygulamamızı kullanarak aşağıdaki şartları kabul etmiş sayılırsınız. Bu uygulamayı yalnızca yasal amaçlar doğrultusunda ve bu koşullara uygun olarak kullanmayı kabul ediyorsunuz.
+          
+2. Kullanıcı Hesabı ve Güvenlik
+          
+Uygulamamızda hesap oluşturduğunuzda, hesap bilgilerinizin gizliliğini korumak sizin sorumluluğunuzdadır. Hesabınızla gerçekleştirilen tüm etkinliklerden siz sorumlusunuz.
+          
+3. Gizlilik ve Veri Kullanımı
+          
+Kişisel verilerinizi Gizlilik Politikamıza uygun olarak topluyoruz ve işliyoruz. Uygulamayı kullanarak, verilerinizin toplanmasına ve kullanılmasına onay vermiş olursunuz.
+          
+4. Kullanıcı İçeriği
+          
+Uygulamamıza yüklediğiniz tüm içerikten siz sorumlusunuz. Paylaştığınız içeriğin telif haklarını ihlal etmemesi ve yasalara uygun olması gerekmektedir.
+          
+5. Yasaklı Kullanımlar
+          
+Aşağıdaki eylemler kesinlikle yasaktır:
+- Yasadışı, zararlı veya uygunsuz içerik paylaşmak
+- Başka kullanıcılara zarar vermek veya onları taciz etmek
+- Uygulamanın güvenlik önlemlerini atlatmaya çalışmak
+- Uygulamayı ticari amaçlarla izinsiz kullanmak
+          
+6. Fikri Mülkiyet Hakları
+          
+Uygulamamızdaki tüm içerik, tasarım ve yazılım şirketimizin fikri mülkiyetidir. Bu içeriği izinsiz kopyalamak, değiştirmek veya dağıtmak yasaktır.
+          
+7. Hizmet Değişiklikleri
+          
+Uygulamamızı ve hizmetlerimizi herhangi bir zamanda değiştirme, askıya alma veya sonlandırma hakkını saklı tutarız. Bu değişiklikler hakkında sizi bilgilendireceğiz.
+          
+8. Sorumluluk Sınırlaması
+          
+Uygulamamızı 'olduğu gibi' sunuyoruz. Hizmetlerimizin kesintisiz veya hatasız olacağını garanti etmiyoruz. Uygulamayı kullanmanızdan doğabilecek zararlardan sorumlu değiliz.
+          
+9. Hesap Sonlandırma
+          
+Kullanım koşullarını ihlal eden hesapları askıya alma veya sonlandırma hakkımız saklıdır. Hesabınızı istediğiniz zaman sonlandırabilirsiniz.
+          
+10. İletişim ve Destek
+          
+Sorularınız veya sorunlarınız için destek ekibimizle iletişime geçebilirsiniz. Size en kısa sürede yardımcı olmaya çalışacağız.
+          
+11. Güncellemeler ve Değişiklikler
+          
+Bu kullanım koşullarını zaman zaman güncelleyebiliriz. Önemli değişiklikler hakkında sizi bilgilendireceğiz. Uygulamayı kullanmaya devam etmeniz, güncel koşulları kabul ettiğiniz anlamına gelir.
+          
+12. Uygulanacak Hukuk
+          
+Bu koşullar Türkiye Cumhuriyeti yasalarına tabidir ve bu yasalara göre yorumlanır. Ortaya çıkabilecek anlaşmazlıkların çözümünde Türkiye mahkemeleri yetkilidir.
+      </Text>
+    </View>
+  </RCTScrollView>
+  <View
+    className="mx-4 absolute bottom-0 left-0 right-0 bg-transparent z-50"
+    style={
+      {
+        "paddingBottom": 0,
+      }
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="accept-button"
+    >
+      <Text>
+        accept
+      </Text>
+    </View>
+  </View>
+</View>
+`;

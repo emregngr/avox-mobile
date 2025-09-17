@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Safety Component Snapshot should render the Safety Component successfully 1`] = `
+<View
+  testID="mocked-section-row"
+  title="Airline Safety Overview"
+>
+  <View
+    data-icon-color="#27ae60"
+    data-icon-name="shield-check"
+    testID="mocked-safety-header"
+  >
+    <Text>
+      Accident History
+    </Text>
+  </View>
+  <Text
+    className="mb-4"
+    color="text-70"
+    type="body2"
+  >
+    This airline has maintained an impeccable safety record for over 15 years.
+  </Text>
+  <View
+    data-cert-count={2}
+    data-icon-color="#27ae60"
+    testID="mocked-certifications-list"
+  >
+    <Text>
+      Global Certifications
+    </Text>
+  </View>
+</View>
+`;

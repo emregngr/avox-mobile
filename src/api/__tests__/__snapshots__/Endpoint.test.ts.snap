@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AUTH_ENDPOINTS Constants should match the expected endpoint values 1`] = `
+{
+  "LOGIN": "auth/login",
+  "LOGOUT": "auth/logout",
+  "REGISTER": "auth/register",
+  "SOCIAL": "auth/social",
+}
+`;

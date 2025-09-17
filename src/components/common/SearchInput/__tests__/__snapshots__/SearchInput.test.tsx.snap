@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SearchInput Component Snapshot should render the SearchInput Component successfully 1`] = `
+<View
+  style={
+    {
+      "width": 343,
+    }
+  }
+>
+  <View>
+    <View
+      color="#000000"
+      name="magnify"
+      size={20}
+      testID="mocked-material-community-icon"
+    />
+    <TextInput
+      allowFontScaling={false}
+      autoCorrect={false}
+      className="flex-1 py-3 ml-3 text-text-100 placeholder:text-text-50 text-[16px] font-inter-medium"
+      enablesReturnKeyAutomatically={true}
+      keyboardAppearance="light"
+      maxFontSizeMultiplier={1}
+      onBlur={[Function]}
+      onChangeText={[MockFunction]}
+      onFocus={[Function]}
+      placeholder="Search..."
+      returnKeyType="search"
+      spellCheck={false}
+      testID="search-input"
+      textAlignVertical="center"
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+</View>
+`;

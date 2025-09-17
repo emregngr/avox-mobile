@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`General Component Snapshot should render the General Component successfully 1`] = `
+<View
+  testID="airport-section-row"
+>
+  <Text
+    testID="row-item-calendar"
+  >
+    Year of Establishment
+    : 
+    1955 (70 years)
+  </Text>
+  <Text
+    testID="row-item-account-group-outline"
+  >
+    Number of Employees
+    : 
+    12,500
+  </Text>
+  <Text
+    testID="row-item-airplane"
+  >
+    Airport Type
+    : 
+    Large
+  </Text>
+  <Text
+    testID="row-item-hours-24"
+  >
+    Open 24 Hours
+    : 
+    Yes
+  </Text>
+  <Text
+    testID="row-item-calendar-month-outline"
+  >
+    Scheduled Service
+    : 
+    Yes
+  </Text>
+</View>
+`;

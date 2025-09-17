@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`HomeSlider Component Snapshot should render the HomeSlider Component successfully 1`] = `
+<View>
+  <RCTScrollView
+    bounces={false}
+    data={
+      [
+        {
+          "description": "description1",
+          "id": "news-1",
+          "image": "url1",
+          "title": "News 1",
+        },
+        {
+          "description": "description2",
+          "id": "news-2",
+          "image": "url2",
+          "title": "News 2",
+        },
+        {
+          "description": "description3",
+          "id": "news-3",
+          "image": "url3",
+          "title": "News 3",
+        },
+      ]
+    }
+    decelerationRate="fast"
+    disableIntervalMomentum={true}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    getItemLayout={[Function]}
+    horizontal={true}
+    initialNumToRender={4}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={3}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    overScrollMode="never"
+    pagingEnabled={true}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={16}
+    showsHorizontalScrollIndicator={false}
+    stickyHeaderIndices={[]}
+    testID="home-slider-flatlist"
+    updateCellsBatchingPeriod={150}
+    viewabilityConfigCallbackPairs={[]}
+    windowSize={7}
+  >
+    <View>
+      <View
+        onFocusCapture={[Function]}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          testID="news-card-news-1"
+        >
+          <Text>
+            News 1
+          </Text>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          testID="news-card-news-2"
+        >
+          <Text>
+            News 2
+          </Text>
+        </View>
+      </View>
+      <View
+        onFocusCapture={[Function]}
+        style={
+          [
+            {
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          testID="news-card-news-3"
+        >
+          <Text>
+            News 3
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+  <View
+    className="flex-row justify-center mt-4"
+  >
+    <View
+      className="w-2 h-2 mx-1.5"
+    >
+      <View />
+    </View>
+    <View
+      className="w-2 h-2 mx-1.5"
+    >
+      <View />
+    </View>
+    <View
+      className="w-2 h-2 mx-1.5"
+    >
+      <View />
+    </View>
+  </View>
+</View>
+`;

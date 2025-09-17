@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Maintenance Screen Snapshot should render the Maintenance Screen successfully 1`] = `
+<View
+  className="flex-1 justify-center items-center px-4 bg-background-primary"
+  testID="maintenance-screen"
+>
+  <View
+    cachePolicy="memory-disk"
+    contentFit="contain"
+    source={
+      {
+        "default": "mocked-test-file",
+      }
+    }
+    style={
+      {
+        "borderRadius": 75,
+        "height": 150,
+        "width": 150,
+      }
+    }
+    testID="maintenance-icon"
+    transition={0}
+  />
+  <Text
+    center={true}
+    className="mt-5"
+    color="text-100"
+    testID="app-title"
+    type="h1"
+  />
+  <Text
+    center={true}
+    className="my-12"
+    color="text-100"
+    testID="maintenance-text"
+    type="body1"
+  />
+</View>
+`;

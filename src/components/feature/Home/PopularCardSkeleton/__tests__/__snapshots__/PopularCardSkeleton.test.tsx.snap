@@ -1,0 +1,349 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`PopularCardSkeleton Component Snapshot should render the PopularCardSkeleton Component successfully 1`] = `
+<RCTScrollView
+  columnWrapperClassName="justify-between"
+  contentContainerClassName="px-4"
+  contentContainerStyle={
+    {
+      "paddingBottom": 20,
+      "paddingTop": 64,
+    }
+  }
+  data={
+    [
+      {
+        "id": "skeleton-0",
+      },
+      {
+        "id": "skeleton-1",
+      },
+      {
+        "id": "skeleton-2",
+      },
+      {
+        "id": "skeleton-3",
+      },
+      {
+        "id": "skeleton-4",
+      },
+      {
+        "id": "skeleton-5",
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  getItemLayout={[Function]}
+  initialNumToRender={6}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={4}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={16}
+  showsVerticalScrollIndicator={false}
+  stickyHeaderIndices={[]}
+  updateCellsBatchingPeriod={150}
+  viewabilityConfigCallbackPairs={[]}
+  windowSize={7}
+>
+  <View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          testID="airport-skeleton"
+        />
+        <View
+          testID="airport-skeleton"
+        />
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          testID="airport-skeleton"
+        />
+        <View
+          testID="airport-skeleton"
+        />
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          testID="airport-skeleton"
+        />
+        <View
+          testID="airport-skeleton"
+        />
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`PopularCardSkeleton Component should pass correct prop values to FlatList component 1`] = `
+<RCTScrollView
+  columnWrapperClassName="justify-between"
+  contentContainerClassName="px-4"
+  contentContainerStyle={
+    {
+      "paddingBottom": 20,
+      "paddingTop": 64,
+    }
+  }
+  data={
+    [
+      {
+        "id": "skeleton-0",
+      },
+      {
+        "id": "skeleton-1",
+      },
+      {
+        "id": "skeleton-2",
+      },
+      {
+        "id": "skeleton-3",
+      },
+      {
+        "id": "skeleton-4",
+      },
+      {
+        "id": "skeleton-5",
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  getItemLayout={[Function]}
+  initialNumToRender={6}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={4}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={16}
+  showsVerticalScrollIndicator={false}
+  stickyHeaderIndices={[]}
+  updateCellsBatchingPeriod={150}
+  viewabilityConfigCallbackPairs={[]}
+  windowSize={7}
+>
+  <View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          testID="airport-skeleton"
+        />
+        <View
+          testID="airport-skeleton"
+        />
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          testID="airport-skeleton"
+        />
+        <View
+          testID="airport-skeleton"
+        />
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          testID="airport-skeleton"
+        />
+        <View
+          testID="airport-skeleton"
+        />
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`PopularCardSkeleton Component should pass correct prop values to FlatList component 2`] = `
+<RCTScrollView
+  columnWrapperClassName="justify-between"
+  contentContainerClassName="px-4"
+  contentContainerStyle={
+    {
+      "paddingBottom": 20,
+      "paddingTop": 64,
+    }
+  }
+  data={
+    [
+      {
+        "id": "skeleton-0",
+      },
+      {
+        "id": "skeleton-1",
+      },
+      {
+        "id": "skeleton-2",
+      },
+      {
+        "id": "skeleton-3",
+      },
+      {
+        "id": "skeleton-4",
+      },
+      {
+        "id": "skeleton-5",
+      },
+    ]
+  }
+  getItem={[Function]}
+  getItemCount={[Function]}
+  getItemLayout={[Function]}
+  initialNumToRender={6}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={4}
+  onContentSizeChange={[Function]}
+  onLayout={[Function]}
+  onMomentumScrollBegin={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={16}
+  showsVerticalScrollIndicator={false}
+  stickyHeaderIndices={[]}
+  updateCellsBatchingPeriod={150}
+  viewabilityConfigCallbackPairs={[]}
+  windowSize={7}
+>
+  <View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          testID="airline-skeleton"
+        />
+        <View
+          testID="airline-skeleton"
+        />
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          testID="airline-skeleton"
+        />
+        <View
+          testID="airline-skeleton"
+        />
+      </View>
+    </View>
+    <View
+      onFocusCapture={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          testID="airline-skeleton"
+        />
+        <View
+          testID="airline-skeleton"
+        />
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

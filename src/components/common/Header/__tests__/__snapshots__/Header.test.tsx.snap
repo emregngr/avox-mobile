@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Header Component Snapshot should render the Header Component successfully 1`] = `
+<View
+  className="h-11 justify-center items-center"
+  testID="header"
+>
+  <Text
+    allowFontScaling={false}
+    className="text-[18px] leading-[21px] font-inter-semibold text-center text-text-100"
+    ellipsizeMode="tail"
+    maxFontSizeMultiplier={1}
+    numberOfLines={2}
+  >
+    Test Title
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    hitSlop={20}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "opacity": 1,
+      }
+    }
+    testID="header-back-icon"
+  >
+    <View
+      color="#000000"
+      height={24}
+      testID="mocked-svg-icon"
+      width={24}
+    />
+  </View>
+</View>
+`;
