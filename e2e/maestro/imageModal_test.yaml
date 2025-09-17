@@ -1,0 +1,38 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'view-all-button-Popular Airlines' }
+
+- tapOn: { id: 'airline-card-5' }
+
+- assertVisible: { id: 'airline-detail-screen' }
+
+- tapOn: { id: 'fleet-tab' }
+
+- scrollUntilVisible:
+    element: { id: 'airplane-row-card-Airbus A320-200' }
+    direction: DOWN
+
+- tapOn: { id: 'airplane-row-card-Airbus A320-200' }
+
+- assertVisible: { id: 'image-modal-screen' }
+- assertVisible: { text: 'Airbus A320-200' }
+
+- tapOn: { id: 'close-button' }
+
+- assertVisible: { id: 'airline-detail-screen' }

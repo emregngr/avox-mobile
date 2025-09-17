@@ -1,0 +1,324 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: { id: 'favorites-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'invalid-email'
+- tapOn: { id: 'password' }
+- inputText: '123'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: 'Invalid email address'
+- assertVisible: 'Password must be at least 6 characters'
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'forgot-password-button' }
+
+- assertVisible: { id: 'forgot-password-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'register-button' }
+
+- assertVisible: { id: 'register-screen' }
+
+- tapOn: { id: 'firstName' }
+- inputText: 'Test'
+- tapOn: { id: 'lastName' }
+- inputText: 'User'
+- tapOn: { id: 'email' }
+- inputText: 'newuser-1694458954@avox.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- hideKeyboard
+
+- tapOn: { id: 'privacyPolicy-checkbox' }
+- tapOn: { id: 'termsOfUse-checkbox' }
+
+- tapOn: { id: 'register-submit-button' }
+
+- assertVisible: { id: 'favorites-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'register-button' }
+
+- assertVisible: { id: 'register-screen' }
+
+- tapOn: { id: 'register-submit-button' }
+
+- assertVisible: 'First name must be at least 2 characters'
+- assertVisible: 'Last name must be at least 2 characters'
+- assertVisible: 'Invalid email address'
+- assertVisible: 'Password must be at least 6 characters'
+- assertVisible: 'You must accept the Privacy Policy'
+- assertVisible: 'You must accept the Terms of Use'
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'register-button' }
+
+- assertVisible: { id: 'register-screen' }
+
+- tapOn: { id: 'firstName' }
+- inputText: 'Test'
+- tapOn: { id: 'lastName' }
+- inputText: 'User'
+- tapOn: { id: 'email' }
+- inputText: 'newuser-1694458954@avox.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- hideKeyboard
+
+- tapOn: { id: 'register-submit-button' }
+
+- assertVisible: 'You must accept the Privacy Policy'
+- assertVisible: 'You must accept the Terms of Use'
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+
+- inputText: 'wrong@user.com'
+- tapOn: { id: 'password' }
+- inputText: 'wrongpassword'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: 'Error'
+- assertVisible: 'Email or password incorrect'
+- tapOn: 'Ok'
+
+- assertVisible: { id: 'login-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'register-button' }
+
+- assertVisible: { id: 'register-screen' }
+
+- tapOn: { id: 'firstName' }
+- inputText: 'Test'
+- tapOn: { id: 'lastName' }
+- inputText: 'User'
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- hideKeyboard
+
+- tapOn: { id: 'privacyPolicy-checkbox' }
+- tapOn: { id: 'termsOfUse-checkbox' }
+
+- tapOn: { id: 'register-submit-button' }
+
+- assertVisible: 'Error'
+- assertVisible: 'Registration by email failed'
+
+- tapOn: 'Ok'
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'forgot-password-button' }
+- assertVisible: { id: 'forgot-password-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'forgot-password-submit-button' }
+
+- assertVisible: 'Successful'
+- assertVisible: 'Password reset link has been sent to your email address'
+
+- assertVisible: { id: 'login-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: { id: 'profile-tab' }
+- tapOn: { id: 'profile-tab' }
+
+- assertVisible: { id: 'profile-screen' }
+
+- tapOn: { id: 'logout-button' }
+
+- assertVisible: 'Warning'
+- assertVisible: 'Are you sure you want to log out?'
+- tapOn: 'Cancel'
+
+- assertVisible: { id: 'profile-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: { id: 'profile-tab' }
+- tapOn: { id: 'profile-tab' }
+- assertVisible: { id: 'profile-screen' }
+
+- tapOn: { id: 'logout-button' }
+
+- assertVisible: 'Warning'
+- assertVisible: 'Are you sure you want to log out?'
+- tapOn: 'Yes'
+
+- assertVisible: { id: 'profile-screen' }

@@ -1,0 +1,71 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- assertVisible: { id: 'onboarding-screen' }
+- assertVisible: { id: 'continue-button' }
+- assertVisible: { id: 'onboarding-skip-button' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'continue-button' }
+- tapOn: { id: 'continue-button' }
+- tapOn: { id: 'continue-button' }
+- tapOn: { id: 'skip-button' }
+
+- assertVisible: { id: 'home-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+- assertVisible: { id: 'home-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- assertVisible: { id: 'onboarding-screen' }
+
+- swipe:
+    elementId: 'onboarding-flatlist'
+    direction: LEFT
+
+- swipe:
+    elementId: 'onboarding-flatlist'
+    direction: LEFT
+
+- swipe:
+    elementId: 'onboarding-flatlist'
+    direction: LEFT
+
+- swipe:
+    elementId: 'onboarding-flatlist'
+    direction: RIGHT

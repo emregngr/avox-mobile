@@ -1,0 +1,25 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'breaking-news-card-1' }
+
+- assertVisible: { id: 'breaking-news-detail-screen' }
+
+- swipe:
+    elementId: 'breaking-news-detail-screen'
+    direction: UP

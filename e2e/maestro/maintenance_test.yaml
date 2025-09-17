@@ -1,0 +1,22 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- openLink: 'avox://maintenance'
+
+- assertVisible: { id: 'maintenance-screen' }
+- assertVisible: { id: 'maintenance-icon' }
+- assertVisible: { id: 'app-title' }
+- assertVisible: { id: 'maintenance-text' }

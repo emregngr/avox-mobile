@@ -1,0 +1,36 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'view-all-button-Popular Airlines' }
+
+- tapOn: { id: 'airline-card-5' }
+
+- assertVisible: { id: 'airline-detail-screen' }
+
+- scrollUntilVisible:
+    element: { id: 'web' }
+    direction: DOWN
+
+- tapOn: { id: 'web' }
+
+- assertVisible: { id: 'web-view-modal-screen' }
+- assertVisible: { text: 'www.aeroflot.ru' }
+
+- tapOn: { id: 'close-button' }
+
+- assertVisible: { id: 'airline-detail-screen' }

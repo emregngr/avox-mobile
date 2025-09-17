@@ -1,0 +1,150 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'profile-tab' }
+
+- tapOn: { id: 'header-right-icon' }
+
+- tapOn: { id: 'settings-privacy-policy-button' }
+- assertVisible: { id: 'settings-privacy-policy-screen' }
+
+- swipe:
+    elementId: 'settings-privacy-policy-screen'
+    direction: UP
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'profile-tab' }
+
+- tapOn: { id: 'header-right-icon' }
+
+- tapOn: { id: 'settings-terms-of-use-button' }
+- assertVisible: { id: 'settings-terms-of-use-screen' }
+
+- swipe:
+    elementId: 'settings-terms-of-use-screen'
+    direction: UP
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'profile-tab' }
+
+- tapOn: { id: 'header-right-icon' }
+
+- tapOn: { id: 'faq-button' }
+- assertVisible: { id: 'faq-screen' }
+
+- tapOn: { id: 'faq-1' }
+
+- swipe:
+    elementId: 'faq-screen'
+    direction: UP
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: { id: 'profile-tab' }
+- tapOn: { id: 'profile-tab' }
+
+- tapOn: { id: 'header-right-icon' }
+
+- assertVisible: { id: 'settings-screen' }
+
+- tapOn: { id: 'delete-account-button' }
+
+- assertVisible: 'Warning'
+- assertVisible: 'Are you sure you want to delete your account? This action cannot be undone'
+
+- tapOn: 'Cancel'
+
+- assertVisible: { id: 'settings-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: { id: 'profile-tab' }
+- tapOn: { id: 'profile-tab' }
+
+- tapOn: { id: 'header-right-icon' }
+
+- assertVisible: { id: 'settings-screen' }
+
+- tapOn: { id: 'delete-account-button' }
+
+- assertVisible: 'Warning'
+- assertVisible: 'Are you sure you want to delete your account? This action cannot be undone'
+
+- tapOn: 'Delete'
+- assertVisible: 'Successful'
+- assertVisible: 'Account deleted successfully'
+
+- assertVisible: { id: 'settings-screen' }

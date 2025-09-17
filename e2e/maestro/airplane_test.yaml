@@ -1,0 +1,29 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- swipe:
+    elementId: 'home-screen'
+    direction: UP
+
+- tapOn: { id: 'view-all-button-Total Airplanes' }
+
+- assertVisible: { id: 'total-airplanes-screen' }
+
+- swipe:
+    elementId: 'total-airplanes-screen'
+    direction: UP

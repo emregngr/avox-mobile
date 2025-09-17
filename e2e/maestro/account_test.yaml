@@ -1,0 +1,127 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: { id: 'favorites-screen' }
+
+- tapOn: { id: 'profile-tab' }
+- tapOn: { id: 'update-profile-button' }
+
+- assertVisible: { id: 'update-profile-screen' }
+
+- tapOn: { id: 'firstName' }
+- inputText: '1'
+- tapOn: { id: 'lastName' }
+- inputText: '1'
+
+- tapOn: { id: 'update-submit-button' }
+
+- assertVisible: 'Successful'
+- assertVisible: 'Profile updated successfully'
+- assertVisible: { id: 'profile-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: { id: 'favorites-screen' }
+
+- tapOn: { id: 'profile-tab' }
+- tapOn: { id: 'password-button' }
+
+- assertVisible: { id: 'password-screen' }
+
+- tapOn: { id: 'currentPassword' }
+- inputText: '123456'
+- tapOn: { id: 'newPassword' }
+- inputText: '654321'
+- tapOn: { id: 'confirmPassword' }
+- inputText: '654321'
+
+- tapOn: { id: 'change-password-submit-button' }
+
+- assertVisible: 'Successful'
+- assertVisible: 'Password changed successfully'
+- assertVisible: { id: 'profile-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'profile-tab' }
+- tapOn: { id: 'choose-theme-button' }
+
+- assertVisible: { id: 'choose-theme-screen' }
+
+- tapOn: { id: 'theme-item-light' }
+
+- assertVisible: { id: 'profile-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'profile-tab' }
+- tapOn: { id: 'choose-language-button' }
+
+- assertVisible: { id: 'choose-language-screen' }
+
+- tapOn: { id: 'language-item-tr' }
+
+- assertVisible: { id: 'profile-screen' }

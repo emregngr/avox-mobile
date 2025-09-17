@@ -1,0 +1,92 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'view-all-button-Popular Airports' }
+
+- assertVisible: { id: 'all-popular-airports-screen' }
+
+- swipe:
+    elementId: 'all-popular-airports-screen'
+    direction: UP
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'view-all-button-Popular Airports' }
+
+- tapOn: { id: 'airport-card-24' }
+
+- assertVisible: { id: 'airport-detail-screen' }
+
+- swipe:
+    elementId: 'airport-detail-screen'
+    direction: UP
+- tapOn: { id: 'infrastructure-tab' }
+- swipe:
+    elementId: 'airport-detail-screen'
+    direction: UP
+- tapOn: { id: 'airportFlight-tab' }
+- swipe:
+    elementId: 'airport-detail-screen'
+    direction: UP
+- tapOn: { id: 'nearbyPlaces-tab' }
+- swipe:
+    elementId: 'airport-detail-screen'
+    direction: UP
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: { id: 'favorites-screen' }
+
+- tapOn: { id: 'home-tab' }
+
+- tapOn: { id: 'view-all-button-Popular Airports' }
+
+- tapOn: { id: 'airport-card-24' }
+
+- assertVisible: { id: 'airport-detail-screen' }
+
+- tapOn: { id: 'header-right-icon' }
+- tapOn: { id: 'header-share-icon' }

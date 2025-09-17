@@ -1,0 +1,114 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- assertVisible: { id: 'home-screen' }
+
+- swipe:
+    elementId: 'home-screen'
+    direction: UP
+
+- tapOn: { id: 'discover-tab' }
+- assertVisible: { id: 'discover-screen' }
+
+- swipe:
+    elementId: 'discover-screen'
+    direction: UP
+
+- tapOn: { id: 'discover-airlines-tab' }
+
+- swipe:
+    elementId: 'discover-screen'
+    direction: UP
+
+- tapOn: { id: 'favorites-tab' }
+
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: { id: 'favorites-screen' }
+
+- swipe:
+    elementId: 'favorites-screen'
+    direction: UP
+
+- tapOn: { id: 'favorites-airlines-tab' }
+
+- swipe:
+    elementId: 'favorites-screen'
+    direction: UP
+
+- tapOn: { id: 'profile-tab' }
+- assertVisible: { id: 'profile-screen' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- assertVisible: { id: 'home-screen' }
+- tapOn: { id: 'discover-tab' }
+- assertVisible: { id: 'discover-screen' }
+
+- tapOn: { id: 'search-input' }
+
+- inputText: 'İstanbul'
+
+- tapOn: { id: 'search-clear-button' }
+- tapOn: { id: 'search-cancel-button' }
+
+- tapOn: { id: 'filter-button' }
+- tapOn: { id: 'filter-close-button' }
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- assertVisible: { id: 'home-screen' }
+
+- tapOn: { id: 'discover-tab' }
+- assertVisible: { id: 'discover-screen' }
+- tapOn: { id: 'discover-airlines-tab' }
+
+- tapOn: { id: 'search-input' }
+
+- inputText: 'Turkish'
+
+- tapOn: { id: 'search-clear-button' }
+- tapOn: { id: 'search-cancel-button' }
+
+- tapOn: { id: 'filter-button' }
+- tapOn: { id: 'filter-close-button' }

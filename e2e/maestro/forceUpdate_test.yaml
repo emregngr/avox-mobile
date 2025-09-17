@@ -1,0 +1,23 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- openLink: 'avox://force-update'
+
+- assertVisible: { id: 'forceUpdate-screen' }
+- assertVisible: { id: 'forceUpdate-icon' }
+- assertVisible: { id: 'app-title' }
+- assertVisible: { id: 'forceUpdate-text' }
+- assertVisible: { id: 'forceUpdate-button' }

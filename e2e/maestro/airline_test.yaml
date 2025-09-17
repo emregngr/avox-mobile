@@ -1,0 +1,92 @@
+appId: com.avox.staging
+---
+- launchApp:
+    clearState: true
+    permissions:
+      camera: allow
+      photos: allow
+      location: always
+      notifications: allow
+      userTracking: allow
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'view-all-button-Popular Airlines' }
+
+- assertVisible: { id: 'all-popular-airlines-screen' }
+
+- swipe:
+    elementId: 'all-popular-airlines-screen'
+    direction: UP
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'view-all-button-Popular Airlines' }
+
+- tapOn: { id: 'airline-card-5' }
+
+- assertVisible: { id: 'airline-detail-screen' }
+
+- swipe:
+    elementId: 'airline-detail-screen'
+    direction: UP
+- tapOn: { id: 'fleet-tab' }
+- swipe:
+    elementId: 'airline-detail-screen'
+    direction: UP
+- tapOn: { id: 'airlineFlight-tab' }
+- swipe:
+    elementId: 'airline-detail-screen'
+    direction: UP
+- tapOn: { id: 'safetyEnv-tab' }
+- swipe:
+    elementId: 'airline-detail-screen'
+    direction: UP
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: text
+    optional: true
+    timeout: 30000
+
+- tapOn: { id: 'onboarding-skip-button' }
+
+- tapOn: { id: 'favorites-tab' }
+- tapOn: { id: 'login-button' }
+
+- assertVisible: { id: 'login-screen' }
+
+- tapOn: { id: 'email' }
+- inputText: 'avox@gmail.com'
+- tapOn: { id: 'password' }
+- inputText: '123456'
+
+- tapOn: { id: 'login-submit-button' }
+
+- assertVisible: { id: 'favorites-screen' }
+
+- tapOn: { id: 'home-tab' }
+
+- tapOn: { id: 'view-all-button-Popular Airlines' }
+
+- tapOn: { id: 'airline-card-5' }
+
+- assertVisible: { id: 'airline-detail-screen' }
+
+- tapOn: { id: 'header-right-icon' }
+- tapOn: { id: 'header-share-icon' }
