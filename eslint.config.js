@@ -29,10 +29,6 @@ module.exports = [
   ...compat.extends('prettier'),
   {
     ignores: [
-      '**/__tests__/**',
-      '**/*.test.{js,jsx,ts,tsx}',
-      '**/e2e/**',
-      '**/*.detox.{js,ts}',
       'dist/**',
       'build/**',
       'ios/**',
@@ -62,6 +58,7 @@ module.exports = [
         ...require('globals').browser,
         ...require('globals').node,
         ...require('globals').es2021,
+        ...require('globals').jest,
       },
       parserOptions: {
         ecmaFeatures: {
