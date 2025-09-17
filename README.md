@@ -4,10 +4,10 @@ All the details of aviation at your fingertips!
 
 Avox Aviation introduces airlines and airports around the world and provides up-to-the-minute updates. A must-have for everyone — from travelers to aviation enthusiasts, industry professionals to frequent flyers!
 
-Detailed introduction to airlines
-Comprehensive information about airports
-Real-time aviation updates
-User-friendly, fast, and up-to-date
+- Detailed introduction to airlines
+- Comprehensive information about airports
+- Real-time aviation updates
+- User-friendly, fast, and up-to-date
 
 Everything related to the sky and aviation is on Avox Aviation! Plan your journey and stay informed about the aviation world.
 
@@ -25,6 +25,7 @@ Everything related to the sky and aviation is on Avox Aviation! Plan your journe
 - [Features](#-features)
 - [Screenshots](#-screenshots)
 - [Development](#-development)
+- [Testing](#-testing)
 - [Technologies](#-technologies)
 - [License](#-license)
 - [Contact](#-contact)
@@ -73,6 +74,9 @@ https://github.com/user-attachments/assets/ff886a50-a7dc-41a7-81dc-fd5e57c25292
 │   ├── types/         # TypeScript type definitions
 │   ├── utils/         # Helper utilities
 │   └── global.css     # Global styles
+├── __mocks__/         # Third-party library mocks for Jest
+├── e2e/               # End-to-end testing (Detox & Maestro)
+├── jest/              # Jest setup files (matchers, globals, utils)
 ├── app.json           # Expo configuration
 └── package.json       # Project dependencies
 ```
@@ -88,46 +92,65 @@ npm install
 Start development server:
 
 ```bash
-expo start
+npm run start
+```
+
+Start development server (staging):
+
+```bash
+npm run start:staging
+```
+
+Start development server (production):
+
+```bash
+npm run start:production
 ```
 
 Run on iOS simulator:
 
 ```bash
-expo run:ios
+npm run ios:staging
+npm run ios:production
 ```
 
 Run on Android emulator:
 
 ```bash
-expo run:android
+npm run android:staging
+npm run android:production
 ```
 
-Run on web:
+Build for staging:
 
 ```bash
-expo start --web
-```
-
-Build for development:
-
-```bash
-eas build --profile development --platform android
-eas build --profile development --platform ios
+npm run build:staging
+npm run build:staging:android
+npm run build:staging:ios
 ```
 
 Build for production:
 
 ```bash
-eas build --profile production --platform android
-eas build --profile production --platform ios
+npm run build:production
+npm run build:production:android
+npm run build:production:ios
 ```
 
-Submit to stores:
+Submit apps to stores:
 
 ```bash
-eas submit --profile production --platform android
-eas submit --profile production --platform ios
+npm run submit:staging:android
+npm run submit:staging:ios
+npm run submit:production:android
+npm run submit:production:ios
+```
+
+OTA Updates:
+
+```bash
+npm run update:staging
+npm run update:production
 ```
 
 Lint and format:
@@ -136,6 +159,72 @@ Lint and format:
 npm run lint
 npm run lint:fix
 npm run format
+npm run format:lint
+```
+
+---
+
+## 🧪 Testing
+
+The project supports both **unit/integration testing** and **end-to-end testing**.
+
+### 1. Unit & Integration Tests (Jest)
+
+- All unit and integration tests are written with **Jest**.
+- The `jest/` folder includes utilities like:
+  - `custom-matchers.ts` → Project-specific matchers
+  - `globals.ts` → Global Jest setup
+  - `utils.ts` → Helper functions
+- The `__mocks__/` folder contains custom mocks for **third-party libraries**.
+- Current test coverage: **~85%**
+- Uses **React Native Testing Library** and **React Test Renderer** for component rendering and snapshot testing.
+
+Run tests:
+
+```bash
+# Run all tests
+npm run test
+
+# Watch mode
+npm run test:watch
+
+# Coverage report
+npm run test:coverage
+
+# Update snapshots
+npm run test:update-snapshots
+```
+
+### 2. End-to-End Tests
+
+The project includes two different E2E setups:
+
+#### Detox
+
+- Located under `e2e/detox/`
+- Runs on real iOS/Android devices or emulators
+
+Build and run:
+
+```bash
+# iOS
+npm run e2e:build:ios
+npm run e2e:test:ios
+
+# Android
+npm run e2e:build:android
+npm run e2e:test:android
+```
+
+#### Maestro
+
+- Located under `e2e/maestro/`
+- Focused on **user flows** and **scenario-based testing**
+
+Run tests:
+
+```bash
+npm run e2e:maestro
 ```
 
 ---
@@ -169,7 +258,7 @@ npm run format
 - **i18n**: i18next + react-i18next
 - **Notifications**: React Native Notifications
 - **Error Tracking**: Sentry
-- **Testing**: Jest + React Test Renderer
+- **Testing**: Jest + React Native Testing Library + React Test Renderer + Detox + Maestro
 - **Code Quality**: ESLint + Prettier + TypeScript
 
 ---
