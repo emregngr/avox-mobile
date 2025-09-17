@@ -92,9 +92,10 @@ android {
         applicationId "com.avox"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0.6"
+        versionCode 47
+        versionName "1.0.7"
     }
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -102,13 +103,37 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        // release {
-        //     storeFile file(AVOX_UPLOAD_STORE_FILE)
-        //     storePassword AVOX_UPLOAD_STORE_PASSWORD
-        //     keyAlias AVOX_UPLOAD_KEY_ALIAS
-        //     keyPassword AVOX_UPLOAD_KEY_PASSWORD
-        // }
+        stagingRelease {
+            storeFile file(AVOX_STAGING_UPLOAD_STORE_FILE)
+            storePassword AVOX_STAGING_UPLOAD_STORE_PASSWORD
+            keyAlias AVOX_STAGING_UPLOAD_KEY_ALIAS
+            keyPassword AVOX_STAGING_UPLOAD_KEY_PASSWORD
+        }
+        productionRelease {
+            storeFile file(AVOX_UPLOAD_STORE_FILE)
+            storePassword AVOX_UPLOAD_STORE_PASSWORD
+            keyAlias AVOX_UPLOAD_KEY_ALIAS
+            keyPassword AVOX_UPLOAD_KEY_PASSWORD
+        }
     }
+
+    flavorDimensions "environment"
+    productFlavors {
+        staging {
+            dimension "environment"
+            resValue "string", "app_name", "Avox Staging"
+            applicationIdSuffix ".staging"
+            buildConfigField "String", "ENVIRONMENT", "\"staging\""
+            signingConfig signingConfigs.stagingRelease
+        }
+        production {
+            dimension "environment"
+            resValue "string", "app_name", "Avox"
+            buildConfigField "String", "ENVIRONMENT", "\"production\""
+            signingConfig signingConfigs.productionRelease
+        }
+    }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -116,13 +141,13 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
             shrinkResources (findProperty('android.enableShrinkResourcesInReleaseBuilds')?.toBoolean() ?: false)
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             crunchPngs (findProperty('android.enablePngCrunchInReleaseBuilds')?.toBoolean() ?: true)
         }
     }
+
     packagingOptions {
         jniLibs {
             useLegacyPackaging (findProperty('expo.useLegacyPackaging')?.toBoolean() ?: false)
@@ -130,6 +155,17 @@ android {
     }
     androidResources {
         ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
+    }
+}
+
+android.applicationVariants.all { variant ->
+    def flavorName = variant.flavorName
+    variant.preBuild.doFirst {
+        copy {
+            from "src/${flavorName}/sentry.properties"
+            into '../'
+            rename { 'sentry.properties' }
+        }
     }
 }
 

@@ -35,7 +35,7 @@ setup_permissions([
   'PhotoLibraryAddOnly',
 ])
 
-target 'avox' do
+target 'Avox' do
   use_expo_modules!
 
   if ENV['EXPO_USE_COMMUNITY_AUTOLINKING'] == '1'

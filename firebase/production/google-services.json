@@ -22,6 +22,22 @@
           }
         },
         {
+          "client_id": "396294037399-405i7ich157cqjsuq3gvnlvmtc651kua.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avox",
+            "certificate_hash": "f55cc2ea86c9c5dc280c28483a7f273ce4429bb3"
+          }
+        },
+        {
+          "client_id": "396294037399-ibpbjimsoqq0153aebfptvvb18ecb48k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avox",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "396294037399-2eemb48ih22r5i9ctkjvbvaaaqvlb2vu.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -42,12 +58,14 @@
               "client_id": "396294037399-k8k5qpf3rgid0a1ujc5jjg9jbpve70vk.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.avox"
+                "bundle_id": "com.avox",
+                "app_store_id": "6747673276"
               }
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-4123130377375974~3826490908"
     }
   ],
   "configuration_version": "1"

@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>396294037399-k8k5qpf3rgid0a1ujc5jjg9jbpve70vk.apps.googleusercontent.com</string>
+	<string>866521249789-jvss1qmk0okbh6n7dndfdchhg6pinnlj.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.396294037399-k8k5qpf3rgid0a1ujc5jjg9jbpve70vk</string>
+	<string>com.googleusercontent.apps.866521249789-jvss1qmk0okbh6n7dndfdchhg6pinnlj</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAHnWuQd9tngxR2-0EusNpb3WSjOdR9o4o</string>
+	<string>AIzaSyDvi7xf28Kctq2x7TGnezfI4RhkKbgZziw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>396294037399</string>
+	<string>866521249789</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.avox</string>
+	<string>com.avox.staging</string>
 	<key>PROJECT_ID</key>
-	<string>avox-tr</string>
+	<string>avox-tr-staging</string>
 	<key>STORAGE_BUCKET</key>
-	<string>avox-tr.firebasestorage.app</string>
+	<string>avox-tr-staging.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:396294037399:ios:332fffc0b5a3f3d0132ed2</string>
+	<string>1:866521249789:ios:72badc8ba6d843fe7f8b94</string>
 </dict>
 </plist>

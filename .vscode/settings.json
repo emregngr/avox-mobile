@@ -76,11 +76,12 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    "**/node_modules": true,
+    "**/node_modules": false,
     "**/dist": true,
     "**/build": true,
     "**/.expo": true,
-    "**/.vscode": false
+    "**/.vscode": false,
+    "**/coverage": true
   },
   "files.watcherExclude": {
     "**/node_modules/**": true,
@@ -180,6 +181,5 @@
   "javascript.suggest.enabled": true,
   "typescript.suggest.enabled": true,
 
-  "typescript.preferences.includePackageJsonAutoImports": "on",
-  "javascript.preferences.includePackageJsonAutoImports": "on"
+  "typescript.preferences.includePackageJsonAutoImports": "on"
 }

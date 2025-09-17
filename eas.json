@@ -4,30 +4,71 @@
     "appVersionSource": "remote"
   },
   "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "channel": "development",
-      "autoIncrement": true
+    "e2e-test": {
+      "withoutCredentials": true,
+      "ios": {
+        "simulator": true
+      },
+      "android": {
+        "buildType": "apk"
+      }
     },
-    "preview": {
+    "staging": {
       "distribution": "internal",
-      "channel": "production",
-      "autoIncrement": true
+      "channel": "staging",
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_ENV": "staging",
+        "NODE_ENV": "staging"
+      },
+      "android": {
+        "buildType": "apk",
+        "flavor": "staging",
+        "gradleCommand": ":app:assembleStagingRelease"
+      },
+      "ios": {
+        "buildConfiguration": "Release",
+        "simulator": false
+      }
     },
     "production": {
       "distribution": "store",
       "channel": "production",
-      "autoIncrement": true
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_ENV": "production",
+        "NODE_ENV": "production"
+      },
+      "android": {
+        "buildType": "app-bundle",
+        "flavor": "production",
+        "gradleCommand": ":app:bundleProductionRelease"
+      },
+      "ios": {
+        "buildConfiguration": "Release",
+        "simulator": false
+      }
     }
   },
   "submit": {
+    "staging": {
+      "ios": {
+        "ascAppId": "6749808248"
+      },
+      "android": {
+        "serviceAccountKeyPath": "./google-service-account-staging.json",
+        "track": "internal",
+        "releaseStatus": "draft"
+      }
+    },
     "production": {
       "ios": {
         "ascAppId": "6747673276"
       },
       "android": {
-        "serviceAccountKeyPath": "./google-service-account.json"
+        "serviceAccountKeyPath": "./google-service-account.json",
+        "track": "production",
+        "releaseStatus": "draft"
       }
     }
   }

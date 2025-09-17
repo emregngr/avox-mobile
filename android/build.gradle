@@ -4,9 +4,9 @@ buildscript {
         minSdkVersion = Integer.parseInt(findProperty('android.minSdkVersion') ?: '24')
         compileSdkVersion = Integer.parseInt(findProperty('android.compileSdkVersion') ?: '35')
         targetSdkVersion = Integer.parseInt(findProperty('android.targetSdkVersion') ?: '35')
-        kotlinVersion = findProperty('android.kotlinVersion') ?: '2.0.20'
+        kotlinVersion = findProperty('android.kotlinVersion') ?: '2.1.20'
 
-        ndkVersion = "26.1.10909125"
+        ndkVersion = "27.3.13750724"
     }
     repositories {
         google()
@@ -16,9 +16,9 @@ buildscript {
         classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.3'
         classpath 'com.google.gms:google-services:4.4.1'
         classpath 'com.android.tools.build:gradle:8.5.2'
-        classpath 'com.facebook.react:react-native-gradle-plugin:0.79.2'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.20'
-        classpath 'com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.0.20-1.0.24'
+        classpath 'com.facebook.react:react-native-gradle-plugin:0.81.1'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.20'
+        classpath "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.1.20-1.0.32"
     }
 }
 

@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "866521249789",
+    "project_id": "avox-tr-staging",
+    "storage_bucket": "avox-tr-staging.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866521249789:android:5914ec8ca68a90977f8b94",
+        "android_client_info": {
+          "package_name": "com.avox.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866521249789-8ljkdna7va3mv44so7f9es1ovom2k4i8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avox.staging",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "866521249789-oh0njgie4d3lrbg0eg4jihonb5025gno.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avox.staging",
+            "certificate_hash": "ae1983d6676b3134180b53a99e52fe8c23b8435b"
+          }
+        },
+        {
+          "client_id": "866521249789-tf2jfho5etp22433iu9qecnb422smevm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avox.staging",
+            "certificate_hash": "afa6ac54a80a2f17143eab8fd0547f6b47c4ef84"
+          }
+        },
+        {
+          "client_id": "866521249789-jii5hrodapjv7gc1qo03g201as12lt51.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD75SfGrBqexI9h8lyuPSKTptkaLqGeeJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866521249789-jii5hrodapjv7gc1qo03g201as12lt51.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "866521249789-jvss1qmk0okbh6n7dndfdchhg6pinnlj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.avox.staging",
+                "app_store_id": "6749808248"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

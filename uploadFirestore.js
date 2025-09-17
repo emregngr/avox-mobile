@@ -4,6 +4,8 @@ const path = require('path')
 
 const serviceAccount = require('./firebase-adminsdk.json')
 
+const serviceAccountStaging = require('./firebase-adminsdk-staging.json')
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 })
@@ -44,7 +46,7 @@ async function uploadCollection(filePath, collectionName) {
         console.warn(`Skipped item without ID in [${collectionName}]:`, item)
         continue
       }
-      const docRef = db.collection(collectionName).doc(item.id.toString())
+      const docRef = db.collection(collectionName).doc(item.id)
       currentBatch.set(docRef, item)
       operationCount++
 

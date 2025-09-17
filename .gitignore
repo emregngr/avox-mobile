@@ -12,6 +12,7 @@ expo-env.d.ts
 android/.kotlin/
 android/gradle.properties
 android/app/avox-release-key.keystore
+android/app/avox-staging-release-key.keystore
 
 # Native
 *.orig.*
@@ -44,7 +45,14 @@ app-example
 .env
 
 .vscode
-data
 firebase-adminsdk.json
+firebase-adminsdk-staging.json
 google-service-account.json
+google-service-account-staging.json
 nativewind-env.d.ts
+
+# Jest coverage
+coverage/
+
+# Detox
+artifacts/
