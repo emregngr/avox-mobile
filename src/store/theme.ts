@@ -1,7 +1,22 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Appearance } from 'react-native'
+import { MMKV } from 'react-native-mmkv'
 import { create } from 'zustand'
 import { createJSONStorage, devtools, persist } from 'zustand/middleware'
+
+const storage = new MMKV()
+
+const mmkvStorage = {
+  getItem: (name: string) => {
+    const value = storage.getString(name)
+    return value ? JSON.parse(value) : null
+  },
+  removeItem: (name: string) => {
+    storage.delete(name)
+  },
+  setItem: (name: string, value: string) => {
+    storage.set(name, value)
+  },
+}
 
 export type ThemeStateType = {
   selectedTheme: 'light' | 'dark'
@@ -28,7 +43,7 @@ const useThemeStore = create<ThemeStateType & ThemeActions>()(
             Appearance.setColorScheme(state.selectedTheme)
           }
         },
-        storage: createJSONStorage(() => AsyncStorage),
+        storage: createJSONStorage(() => mmkvStorage),
       },
     ),
   ),

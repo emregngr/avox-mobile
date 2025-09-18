@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react'
 import { FlatList } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { AirlineCardSkeleton } from '@/components/feature/Airline'
-import { AirportCardSkeleton } from '@/components/feature/Airport/AirportCardSkeleton'
+import { AirportCardSkeleton } from '@/components/feature/Airport'
 import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 
 type PopularCardSkeletonProps = {
@@ -24,6 +25,8 @@ const skeletonData: Skeleton[] = Array(6)
   .map((_, index) => ({ id: `skeleton-${index}` }))
 
 export const PopularCardSkeleton = ({ type }: PopularCardSkeletonProps) => {
+  const { bottom, top } = useSafeAreaInsets()
+
   const BATCHING_PERIOD = useBatchingPeriod()
 
   const renderItem = useCallback(
@@ -31,7 +34,7 @@ export const PopularCardSkeleton = ({ type }: PopularCardSkeletonProps) => {
     [],
   )
 
-  const keyExtractor = useCallback((item: Skeleton) => item?.id?.toString(), [])
+  const keyExtractor = useCallback((item: Skeleton) => item?.id, [])
 
   const getItemLayout = useCallback(
     (_: ArrayLike<Skeleton> | null | undefined, index: number) => ({
@@ -45,7 +48,8 @@ export const PopularCardSkeleton = ({ type }: PopularCardSkeletonProps) => {
   return (
     <FlatList
       columnWrapperClassName="justify-between"
-      contentContainerClassName="pt-5 px-4 pb-10"
+      contentContainerClassName="px-4"
+      contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
       data={skeletonData}
       getItemLayout={getItemLayout}
       initialNumToRender={INITIAL_ITEMS_PER_PAGE}

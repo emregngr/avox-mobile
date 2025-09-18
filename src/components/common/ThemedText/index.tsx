@@ -5,7 +5,7 @@ import { Text } from 'react-native'
 
 import { cn } from '@/utils/common/cn'
 
-type TypographyType =
+export type TypographyType =
   | 'bigTitle'
   | 'title'
   | 'h1'

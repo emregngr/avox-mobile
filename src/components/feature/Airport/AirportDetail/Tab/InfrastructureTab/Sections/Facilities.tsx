@@ -6,12 +6,12 @@ import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/Airpo
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 import { formatNumber } from '@/utils/feature/formatNumber'
 
 interface FacilitiesProps {
-  facilities: Airport['facilities']
-  infrastructure: Airport['infrastructure']
+  facilities: AirportType['facilities']
+  infrastructure: AirportType['infrastructure']
 }
 
 export const Facilities = ({ facilities, infrastructure }: FacilitiesProps) => {
@@ -71,20 +71,32 @@ export const Facilities = ({ facilities, infrastructure }: FacilitiesProps) => {
         value={fireCategory}
       />
 
-      <AirportRowItem icon="car" label={localeStrings.parking} value={formattedParkingCapacity} />
+      <AirportRowItem
+        icon="car-outline"
+        label={localeStrings.parking}
+        value={formattedParkingCapacity}
+      />
 
       <AirportRowItem icon="subway" label={localeStrings.metro} value={metroStatus} />
 
       <AirportRowItem icon="wifi" label={localeStrings.wifiStatus} value={wifiStatus} />
 
-      <AirportRowItem icon="cafe" label={localeStrings.lounges} value={loungeCount} />
-
-      <AirportRowItem icon="timer" label={localeStrings.security} value={formattedSecurityTime} />
-
-      <AirportRowItem icon="time" label={localeStrings.checkIn} value={formattedCheckinTime} />
+      <AirportRowItem icon="food-fork-drink" label={localeStrings.lounges} value={loungeCount} />
 
       <AirportRowItem
-        icon="star"
+        icon="timer-outline"
+        label={localeStrings.security}
+        value={formattedSecurityTime}
+      />
+
+      <AirportRowItem
+        icon="clock-outline"
+        label={localeStrings.checkIn}
+        value={formattedCheckinTime}
+      />
+
+      <AirportRowItem
+        icon="star-outline"
         label={localeStrings.googleRating}
         value={formattedGoogleRating}
       />

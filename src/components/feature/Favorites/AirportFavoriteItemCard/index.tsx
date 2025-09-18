@@ -2,27 +2,25 @@ import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { memo, useCallback, useMemo } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
-import { TestIds } from 'react-native-google-mobile-ads'
 
 import { ThemedText } from '@/components/common/ThemedText'
 import { FavoriteButton } from '@/components/feature/FavoriteButton'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 import { AnalyticsService } from '@/utils/common/analyticsService'
 import { responsive } from '@/utils/common/responsive'
 import { getAirportImage } from '@/utils/feature/getAirportImage'
-import type { AirportType } from '@/utils/feature/getBadge'
+import type { AirportBadgeType } from '@/utils/feature/getBadge'
 import { getAirportBadge } from '@/utils/feature/getBadge'
 
 interface AirportFavoriteItemCardProps {
-  airport: Airport
+  airport: AirportType
 }
 
-const AD_UNIT_ID = __DEV__
-  ? TestIds.INTERSTITIAL
-  : Platform.OS === 'ios'
+const AD_UNIT_ID =
+  Platform.OS === 'ios'
     ? 'ca-app-pub-4123130377375974/7531194946'
     : 'ca-app-pub-4123130377375974/8992450420'
 
@@ -52,6 +50,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
     iataCode,
     icaoCode,
     id,
+    image,
     infrastructure: { passengerCapacity },
     name,
     operations: {
@@ -73,9 +72,12 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
     [selectedLocale],
   )
 
-  const image = useMemo(() => getAirportImage(airportType as AirportType), [airportType])
+  const defaultImage = useMemo(
+    () => getAirportImage(airportType as AirportBadgeType),
+    [airportType],
+  )
 
-  const badge = useMemo(() => getAirportBadge(airportType as AirportType), [airportType])
+  const badge = useMemo(() => getAirportBadge(airportType as AirportBadgeType), [airportType])
 
   const locationText = useMemo(() => `${city}, ${country}, ${region}`, [city, country, region])
 
@@ -115,12 +117,13 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
       className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary"
       hitSlop={20}
       onPress={onCardPress}
+      testID={`airport-card-${id}`}
     >
       <View className="rounded-t-xl overflow-hidden w-full justify-center">
         <Image
           cachePolicy="memory-disk"
           contentFit="cover"
-          source={image}
+          source={image || defaultImage}
           style={STATIC_STYLES.image}
           transition={0}
         />
@@ -145,7 +148,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
           </ThemedText>
         </View>
 
-        <FavoriteButton id={String(id)} type="airport" />
+        <FavoriteButton id={id} type="airport" />
       </View>
 
       <View className="px-3 py-3">
@@ -200,7 +203,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
               </View>
             </View>
 
-            <View className="my-3 w-[100px] self-center flex flex-row justify-between">
+            <View className="my-3 w-[100px] self-center -row justify-between">
               <View className="h-[1px] w-8 bg-primary-100" />
               <View className="h-[1px] w-8 bg-primary-100" />
             </View>
@@ -219,6 +222,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
               </View>
 
               <View className="w-[1px] h-6 bg-primary-100" />
+
               <View className="flex-1 items-center">
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {googleMapsRating}
@@ -244,7 +248,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
           className="bg-background-quaternary px-2 py-1 rounded-xl overflow-hidden mt-2"
           style={STATIC_STYLES.containerWidth}
         >
-          <View className="flex-row items-center px-1">
+          <View className="-row items-center px-1">
             <ThemedText
               color="text-90" ellipsizeMode="tail" numberOfLines={2}
               type="body4"

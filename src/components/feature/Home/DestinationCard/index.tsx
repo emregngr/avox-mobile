@@ -4,11 +4,11 @@ import { View } from 'react-native'
 import { ThemedText } from '@/components/common/ThemedText'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { PopularDestination } from '@/types/feature/home'
+import type { PopularDestinationType } from '@/types/feature/home'
 import { formatNumber } from '@/utils/feature/formatNumber'
 
 interface DestinationCardProps {
-  destination: PopularDestination
+  destination: PopularDestinationType
 }
 
 export const DestinationCard = memo(({ destination }: DestinationCardProps) => {
@@ -34,17 +34,15 @@ export const DestinationCard = memo(({ destination }: DestinationCardProps) => {
     [formattedDistance, localeStrings.km],
   )
 
-
-   const destinationType = useMemo((): string => {
+  const destinationType = useMemo((): string => {
     if (destinations_type === 'Domestic') {
-    return getLocale('domestic')
+      return getLocale('domestic')
     } else if (destinations_type === 'International') {
-    return getLocale('international')
+      return getLocale('international')
     }
 
     return destinations_type
   }, [destinations_type, selectedLocale])
-
 
   return (
     <View className="w-36 mb-4 bg-background-secondary rounded-xl border border-background-quaternary shadow shadow-background-quaternary">

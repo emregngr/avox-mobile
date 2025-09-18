@@ -1,6 +1,8 @@
+import * as Haptics from 'expo-haptics'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import CheckMark from '@/assets/icons/checkmark.svg'
 import { Header, SafeLayout, ThemedText } from '@/components/common'
@@ -13,32 +15,44 @@ import { Logger } from '@/utils/common/logger'
 type LanguageItem = {
   code: string
   flag: string
-  id: number
+  id: string
   text: string
 }
 
-export default function ChooseLanguage() {
-  const { selectedTheme } = useThemeStore()
+interface ChooseLanguageProps {
+  hapticFeedback?: boolean
+}
+
+export default function ChooseLanguage({ hapticFeedback = true }: ChooseLanguageProps) {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const languages = useMemo(
     (): LanguageItem[] => [
-      { code: 'tr', flag: '🇹🇷', id: 1, text: 'Türkçe' },
-      { code: 'en', flag: '🇬🇧', id: 2, text: 'English' },
+      { code: 'tr', flag: '🇹🇷', id: '1', text: 'Türkçe' },
+      { code: 'en', flag: '🇬🇧', id: '2', text: 'English' },
     ],
     [],
   )
 
-  const handleChangeLanguage = useCallback(async (lang: string) => {
-    try {
-      await changeLocale(lang)
-      router.back()
-    } catch (error) {
-      Logger.breadcrumb('changeLocaleError', 'error', error as Error)
-    }
-  }, [])
+  const handleChangeLanguage = useCallback(
+    async (lang: string) => {
+      try {
+        if (hapticFeedback && selectedLocale !== lang) {
+          Haptics.selectionAsync()
+        }
+        await changeLocale(lang)
+        router.back()
+      } catch (error) {
+        Logger.breadcrumb('changeLocaleError', 'error', error as Error)
+      }
+    },
+    [hapticFeedback, selectedLocale],
+  )
 
   const handleBackPress = useCallback(() => {
     router.back()
@@ -59,8 +73,9 @@ export default function ChooseLanguage() {
             className="flex-row justify-between items-center p-4 h-14"
             hitSlop={10}
             onPress={() => handleChangeLanguage(code)}
+            testID={`language-item-${code}`}
           >
-            <View className="flex flex-row justify-center item-center">
+            <View className="flex-row justify-center item-center">
               <ThemedText color="text-100" type="h2">
                 {flag}
               </ThemedText>
@@ -78,9 +93,18 @@ export default function ChooseLanguage() {
   )
 
   return (
-    <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={getLocale('chooseLanguage')} />
-      <ScrollView contentContainerClassName="px-4 py-5" showsVerticalScrollIndicator={false}>
+    <SafeLayout testID="choose-language-screen">
+      <Header
+        backIconOnPress={handleBackPress}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        style={{ top }}
+        title={getLocale('chooseLanguage')}
+      />
+      <ScrollView
+        contentContainerClassName="px-4"
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="rounded-xl overflow-hidden bg-background-secondary">
           {languages?.map(renderLanguageItem)}
         </View>

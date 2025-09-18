@@ -1,120 +1,182 @@
-import { router } from 'expo-router'
-import type { FC, JSX } from 'react'
-import React, { useMemo } from 'react'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { BlurView } from 'expo-blur'
+import * as Haptics from 'expo-haptics'
+import { router, usePathname } from 'expo-router'
+import type { ReactNode } from 'react'
+import React, { memo, useMemo } from 'react'
 import { Platform, TouchableNativeFeedback, TouchableWithoutFeedback, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import type { SvgProps } from 'react-native-svg'
 
-import HomeIcon from '@/assets/icons/tab/home.svg'
-import ProfileIcon from '@/assets/icons/tab/profile.svg'
-import SearchIcon from '@/assets/icons/tab/search.svg'
-import StarIcon from '@/assets/icons/tab/star.svg'
 import { ThemedText } from '@/components/common/ThemedText'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
-const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableWithoutFeedback
+const Touchable = Platform.OS === 'ios' ? TouchableWithoutFeedback : TouchableNativeFeedback
 
 type IconProps = {
-  Icon: FC<SvgProps>
-  currentIndex: number
-  index: number
-}
-
-type TabProps = {
-  state: {
-    index: number
-  }
+  activeIcon: keyof typeof MaterialCommunityIcons.glyphMap
+  inactiveIcon: keyof typeof MaterialCommunityIcons.glyphMap
+  isActive: boolean
 }
 
 type TabButtonProps = {
-  active: boolean
   badge?: null | string
-  icon: JSX.Element
+  hapticFeedback?: boolean
+  icon: ReactNode
+  isActive: boolean
   label: string
   onPress: () => void
+  testID?: string
 }
 
-const Icon = ({ Icon: IconComponent, currentIndex, index }: IconProps) => {
+const IconComponent = ({ activeIcon, inactiveIcon, isActive }: IconProps) => {
   const { selectedTheme } = useThemeStore()
-
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const isActive = currentIndex === index
-
   return (
-    <IconComponent
+    <MaterialCommunityIcons
       color={isActive ? colors?.onPrimary100 : colors?.onPrimary70}
-      height={24}
-      width={24}
+      name={isActive ? activeIcon : inactiveIcon}
+      size={24}
     />
   )
 }
 
-export const ThemedTab = ({ state }: TabProps) => {
-  const { index: currentIndex = 0 } = state ?? {}
-
+export const ThemedTab = memo(() => {
   const { bottom } = useSafeAreaInsets()
 
-  return (
-    <View
-      style={{
-        paddingBottom: bottom,
-      }}
-      className="w-full flex-row justify-around bg-background-primary"
-    >
-      <TabButton
-        active={currentIndex === 0}
-        icon={<Icon currentIndex={currentIndex} Icon={HomeIcon} index={0} />}
-        label={getLocale('home')}
-        onPress={() => router.navigate('/home')}
-      />
-      <TabButton
-        active={currentIndex === 1}
-        icon={<Icon currentIndex={currentIndex} Icon={SearchIcon} index={1} />}
-        label={getLocale('discover')}
-        onPress={() => router.navigate('/discover')}
-      />
-      <TabButton
-        active={currentIndex === 2}
-        icon={<Icon currentIndex={currentIndex} Icon={StarIcon} index={2} />}
-        label={getLocale('favorites')}
-        onPress={() => router.navigate('/favorites')}
-      />
-      <TabButton
-        active={currentIndex === 3}
-        icon={<Icon currentIndex={currentIndex} Icon={ProfileIcon} index={3} />}
-        label={getLocale('profile')}
-        onPress={() => router.navigate('/profile')}
-      />
-    </View>
-  )
-}
+  const pathname = usePathname()
 
-const TabButton = ({ active, badge, icon, label, onPress }: TabButtonProps) => {
   const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
+  const getCurrentIndex = () => {
+    if (pathname.includes('/home')) return 0
+    if (pathname.includes('/discover')) return 1
+    if (pathname.includes('/favorites')) return 2
+    if (pathname.includes('/profile')) return 3
+    return 0
+  }
+
+  const currentIndex = getCurrentIndex()
+
+  const handleTabPress = (route: string, index: number) => {
+    if (currentIndex !== index) {
+      Haptics.selectionAsync()
+    }
+    router.navigate(route)
+  }
+
   return (
-    <Touchable
-      background={TouchableNativeFeedback.Ripple(colors?.onPrimary50, false)}
-      onPress={onPress}
-    >
-      <View className="w-[75px] py-2 justify-center items-center">
-        <View className="mb-1">{icon}</View>
-        <ThemedText color={active ? 'text-100' : 'text-70'} type="tabBar">
-          {label}
-        </ThemedText>
-        {badge ? (
-          <View className="absolute -top-1 right-5 w-4 h-4 justify-center items-center rounded-full overflow-hidden bg-error">
-            <ThemedText color="text-100" type="body3">
-              {badge}
-            </ThemedText>
-          </View>
-        ) : null}
+    <>
+      <BlurView
+        style={{
+          backgroundColor: colors?.background?.blur,
+          height: bottom + 60,
+        }}
+        className="absolute bottom-0 left-0 right-0 z-10"
+        intensity={Platform.OS === 'ios' ? 30 : 50}
+        tint={selectedTheme}
+      />
+
+      <View
+        className="absolute bottom-0 left-0 right-0 bg-transparent z-50"
+        style={{ paddingBottom: bottom }}
+      >
+        <View className="flex-row justify-around">
+          <TabButton
+            icon={(
+              <IconComponent
+                activeIcon="home"
+                inactiveIcon="home-outline"
+                isActive={currentIndex === 0}
+              />
+            )}
+            isActive={currentIndex === 0}
+            label={getLocale('home')}
+            onPress={() => handleTabPress('/home', 0)}
+            testID="home-tab"
+          />
+          <TabButton
+            icon={(
+              <IconComponent
+                activeIcon="magnify"
+                inactiveIcon="magnify"
+                isActive={currentIndex === 1}
+              />
+            )}
+            isActive={currentIndex === 1}
+            label={getLocale('discover')}
+            onPress={() => handleTabPress('/discover', 1)}
+            testID="discover-tab"
+          />
+          <TabButton
+            icon={(
+              <IconComponent
+                activeIcon="star"
+                inactiveIcon="star-outline"
+                isActive={currentIndex === 2}
+              />
+            )}
+            isActive={currentIndex === 2}
+            label={getLocale('favorites')}
+            onPress={() => handleTabPress('/favorites', 2)}
+            testID="favorites-tab"
+          />
+          <TabButton
+            icon={(
+              <IconComponent
+                activeIcon="account"
+                inactiveIcon="account-outline"
+                isActive={currentIndex === 3}
+              />
+            )}
+            isActive={currentIndex === 3}
+            label={getLocale('profile')}
+            onPress={() => handleTabPress('/profile', 3)}
+            testID="profile-tab"
+          />
+        </View>
       </View>
-    </Touchable>
+    </>
   )
-}
+})
+
+const TabButton = memo(
+  ({ badge, hapticFeedback = true, icon, isActive, label, onPress, testID }: TabButtonProps) => {
+    const { selectedTheme } = useThemeStore()
+
+    const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
+
+    const handlePress = () => {
+      if (hapticFeedback) {
+        Haptics.selectionAsync()
+      }
+      onPress()
+    }
+
+    return (
+      <Touchable
+        background={TouchableNativeFeedback.Ripple(colors?.onPrimary50, false)}
+        onPress={handlePress}
+        testID={testID}
+      >
+        <View className="w-[75px] py-2 justify-center items-center">
+          {icon}
+          <ThemedText className="mt-1" color={isActive ? 'text-100' : 'text-70'} type="tabBar">
+            {label}
+          </ThemedText>
+          {badge ? (
+            <View className="absolute -top-1 right-5 w-4 h-4 justify-center items-center rounded-full overflow-hidden bg-error">
+              <ThemedText color="text-100" type="body3">
+                {badge}
+              </ThemedText>
+            </View>
+          ) : null}
+        </View>
+      </Touchable>
+    )
+  },
+)

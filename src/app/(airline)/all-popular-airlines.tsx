@@ -1,16 +1,17 @@
 import { router } from 'expo-router'
 import React, { useCallback } from 'react'
 import { FlatList } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Header, SafeLayout } from '@/components/common'
 import { AirlineCard, PopularCardSkeleton } from '@/components/feature'
 import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { useHome } from '@/hooks/services/useHome'
 import { getLocale } from '@/locales/i18next'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 
 interface AirlineCardProps {
-  item: Airline
+  item: AirlineType
 }
 
 const INITIAL_ITEMS_PER_PAGE = 6
@@ -20,6 +21,8 @@ const ITEM_HEIGHT = 500
 const WINDOW_SIZE = 7
 
 export default function AllPopularAirlines() {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { homeData, isLoading } = useHome()
   const { popularAirlines: airlinesData } = homeData ?? {}
 
@@ -30,10 +33,10 @@ export default function AllPopularAirlines() {
     [],
   )
 
-  const keyExtractor = useCallback((item: Airline) => item?.id?.toString(), [])
+  const keyExtractor = useCallback((item: AirlineType) => item.id, [])
 
   const getItemLayout = useCallback(
-    (_: ArrayLike<Airline> | null | undefined, index: number) => ({
+    (_: ArrayLike<AirlineType> | null | undefined, index: number) => ({
       index,
       length: ITEM_HEIGHT,
       offset: ITEM_HEIGHT * index,
@@ -50,11 +53,17 @@ export default function AllPopularAirlines() {
   }
 
   return (
-    <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={getLocale('popularAirlines')} />
+    <SafeLayout testID="all-popular-airlines-screen">
+      <Header
+        backIconOnPress={handleBackPress}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        style={{ top }}
+        title={getLocale('popularAirlines')}
+      />
       <FlatList
         columnWrapperClassName="justify-between"
-        contentContainerClassName="pt-5 px-4 pb-10"
+        contentContainerClassName="px-4"
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
         data={airlinesData}
         getItemLayout={getItemLayout}
         initialNumToRender={INITIAL_ITEMS_PER_PAGE}

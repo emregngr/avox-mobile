@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react'
 import { FlatList } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { AirlineCardSkeleton } from '@/components/feature/Airline/AirlineCardSkeleton'
-import { AirportCardSkeleton } from '@/components/feature/Airport/AirportCardSkeleton'
+import { AirlineCardSkeleton } from '@/components/feature/Airline'
+import { AirportCardSkeleton } from '@/components/feature/Airport'
 import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 
 interface Skeleton {
@@ -24,6 +25,8 @@ const skeletonData: Skeleton[] = Array(6)
   .map((_, index) => ({ id: `skeleton-${index}` }))
 
 export const FavoriteSkeleton = ({ type }: SkeletonListProps) => {
+  const { bottom } = useSafeAreaInsets()
+
   const BATCHING_PERIOD = useBatchingPeriod()
 
   const renderItem = useCallback(
@@ -31,7 +34,7 @@ export const FavoriteSkeleton = ({ type }: SkeletonListProps) => {
     [],
   )
 
-  const keyExtractor = useCallback((item: Skeleton) => item?.id?.toString(), [])
+  const keyExtractor = useCallback((item: Skeleton) => item?.id, [])
 
   const getItemLayout = useCallback(
     (_: ArrayLike<Skeleton> | null | undefined, index: number) => ({
@@ -46,7 +49,8 @@ export const FavoriteSkeleton = ({ type }: SkeletonListProps) => {
     <FlatList
       className="mt-[52px]"
       columnWrapperClassName="justify-between"
-      contentContainerClassName="px-4 pb-10"
+      contentContainerClassName="px-4"
+      contentContainerStyle={{ paddingBottom: bottom + 72 }}
       data={skeletonData}
       getItemLayout={getItemLayout}
       initialNumToRender={INITIAL_ITEMS_PER_PAGE}
@@ -56,6 +60,7 @@ export const FavoriteSkeleton = ({ type }: SkeletonListProps) => {
       renderItem={renderItem}
       scrollEventThrottle={16}
       showsVerticalScrollIndicator={false}
+      testID="favorite-skeleton-flatlist"
       updateCellsBatchingPeriod={BATCHING_PERIOD}
       windowSize={WINDOW_SIZE}
       removeClippedSubviews

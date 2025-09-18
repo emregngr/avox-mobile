@@ -1,8 +1,8 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useMemo, useRef, useState } from 'react'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 
-import ColoredClear from '@/assets/icons/coloredClear'
-import Search from '@/assets/icons/tab/search.svg'
+import Close from '@/assets/icons/close'
 import { ThemedButtonText } from '@/components/common/ThemedButtonText'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
@@ -49,7 +49,7 @@ export const SearchInput = ({ className, onChangeText, placeholder, value }: Sea
           isFocused ? 'flex-1' : '',
         )}
       >
-        <Search color={colors?.onPrimary100} height={20} width={20} />
+        <MaterialCommunityIcons color={colors?.onPrimary100} name="magnify" size={20} />
         <TextInput
           onBlur={() => {
             setIsFocused(false)
@@ -65,14 +65,20 @@ export const SearchInput = ({ className, onChangeText, placeholder, value }: Sea
           ref={textInputRef}
           returnKeyType="search"
           spellCheck={false}
+          testID="search-input"
           textAlignVertical="center"
           underlineColorAndroid="transparent"
           value={value}
           enablesReturnKeyAutomatically
         />
         {isFocused && value?.length > 0 ? (
-          <TouchableOpacity activeOpacity={0.7} hitSlop={10} onPress={handleClear}>
-            <ColoredClear
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={10}
+            onPress={handleClear}
+            testID="search-clear-button"
+          >
+            <Close
               height={20}
               primaryColor={colors?.background?.primary}
               secondaryColor={colors?.onPrimary100}
@@ -87,6 +93,7 @@ export const SearchInput = ({ className, onChangeText, placeholder, value }: Sea
           hitSlop={10}
           label={getLocale('cancel')}
           onPress={handleCancel}
+          testID="search-cancel-button"
           textColor="text-100"
           type="body1"
         />

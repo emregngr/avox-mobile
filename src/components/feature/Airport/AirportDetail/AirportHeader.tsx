@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useMemo } from 'react'
 import { View } from 'react-native'
 
@@ -7,15 +7,15 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 
 interface AirportHeaderProps {
-  airportData: Airport
+  airportData: AirportType
 }
 
 export const AirportHeader = ({ airportData }: AirportHeaderProps) => {
-  const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
@@ -123,7 +123,7 @@ export const AirportHeader = ({ airportData }: AirportHeaderProps) => {
         </View>
 
         <View className="flex-row items-center px-5 py-3 rounded-xl overflow-hidden bg-background-primary">
-          <Ionicons color={locationIconColor} name="location" size={16} />
+          <MaterialCommunityIcons color={locationIconColor} name="map-marker-outline" size={16} />
           <View className="mx-4">
             <ThemedText
               color="text-100" ellipsizeMode="tail" numberOfLines={1}

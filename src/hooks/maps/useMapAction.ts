@@ -1,19 +1,20 @@
 import { useActionSheet } from '@expo/react-native-action-sheet'
+import * as Linking from 'expo-linking'
 import type { AppleMapsMarker } from 'expo-maps/build/apple/AppleMaps.types'
 import { useCallback, useMemo } from 'react'
-import { Linking, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { MapLocaleStrings } from '@/types/feature/map'
+import type { MapLocaleStringsType } from '@/types/feature/map'
 
-export const useMapActions = (localeStrings: MapLocaleStrings) => {
+export const useMapActions = (localeStrings: MapLocaleStringsType) => {
+  const { bottom } = useSafeAreaInsets()
+
   const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
-
-  const { bottom } = useSafeAreaInsets()
 
   const { showActionSheetWithOptions } = useActionSheet()
 

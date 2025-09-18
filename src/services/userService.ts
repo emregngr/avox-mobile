@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getApp } from '@react-native-firebase/app'
 import {
   EmailAuthProvider,
@@ -16,10 +15,15 @@ import {
   runTransaction,
   setDoc,
 } from '@react-native-firebase/firestore'
+import { MMKV } from 'react-native-mmkv'
 
+import { ENUMS } from '@/enums'
 import { getLocale } from '@/locales/i18next'
-import type { AddPasswordCredentials, ChangePasswordCredentials } from '@/types/feature/password'
-import type { ProfileData, UserProfile } from '@/types/feature/user'
+import type {
+  AddPasswordCredentialsType,
+  ChangePasswordCredentialsType,
+} from '@/types/feature/password'
+import type { ProfileDataType, UserProfileType } from '@/types/feature/user'
 import { AnalyticsService } from '@/utils/common/analyticsService'
 import Device from '@/utils/common/device'
 import { Logger } from '@/utils/common/logger'
@@ -28,7 +32,9 @@ const app = getApp()
 const auth = getAuth(app)
 const db = getFirestore(app)
 
-export const getUser = async (): Promise<UserProfile | null> => {
+const storage = new MMKV()
+
+export const getUser = async (): Promise<UserProfileType | null> => {
   const user = auth?.currentUser
   if (!user) {
     return null
@@ -37,11 +43,11 @@ export const getUser = async (): Promise<UserProfile | null> => {
   try {
     const userRef = doc(db, 'users', user?.uid)
     const userDoc = await getDoc(userRef)
-    await AsyncStorage.setItem('user-id', `${user?.uid}`)
+    storage.set(ENUMS.USER_ID, `${user?.uid}`)
 
     if (userDoc.exists()) {
       const firestoreData = userDoc.data()
-      const userData: UserProfile = {
+      const userData: UserProfileType = {
         createdAt: firestoreData?.createdAt,
         displayName: user.displayName ?? null,
         email: user.email ?? null,
@@ -53,7 +59,7 @@ export const getUser = async (): Promise<UserProfile | null> => {
       await AnalyticsService.setUser(userData)
       return userData
     } else {
-      const userData: UserProfile = {
+      const userData: UserProfileType = {
         displayName: user.displayName ?? null,
         email: user.email ?? null,
         firstName: null,
@@ -70,7 +76,7 @@ export const getUser = async (): Promise<UserProfile | null> => {
   }
 }
 
-export const updateUser = async (profileData: ProfileData): Promise<void> => {
+export const updateUser = async (profileData: ProfileDataType): Promise<void> => {
   const user = auth?.currentUser
   if (!user) {
     throw new Error(getLocale('userNotLoggedIn'))
@@ -90,7 +96,9 @@ export const updateUser = async (profileData: ProfileData): Promise<void> => {
   }
 }
 
-export const changeUserPassword = async (credentials: ChangePasswordCredentials): Promise<void> => {
+export const changeUserPassword = async (
+  credentials: ChangePasswordCredentialsType,
+): Promise<void> => {
   const { currentPassword, newPassword } = credentials
   const user = auth?.currentUser
 
@@ -108,7 +116,7 @@ export const changeUserPassword = async (credentials: ChangePasswordCredentials)
   }
 }
 
-export const addUserPassword = async (credentials: AddPasswordCredentials): Promise<void> => {
+export const addUserPassword = async (credentials: AddPasswordCredentialsType): Promise<void> => {
   const { newPassword } = credentials
   const user = auth?.currentUser
 

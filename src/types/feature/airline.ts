@@ -1,26 +1,26 @@
-export type ContactInfo = {
+export type ContactInfoType = {
   email: string
   phone: string
 }
 
-export type SocialMedia = {
+export type SocialMediaType = {
   instagram: string
   linkedin: string
   tiktok: string
   x: string
 }
 
-export type CompanyInfo = {
-  contactInfo: ContactInfo
+export type CompanyInfoType = {
+  contactInfo: ContactInfoType
   employeeCount: number
   foundingYear: string
   parentCompany: string
   passengerCapacity?: number
-  socialMedia: SocialMedia
+  socialMedia: SocialMediaType
   website: string
 }
 
-export type Coordinates = {
+export type CoordinatesType = {
   latitude: number
   longitude: number
 }
@@ -28,11 +28,11 @@ export type Coordinates = {
 export type Hub = {
   address: string
   city: string
-  coordinates: Coordinates
+  coordinates: CoordinatesType
   name: string
 }
 
-export type Operation = {
+export type OperationType = {
   alliance: string
   businessModel: string
   businessType: string
@@ -43,7 +43,7 @@ export type Operation = {
   slogan: string
 }
 
-export type Airplane = {
+export type AirplaneType = {
   bodyType: string
   capacitySeats?: number
   capacityTons?: number
@@ -53,43 +53,44 @@ export type Airplane = {
   type: string
 }
 
-export type Fleet = {
+export type FleetType = {
   airplaneTypeCount: number
-  airplanes: Airplane[]
+  airplanes: AirplaneType[]
   averageAgeYears: number
   totalAirplane: number
 }
 
-export type AirlineRoute = {
+export type AirlineRouteType = {
   destinationIata: string
   origin: string
 }
 
-export type Network = {
+export type NetworkType = {
   destinationCount: number
   destinationCountries: number
   destinations: string[]
   domesticConnections: number
   internationalConnections: number
-  routes: AirlineRoute[]
+  routes: AirlineRouteType[]
 }
 
-export type Safety = {
+export type SafetyType = {
   certifications: string[]
   safetyRecord: string
 }
 
-export type Airline = {
-  companyInfo: CompanyInfo
+export type AirlineType = {
+  companyInfo: CompanyInfoType
   environmental: string
-  fleet: Fleet
+  fleet: FleetType
   iataCode: string
   icaoCode: string
-  id: number
+  id: string
   isoCountry: string
   isoRegion: string
-  name: string
-  network: Network
-  operations: Operation
-  safety: Safety
+  logo: string,
+  name: string,
+  network: NetworkType
+  operations: OperationType
+  safety: SafetyType
 }

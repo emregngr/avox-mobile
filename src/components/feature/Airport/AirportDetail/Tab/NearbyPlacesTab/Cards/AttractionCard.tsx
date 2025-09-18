@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
@@ -6,7 +6,7 @@ import { ThemedText } from '@/components/common/ThemedText'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
-interface AttractionCardProps {
+export type AttractionCardProps = {
   attractionName: string
   description: string
   formattedDistance: string
@@ -29,11 +29,15 @@ export const AttractionCard = ({
     <View className="p-4 rounded-xl overflow-hidden flex-row justify-between items-center bg-background-secondary">
       <View className="w-[70px] h-[80px] items-center justify-between">
         <View className="w-10 h-10 rounded-full overflow-hidden bg-background-tertiary items-center justify-center">
-          <Ionicons color={colors?.onPrimary100} name="location" size={24} />
+          <MaterialCommunityIcons
+            color={colors?.onPrimary100}
+            name="map-marker-outline"
+            size={24}
+          />
         </View>
 
         <View className="px-2.5 py-1 rounded-xl overflow-hidden flex-row items-center bg-background-tertiary">
-          <Ionicons color={colors?.onPrimary100} name="car" size={14} />
+          <MaterialCommunityIcons color={colors?.onPrimary100} name="car-outline" size={14} />
           <ThemedText className="ml-1" color="text-90" type="body3">
             {formattedDistance}
           </ThemedText>
@@ -67,7 +71,11 @@ export const AttractionCard = ({
           hitSlop={20}
           onPress={handleDirectionPress}
         >
-          <Ionicons color={colors?.onPrimary100} name="location" size={14} />
+          <MaterialCommunityIcons
+            color={colors?.onPrimary100}
+            name="map-marker-outline"
+            size={14}
+          />
           <ThemedText className="ml-1" color="text-90" type="body3">
             {getDirectionText}
           </ThemedText>

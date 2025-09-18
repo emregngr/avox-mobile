@@ -1,8 +1,8 @@
-export type ChangePasswordCredentials = {
+export type ChangePasswordCredentialsType = {
   currentPassword: string
   newPassword: string
 }
 
-export type AddPasswordCredentials = {
+export type AddPasswordCredentialsType = {
   newPassword: string
 }

@@ -6,15 +6,16 @@ import { useForm } from 'react-hook-form'
 import type { TextInput } from 'react-native'
 import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { z } from 'zod'
 
 import {
   CheckboxField,
   Header,
   SafeLayout,
-  TextFormField,
-  ThemedButton,
+  TextInputField,
   ThemedButtonText,
+  ThemedGradientButton,
   ThemedText,
 } from '@/components/common'
 import { useEmailRegister } from '@/hooks/services/useAuth'
@@ -33,6 +34,8 @@ const STATIC_STYLES = {
 }
 
 export default function Register() {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { selectedLocale } = useLocaleStore()
 
   const { isLoginParam, privacyPolicyParam, termsOfUseParam } = useLocalSearchParams()
@@ -42,13 +45,10 @@ export default function Register() {
   const registerSchema = useMemo(
     () =>
       z.object({
-        email: z.string().pipe(z.email(getLocale('invalidEmailMessage'))),
-        firstName: z.string().min(2, getLocale('minFirstNameMessage')),
-        lastName: z.string().min(2, getLocale('minLastNameMessage')),
-        password: z
-          .string()
-          .min(6, getLocale('minPasswordMessage'))
-          .max(50, getLocale('maxPasswordMessage')),
+        email: z.string().pipe(z.email(getLocale('invalidEmail'))),
+        firstName: z.string().min(2, getLocale('minFirstName')),
+        lastName: z.string().min(2, getLocale('minLastName')),
+        password: z.string().min(6, getLocale('minPassword')).max(50, getLocale('maxPassword')),
         privacyPolicy: z.boolean().refine(value => value === true, {
           message: getLocale('privacyPolicyMessage'),
         }),
@@ -245,7 +245,7 @@ export default function Register() {
   }, [hasBeenSubmitted, isValid, isPending])
 
   const renderFormField = useCallback(
-    (fieldConfig: (typeof formLabels)[0], index: number) => {
+    (fieldConfig: (typeof formLabels)[0]) => {
       const getRef = () => {
         if (fieldConfig.name === 'firstName') return firstNameRef
         if (fieldConfig.name === 'lastName') return lastNameRef
@@ -266,7 +266,7 @@ export default function Register() {
       const onSubmitEditingHandler = getOnSubmitEditing()
 
       return (
-        <TextFormField
+        <TextInputField
           control={control}
           editable={fieldConfig.editable && !isPending}
           key={fieldConfig.name}
@@ -277,6 +277,7 @@ export default function Register() {
           returnKeyType={fieldConfig.returnKeyType}
           secureTextEntry={fieldConfig.secureTextEntry}
           showToggle={fieldConfig.showToggle}
+          testID={fieldConfig.name}
           {...(onSubmitEditingHandler && { onSubmitEditing: onSubmitEditingHandler })}
           {...(refHandler && { ref: refHandler })}
         />
@@ -295,12 +296,19 @@ export default function Register() {
   )
 
   return (
-    <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={localeStrings.register} />
+    <SafeLayout testID="register-screen">
+      <Header
+        backIconOnPress={handleBackPress}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        style={{ top }}
+        testID="register-screen-header"
+        title={localeStrings.register}
+      />
 
       <KeyboardAwareScrollView
         bottomOffset={50}
-        contentContainerClassName="my-5 pb-24 px-4"
+        contentContainerClassName="px-4"
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
@@ -316,10 +324,10 @@ export default function Register() {
         </View>
 
         <View className="gap-y-2">
-          {formLabels.map((fieldConfig, index) => renderFormField(fieldConfig, index))}
+          {formLabels.map(fieldConfig => renderFormField(fieldConfig))}
         </View>
 
-        <View className="mt-6 gap-y-2">
+        <View className="my-6 gap-y-2">
           <CheckboxField
             control={control}
             disabled={isPending}
@@ -327,6 +335,7 @@ export default function Register() {
             labelKey="privacyPolicy"
             name="privacyPolicy"
             onPressLabel={handlePrivacyPolicyPress}
+            testID="privacyPolicy-checkbox"
           />
 
           <CheckboxField
@@ -336,32 +345,32 @@ export default function Register() {
             labelKey="termsOfUse"
             name="termsOfUse"
             onPressLabel={handleTermsOfUsePress}
+            testID="termsOfUse-checkbox"
           />
         </View>
 
-        <View className="mt-6">
-          <ThemedButton
-            disabled={buttonDisabled}
-            label={localeStrings.register}
-            loading={isPending}
-            onPress={handleFormSubmit}
-            type="border"
-          />
+        <ThemedGradientButton
+          disabled={buttonDisabled}
+          label={localeStrings.register}
+          loading={isPending}
+          onPress={handleFormSubmit}
+          testID="register-submit-button"
+        />
 
-          <View className="flex-row justify-center items-center mt-6">
-            <ThemedText color="text-70" type="body2">
-              {localeStrings.alreadyHaveAccount}
-            </ThemedText>
-            <ThemedButtonText
-              disabled={isPending}
-              hitSlop={10}
-              label={localeStrings.login}
-              onPress={handleLoginPress}
-              textColor="text-100"
-              textStyle="ml-1"
-              type="body2"
-            />
-          </View>
+        <View className="flex-row justify-center items-center mt-6">
+          <ThemedText color="text-70" type="body2">
+            {localeStrings.alreadyHaveAccount}
+          </ThemedText>
+          <ThemedButtonText
+            disabled={isPending}
+            hitSlop={10}
+            label={localeStrings.login}
+            onPress={handleLoginPress}
+            testID="already-have-account-button"
+            textColor="text-100"
+            textStyle="ml-1"
+            type="body2"
+          />
         </View>
       </KeyboardAwareScrollView>
     </SafeLayout>

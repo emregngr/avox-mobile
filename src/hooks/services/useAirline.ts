@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { getAirlineById, getAllAirlines } from '@/services/airlineService'
 import useLocaleStore from '@/store/locale'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 import { debounce } from '@/utils/common/debounce'
 import { parseFilterRange } from '@/utils/feature/parseFilterRange'
 
@@ -29,7 +29,7 @@ export function useAirline() {
     staleTime: 5 * 60 * 1000,
   })
 
-  const applyFilters = (airlines: Airline[]): Airline[] => {
+  const applyFilters = (airlines: AirlineType[]): AirlineType[] => {
     if (!airlines) return []
 
     return airlines.filter(airline => {
@@ -80,15 +80,12 @@ export function useAirline() {
       const airlineRangeChecks: {
         filterKey: keyof typeof filters
         isYear?: boolean
-        jsonPath: (a: Airline) => number | undefined | null
+        jsonPath: (a: AirlineType) => string | number | undefined | null
       }[] = [
         {
           filterKey: 'foundingYear',
           isYear: true,
-          jsonPath: a =>
-            a.companyInfo?.foundingYear
-              ? parseInt(String(a?.companyInfo?.foundingYear), 10)
-              : undefined,
+          jsonPath: a => a?.companyInfo?.foundingYear,
         },
         { filterKey: 'passengerCapacity', jsonPath: a => a?.companyInfo?.passengerCapacity },
         { filterKey: 'employeeCount', jsonPath: a => a?.companyInfo?.employeeCount },

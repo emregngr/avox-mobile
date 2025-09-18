@@ -1,16 +1,18 @@
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { ScrollView, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { Header, SafeLayout, ThemedButton, ThemedText } from '@/components/common'
+import { Header, SafeLayout, ThemedGradientButton, ThemedText } from '@/components/common'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
-import { getSafeAreaEdges } from '@/utils/common/getSafeAreaEdges'
 
 export default function TermsOfUse() {
-  const { selectedTheme } = useThemeStore()
+  const { bottom, top } = useSafeAreaInsets()
+
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const params = useLocalSearchParams()
 
@@ -89,19 +91,29 @@ export default function TermsOfUse() {
     [selectedTheme],
   )
 
-  const safeAreaEdges = useMemo(() => getSafeAreaEdges(), [])
-
   return (
-    <SafeLayout edges="bottom">
-      <Header backIconOnPress={handleBackPress} title={getLocale('termsOfUse')} />
+    <SafeLayout bottomBlur>
+      <Header
+        backIconOnPress={handleBackPress}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        style={{ top }}
+        title={getLocale('termsOfUse')}
+      />
 
-      <ScrollView contentContainerClassName="py-5 px-4" indicatorStyle={indicatorStyle}>
+      <ScrollView
+        contentContainerClassName="px-4"
+        contentContainerStyle={{ paddingBottom: bottom + 76, paddingTop: top + 64 }}
+        indicatorStyle={indicatorStyle}
+      >
         <ThemedText color="text-100" type="body1">
           {text}
         </ThemedText>
       </ScrollView>
-      <View className="my-5 mx-4">
-        <ThemedButton label={getLocale('accept')} onPress={handleAccept} type="border" />
+      <View
+        className="mx-4 absolute bottom-0 left-0 right-0 bg-transparent z-50"
+        style={{ paddingBottom: bottom }}
+      >
+        <ThemedGradientButton label={getLocale('accept')} onPress={handleAccept} />
       </View>
     </SafeLayout>
   )

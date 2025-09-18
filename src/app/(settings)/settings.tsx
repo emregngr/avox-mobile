@@ -1,16 +1,18 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { getApp } from '@react-native-firebase/app'
 import { getAuth } from '@react-native-firebase/auth'
+import * as Linking from 'expo-linking'
 import { router } from 'expo-router'
 import * as StoreReview from 'expo-store-review'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Alert, AppState, Linking, Switch, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Alert, AppState, ScrollView, Switch, View } from 'react-native'
 import { checkNotifications, openSettings } from 'react-native-permissions'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import Close from '@/assets/icons/close'
 import Instagram from '@/assets/icons/instagram.svg'
 import Tiktok from '@/assets/icons/tiktok.svg'
-import { Header, ProfileMenuItem, SafeLayout, ThemedText } from '@/components/common'
+import { Header, ProfileItem, SafeLayout, ThemedText } from '@/components/common'
 import { useDeleteUser } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
@@ -20,15 +22,17 @@ import { Logger } from '@/utils/common/logger'
 import { getStringValue } from '@/utils/common/remoteConfig'
 
 const app = getApp()
-const authInstance = getAuth(app)
+const auth = getAuth(app)
 
 export default function Settings() {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { selectedLocale } = useLocaleStore()
   const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const user = useMemo(() => authInstance.currentUser, [authInstance.currentUser])
+  const user = useMemo(() => auth.currentUser, [auth.currentUser])
 
   const { mutateAsync: deleteUserAccount } = useDeleteUser()
 
@@ -65,7 +69,7 @@ export default function Settings() {
   const checkNotificationPermission = useCallback(async (): Promise<string> => {
     try {
       const { status } = await checkNotifications()
-      setNotificationStatus(status !== 'granted' ? false : true)
+      setNotificationStatus(status === 'granted')
       return status
     } catch (error) {
       Logger.breadcrumb('checkNotificationPermissionError', 'error', error as Error)
@@ -84,10 +88,7 @@ export default function Settings() {
 
   useEffect(() => {
     const subscription = AppState?.addEventListener('change', handleAppStateChange)
-
-    return () => {
-      subscription?.remove()
-    }
+    return () => subscription?.remove()
   }, [handleAppStateChange])
 
   useEffect(() => {
@@ -102,12 +103,12 @@ export default function Settings() {
         Logger.breadcrumb('requestReviewError', 'error', error as Error)
       }
     } else {
-      Alert.alert(getLocale('error'), getLocale('ratingRequestNotSupported'), [
-        { text: getLocale('ok') },
-      ],
-        {
-          userInterfaceStyle: selectedTheme,
-        })
+      Alert.alert(
+        getLocale('error'),
+        getLocale('ratingRequestNotSupported'),
+        [{ text: getLocale('ok') }],
+        { userInterfaceStyle: selectedTheme },
+      )
     }
   }, [selectedTheme])
 
@@ -128,20 +129,15 @@ export default function Settings() {
   }, [instagramLink])
 
   const handleDeleteAccountPress = useCallback(() => {
-    Alert.alert(getLocale('deleteAccount'), getLocale('deleteAccountConfirmation'), [
-      {
-        style: 'cancel',
-        text: getLocale('cancel'),
-      },
-      {
-        onPress: () => deleteUserAccount(),
-        style: 'destructive',
-        text: getLocale('delete'),
-      },
-     ],
-      {
-      userInterfaceStyle: selectedTheme,
-    })
+    Alert.alert(
+      getLocale('warning'),
+      getLocale('deleteAccountConfirmation'),
+      [
+        { style: 'cancel', text: getLocale('cancel') },
+        { onPress: () => deleteUserAccount(), style: 'destructive', text: getLocale('delete') },
+      ],
+      { userInterfaceStyle: selectedTheme },
+    )
   }, [selectedTheme])
 
   const handleBackPress = useCallback(() => {
@@ -184,10 +180,6 @@ export default function Settings() {
     [colors?.background?.quaternary, colors?.onPrimary100],
   )
 
-  const tikTokIcon = useMemo(() => <Tiktok height={24} width={24} />, [])
-
-  const instagramIcon = useMemo(() => <Instagram height={24} width={24} />, [])
-
   const localeStrings = useMemo(
     () => ({
       deleteAccount: getLocale('deleteAccount'),
@@ -198,7 +190,7 @@ export default function Settings() {
       privacyPolicy: getLocale('privacyPolicy'),
       rateApp: getLocale('rateApp'),
       settings: getLocale('settings'),
-      socialMediaAccounts: getLocale('socialMediaAccounts'),
+      socialMedia: getLocale('socialMedia'),
       termsOfUse: getLocale('termsOfUse'),
       tikTok: getLocale('tikTok'),
     }),
@@ -206,24 +198,34 @@ export default function Settings() {
   )
 
   return (
-    <SafeLayout>
+    <SafeLayout testID="settings-screen">
       <Header
         backIcon={false}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
         rightIcon={rightIcon}
         rightIconOnPress={handleBackPress}
+        style={{ top }}
         title={localeStrings.settings}
       />
 
-      <ScrollView contentContainerClassName="px-4 pb-10" showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerClassName="px-4"
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        showsVerticalScrollIndicator={false}
+      >
         <ThemedText className="ml-4 mt-8 mb-2" color="text-70" type="body2">
           {localeStrings.general}
         </ThemedText>
 
         <View className="rounded-xl overflow-hidden bg-background-secondary">
-          <View className="h-14 flex-row justify-between items-center p-4 bg-background-secondary">
-            <ThemedText color="text-100" type="body1">
-              {localeStrings.notification}
-            </ThemedText>
+          <View className="h-14 flex-row justify-between items-center px-4 bg-background-secondary">
+            <View className="flex-row items-center">
+              <MaterialCommunityIcons color={colors?.onPrimary100} name="bell-outline" size={24} />
+              <ThemedText className="ml-4" color="text-100" type="body1">
+                {localeStrings.notification}
+              </ThemedText>
+            </View>
+
             <Switch
               ios_backgroundColor={colors?.background?.quaternary}
               onValueChange={handleSettingsPress}
@@ -233,42 +235,64 @@ export default function Settings() {
             />
           </View>
 
-          <View className="border-b border-solid border-background-quaternary ml-4" />
+          <View className="border-b border-solid border-background-quaternary ml-14" />
 
-          <ProfileMenuItem onPress={requestReview} title={localeStrings.rateApp} />
-          <ProfileMenuItem onPress={handlePrivacyPress} title={localeStrings.privacyPolicy} />
-          <ProfileMenuItem onPress={handleTermsPress} title={localeStrings.termsOfUse} />
-          <ProfileMenuItem
+          <ProfileItem
+            label={localeStrings.rateApp}
+            leftIcon="star-outline"
+            onPress={requestReview}
+            testID="rate-app-button"
+          />
+          <ProfileItem
+            label={localeStrings.privacyPolicy}
+            leftIcon="file-lock-outline"
+            onPress={handlePrivacyPress}
+            testID="settings-privacy-policy-button"
+          />
+          <ProfileItem
+            label={localeStrings.termsOfUse}
+            leftIcon="file-document-outline"
+            onPress={handleTermsPress}
+            testID="settings-terms-of-use-button"
+          />
+          <ProfileItem
             isLastItem={user ? false : true}
+            label={localeStrings.faq}
+            leftIcon="help-circle-outline"
             onPress={handleFaqPress}
-            title={localeStrings.faq}
+            testID="faq-button"
           />
           {user ? (
-            <ProfileMenuItem
+            <ProfileItem
+              label={localeStrings.deleteAccount}
+              leftIcon="trash-can-outline"
               onPress={handleDeleteAccountPress}
               rightIcon={false}
-              title={localeStrings.deleteAccount}
+              testID="delete-account-button"
+              danger
               isLastItem
             />
           ) : null}
         </View>
 
         <ThemedText className="ml-4 mt-8 mb-2" color="text-70" type="body2">
-          {localeStrings.socialMediaAccounts}
+          {localeStrings.socialMedia}
         </ThemedText>
 
         <View className="rounded-xl overflow-hidden bg-background-secondary">
-          <ProfileMenuItem
-            leftIcon={tikTokIcon}
+          <ProfileItem
+            customLeftIcon={Tiktok}
+            label={localeStrings.tikTok}
             onPress={openTiktok}
             rightIcon={false}
-            title={localeStrings.tikTok}
+            testID="tiktok-button"
           />
-          <ProfileMenuItem
-            leftIcon={instagramIcon}
+          <ProfileItem
+            customLeftIcon={Instagram}
+            label={localeStrings.instagram}
             onPress={openInstagram}
             rightIcon={false}
-            title={localeStrings.instagram}
+            testID="instagram-button"
             isLastItem
           />
         </View>

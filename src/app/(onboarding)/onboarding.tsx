@@ -3,16 +3,21 @@ import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import { FlatList, View } from 'react-native'
 
-import { OnboardingItem, SafeLayout, ThemedButton, ThemedButtonText } from '@/components/common'
+import {
+  OnboardingItem,
+  SafeLayout,
+  ThemedButtonText,
+  ThemedGradientButton,
+} from '@/components/common'
 import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { getLocale } from '@/locales/i18next'
-import { setIsOnBoardingSeen } from '@/store/user'
-import type { OnBoardingsType, OnBoardingType } from '@/types/common/onBoarding'
+import { setIsOnboardingSeen } from '@/store/user'
+import type { OnboardingsType, OnboardingType } from '@/types/common/onboarding'
 import { cn } from '@/utils/common/cn'
 import { responsive } from '@/utils/common/responsive'
 
 interface OnboardingItemProps {
-  item: OnBoardingType
+  item: OnboardingType
 }
 interface DotProps {
   isActive: boolean
@@ -28,33 +33,33 @@ const MAX_ITEMS_PER_BATCH = 3
 const ITEM_WIDTH = responsive.deviceWidth
 const WINDOW_SIZE = 7
 
-export default function OnBoarding() {
+export default function Onboarding() {
   const flatListRef = useRef<FlatList>(null)
 
   const [currentIndex, setCurrentIndex] = useState<number>(0)
 
   const onBoardings = useMemo(
-    (): OnBoardingsType => [
+    (): OnboardingsType => [
       {
-        id: 1,
+        id: '1',
         image: require('@/assets/images/onBoarding/1.webp'),
         text: getLocale('onBoardingText1'),
         title: getLocale('onBoardingTitle1'),
       },
       {
-        id: 2,
+        id: '2',
         image: require('@/assets/images/onBoarding/2.webp'),
         text: getLocale('onBoardingText2'),
         title: getLocale('onBoardingTitle2'),
       },
       {
-        id: 3,
+        id: '3',
         image: require('@/assets/images/onBoarding/3.webp'),
         text: getLocale('onBoardingText3'),
         title: getLocale('onBoardingTitle3'),
       },
       {
-        id: 4,
+        id: '4',
         image: require('@/assets/images/onBoarding/4.webp'),
         text: getLocale('onBoardingText4'),
         title: getLocale('onBoardingTitle4'),
@@ -70,7 +75,7 @@ export default function OnBoarding() {
 
   const handlePressNext = useCallback(() => {
     if (currentIndex === onBoardings?.length - 1) {
-      setIsOnBoardingSeen(true)
+      setIsOnboardingSeen(true)
       router.replace('/home')
     } else {
       flatListRef.current?.scrollToIndex({ animated: true, index: currentIndex + 1 })
@@ -78,7 +83,7 @@ export default function OnBoarding() {
   }, [currentIndex, onBoardings])
 
   const handleSkip = useCallback(() => {
-    setIsOnBoardingSeen(true)
+    setIsOnboardingSeen(true)
     router.replace('/home')
   }, [])
 
@@ -94,10 +99,10 @@ export default function OnBoarding() {
     [],
   )
 
-  const keyExtractor = useCallback((item: OnBoardingType) => item?.id?.toString(), [])
+  const keyExtractor = useCallback((item: OnboardingType) => item?.id, [])
 
   const getItemLayout = useCallback(
-    (_: ArrayLike<OnBoardingType> | null | undefined, index: number) => ({
+    (_: ArrayLike<OnboardingType> | null | undefined, index: number) => ({
       index,
       length: ITEM_WIDTH,
       offset: ITEM_WIDTH * index,
@@ -106,12 +111,13 @@ export default function OnBoarding() {
   )
 
   return (
-    <SafeLayout edges="bottom">
+    <SafeLayout edges={['bottom']} testID="onboarding-screen" topBlur={false}>
       <ThemedButtonText
         containerStyle="self-end mr-4 mt-6 z-10 p-2 rounded-full overflow-hidden bg-background-quaternary"
         hitSlop={20}
         label={getLocale('skip')}
         onPress={handleSkip}
+        testID="onboarding-skip-button"
         textColor="text-100"
         type="h4"
       />
@@ -130,6 +136,7 @@ export default function OnBoarding() {
         renderItem={renderItem}
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
+        testID="onboarding-flatlist"
         updateCellsBatchingPeriod={BATCHING_PERIOD}
         windowSize={WINDOW_SIZE}
         disableIntervalMomentum
@@ -138,7 +145,12 @@ export default function OnBoarding() {
       />
 
       <View className="w-full px-4 pb-6">
-        <ThemedButton label={buttonLabel} onPress={handlePressNext} type="border" />
+        <ThemedGradientButton
+          label={buttonLabel}
+          onPress={handlePressNext}
+          testID={currentIndex === onBoardings?.length - 1 ? 'skip-button' : 'continue-button'}
+          type="secondary"
+        />
 
         <DotsContainer currentIndex={currentIndex} length={onBoardings?.length} />
       </View>

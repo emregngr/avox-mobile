@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
 import { FilterChip } from '@/components/feature/FilterModal/FilterChip'
-import type { FilterOption, RangeFilterOption } from '@/types/feature/filter'
+import type { FilterOptionType, RangeFilterOptionType } from '@/types/feature/filter'
 
 interface FilterSectionProps {
   filterKey: string
@@ -11,7 +11,7 @@ interface FilterSectionProps {
   localFilters: any
   onMultiSelectToggle?: (filterKey: string, value: string) => void
   onSingleSelectToggle?: (filterKey: string, value: string | null) => void
-  options: (FilterOption | RangeFilterOption)[]
+  options: (FilterOptionType | RangeFilterOptionType)[]
   title: string
 }
 
@@ -30,7 +30,7 @@ export const FilterSection = ({
   }, [options])
 
   const handlePress = useCallback(
-    (option: FilterOption | RangeFilterOption) => {
+    (option: FilterOptionType | RangeFilterOptionType) => {
       if (handlerType === 'multi') onMultiSelectToggle?.(filterKey, option?.value?.toString())
       else if (handlerType === 'single')
         onSingleSelectToggle?.(filterKey, option?.value?.toString())

@@ -2,11 +2,18 @@ import { Image } from 'expo-image'
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { Platform, ScrollView, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import Apple from '@/assets/icons/apple.svg'
 import Close from '@/assets/icons/close'
 import Google from '@/assets/icons/google.svg'
-import { Header, SafeLayout, ThemedButton, ThemedText } from '@/components/common'
+import {
+  Header,
+  SafeLayout,
+  ThemedButton,
+  ThemedGradientButton,
+  ThemedText,
+} from '@/components/common'
 import { useAppleLogin, useGoogleLogin } from '@/hooks/services/useAuth'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
@@ -26,8 +33,10 @@ const STATIC_STYLES = {
 export default function Auth() {
   const { tab } = useLocalSearchParams()
 
-  const { selectedTheme } = useThemeStore()
+  const { bottom, top } = useSafeAreaInsets()
+
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
@@ -95,10 +104,21 @@ export default function Auth() {
   )
 
   return (
-    <SafeLayout>
-      <Header backIcon={false} rightIcon={closeIcon} rightIconOnPress={handleBackPress} />
+    <SafeLayout testID="auth-screen">
+      <Header
+        backIcon={false}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        rightIcon={closeIcon}
+        rightIconOnPress={handleBackPress}
+        style={{ top }}
+        testID="auth-screen-header"
+      />
 
-      <ScrollView contentContainerClassName="pt-10 pb-5 px-4" showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerClassName="px-4"
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 84 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="flex-1 justify-center items-center">
           <Image
             cachePolicy="memory-disk"
@@ -119,25 +139,19 @@ export default function Auth() {
 
         <View className="mt-8">
           <View className="gap-y-4">
-            <ThemedButton
+            <ThemedGradientButton
               disabled={isPending}
-              icon={googleIcon}
-              label={localeStrings.signInWithGoogle}
-              loading={isLoggingInWithGoogle}
-              onPress={handleGoogleLogin}
-              type="social"
+              label={localeStrings.login}
+              onPress={handleLoginPress}
+              testID="login-button"
             />
 
-            {Platform.OS === 'ios' ? (
-              <ThemedButton
-                disabled={isPending}
-                icon={appleIcon}
-                label={localeStrings.signInWithApple}
-                loading={isLoggingInWithApple}
-                onPress={handleAppleLogin}
-                type="social"
-              />
-            ) : null}
+            <ThemedGradientButton
+              disabled={isPending}
+              label={localeStrings.register}
+              onPress={handleRegisterPress}
+              testID="register-button"
+            />
           </View>
 
           <View className="flex-row justify-between items-center my-4">
@@ -151,17 +165,25 @@ export default function Auth() {
           <View className="gap-y-4">
             <ThemedButton
               disabled={isPending}
-              label={localeStrings.login}
-              onPress={handleLoginPress}
-              type="border"
+              icon={googleIcon}
+              label={localeStrings.signInWithGoogle}
+              loading={isLoggingInWithGoogle}
+              onPress={handleGoogleLogin}
+              testID="google-signin-button"
+              type="social"
             />
 
-            <ThemedButton
-              disabled={isPending}
-              label={localeStrings.register}
-              onPress={handleRegisterPress}
-              type="border"
-            />
+            {Platform.OS === 'ios' ? (
+              <ThemedButton
+                disabled={isPending}
+                icon={appleIcon}
+                label={localeStrings.signInWithApple}
+                loading={isLoggingInWithApple}
+                onPress={handleAppleLogin}
+                testID="apple-signin-button"
+                type="social"
+              />
+            ) : null}
           </View>
 
           <ThemedText

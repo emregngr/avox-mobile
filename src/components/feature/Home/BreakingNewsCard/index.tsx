@@ -4,13 +4,13 @@ import React, { memo, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
-import type { BreakingNews } from '@/types/feature/home'
+import type { BreakingNewsType } from '@/types/feature/home'
 import { responsive } from '@/utils/common/responsive'
 
 const itemWidth = responsive.deviceWidth
 
 interface BreakingNewsCardProps {
-  item: BreakingNews
+  item: BreakingNewsType
 }
 
 const STATIC_STYLES = {
@@ -23,7 +23,7 @@ const STATIC_STYLES = {
 }
 
 export const BreakingNewsCard = memo(({ item }: BreakingNewsCardProps) => {
-  const { image, title } = item ?? {}
+  const { id, image, title } = item ?? {}
 
   const imageSource = useMemo(() => ({ uri: image }), [image])
 
@@ -44,6 +44,7 @@ export const BreakingNewsCard = memo(({ item }: BreakingNewsCardProps) => {
         hitSlop={20}
         onPress={handlePress}
         style={STATIC_STYLES.cardWidth}
+        testID={`breaking-news-card-${id}`}
       >
         <Image
           cachePolicy="memory-disk"

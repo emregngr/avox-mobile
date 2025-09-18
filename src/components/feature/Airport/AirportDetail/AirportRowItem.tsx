@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import type { ComponentType } from 'react'
 import React, { useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -10,7 +10,7 @@ import { themeColors } from '@/themes'
 
 interface AirportRowItemProps {
   customIcon?: ComponentType<SvgProps>
-  icon?: any
+  icon?: keyof typeof MaterialCommunityIcons.glyphMap
   label: string
   onPress?: () => void
   value: string | number | undefined
@@ -35,7 +35,7 @@ export const AirportRowItem = ({
 
   const iconComponent = useMemo(() => {
     if (icon) {
-      return <Ionicons color={iconColor} name={icon} size={20} />
+      return <MaterialCommunityIcons color={iconColor} name={icon} size={20} />
     }
     if (CustomIcon) {
       return <CustomIcon color={iconColor} height={20} width={20} />
@@ -45,7 +45,7 @@ export const AirportRowItem = ({
 
   const chevronComponent = useMemo(() => {
     if (onPress) {
-      return <Ionicons color={chevronColor} name="chevron-forward" size={20} />
+      return <MaterialCommunityIcons color={chevronColor} name="chevron-right" size={20} />
     }
     return null
   }, [onPress, chevronColor])

@@ -8,12 +8,29 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
+const STATIC_STYLES = {
+  badge: {
+    height: 40,
+    left: 4,
+    position: 'absolute' as const,
+    top: 4,
+    width: 40,
+  },
+  logo: {
+    height: 40,
+    width: '50%' as const,
+  },
+  topContainer: {
+    height: 130,
+  },
+}
+
 export const AirlineCardSkeleton = memo(() => {
   const pulse = useSharedValue<number>(0)
 
   useEffect(() => {
     pulse.value = withRepeat(withTiming(1, { duration: 1000 }), -1, true)
-  }, [])
+  }, [pulse])
 
   const animatedStyle = useAnimatedStyle(() => {
     'worklet'
@@ -23,27 +40,34 @@ export const AirlineCardSkeleton = memo(() => {
   }, [])
 
   return (
-    <View className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary">
+    <View
+      className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary"
+      testID="skeleton-block"
+    >
       <Animated.View
-        className="bg-background-primary rounded-t-xl overflow-hidden w-full justify-center"
-        style={[{ height: 130 }, animatedStyle]}
+        className="bg-background-primary rounded-t-xl overflow-hidden w-full justify-center items-center"
+        style={[STATIC_STYLES.topContainer, animatedStyle]}
       >
         <Animated.View
-          className="h-8 w-12 bg-background-quaternary rounded overflow-hidden self-center"
-          style={animatedStyle}
+          className="bg-background-quaternary rounded-lg overflow-hidden"
+          style={[STATIC_STYLES.logo, animatedStyle]}
         />
+
         <Animated.View
-          className="absolute bottom-1 left-1 w-10 h-10 bg-background-quaternary rounded overflow-hidden"
+          className="bg-background-quaternary rounded overflow-hidden"
+          style={[STATIC_STYLES.badge, animatedStyle]}
+        />
+
+        <Animated.View
+          className="absolute bottom-2 left-2 w-12 h-6 bg-background-quaternary rounded-xl overflow-hidden"
           style={animatedStyle}
         />
+
         <Animated.View
           className="absolute bottom-2 right-2 w-14 h-6 bg-background-quaternary rounded-xl overflow-hidden"
           style={animatedStyle}
         />
-        <Animated.View
-          className="absolute top-2 left-2 w-12 h-6 bg-background-quaternary rounded-xl overflow-hidden"
-          style={animatedStyle}
-        />
+
         <Animated.View
           className="absolute top-2 right-2 w-8 h-8 bg-background-quaternary rounded-full overflow-hidden"
           style={animatedStyle}
@@ -52,16 +76,18 @@ export const AirlineCardSkeleton = memo(() => {
 
       <View className="px-3 py-3">
         <View className="h-56 justify-between">
-          <Animated.View
-            className="h-6 bg-background-quaternary rounded-xl overflow-hidden"
-            style={animatedStyle}
-          />
-          <Animated.View
-            className="h-4 bg-background-quaternary rounded-xl overflow-hidden w-3/4 mt-1"
-            style={animatedStyle}
-          />
+          <View>
+            <Animated.View
+              className="h-6 bg-background-quaternary rounded-xl overflow-hidden"
+              style={animatedStyle}
+            />
+            <Animated.View
+              className="h-4 bg-background-quaternary rounded-xl overflow-hidden w-3/4 mt-2"
+              style={animatedStyle}
+            />
+          </View>
 
-          <View className="bg-background-secondary rounded-xl p-2 shadow shadow-background-quaternary mt-2 border border-background-quaternary">
+          <View className="bg-background-secondary rounded-xl p-2 shadow shadow-background-quaternary border border-background-quaternary">
             <View className="flex-row items-center justify-between">
               <View className="flex-1 items-center">
                 <Animated.View
@@ -86,7 +112,7 @@ export const AirlineCardSkeleton = memo(() => {
               </View>
             </View>
 
-            <View className="my-3 w-[100px] self-center flex flex-row justify-between">
+            <View className="my-3 w-[100px] self-center flex-row justify-between">
               <View className="h-[1px] w-8 bg-background-quaternary" />
               <View className="h-[1px] w-8 bg-background-quaternary" />
             </View>
@@ -120,11 +146,11 @@ export const AirlineCardSkeleton = memo(() => {
 
       <View className="h-20 px-3 mb-3">
         <Animated.View
-          className="h-3 w-20 bg-background-quaternary rounded overflow-hidden mb-2"
+          className="h-4 w-24 bg-background-quaternary rounded overflow-hidden mb-2"
           style={animatedStyle}
         />
         <Animated.View
-          className="bg-background-quaternary px-2 py-1 rounded-xl overflow-hidden mt-2 h-8"
+          className="bg-background-quaternary rounded-xl overflow-hidden mt-1 h-10"
           style={animatedStyle}
         />
       </View>

@@ -5,11 +5,11 @@ import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/Airpo
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 import { formatNumber } from '@/utils/feature/formatNumber'
 
 interface TerminalProps {
-  infrastructure: Airport['infrastructure']
+  infrastructure: AirportType['infrastructure']
 }
 
 export const Terminal = ({ infrastructure }: TerminalProps) => {
@@ -61,18 +61,22 @@ export const Terminal = ({ infrastructure }: TerminalProps) => {
   return (
     <AirportSectionRow title={localeStrings.terminalandCapacity}>
       <AirportRowItem
-        icon="people"
+        icon="account-group-outline"
         label={localeStrings.numberOfPassengers}
         value={formattedPassengerCapacity}
       />
 
       <AirportRowItem
-        icon="briefcase"
+        icon="briefcase-outline"
         label={localeStrings.baggageCapacity}
         value={formattedBaggageCapacity}
       />
 
-      <AirportRowItem icon="terminal" label={localeStrings.terminal} value={terminalCount} />
+      <AirportRowItem
+        icon="home-city-outline"
+        label={localeStrings.terminal}
+        value={terminalCount}
+      />
 
       <AirportRowItem
         icon="grid"
@@ -81,7 +85,7 @@ export const Terminal = ({ infrastructure }: TerminalProps) => {
       />
 
       <AirportRowItem
-        icon="map"
+        icon="map-outline"
         label={localeStrings.airportArea}
         value={formattedAirportAreaHectares}
       />

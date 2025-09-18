@@ -1,13 +1,28 @@
 import 'dayjs/locale/en'
 import 'dayjs/locale/tr'
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import dayjs from 'dayjs'
 import { getLocales } from 'expo-localization'
+import { MMKV } from 'react-native-mmkv'
 import { create } from 'zustand'
 import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 
 import { i18nChangeLocale } from '@/locales/i18next'
+
+const storage = new MMKV()
+
+const mmkvStorage = {
+  getItem: (name: string) => {
+    const value = storage.getString(name)
+    return value ? JSON.parse(value) : null
+  },
+  removeItem: (name: string) => {
+    storage.delete(name)
+  },
+  setItem: (name: string, value: string) => {
+    storage.set(name, value)
+  },
+}
 
 const locales = getLocales()
 
@@ -38,7 +53,7 @@ const useLocaleStore = create<LocaleStateType & LocaleActions>()(
             i18nChangeLocale(state.selectedLocale)
           }
         },
-        storage: createJSONStorage(() => AsyncStorage),
+        storage: createJSONStorage(() => mmkvStorage),
       },
     ),
   ),

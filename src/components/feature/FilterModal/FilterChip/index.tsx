@@ -32,6 +32,7 @@ export const FilterChip = memo(({ label, onPress, selected }: FilterChipProps) =
       className={containerStyle}
       hitSlop={10}
       onPress={handlePress}
+      testID={`filter-chip-${label}`}
     >
       <ThemedText color={textColor} type="body2">
         {label}

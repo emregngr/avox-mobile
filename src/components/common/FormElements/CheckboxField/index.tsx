@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useCallback, useMemo } from 'react'
 import type { Control } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
@@ -17,6 +17,7 @@ interface CheckboxFieldProps {
   labelKey: string
   name: string
   onPressLabel?: () => void
+  testID?: string
 }
 
 export const CheckboxField = ({
@@ -26,6 +27,7 @@ export const CheckboxField = ({
   labelKey,
   name,
   onPressLabel,
+  testID,
 }: CheckboxFieldProps) => {
   const { selectedTheme } = useThemeStore()
 
@@ -51,18 +53,13 @@ export const CheckboxField = ({
               disabled={disabled}
               hitSlop={10}
               onPress={() => onChange(!value)}
+              testID={testID || 'checkbox'}
             >
-              <View className="relative">
-                <Ionicons color={getCheckboxColor(error, value)} name="square-outline" size={24} />
-                {value ? (
-                  <Ionicons
-                    className="absolute top-0.5 left-0.5"
-                    color={colors?.success}
-                    name="checkmark-sharp"
-                    size={20}
-                  />
-                ) : null}
-              </View>
+              <MaterialCommunityIcons
+                color={getCheckboxColor(error, value)}
+                name={value ? 'checkbox-marked' : 'checkbox-blank-outline'}
+                size={24}
+              />
             </TouchableOpacity>
           )}
           control={control}

@@ -1,10 +1,12 @@
 import 'dayjs/locale/en'
 import 'dayjs/locale/tr'
 
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import * as Haptics from 'expo-haptics'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { Platform, ScrollView, TouchableOpacity, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Header, SafeLayout, ThemedText } from '@/components/common'
 import { getLocale } from '@/locales/i18next'
@@ -13,31 +15,37 @@ import { themeColors } from '@/themes'
 import { cn } from '@/utils/common/cn'
 import { responsive } from '@/utils/common/responsive'
 
-interface ThemeItem {
+interface ThemeItemType {
   icon: string
-  id: number
+  id: string
   name: string
   value: 'dark' | 'light'
 }
 
+interface ChooseThemeProps {
+  hapticFeedback?: boolean
+}
+
 const HEIGHT = responsive.deviceWidth / 2 - 24
 
-export default function ChooseTheme() {
+export default function ChooseTheme({ hapticFeedback = true }: ChooseThemeProps) {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const themes = useMemo(
-    (): ThemeItem[] => [
+    (): ThemeItemType[] => [
       {
         icon: '☀️',
-        id: 1,
+        id: '1',
         name: getLocale('light'),
         value: 'light',
       },
       {
         icon: '🌙',
-        id: 2,
+        id: '2',
         name: getLocale('dark'),
         value: 'dark',
       },
@@ -45,28 +53,37 @@ export default function ChooseTheme() {
     [],
   )
 
-  const handleChangeTheme = useCallback((theme: 'light' | 'dark') => {
-    changeTheme(theme)
-    router.back()
-  }, [])
+  const handleChangeTheme = useCallback(
+    (theme: 'light' | 'dark') => {
+      if (hapticFeedback && selectedTheme !== theme) {
+        Haptics.selectionAsync()
+      }
+      changeTheme(theme)
+      router.back()
+    },
+    [hapticFeedback, selectedTheme],
+  )
 
   const handleBackPress = useCallback(() => {
     router.back()
   }, [])
 
   const getRadioButtonProps = useCallback(
-    (themeValue: 'dark' | 'light'): { color: string; name: any } => {
+    (
+      themeValue: 'dark' | 'light',
+    ): { color: string; name: keyof typeof MaterialCommunityIcons.glyphMap } => {
       const isSelected = selectedTheme === themeValue
+
       return {
         color: isSelected ? colors?.success : colors?.onPrimary100,
-        name: isSelected ? 'radio-button-on' : 'radio-button-off',
+        name: isSelected ? 'radiobox-marked' : 'radiobox-blank',
       }
     },
     [selectedTheme, colors],
   )
 
   const renderThemeItem = useCallback(
-    (themeItem: { icon: string; id: number; name: string; value: 'dark' | 'light' }) => {
+    (themeItem: ThemeItemType) => {
       const { icon, id, name, value } = themeItem
       const radioProps = getRadioButtonProps(value)
 
@@ -78,6 +95,7 @@ export default function ChooseTheme() {
           key={id}
           onPress={() => handleChangeTheme(value)}
           style={{ height: HEIGHT }}
+          testID={`theme-item-${value}`}
         >
           <View
             className={cn(
@@ -93,9 +111,7 @@ export default function ChooseTheme() {
               {name}
             </ThemedText>
 
-            <View>
-              <Ionicons color={radioProps.color} name={radioProps.name} size={24} />
-            </View>
+            <MaterialCommunityIcons color={radioProps.color} name={radioProps.name} size={24} />
           </View>
         </TouchableOpacity>
       )
@@ -104,10 +120,19 @@ export default function ChooseTheme() {
   )
 
   return (
-    <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={getLocale('chooseTheme')} />
+    <SafeLayout testID="choose-theme-screen">
+      <Header
+        backIconOnPress={handleBackPress}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        style={{ top }}
+        title={getLocale('chooseTheme')}
+      />
 
-      <ScrollView contentContainerClassName="px-4 py-5" showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerClassName="px-4"
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        showsVerticalScrollIndicator={false}
+      >
         <ThemedText className="my-8" color="text-100" type="h3">
           {getLocale('modeSelection')}
         </ThemedText>

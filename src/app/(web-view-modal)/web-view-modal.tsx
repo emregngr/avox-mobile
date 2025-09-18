@@ -20,7 +20,7 @@ export default function WebViewModal() {
   }, [])
 
   return (
-    <SafeLayout>
+    <SafeLayout testID="web-view-modal-screen" topBlur={false}>
       <View className="flex-1 bg-background-primary">
         <View className="flex-row items-center justify-between p-4">
           <View className="flex-1 mr-4">
@@ -31,7 +31,12 @@ export default function WebViewModal() {
               {title}
             </ThemedText>
           </View>
-          <TouchableOpacity activeOpacity={0.7} hitSlop={20} onPress={handleBackPress}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={20}
+            onPress={handleBackPress}
+            testID="close-button"
+          >
             <Close
               height={24}
               primaryColor={colors?.background?.quaternary}

@@ -1,19 +1,20 @@
+import * as Linking from 'expo-linking'
 import React, { useCallback, useMemo } from 'react'
-import { Linking, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 
 import InstagramIcon from '@/assets/icons/instagram.svg'
 import LinkedinIcon from '@/assets/icons/linkedin.svg'
 import TiktokIcon from '@/assets/icons/tiktok.svg'
 import XIcon from '@/assets/icons/x.svg'
-import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
+import { AirlineSectionRow } from '@/components/feature/Airline/AirlineDetail/AirlineSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 
 interface SocialMediaProps {
-  companyInfo: Airline['companyInfo']
+  companyInfo: AirlineType['companyInfo']
 }
 
 export const SocialMedia = ({ companyInfo }: SocialMediaProps) => {
@@ -38,47 +39,53 @@ export const SocialMedia = ({ companyInfo }: SocialMediaProps) => {
   const socialMediaIcons = useMemo(
     () => (
       <View className="flex-row items-center justify-evenly mt-2">
-        {instagram && (
-          <InstagramIcon
-            color={colors?.onPrimary100}
-            height={36}
+        {instagram ? (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={10}
             onPress={() => handleSocialMediaPress(instagram)}
-            width={36}
-          />
-        )}
+            testID="Instagram"
+          >
+            <InstagramIcon color={colors?.onPrimary100} height={36} width={36} />
+          </TouchableOpacity>
+        ) : null}
 
-        {tiktok && (
-          <TiktokIcon
-            color={colors?.onPrimary100}
-            height={36}
+        {tiktok ? (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={10}
             onPress={() => handleSocialMediaPress(tiktok)}
-            width={36}
-          />
-        )}
+            testID="Tiktok"
+          >
+            <TiktokIcon color={colors?.onPrimary100} height={36} width={36} />
+          </TouchableOpacity>
+        ) : null}
 
-        {x && (
-          <XIcon
-            color={colors?.onPrimary100}
-            height={36}
+        {x ? (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={10}
             onPress={() => handleSocialMediaPress(x)}
-            width={36}
-          />
-        )}
+            testID="X"
+          >
+            <XIcon color={colors?.onPrimary100} height={36} width={36} />
+          </TouchableOpacity>
+        ) : null}
 
-        {linkedin && (
-          <LinkedinIcon
-            color={colors?.onPrimary100}
-            height={36}
+        {linkedin ? (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={10}
             onPress={() => handleSocialMediaPress(linkedin)}
-            width={36}
-          />
-        )}
+            testID="Linkedin"
+          >
+            <LinkedinIcon color={colors?.onPrimary100} height={36} width={36} />
+          </TouchableOpacity>
+        ) : null}
       </View>
     ),
     [colors?.onPrimary100, handleSocialMediaPress, instagram, tiktok, x, linkedin],
   )
 
-  if (!instagram && !tiktok && !x && !linkedin) return null
-
-  return <AirportSectionRow title={localeStrings.socialMedia}>{socialMediaIcons}</AirportSectionRow>
+  return <AirlineSectionRow title={localeStrings.socialMedia}>{socialMediaIcons}</AirlineSectionRow>
 }

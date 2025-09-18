@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Image } from 'expo-image'
 import React, { memo, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -8,14 +8,15 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airplane } from '@/types/feature/airline'
+import type { AirplaneType } from '@/types/feature/airline'
 import { cn } from '@/utils/common/cn'
 import { getAirplaneImageKey, getAirplaneImageSource } from '@/utils/feature/getAirplaneImage'
 
 interface AirplaneRowCardProps {
-  airplane: Airplane
+  airplane: AirplaneType
   onImagePress: (type: string, image: string) => void
   region: string
+  testID: string,
   totalAirplane: number
 }
 
@@ -27,7 +28,7 @@ const STATIC_STYLES = {
 }
 
 export const AirplaneRowCard = memo(
-  ({ airplane, onImagePress, region, totalAirplane }: AirplaneRowCardProps) => {
+  ({ airplane, onImagePress, region, testID, totalAirplane }: AirplaneRowCardProps) => {
     const { selectedLocale } = useLocaleStore()
     const { selectedTheme } = useThemeStore()
 
@@ -76,6 +77,7 @@ export const AirplaneRowCard = memo(
             className="w-[60px] h-[60px] rounded-xl overflow-hidden"
             hitSlop={20}
             onPress={handleImagePress}
+            testID={testID}
           >
             <Image
               cachePolicy="memory-disk"
@@ -117,7 +119,7 @@ export const AirplaneRowCard = memo(
 
         <View className="flex-row justify-evenly py-3 mb-3">
           <View className="flex-row items-center">
-            <Ionicons color={colors.onPrimary70} name="speedometer" size={16} />
+            <MaterialCommunityIcons color={colors.onPrimary70} name="speedometer" size={16} />
 
             <ThemedText className="mx-1" color="text-100" type="body2">
               {speedKmh}
@@ -129,7 +131,11 @@ export const AirplaneRowCard = memo(
           </View>
 
           <View className="flex-row items-center">
-            <Ionicons color={colors.onPrimary70} name="navigate" size={16} />
+            <MaterialCommunityIcons
+              color={colors.onPrimary70}
+              name="map-marker-distance"
+              size={16}
+            />
 
             <ThemedText className="mx-1" color="text-100" type="body2">
               {(rangeKm / 1000).toFixed(1)}k
@@ -142,7 +148,11 @@ export const AirplaneRowCard = memo(
 
           {capacitySeats ? (
             <View className="flex-row items-center">
-              <Ionicons color={colors.onPrimary70} name="person" size={16} />
+              <MaterialCommunityIcons
+                color={colors.onPrimary70}
+                name="account-group-outline"
+                size={16}
+              />
 
               <ThemedText className="mx-1" color="text-100" type="body2">
                 {capacitySeats}
@@ -156,7 +166,7 @@ export const AirplaneRowCard = memo(
 
           {capacityTons ? (
             <View className="flex-row items-center">
-              <Ionicons color={colors.onPrimary70} name="cube" size={16} />
+              <MaterialCommunityIcons color={colors.onPrimary70} name="cube-outline" size={16} />
 
               <ThemedText className="mx-1" color="text-100" type="body2">
                 {capacityTons}

@@ -1,10 +1,9 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { ActivityIndicator, Platform } from 'react-native'
+import { ActivityIndicator, Platform, ScrollView } from 'react-native'
 import { Tabs } from 'react-native-collapsible-tab-view'
-import { ScrollView } from 'react-native-gesture-handler'
-import { TestIds } from 'react-native-google-mobile-ads'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { FullScreenLoading, Header, RenderDetailTabBar, SafeLayout } from '@/components/common'
 import {
@@ -21,28 +20,35 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airline } from '@/types/feature/airline'
-import type { RegionKey } from '@/types/feature/region'
+import type { AirlineType } from '@/types/feature/airline'
+import type { RegionKeyType } from '@/types/feature/region'
 import { AnalyticsService } from '@/utils/common/analyticsService'
 import { cn } from '@/utils/common/cn'
 import { shareAirline } from '@/utils/common/linkingService'
 import { setSystemColors } from '@/utils/common/setSystemColors'
 
+const AD_UNIT_ID =
+  Platform.OS === 'ios'
+    ? 'ca-app-pub-4123130377375974/1937454469'
+    : 'ca-app-pub-4123130377375974/9656162382'
+
 export default function AirlineDetail() {
+  const { bottom } = useSafeAreaInsets()
+
   const { airline, airlineId } = useLocalSearchParams() as { airline: string; airlineId: string }
 
   const { data: airlineByIdData } = useAirlineById(airlineId)
 
-  const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const airlineData = useMemo(() => {
     if (airlineId) {
-      return airlineByIdData as Airline
+      return airlineByIdData as AirlineType
     }
 
     if (airline) {
-      return JSON.parse(airline) as Airline
+      return JSON.parse(airline) as AirlineType
     }
 
     return null
@@ -53,9 +59,9 @@ export default function AirlineDetail() {
   const { id: currentAirlineId, name, operations } = airlineData ?? {}
   const { region } = operations ?? {}
 
-  const regionLower = useMemo(() => region?.toLowerCase() as RegionKey, [region])
+  const regionLower = useMemo(() => region?.toLowerCase() as RegionKeyType, [region])
 
-  const regionColor = useMemo(() => colors?.[regionLower as RegionKey], [colors, regionLower])
+  const regionColor = useMemo(() => colors?.[regionLower as RegionKeyType], [colors, regionLower])
 
   useEffect(() => {
     setSystemColors(regionColor)
@@ -63,7 +69,7 @@ export default function AirlineDetail() {
 
   const [activeIndex, setActiveIndex] = useState<number>(0)
 
-  const id = useMemo(() => String(currentAirlineId), [currentAirlineId])
+  const id = useMemo(() => currentAirlineId as string, [currentAirlineId])
   const type = useMemo(() => 'airline' as const, [])
 
   const { handleFavoritePress, isFavorite, isPending } = useFavoriteToggle({ id, type })
@@ -117,13 +123,14 @@ export default function AirlineDetail() {
         activeIndex={activeIndex}
         indicatorBackgroundColor={regionLower}
         props={props}
+        tabType="airline"
       />
     ),
     [regionLower, activeIndex],
   )
 
   const shareIconOnPress = useCallback(async () => {
-    await shareAirline(airlineData as Airline)
+    await shareAirline(airlineData as AirlineType)
 
     await AnalyticsService.sendEvent('airport_shared', {
       airport_id: airlineData?.id,
@@ -134,7 +141,9 @@ export default function AirlineDetail() {
   }, [airlineData, selectedLocale])
 
   const shareIcon = useMemo(
-    () => <Ionicons color={colors.onPrimary100} name="share-outline" size={20} />,
+    () => (
+      <MaterialCommunityIcons color={colors.onPrimary100} name="share-variant-outline" size={20} />
+    ),
     [colors.onPrimary100],
   )
 
@@ -143,7 +152,7 @@ export default function AirlineDetail() {
       return <ActivityIndicator color={colors?.tertiary100} size="small" />
     }
     return (
-      <Ionicons
+      <MaterialCommunityIcons
         color={isFavorite ? colors?.tertiary100 : colors?.onPrimary100}
         name={isFavorite ? 'heart' : 'heart-outline'}
         size={20}
@@ -167,6 +176,8 @@ export default function AirlineDetail() {
     () => ({
       backIconOnPress: handleBackPress,
       containerClassName: 'h-14 my-1',
+      hapticFeedback: true,
+      isFavorite,
       rightIcon,
       rightIconClassName: 'bg-background-primary overflow-hidden rounded-full p-2',
       rightIconOnPress: handleFavoritePress,
@@ -200,25 +211,18 @@ export default function AirlineDetail() {
 
   const tabsScrollViewProps = useMemo(
     () => ({
-      contentContainerClassName: 'pb-10',
+      contentContainerStyle: { paddingBottom: bottom + 20 },
       showsVerticalScrollIndicator: false,
     }),
     [],
   )
 
-  const adUnitId = useMemo(() => {
-    if (__DEV__) {
-      return TestIds.BANNER
-    }
-    return Platform.OS === 'ios'
-      ? 'ca-app-pub-4123130377375974/1937454469'
-      : 'ca-app-pub-4123130377375974/9656162382'
-  }, [])
+  if (!airlineData) {
+    return <FullScreenLoading />
+  }
 
-  return !airlineData ? (
-    <FullScreenLoading />
-  ) : (
-    <SafeLayout className={safeAreaClassName}>
+  return (
+    <SafeLayout className={safeAreaClassName} testID="airline-detail-screen" topBlur={false}>
       <Header {...headerProps} />
 
       <ScrollView {...scrollViewProps}>
@@ -227,7 +231,7 @@ export default function AirlineDetail() {
             const TabComponent = tabViews[index]
             return (
               <Tabs.Tab key={route.key} name={route.label}>
-                <Tabs.ScrollView {...tabsScrollViewProps}>
+                <Tabs.ScrollView {...tabsScrollViewProps} testID="airline-detail-scroll-view">
                   {TabComponent ? <TabComponent /> : null}
                 </Tabs.ScrollView>
               </Tabs.Tab>
@@ -236,7 +240,7 @@ export default function AirlineDetail() {
         </Tabs.Container>
       </ScrollView>
 
-      <AdBanner adUnitId={adUnitId} />
+      <AdBanner adUnitId={AD_UNIT_ID} />
     </SafeLayout>
   )
 }

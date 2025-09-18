@@ -1,8 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import NetInfo from '@react-native-community/netinfo'
 import { getApp } from '@react-native-firebase/app'
 import { getAuth, signOut } from '@react-native-firebase/auth'
 import { getMessaging, requestPermission } from '@react-native-firebase/messaging'
+import * as Network from 'expo-network'
 import {
   getTrackingPermissionsAsync,
   requestTrackingPermissionsAsync,
@@ -10,8 +9,10 @@ import {
 import { useCallback, useEffect, useState } from 'react'
 import { AppState, PermissionsAndroid, Platform } from 'react-native'
 import mobileAds from 'react-native-google-mobile-ads'
+import { MMKV } from 'react-native-mmkv'
 import { Notifications } from 'react-native-notifications'
 
+import { isProduction } from '@/config/env/environment'
 import { ENUMS } from '@/enums'
 import { useUserSession } from '@/hooks/app/useUserSession'
 import { setIsAuthenticated } from '@/store/auth'
@@ -24,7 +25,9 @@ const BADGE_CLEAR_DELAY = {
 
 const app = getApp()
 const messaging = getMessaging(app)
-const auth = getAuth()
+const auth = getAuth(app)
+
+const storage = new MMKV()
 
 export const useAppSetup = () => {
   const [isConnected, setIsConnected] = useState<boolean | null>(null)
@@ -33,7 +36,7 @@ export const useAppSetup = () => {
     try {
       if (Platform.OS === 'ios') {
         Notifications.ios.setBadgeCount(0)
-      } else if (Platform.OS === 'android') {
+      } else {
         Notifications.removeAllDeliveredNotifications()
       }
     } catch (error) {
@@ -61,7 +64,7 @@ export const useAppSetup = () => {
     try {
       await requestPermission(messaging)
 
-      if (Platform.OS === 'android') {
+      if (Platform.OS !== 'ios') {
         await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS)
       }
     } catch (error) {
@@ -72,7 +75,7 @@ export const useAppSetup = () => {
   const setupAuthentication = useCallback(async () => {
     try {
       const [token, hasValidSession] = await Promise.all([
-        AsyncStorage.getItem(ENUMS.API_TOKEN),
+        storage.getString(ENUMS.API_TOKEN),
         useUserSession(),
       ])
 
@@ -90,7 +93,9 @@ export const useAppSetup = () => {
 
   const setupApp = useCallback(async () => {
     try {
-      await mobileAds().initialize()
+      if (!__DEV__ && isProduction()) {
+        await mobileAds().initialize()
+      }
 
       await Promise.all([
         setupIOSTrackingListener(),
@@ -103,13 +108,12 @@ export const useAppSetup = () => {
     }
   }, [setupIOSTrackingListener, setupNotificationPermissions, setupAuthentication])
 
-  const setupNetworkListener = useCallback(
-    () =>
-      NetInfo?.addEventListener(state => {
-        setIsConnected(state?.isConnected)
-      }),
-    [],
-  )
+  const setupNetworkListener = useCallback(() => {
+    const subscription = Network.addNetworkStateListener(state => {
+      setIsConnected(state.isConnected ?? null)
+    })
+    return subscription
+  }, [])
 
   const setupClearBadgeListener = useCallback(() => {
     const handleAppStateChange = (nextAppState: string) => {
@@ -128,7 +132,7 @@ export const useAppSetup = () => {
     setupApp()
 
     return () => {
-      networkUnsubscribe?.()
+      networkUnsubscribe?.remove()
       clearBadgeUnsubscribe?.remove()
     }
   }, [setupApp, setupNetworkListener, setupClearBadgeListener])

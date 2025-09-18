@@ -23,7 +23,7 @@ export const Safety = ({
   title,
 }: SafetyProps) => (
   <AirlineSectionRow title={title}>
-    <SafetyHeader iconColor={iconColor} iconName="shield-checkmark" title={safetyRecordTitle} />
+    <SafetyHeader iconColor={iconColor} iconName="shield-check" title={safetyRecordTitle} />
 
     <ThemedText className="mb-4" color="text-70" type="body2">
       {safetyRecord}

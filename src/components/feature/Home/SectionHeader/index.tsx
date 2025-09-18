@@ -31,6 +31,7 @@ export const SectionHeader = ({ onViewAll, showViewAll = false, title }: Section
           className="px-4 py-2 rounded-full overflow-hidden bg-background-quaternary border border-background-quaternary"
           hitSlop={20}
           onPress={handleViewAllPress}
+          testID={`view-all-button-${title}`}
         >
           <ThemedText color="text-100" type="body2">
             {getLocale('viewAll')}

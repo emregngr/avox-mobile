@@ -2,7 +2,7 @@ import { AppleMaps } from 'expo-maps'
 import type { AppleMapsMarker } from 'expo-maps/build/apple/AppleMaps.types'
 import React, { useCallback, useMemo } from 'react'
 import { Platform, View } from 'react-native'
-import { WebView } from 'react-native-webview'
+import WebView from 'react-native-webview'
 
 import { ThemedText } from '@/components/common/ThemedText'
 import { useMapActions } from '@/hooks/maps/useMapAction'
@@ -10,8 +10,8 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airport } from '@/types/feature/airport'
-import type { RegionKey } from '@/types/feature/region'
+import type { AirportType } from '@/types/feature/airport'
+import type { RegionKeyType } from '@/types/feature/region'
 
 const zoomLevel = 12
 
@@ -80,12 +80,13 @@ const createDynamicGoogleMapsHTML = (
 }
 
 interface MapProps {
-  airportData: Airport
+  airportData: AirportType
 }
 
 export const Map = ({ airportData }: MapProps) => {
-  const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
+
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const { iataCode, id, name, operations } = airportData ?? {}
@@ -101,7 +102,10 @@ export const Map = ({ airportData }: MapProps) => {
     [name, latitude, longitude, selectedTheme],
   )
 
-  const markerColor = useMemo(() => colors?.[region?.toLowerCase() as RegionKey], [colors, region])
+  const markerColor = useMemo(
+    () => colors?.[region?.toLowerCase() as RegionKeyType],
+    [colors, region],
+  )
 
   const appleMarkers: AppleMapsMarker[] = useMemo(
     () => [

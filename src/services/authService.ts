@@ -14,16 +14,17 @@ import {
 } from '@react-native-firebase/auth'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
+import config from '@/config/env/environment'
 import { getLocale } from '@/locales/i18next'
 import { updateUser } from '@/services/userService'
-import type { LoginCredentials, RegisterCredentials } from '@/types/feature/auth'
+import type { LoginCredentialsType, RegisterCredentialsType } from '@/types/feature/auth'
 import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const auth = getAuth(app)
 
 GoogleSignin.configure({
-  webClientId: '396294037399-2eemb48ih22r5i9ctkjvbvaaaqvlb2vu.apps.googleusercontent.com',
+  webClientId: config.googleWebClientId,
 })
 
 export const authStateChanged = (callback: (user: FirebaseAuthTypes.User | null) => void) =>
@@ -34,7 +35,7 @@ export const signUpWithEmail = async ({
   firstName,
   lastName,
   password,
-}: RegisterCredentials): Promise<FirebaseAuthTypes.UserCredential> => {
+}: RegisterCredentialsType): Promise<FirebaseAuthTypes.UserCredential> => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
     await updateUser({ email, firstName, lastName })
@@ -48,7 +49,7 @@ export const signUpWithEmail = async ({
 export const signInWithEmail = async ({
   email,
   password,
-}: LoginCredentials): Promise<FirebaseAuthTypes.UserCredential> => {
+}: LoginCredentialsType): Promise<FirebaseAuthTypes.UserCredential> => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     return userCredential

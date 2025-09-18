@@ -1,50 +1,50 @@
-import type { JSX } from 'react'
+import type { ReactNode } from 'react'
 
-import type { Airline } from '@/types/feature/airline'
-import type { Airport } from '@/types/feature/airport'
+import type { AirlineType } from '@/types/feature/airline'
+import type { AirportType } from '@/types/feature/airport'
 
-export type BreakingNews = {
+export type BreakingNewsType = {
   description: string
-  id: number
+  id: string
   image: string
   title: string
 }
 
-export type PopularDestination = {
+export type PopularDestinationType = {
   country: string
-  destinations_type: string,
-  distance_km: number,
-  flight_count: number,
-  id: number,
+  destinations_type: string
+  distance_km: number
+  flight_count: number
+  id: string
   route: string
 }
 
-export type TotalAirplane = {
+export type TotalAirplaneType = {
   count: number
-  id: number
+  id: string
   model: string
 }
 
-export type Home = {
-  breakingNews: BreakingNews[]
-  popularAirlines: Airline[]
-  popularAirports: Airport[]
-  popularDestinations: PopularDestination[]
-  totalAirplanes: TotalAirplane[]
+export type HomeType = {
+  breakingNews: BreakingNewsType[]
+  popularAirlines: AirlineType[]
+  popularAirports: AirportType[]
+  popularDestinations: PopularDestinationType[]
+  totalAirplanes: TotalAirplaneType[]
 }
 
-export type NewsSection = {
-  data: BreakingNews[]
+export type NewsSectionType = {
+  data: BreakingNewsType[]
   type: 'news'
 }
 
-export type DataSection = {
-  data: Airline[] | Airport[] | PopularDestination[] | TotalAirplane[]
+export type DataSectionType = {
+  data: AirlineType[] | AirportType[] | PopularDestinationType[] | TotalAirplaneType[]
   isHorizontal: boolean
   onViewAll: () => void
-  renderItem: (item: any) => JSX.Element
+  renderItem: (item: any) => ReactNode
   title: string
   type: 'airlines' | 'airports' | 'destinations' | 'airplanes'
 }
 
-export type Section = NewsSection | DataSection
+export type SectionType = NewsSectionType | DataSectionType

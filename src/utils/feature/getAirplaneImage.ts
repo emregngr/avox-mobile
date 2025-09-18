@@ -36,9 +36,9 @@ const imageList = [
   'fokker_100',
 ] as const
 
-type ImageType = (typeof imageList)[number]
+type ImageKeyType = (typeof imageList)[number]
 
-const specificMappings: { [key: string]: ImageType } = {
+const specificMappings: { [key: string]: ImageKeyType } = {
   'airbus a319': 'airbus_a320neo',
   'airbus a320neo': 'airbus_a320neo',
   'airbus a321': 'airbus_a320neo',
@@ -65,7 +65,7 @@ const specificMappings: { [key: string]: ImageType } = {
   'embraer e195': 'embraer_e190',
 }
 
-const familyMappings: { [key: string]: ImageType } = {
+const familyMappings: { [key: string]: ImageKeyType } = {
   ATR: 'atr_72-600',
   'Airbus A220': 'airbus_a320neo',
   'Airbus A300': 'airbus_a320neo',
@@ -101,15 +101,15 @@ const familyMappings: { [key: string]: ImageType } = {
   Tupolev: 'ilyushin_II-76',
 }
 
-const getAirplaneImageKey = (airplaneType: string): ImageType => {
-  const defaultImage: ImageType = 'airbus_a320neo'
-  let imageName: ImageType = defaultImage
+const getAirplaneImageKey = (airplaneType: string): ImageKeyType => {
+  const defaultImage: ImageKeyType = 'airbus_a320neo'
+  let imageName: ImageKeyType = defaultImage
 
   const normalizedForFile = airplaneType?.toLowerCase()?.replace(/[\s-]/g, '_')
   const normalizedLower = airplaneType?.toLowerCase()
 
   if (imageList?.some(img => img === normalizedForFile)) {
-    imageName = normalizedForFile as ImageType
+    imageName = normalizedForFile as ImageKeyType
   } else if (specificMappings?.[normalizedLower]) {
     imageName = specificMappings?.[normalizedLower]
   } else if (normalizedLower?.endsWith('f') && !normalizedLower?.includes('embraer')) {
@@ -126,6 +126,6 @@ const getAirplaneImageKey = (airplaneType: string): ImageType => {
   return imageName
 }
 
-const getAirplaneImageSource = (imageKey: ImageType): string => imageFiles?.[imageKey]
+const getAirplaneImageSource = (imageKey: ImageKeyType): string => imageFiles?.[imageKey]
 
-export { getAirplaneImageKey, getAirplaneImageSource, ImageType }
+export { getAirplaneImageKey, getAirplaneImageSource, ImageKeyType }

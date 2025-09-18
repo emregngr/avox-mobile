@@ -1,11 +1,13 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useQueryClient } from '@tanstack/react-query'
 import { Image } from 'expo-image'
 import React, { useEffect } from 'react'
+import { MMKV } from 'react-native-mmkv'
 
 import { ENUMS } from '@/enums'
 import { setIsAuthenticated } from '@/store/auth'
 import { responsive } from '@/utils/common/responsive'
+
+const storage = new MMKV()
 
 const Icon = require('@/assets/images/icon-ios.png')
 
@@ -21,7 +23,7 @@ export default function TokenExpire() {
 
   useEffect(() => {
     const goToAuth = async () => {
-      await AsyncStorage.removeItem(ENUMS.API_TOKEN)
+      storage.delete(ENUMS.API_TOKEN)
       setIsAuthenticated(false)
       queryClient.setQueryData(['user'], null)
       queryClient.removeQueries()
@@ -35,6 +37,7 @@ export default function TokenExpire() {
       contentFit="contain"
       source={Icon}
       style={STATIC_STYLES.icon}
+      testID="token-expire-icon"
       transition={0}
     />
   )

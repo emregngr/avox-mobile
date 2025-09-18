@@ -34,7 +34,7 @@ export const SwitchFilter = memo(({ filterKey, onToggle, title, value }: SwitchF
   )
 
   return (
-    <View className="mb-6 flex flex-row items-center justify-between">
+    <View className="mb-6 flex-row items-center justify-between">
       <ThemedText className="mb-3" color="text-100" type="h3">
         {title}
       </ThemedText>

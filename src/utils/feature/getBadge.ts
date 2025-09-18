@@ -1,11 +1,11 @@
-export enum AirportType {
+export enum AirportBadgeType {
   LargeAirport = 'large_airport',
   MediumAirport = 'medium_airport',
   MegaAirport = 'mega_airport',
   SmallAirport = 'small_airport',
 }
 
-export enum AirlineType {
+export enum AirlineBadgeType {
   Cargo = 'cargo',
   LowCost = 'low_cost',
   MajorInternational = 'major_international',
@@ -34,26 +34,26 @@ interface AirlineImageMap {
   [key: string]: string
 }
 
-const getAirportBadge = (airportType: AirportType): string => {
+const getAirportBadge = (airportBadgeType: AirportBadgeType): string => {
   const imageMap: AirportImageMap = {
-    [AirportType.SmallAirport]: airportImageFiles.small_airport,
-    [AirportType.MediumAirport]: airportImageFiles.medium_airport,
-    [AirportType.LargeAirport]: airportImageFiles.large_airport,
-    [AirportType.MegaAirport]: airportImageFiles.mega_airport,
+    [AirportBadgeType.SmallAirport]: airportImageFiles.small_airport,
+    [AirportBadgeType.MediumAirport]: airportImageFiles.medium_airport,
+    [AirportBadgeType.LargeAirport]: airportImageFiles.large_airport,
+    [AirportBadgeType.MegaAirport]: airportImageFiles.mega_airport,
   }
 
-  return imageMap?.[airportType] ?? airportImageFiles.small_airport
+  return imageMap?.[airportBadgeType] ?? airportImageFiles.small_airport
 }
 
-const getAirlineBadge = (airlineType: AirlineType): string => {
+const getAirlineBadge = (airlineBadgeType: AirlineBadgeType): string => {
   const imageMap: AirlineImageMap = {
-    [AirlineType.Cargo]: airlineImageFiles.cargo,
-    [AirlineType.LowCost]: airlineImageFiles.low_cost,
-    [AirlineType.Regional]: airlineImageFiles.regional,
-    [AirlineType.MajorInternational]: airlineImageFiles.major_international,
+    [AirlineBadgeType.Cargo]: airlineImageFiles.cargo,
+    [AirlineBadgeType.LowCost]: airlineImageFiles.low_cost,
+    [AirlineBadgeType.Regional]: airlineImageFiles.regional,
+    [AirlineBadgeType.MajorInternational]: airlineImageFiles.major_international,
   }
 
-  return imageMap?.[airlineType] ?? airlineImageFiles.cargo
+  return imageMap?.[airlineBadgeType] ?? airlineImageFiles.cargo
 }
 
 export { getAirlineBadge, getAirportBadge }

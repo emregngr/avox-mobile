@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
 import { View } from 'react-native'
 
@@ -14,7 +14,7 @@ interface AllianceProps {
 export const Alliance = ({ alliance, iconColor, title }: AllianceProps) => (
   <AirlineSectionRow title={title}>
     <View className="items-center my-5">
-      <Ionicons color={iconColor} name="shield" size={40} />
+      <MaterialCommunityIcons color={iconColor} name="shield" size={40} />
 
       <ThemedText className="mt-2.5" color="text-90" type="h4">
         {alliance}

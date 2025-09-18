@@ -1,16 +1,16 @@
-export type FilterOption = {
+export type FilterOptionType = {
   label: string
   value: string | number
 }
 
-export type RangeFilterOption = {
+export type RangeFilterOptionType = {
   label: string
   value: string | number
 }
 
-export type FilterModalProps = {
-  currentFilters: Record<string, any>,
+export type FilterModalPropsType = {
+  currentFilters: Record<string, any>
   onApply: (filters: Record<string, any>) => void
-  onClose: () => void,
+  onClose: () => void
   type: 'airports' | 'airlines'
 }

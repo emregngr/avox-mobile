@@ -10,9 +10,10 @@ import { responsive } from '@/utils/common/responsive'
 type RenderTabBarProps = {
   activeIndex: number
   props: any
+  tabType: string
 }
 
-export const RenderTabBar = ({ activeIndex, props }: RenderTabBarProps) => {
+export const RenderTabBar = ({ activeIndex, props, tabType }: RenderTabBarProps) => {
   const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
@@ -32,27 +33,38 @@ export const RenderTabBar = ({ activeIndex, props }: RenderTabBarProps) => {
           borderRadius: 12,
           height: 36,
         }}
-        TabItemComponent={itemProps => (
-          <MaterialTabItem
-            {...itemProps}
-            android_ripple={{
-              borderless: false,
-              color: colors?.primary100,
-              radius: 100,
-            }}
-            label={({ index, name }) => (
-              <View
-                className="h-[36px] flex-1 justify-center items-center"
-                style={{ width: responsive.deviceWidth / 2 - 16 }}
-              >
-                <ThemedText color={index === activeIndex ? 'text-100' : 'text-70'} type="body1">
-                  {name}
-                </ThemedText>
-              </View>
-            )}
-            pressOpacity={1}
-          />
-        )}
+        TabItemComponent={itemProps => {
+          const discoverTestIds = ['discover-airports-tab', 'discover-airlines-tab']
+          const favoritesTestIds = ['favorites-airports-tab', 'favorites-airlines-tab']
+
+          const testID =
+            tabType === 'discover'
+              ? discoverTestIds[itemProps.index]
+              : favoritesTestIds[itemProps.index]
+
+          return (
+            <MaterialTabItem
+              {...itemProps}
+              android_ripple={{
+                borderless: false,
+                color: colors?.primary100,
+                radius: 100,
+              }}
+              label={({ index, name }) => (
+                <View
+                  className="h-[36px] flex-1 justify-center items-center"
+                  style={{ width: responsive.deviceWidth / 2 - 16 }}
+                >
+                  <ThemedText color={index === activeIndex ? 'text-100' : 'text-70'} type="body1">
+                    {name}
+                  </ThemedText>
+                </View>
+              )}
+              pressOpacity={1}
+              testID={testID}
+            />
+          )
+        }}
         width={responsive.deviceWidth - 32}
       />
     </View>

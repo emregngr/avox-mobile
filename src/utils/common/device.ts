@@ -4,7 +4,7 @@ import { getCalendars } from 'expo-localization'
 import { Platform } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 
-import type { DeviceParams } from '@/types/common/device'
+import type { DeviceParamsType } from '@/types/common/device'
 import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
@@ -27,9 +27,9 @@ const Device = {
       return 'unknown'
     }
   },
-  async getBuildNumber(): Promise<string> {
+  getBuildNumber(): string {
     try {
-      return await DeviceInfo.getBuildNumber()
+      return DeviceInfo.getBuildNumber()
     } catch (error: any) {
       Logger.breadcrumb('Failed to get build number', 'warning', error)
       return 'unknown'
@@ -116,7 +116,7 @@ const Device = {
       return 'unknown'
     }
   },
-  async registerDevice(): Promise<DeviceParams> {
+  async registerDevice(): Promise<DeviceParamsType> {
     try {
       const [unique_id, device_token, carrier, build_id, host, ip, user_agent] = await Promise.all([
         this.getUniqueId(),

@@ -1,32 +1,32 @@
 import { Share } from 'react-native'
 
 import { getLocale } from '@/locales/i18next'
-import type { Airline } from '@/types/feature/airline'
-import type { Airport } from '@/types/feature/airport'
+import type { AirlineType } from '@/types/feature/airline'
+import type { AirportType } from '@/types/feature/airport'
 import { Logger } from '@/utils/common/logger'
 
 const BASE_URL = 'https://avox-redirect.vercel.app/'
 
-export const createAirlineLink = (airline: Airline): string => {
+export const createAirlineLink = (airline: AirlineType): string => {
   const params = new URLSearchParams({
-    id: airline.id.toString(),
+    id: airline.id,
     name: airline.name,
-  })
-  return `${BASE_URL}?type=airline-detail&${params.toString()}`
+  }).toString()
+  return `${BASE_URL}?type=airline-detail&${params}`
 }
 
-export const createAirportLink = (airport: Airport): string => {
+export const createAirportLink = (airport: AirportType): string => {
   const params = new URLSearchParams({
-    id: airport.id.toString(),
+    id: airport.id,
     name: airport.name,
-  })
-  return `${BASE_URL}?type=airport-detail&${params.toString()}`
+  }).toString()
+  return `${BASE_URL}?type=airport-detail&${params}`
 }
 
-export const shareAirline = async (airline: Airline): Promise<void> => {
+export const shareAirline = async (airline: AirlineType): Promise<void> => {
   try {
     const link = createAirlineLink(airline)
-    const message = getLocale('shareAirlineMessage', {
+    const message = getLocale('shareAirline', {
       airlineName: airline.name,
       iataCode: airline.iataCode,
       link,
@@ -43,10 +43,10 @@ export const shareAirline = async (airline: Airline): Promise<void> => {
   }
 }
 
-export const shareAirport = async (airport: Airport): Promise<void> => {
+export const shareAirport = async (airport: AirportType): Promise<void> => {
   try {
     const link = createAirportLink(airport)
-    const message = getLocale('shareAirportMessage', {
+    const message = getLocale('shareAirport', {
       airportName: airport.name,
       iataCode: airport.iataCode,
       link,

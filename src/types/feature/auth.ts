@@ -1,25 +1,28 @@
-export type RegisterCredentials = {
-  email: string,
-  firstName: string,
-  lastName: string,
+export type RegisterCredentialsType = {
+  email: string
+  firstName: string
+  lastName: string
   password: string
 }
 
-export type LoginCredentials = {
+export type LoginCredentialsType = {
   email: string
   password: string
 }
 
-export type SocialCredentials = {
+export type SocialCredentialsType = {
   provider: 'google' | 'apple'
 }
 
-export type AuthCredentials = RegisterCredentials | LoginCredentials | SocialCredentials
+export type AuthCredentialsType =
+  | RegisterCredentialsType
+  | LoginCredentialsType
+  | SocialCredentialsType
 
 export type RegisterType = {
-  email: string,
-  firstName: string,
-  lastName: string,
+  email: string
+  firstName: string
+  lastName: string
   password: string
   token: string
 }

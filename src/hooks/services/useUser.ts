@@ -18,8 +18,11 @@ import {
 import { setIsAuthenticated } from '@/store/auth'
 import useThemeStore from '@/store/theme'
 import { deleteUser } from '@/store/user'
-import type { AddPasswordCredentials, ChangePasswordCredentials } from '@/types/feature/password'
-import type { ProfileData } from '@/types/feature/user'
+import type {
+  AddPasswordCredentialsType,
+  ChangePasswordCredentialsType,
+} from '@/types/feature/password'
+import type { ProfileDataType } from '@/types/feature/user'
 
 const app = getApp()
 const auth = getAuth(app)
@@ -38,8 +41,8 @@ export const useUpdateUser = () => {
   const userId = auth?.currentUser?.uid
   const { selectedTheme } = useThemeStore()
 
-  return useMutation<any, Error, ProfileData, { previousProfile: any }>({
-    mutationFn: async (profileData: ProfileData) => await updateUser(profileData),
+  return useMutation<any, Error, ProfileDataType, { previousProfile: any }>({
+    mutationFn: async (profileData: ProfileDataType) => await updateUser(profileData),
     onError: (error, newProfileData, context) => {
       queryClient.setQueryData(['userProfile', userId], context?.previousProfile)
       Alert.alert(
@@ -83,7 +86,7 @@ export const useChangePassword = () => {
   const { selectedTheme } = useThemeStore()
 
   return useMutation({
-    mutationFn: async (credentials: ChangePasswordCredentials) =>
+    mutationFn: async (credentials: ChangePasswordCredentialsType) =>
       await changeUserPassword(credentials),
     onError: () => {
       Alert.alert(
@@ -114,7 +117,8 @@ export const useAddPassword = () => {
   const { selectedTheme } = useThemeStore()
 
   return useMutation({
-    mutationFn: async (credentials: AddPasswordCredentials) => await addUserPassword(credentials),
+    mutationFn: async (credentials: AddPasswordCredentialsType) =>
+      await addUserPassword(credentials),
     onError: () => {
       Alert.alert(
         getLocale('error'),

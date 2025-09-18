@@ -1,9 +1,11 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { MMKV } from 'react-native-mmkv'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 import { ENUMS } from '@/enums'
 import type { LoginType, RegisterType, SocialType } from '@/types/feature/auth'
+
+const storage = new MMKV()
 
 export type AuthStateType = {
   isAuthenticated: boolean
@@ -22,27 +24,27 @@ const useAuthStore = create<AuthStateType & AuthActions>()(
   devtools(set => ({
     isAuthenticated: false,
     loading: false,
-    login: async params => {
-      set({ loading: false })
-      await AsyncStorage.setItem(ENUMS.API_TOKEN, params?.token)
+    login: params => {
+      set({ loading: true })
+      storage.set(ENUMS.API_TOKEN, params.token ?? '')
       set({ isAuthenticated: true, loading: false })
     },
-    logout: async () => {
+    logout: () => {
       set({ loading: true })
-      await AsyncStorage.removeItem(ENUMS.API_TOKEN)
+      storage.delete(ENUMS.API_TOKEN)
       set({ isAuthenticated: false, loading: false })
     },
-    register: async params => {
+    register: params => {
       set({ loading: true })
-      await AsyncStorage.setItem(ENUMS.API_TOKEN, params?.token)
+      storage.set(ENUMS.API_TOKEN, params.token ?? '')
       set({ isAuthenticated: true, loading: false })
     },
     setIsAuthenticated: value => {
       set({ isAuthenticated: value })
     },
-    social: async params => {
+    social: params => {
       set({ loading: true })
-      await AsyncStorage.setItem(ENUMS.API_TOKEN, params?.token)
+      storage.set(ENUMS.API_TOKEN, params.token ?? '')
       set({ isAuthenticated: true, loading: false })
     },
   })),

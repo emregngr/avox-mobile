@@ -7,10 +7,10 @@ import { Location } from '@/components/feature/Airport/AirportDetail/Tab/General
 import { Map } from '@/components/feature/Airport/AirportDetail/Tab/GeneralTab/Sections/Map'
 import { Services } from '@/components/feature/Airport/AirportDetail/Tab/GeneralTab/Sections/Services'
 import { SocialMedia } from '@/components/feature/Airport/AirportDetail/Tab/GeneralTab/Sections/SocialMedia'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 
 interface GeneralTabProps {
-  airportData: Airport
+  airportData: AirportType
 }
 
 export const GeneralTab = ({ airportData }: GeneralTabProps) => {

@@ -3,11 +3,11 @@ import { getAuth } from '@react-native-firebase/auth'
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
-import { Alert, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Alert, ScrollView, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import Settings from '@/assets/icons/settings.svg'
-import { Header, ProfileMenuItem, SafeLayout, ThemedText } from '@/components/common'
+import { Header, ProfileItem, SafeLayout, ThemedText } from '@/components/common'
 import { useLogout } from '@/hooks/services/useAuth'
 import { useGetUser } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
@@ -16,7 +16,7 @@ import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
 const app = getApp()
-const authInstance = getAuth(app)
+const auth = getAuth(app)
 
 const Icon = require('@/assets/images/icon-ios.png')
 
@@ -29,6 +29,8 @@ const STATIC_STYLES = {
 }
 
 export default function Profile() {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { selectedLocale } = useLocaleStore()
   const { selectedTheme } = useThemeStore()
 
@@ -37,7 +39,7 @@ export default function Profile() {
   const { mutateAsync: handleLogoutMutation } = useLogout()
   const { data: userProfile } = useGetUser()
 
-  const user = useMemo(() => authInstance.currentUser, [authInstance.currentUser])
+  const user = useMemo(() => auth.currentUser, [auth.currentUser])
   const isPasswordUser = user?.providerData.some(provider => provider?.providerId === 'password')
 
   const handleLogout = useCallback(() => {
@@ -87,11 +89,21 @@ export default function Profile() {
   )
 
   return (
-    <SafeLayout>
-      <Header backIcon={false} rightIcon={settingsIcon} rightIconOnPress={handleSettingsPress} />
+    <SafeLayout testID="profile-screen">
+      <Header
+        backIcon={false}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        rightIcon={settingsIcon}
+        rightIconOnPress={handleSettingsPress}
+        style={{ top }}
+      />
 
-      <ScrollView contentContainerClassName="pb-10 px-4" showsVerticalScrollIndicator={false}>
-        <View className="items-center pt-5">
+      <ScrollView
+        contentContainerClassName="px-4"
+        contentContainerStyle={{ paddingBottom: bottom + 40, paddingTop: top + 44 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View className="items-center mt-5">
           <View className="w-24 h-24 rounded-full overflow-hidden border-[3px] border-onPrimary-100 justify-center items-center mb-4">
             <Image
               cachePolicy="memory-disk"
@@ -120,20 +132,26 @@ export default function Profile() {
         <View className="rounded-xl overflow-hidden bg-background-secondary">
           {user ? (
             <>
-              <ProfileMenuItem
+              <ProfileItem
+                label={localeStrings.updateProfile}
+                leftIcon="account-circle-outline"
                 onPress={() => router.navigate('/update-profile')}
-                title={localeStrings.updateProfile}
+                testID="update-profile-button"
               />
-              <ProfileMenuItem
-                onPress={() => router.navigate('/change-password')}
-                title={isPasswordUser ? localeStrings.changePassword : localeStrings.addPassword}
+              <ProfileItem
+                label={isPasswordUser ? localeStrings.changePassword : localeStrings.addPassword}
+                leftIcon="lock-reset"
+                onPress={() => router.navigate('/password')}
+                testID="password-button"
                 isLastItem
               />
             </>
           ) : (
-            <ProfileMenuItem
+            <ProfileItem
+              label={localeStrings.signInOrRegister}
+              leftIcon="account-circle-outline"
               onPress={() => router.replace({ params: { tab: 'profile' }, pathname: '/auth' })}
-              title={localeStrings.signInOrRegister}
+              testID="auth-button"
               isLastItem
             />
           )}
@@ -144,20 +162,27 @@ export default function Profile() {
         </ThemedText>
 
         <View className="rounded-xl overflow-hidden bg-background-secondary">
-          <ProfileMenuItem
+          <ProfileItem
+            label={localeStrings.chooseTheme}
+            leftIcon="theme-light-dark"
             onPress={() => router.navigate('/choose-theme')}
-            title={localeStrings.chooseTheme}
+            testID="choose-theme-button"
           />
-          <ProfileMenuItem
+          <ProfileItem
             isLastItem={user ? false : true}
+            label={localeStrings.chooseLanguage}
+            leftIcon="translate"
             onPress={() => router.navigate('/choose-language')}
-            title={localeStrings.chooseLanguage}
+            testID="choose-language-button"
           />
           {user ? (
-            <ProfileMenuItem
+            <ProfileItem
+              label={localeStrings.logout}
+              leftIcon="logout"
               onPress={handleLogout}
               rightIcon={false}
-              title={localeStrings.logout}
+              testID="logout-button"
+              danger
               isLastItem
             />
           ) : null}

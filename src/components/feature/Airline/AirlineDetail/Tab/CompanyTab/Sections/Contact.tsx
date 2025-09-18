@@ -1,15 +1,15 @@
+import * as Linking from 'expo-linking'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
-import { Linking } from 'react-native'
 
 import { AirlineRowItem } from '@/components/feature/Airline/AirlineDetail/AirlineRowItem'
 import { AirlineSectionRow } from '@/components/feature/Airline/AirlineDetail/AirlineSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 
 interface ContactProps {
-  companyInfo: Airline['companyInfo']
+  companyInfo: AirlineType['companyInfo']
 }
 
 export const Contact = ({ companyInfo }: ContactProps) => {
@@ -57,21 +57,22 @@ export const Contact = ({ companyInfo }: ContactProps) => {
   return (
     <AirlineSectionRow title={localeStrings.contactInformation}>
       <AirlineRowItem
-        icon="globe"
+        icon="web"
         label={localeStrings.website}
         onPress={handleWebsitePress}
+        testID="web"
         value={website}
       />
 
       <AirlineRowItem
-        icon="call"
+        icon="phone-outline"
         label={localeStrings.phone}
         onPress={handlePhonePress}
         value={phone}
       />
 
       <AirlineRowItem
-        icon="mail"
+        icon="email-outline"
         label={localeStrings.email}
         onPress={handleEmailPress}
         value={email}

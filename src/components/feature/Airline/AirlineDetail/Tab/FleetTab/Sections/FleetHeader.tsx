@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useMemo } from 'react'
 import { View } from 'react-native'
 
@@ -17,7 +17,7 @@ export const FleetHeader = ({ fleetDetailText }: FleetHeaderProps) => {
 
   return (
     <View className="flex-row items-center">
-      <Ionicons color={colors?.onPrimary100} name="airplane" size={20} />
+      <MaterialCommunityIcons color={colors?.onPrimary100} name="airplane" size={20} />
 
       <ThemedText className="ml-3" color="text-100" type="h3">
         {fleetDetailText}

@@ -2,13 +2,18 @@ import { Image } from 'expo-image'
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { Platform, ScrollView, View } from 'react-native'
-import { TestIds } from 'react-native-google-mobile-ads'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Header, SafeLayout, ThemedText } from '@/components/common'
 import { AdBanner } from '@/components/feature'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
-import type { BreakingNews } from '@/types/feature/home'
+import type { BreakingNewsType } from '@/types/feature/home'
+
+const AD_UNIT_ID =
+  Platform.OS === 'ios'
+    ? 'ca-app-pub-4123130377375974/8155997003'
+    : 'ca-app-pub-4123130377375974/6016918825'
 
 const STATIC_STYLES = {
   image: {
@@ -19,9 +24,11 @@ const STATIC_STYLES = {
 }
 
 export default function BreakingNewsDetail() {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { item } = useLocalSearchParams() as { item: string }
 
-  const itemData = useMemo(() => JSON.parse(item) as BreakingNews, [item])
+  const itemData = useMemo(() => JSON.parse(item) as BreakingNewsType, [item])
 
   const { description, image, title } = itemData ?? {}
 
@@ -36,20 +43,21 @@ export default function BreakingNewsDetail() {
     router?.back()
   }, [])
 
-  const adUnitId = useMemo(() => {
-    if (__DEV__) {
-      return TestIds.BANNER
-    }
-    return Platform.OS === 'ios'
-      ? 'ca-app-pub-4123130377375974/8155997003'
-      : 'ca-app-pub-4123130377375974/6016918825'
-  }, [])
-
   return (
-    <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={getLocale('breakingNewsDetailTitle')} />
+    <SafeLayout testID="breaking-news-detail-screen">
+      <Header
+        backIconOnPress={handleBackPress}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        style={{ top }}
+        title={getLocale('breakingNewsDetailTitle')}
+      />
 
-      <ScrollView contentContainerClassName="pt-5 pb-20 px-4" indicatorStyle={indicatorStyle}>
+      <ScrollView
+        contentContainerClassName="px-4"
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        indicatorStyle={indicatorStyle}
+        testID="breaking-news-scroll-view"
+      >
         <Image
           cachePolicy="memory-disk"
           contentFit="cover"
@@ -69,7 +77,7 @@ export default function BreakingNewsDetail() {
         </View>
       </ScrollView>
 
-      <AdBanner adUnitId={adUnitId} />
+      <AdBanner adUnitId={AD_UNIT_ID} />
     </SafeLayout>
   )
 }

@@ -11,8 +11,8 @@ import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
 export default function Discover() {
-  const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
@@ -20,10 +20,13 @@ export default function Discover() {
 
   const airlineProps = useAirline()
 
-  const routes = useCallback(() => [
+  const routes = useCallback(
+    () => [
       { key: 'airports', label: getLocale('airports') },
       { key: 'airlines', label: getLocale('airlines') },
-    ], [selectedLocale])
+    ],
+    [selectedLocale],
+  )
 
   const containerStyle = useMemo(
     () => ({
@@ -96,12 +99,14 @@ export default function Discover() {
   )
 
   return (
-    <SafeLayout>
+    <SafeLayout testID="discover-screen" topBlur={false}>
       <Tabs.Container
+        renderTabBar={props => (
+          <RenderTabBar activeIndex={activeIndex} props={props} tabType="discover" />
+        )}
         containerStyle={containerStyle}
         headerContainerStyle={headerContainerStyle}
         onIndexChange={setActiveIndex}
-        renderTabBar={props => <RenderTabBar activeIndex={activeIndex} props={props} />}
       >
         {routes().map(route => (
           <Tabs.Tab key={route.key} name={route.label}>

@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
 import { View } from 'react-native'
 
@@ -13,7 +13,7 @@ interface RouteRowCardProps {
 export const RouteRowCard = ({ destinationIata, frequency, iconColor }: RouteRowCardProps) => (
   <View className="flex-row justify-between items-center py-2">
     <View className="flex-row items-center">
-      <Ionicons color={iconColor} name="airplane" size={20} />
+      <MaterialCommunityIcons color={iconColor} name="airplane" size={20} />
       <ThemedText className="ml-3" color="text-90" type="body2">
         {destinationIata}
       </ThemedText>

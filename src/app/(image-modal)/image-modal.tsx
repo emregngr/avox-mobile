@@ -9,7 +9,7 @@ import Close from '@/assets/icons/close'
 import { SafeLayout, ThemedText } from '@/components/common'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { ImageType } from '@/utils/feature/getAirplaneImage'
+import type { ImageKeyType } from '@/utils/feature/getAirplaneImage'
 import { getAirplaneImageSource } from '@/utils/feature/getAirplaneImage'
 
 const STATIC_STYLES = {
@@ -32,7 +32,7 @@ export default function ImageModal() {
   const { selectedImageKey, title } = useLocalSearchParams()
 
   const selectedImage = useMemo(
-    () => (selectedImageKey ? getAirplaneImageSource(selectedImageKey as ImageType) : null),
+    () => (selectedImageKey ? getAirplaneImageSource(selectedImageKey as ImageKeyType) : null),
     [selectedImageKey],
   )
 
@@ -45,7 +45,7 @@ export default function ImageModal() {
   }, [])
 
   return (
-    <SafeLayout>
+    <SafeLayout testID="image-modal-screen" topBlur={false}>
       <GestureHandlerRootView className="flex-1 bg-background-primary">
         <View className="flex-row items-center justify-between p-4 z-10 bg-transparent">
           <View className="flex-1 ml-10 mr-4">
@@ -56,7 +56,12 @@ export default function ImageModal() {
               {title}
             </ThemedText>
           </View>
-          <TouchableOpacity activeOpacity={0.7} hitSlop={20} onPress={handleBackPress}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={20}
+            onPress={handleBackPress}
+            testID="close-button"
+          >
             <Close
               height={24}
               primaryColor={colors?.background?.quaternary}

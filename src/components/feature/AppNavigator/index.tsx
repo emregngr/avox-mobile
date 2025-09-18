@@ -39,7 +39,7 @@ export const AppNavigator = ({ isAppReady }: AppNavigatorProps) => {
       <Stack.Screen name="(maintenance)" />
       <Stack.Screen name="(force-update)" />
       <Stack.Screen name="(account)" />
-      <Stack.Screen name="(settings)" options={{ presentation: 'modal' }} />
+      <Stack.Screen name="(settings)" />
       <Stack.Screen name="(airline)" />
       <Stack.Screen name="(airport)" />
       <Stack.Screen name="(breaking-news)" />

@@ -2,11 +2,11 @@ import React from 'react'
 
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
 import { RouteRowCard } from '@/components/feature/Airport/AirportDetail/Tab/AirportFlightTab/Cards/RouteRowCard'
-import type { AirportRoute } from '@/types/feature/airport'
+import type { AirportRouteType } from '@/types/feature/airport'
 
 interface RoutesListProps {
   iconColor: string
-  routes: AirportRoute[]
+  routes: AirportRouteType[]
   title: string
 }
 

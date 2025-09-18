@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { AdEventType, InterstitialAd } from 'react-native-google-mobile-ads'
 
+import { isProduction } from '@/config/env/environment'
 import { AD_KEYWORDS } from '@/constants/adKeywords'
 
 interface InterstitialAdHandler {
@@ -26,7 +27,9 @@ export const useInterstitialAdHandler = ({ adUnitId }: InterstitialAdHandler) =>
 
     const interstitial = InterstitialAd.createForAdRequest(adUnitId, requestOptions)
 
-    interstitial.load()
+    if (!__DEV__ && isProduction()) {
+      interstitial.load()
+    }
 
     const unsubscribeLoaded = interstitial.addAdEventListener(AdEventType.LOADED, () => {
       interstitial.show()

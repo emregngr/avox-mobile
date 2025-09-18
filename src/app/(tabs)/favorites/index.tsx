@@ -1,29 +1,33 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { Tabs } from 'react-native-collapsible-tab-view'
 
-import { RenderTabBar, SafeLayout } from '@/components/common'
+import { FullScreenLoading, RenderTabBar, SafeLayout } from '@/components/common'
 import { FavoriteAirlines, FavoriteAirports } from '@/components/feature'
 import { useFavoriteDetails } from '@/hooks/services/useFavorite'
 import { getLocale } from '@/locales/i18next'
+import useAuthStore from '@/store/auth'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airline } from '@/types/feature/airline'
-import type { Airport } from '@/types/feature/airport'
+import type { AirlineType } from '@/types/feature/airline'
+import type { AirportType } from '@/types/feature/airport'
 
 export default function Favorites() {
-  const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
+
+  const { isAuthenticated } = useAuthStore()
+
   const [activeIndex, setActiveIndex] = useState<number>(0)
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const { data: favoriteItems = [], isLoading, refetch } = useFavoriteDetails(true)
 
-  const isAirport = (item: Airport | Airline): item is Airport =>
+  const isAirport = (item: AirportType | AirlineType): item is AirportType =>
     'operations' in item && typeof item.operations === 'object' && 'airportType' in item.operations
 
-  const isAirline = (item: Airport | Airline): item is Airline =>
+  const isAirline = (item: AirportType | AirlineType): item is AirlineType =>
     'operations' in item && typeof item.operations === 'object' && 'businessType' in item.operations
 
   const favoriteAirports = useMemo(() => favoriteItems?.filter(isAirport), [favoriteItems])
@@ -33,10 +37,13 @@ export default function Favorites() {
     refetch?.()
   }, [refetch])
 
-  const routes = useCallback(() => [
+  const routes = useCallback(
+    () => [
       { key: 'airports', label: getLocale('airports') },
       { key: 'airlines', label: getLocale('airlines') },
-    ], [selectedLocale])
+    ],
+    [selectedLocale],
+  )
 
   const containerStyle = useMemo(
     () => ({
@@ -81,13 +88,19 @@ export default function Favorites() {
     [favoriteAirports, favoriteAirlines, isLoading, onRefresh],
   )
 
+  if (!isAuthenticated) {
+    return <FullScreenLoading />
+  }
+
   return (
-    <SafeLayout>
+    <SafeLayout testID="favorites-screen" topBlur={false}>
       <Tabs.Container
+        renderTabBar={props => (
+          <RenderTabBar activeIndex={activeIndex} props={props} tabType="favorites" />
+        )}
         containerStyle={containerStyle}
         headerContainerStyle={headerContainerStyle}
         onIndexChange={setActiveIndex}
-        renderTabBar={props => <RenderTabBar activeIndex={activeIndex} props={props} />}
       >
         {routes().map(route => (
           <Tabs.Tab key={route.key} name={route.label}>

@@ -2,13 +2,13 @@ import { getApp } from '@react-native-firebase/app'
 import { doc, getDoc, getFirestore } from '@react-native-firebase/firestore'
 
 import { getLocale } from '@/locales/i18next'
-import type { Home } from '@/types/feature/home'
+import type { HomeType } from '@/types/feature/home'
 import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const db = getFirestore(app)
 
-export const getAllHomeData = async (locale: string): Promise<Home> => {
+export const getAllHomeData = async (locale: string): Promise<HomeType> => {
   try {
     const collectionName = locale === 'en' ? 'enHome' : 'trHome'
 
@@ -19,7 +19,7 @@ export const getAllHomeData = async (locale: string): Promise<Home> => {
     const docSnap = await getDoc(docRef)
 
     if (docSnap?.exists()) {
-      return docSnap?.data() as Home
+      return docSnap?.data() as HomeType
     } else {
       return {
         breakingNews: [],

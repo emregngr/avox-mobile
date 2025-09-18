@@ -2,10 +2,10 @@ import { Image } from 'expo-image'
 import { View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
-import type { OnBoardingType } from '@/types/common/onBoarding'
+import type { OnboardingType } from '@/types/common/onboarding'
 
 interface OnboardingItemProps {
-  item: OnBoardingType
+  item: OnboardingType
 }
 
 const STATIC_STYLES = {

@@ -1,65 +1,65 @@
-export type ContactInfo = {
+export type ContactInfoType = {
   email: string
   phone: string
 }
 
-export type SocialMedia = {
+export type SocialMediaType = {
   instagram: string
   linkedin: string
   tiktok: string
   x: string
 }
 
-export type AirportInfo = {
-  contactInfo: ContactInfo
+export type AirportInfoType = {
+  contactInfo: ContactInfoType
   employeeCount: number
   foundingYear: string
-  socialMedia: SocialMedia
+  socialMedia: SocialMediaType
   website: string
 }
 
-export type Coordinates = {
+export type CoordinatesType = {
   latitude: number
   longitude: number
 }
 
-export type Location = {
+export type LocationType = {
   address: string
   city: string
-  coordinates: Coordinates
+  coordinates: CoordinatesType
   elevationFt: number
 }
 
-export type Operation = {
+export type OperationType = {
   airportType: string
   country: string
-  is24Hour: true
-  location: Location
+  is24Hour: boolean
+  location: LocationType
   region: string
-  scheduledService: true
+  scheduledService: boolean
 }
 
-export type RunWays = {
+export type RunWaysType = {
   ilsCategory: string
   lengthM: number
   pcn: string
   surface: string
 }
 
-export type Infrastructure = {
+export type InfrastructureType = {
   airportAreaHectares: number
   apronCount: number
   baggageCapacity: number
   fireCategory: string
   passengerCapacity: number
   runwayCount: number
-  runways: RunWays
+  runways: RunWaysType
   terminalAreaHectares: number
   terminalCount: number
   towerHeightM: number
 }
 
-export type Facilities = {
+export type FacilitiesType = {
   checkinTimeAvg: number
   freeWifi: boolean
   googleMapsRating: number
@@ -70,57 +70,58 @@ export type Facilities = {
   services: string[]
 }
 
-export type AirportRoute = {
+export type AirportRouteType = {
   destinationIata: string
   frequency: string
 }
 
-export type FlightOperations = {
+export type FlightOperationsType = {
   airlines: string[]
   destinationCount: number
   destinationCountries: number
   domesticConnections: number
   internationalConnections: number
-  routes: AirportRoute[]
+  routes: AirportRouteType[]
 }
 
-export type Cargo = {
+export type CargoType = {
   annualCargoTonnes: number
   coldStorage: boolean
   dangerousGoods: boolean
   terminalCapacityTonnes: number
 }
 
-export type AttractionCoordinates = {
+export type AttractionCoordinatesType = {
   attractionLatitude: number
   attractionLongitude: number
 }
 
-export type NearbyAttraction = {
-  attractionCoordinates: AttractionCoordinates
-  attractionId: number
+export type NearbyAttractionType = {
+  attractionCoordinates: AttractionCoordinatesType
+  attractionId: string
   attractionName: string
   description: string
   distanceKm: number
 }
 
-export type Safety = {
+export type SafetyType = {
   certifications: string[]
 }
 
-export type Airport = {
-  airportInfo: AirportInfo
-  cargo: Cargo
-  facilities: Facilities
-  flightOperations: FlightOperations
+export type AirportType = {
+  airportInfo: AirportInfoType
+  cargo: CargoType
+  facilities: FacilitiesType
+  flightOperations: FlightOperationsType
   iataCode: string
   icaoCode: string
-  id: number
-  infrastructure: Infrastructure
-  isoCountry: string
-  isoRegion: string
-  name: string
-  nearbyAttractions: NearbyAttraction[]
-  operations: Operation
-  safety: Safety
+  id: string
+  image: string,
+  infrastructure: InfrastructureType,
+  isoCountry: string,
+  isoRegion: string,
+  name: string,
+  nearbyAttractions: NearbyAttractionType[]
+  operations: OperationType
+  safety: SafetyType
 }

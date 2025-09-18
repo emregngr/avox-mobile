@@ -1,4 +1,4 @@
-import NetInfo from '@react-native-community/netinfo'
+import * as Network from 'expo-network'
 import { useCallback, useEffect, useRef } from 'react'
 import { Alert } from 'react-native'
 
@@ -6,31 +6,28 @@ import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { Logger } from '@/utils/common/logger'
 
-interface UseConnectionAlertProps {
+interface ConnectionAlertProps {
   isConnected: boolean | null
   onConnectionChange?: (connected: boolean) => void
 }
 
 const DELAY = 500
 
-export const useConnectionAlert = ({
-  isConnected,
-  onConnectionChange,
-}: UseConnectionAlertProps) => {
+export const useConnectionAlert = ({ isConnected, onConnectionChange }: ConnectionAlertProps) => {
   const { selectedTheme } = useThemeStore()
 
   const isAlertShowing = useRef<boolean>(false)
 
   const checkConnection = useCallback(async () => {
     try {
-      const state = await NetInfo.fetch()
+      const state = await Network.getNetworkStateAsync()
       const connected = state.isConnected && state.isInternetReachable
 
       if (onConnectionChange) {
-        onConnectionChange(connected ?? false)
+        onConnectionChange(!!connected)
       }
 
-      return connected ?? false
+      return !!connected
     } catch (error) {
       Logger.breadcrumb('Failed to check connection', 'error', error as Error)
       return false
@@ -76,7 +73,7 @@ export const useConnectionAlert = ({
         },
       )
     }
-  }, [isConnected, checkConnection])
+  }, [isConnected, checkConnection, selectedTheme])
 
   useEffect(() => {
     showConnectionAlert()

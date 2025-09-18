@@ -17,15 +17,17 @@ import { useHome } from '@/hooks/services/useHome'
 import { useRegisterDevice, useRegisterDeviceToUser } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
 import useAuthStore from '@/store/auth'
-import type { Airline } from '@/types/feature/airline'
-import type { Airport } from '@/types/feature/airport'
-import type { PopularDestination, Section, TotalAirplane } from '@/types/feature/home'
+import type { AirlineType } from '@/types/feature/airline'
+import type { AirportType } from '@/types/feature/airport'
+import type { PopularDestinationType, SectionType, TotalAirplaneType } from '@/types/feature/home'
 
 interface SectionProps {
-  item: Section
+  item: SectionType
 }
 
 export default function Home() {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { homeData, isLoading } = useHome()
   const { breakingNews, popularAirlines, popularAirports, popularDestinations, totalAirplanes } =
     homeData ?? {}
@@ -79,7 +81,7 @@ export default function Home() {
   }, [])
 
   const sections = useMemo(
-    (): Section[] => [
+    (): SectionType[] => [
       {
         data: breakingNews ?? [],
         type: 'news',
@@ -88,7 +90,7 @@ export default function Home() {
         data: randomizedData.popularAirlines,
         isHorizontal: true,
         onViewAll: navigateToAllAirlines,
-        renderItem: (item: Airline) => <HomeAirlineCard airline={item} />,
+        renderItem: (item: AirlineType) => <HomeAirlineCard airline={item} />,
         title: getLocale('popularAirlines'),
         type: 'airlines',
       },
@@ -96,7 +98,7 @@ export default function Home() {
         data: randomizedData.popularAirports,
         isHorizontal: true,
         onViewAll: navigateToAllAirports,
-        renderItem: (item: Airport) => <HomeAirportCard airport={item} />,
+        renderItem: (item: AirportType) => <HomeAirportCard airport={item} />,
         title: getLocale('popularAirports'),
         type: 'airports',
       },
@@ -104,7 +106,7 @@ export default function Home() {
         data: randomizedData.popularDestinations,
         isHorizontal: true,
         onViewAll: navigateToAllDestinations,
-        renderItem: (item: PopularDestination) => <DestinationCard destination={item} />,
+        renderItem: (item: PopularDestinationType) => <DestinationCard destination={item} />,
         title: getLocale('popularDestinations'),
         type: 'destinations',
       },
@@ -112,7 +114,7 @@ export default function Home() {
         data: randomizedData.totalAirplanes,
         isHorizontal: false,
         onViewAll: navigateToAllAirplanes,
-        renderItem: (item: TotalAirplane) => <AirplaneCard airplane={item} />,
+        renderItem: (item: TotalAirplaneType) => <AirplaneCard airplane={item} />,
         title: getLocale('totalAirplanes'),
         type: 'airplanes',
       },
@@ -136,9 +138,9 @@ export default function Home() {
 
     return (
       <SectionScroll
-        keyExtractor={(item: Airline | Airport | PopularDestination | TotalAirplane) =>
-          item?.id?.toString()
-        }
+        keyExtractor={(
+          item: AirlineType | AirportType | PopularDestinationType | TotalAirplaneType,
+        ) => item?.id}
         data={section.data}
         isHorizontal={section.isHorizontal}
         onViewAll={section.onViewAll}
@@ -149,19 +151,20 @@ export default function Home() {
     )
   }, [])
 
-  const { top } = useSafeAreaInsets()
+  if (isLoading) {
+    return <FullScreenLoading />
+  }
 
-  return isLoading ? (
-    <FullScreenLoading />
-  ) : (
+  return (
     <FlatList
       className="bg-background-primary"
-      contentContainerStyle={{ paddingTop: top }}
+      contentContainerStyle={{ paddingBottom: bottom + 40, paddingTop: top }}
       data={sections}
       keyExtractor={(item, index) => `${item.type}-${index}`}
       renderItem={renderSection}
       scrollEventThrottle={16}
       showsVerticalScrollIndicator={false}
+      testID="home-screen"
       updateCellsBatchingPeriod={BATCHING_PERIOD}
     />
   )

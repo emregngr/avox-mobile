@@ -13,12 +13,14 @@ type RenderDetailTabBarProps = {
   activeIndex: number
   indicatorBackgroundColor?: string
   props: any
+  tabType: string
 }
 
 export const RenderDetailTabBar = ({
   activeIndex,
   indicatorBackgroundColor,
   props,
+  tabType,
 }: RenderDetailTabBarProps) => {
   const { selectedTheme } = useThemeStore()
 
@@ -40,30 +42,46 @@ export const RenderDetailTabBar = ({
           height: 36,
           marginVertical: 16,
         }}
-        TabItemComponent={itemProps => (
-          <MaterialTabItem
-            {...itemProps}
-            android_ripple={{
-              borderless: false,
-              color: colors?.[indicatorBackgroundColor as keyof ThemeColors] as
-                | ColorValue
-                | null
-                | undefined,
-              radius: 100,
-            }}
-            label={({ index, name }) => (
-              <View
-                className="h-[36px] flex-1 justify-center items-center"
-                style={{ width: responsive.deviceWidth / 4 - 8 }}
-              >
-                <ThemedText color={index === activeIndex ? 'text-100' : 'text-70'} type="body2">
-                  {name}
-                </ThemedText>
-              </View>
-            )}
-            pressOpacity={1}
-          />
-        )}
+        TabItemComponent={itemProps => {
+          const airportTestIds = [
+            'general-tab',
+            'infrastructure-tab',
+            'airportFlight-tab',
+            'nearbyPlaces-tab',
+          ]
+          const airlineTestIds = ['company-tab', 'fleet-tab', 'airlineFlight-tab', 'safetyEnv-tab']
+
+          const testID =
+            tabType === 'airport'
+              ? airportTestIds[itemProps.index]
+              : airlineTestIds[itemProps.index]
+
+          return (
+            <MaterialTabItem
+              {...itemProps}
+              android_ripple={{
+                borderless: false,
+                color: colors?.[indicatorBackgroundColor as keyof ThemeColors] as
+                  | ColorValue
+                  | null
+                  | undefined,
+                radius: 100,
+              }}
+              label={({ index, name }) => (
+                <View
+                  className="h-[36px] flex-1 justify-center items-center"
+                  style={{ width: responsive.deviceWidth / 4 - 8 }}
+                >
+                  <ThemedText color={index === activeIndex ? 'text-100' : 'text-70'} type="body2">
+                    {name}
+                  </ThemedText>
+                </View>
+              )}
+              pressOpacity={1}
+              testID={testID}
+            />
+          )
+        }}
         width={responsive.deviceWidth - 32}
       />
     </View>

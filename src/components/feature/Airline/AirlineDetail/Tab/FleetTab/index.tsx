@@ -7,10 +7,10 @@ import { FleetList } from '@/components/feature/Airline/AirlineDetail/Tab/FleetT
 import { FleetStats } from '@/components/feature/Airline/AirlineDetail/Tab/FleetTab/Sections/FleetStats'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 
 interface FleetTabProps {
-  airlineData: Airline
+  airlineData: AirlineType
 }
 
 export const FleetTab = ({ airlineData }: FleetTabProps) => {
@@ -20,10 +20,7 @@ export const FleetTab = ({ airlineData }: FleetTabProps) => {
   const { region } = operations ?? {}
   const { airplaneTypeCount, airplanes, averageAgeYears, totalAirplane } = fleet ?? {}
 
-  const sortedAirplanes = useMemo(
-    () => airplanes?.sort((a, b) => b.count - a.count),
-    [airplanes],
-  )
+  const sortedAirplanes = useMemo(() => airplanes?.sort((a, b) => b.count - a.count), [airplanes])
 
   const handleImagePress = useCallback((airplaneType: string, imageKey: string) => {
     router.navigate({

@@ -6,10 +6,10 @@ import { Certifications } from '@/components/feature/Airport/AirportDetail/Tab/I
 import { Facilities } from '@/components/feature/Airport/AirportDetail/Tab/InfrastructureTab/Sections/Facilities'
 import { Runway } from '@/components/feature/Airport/AirportDetail/Tab/InfrastructureTab/Sections/Runway'
 import { Terminal } from '@/components/feature/Airport/AirportDetail/Tab/InfrastructureTab/Sections/Terminal'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 
 interface InfrastructureTabProps {
-  airportData: Airport
+  airportData: AirportType
 }
 
 export const InfrastructureTab = ({ airportData }: InfrastructureTabProps) => {

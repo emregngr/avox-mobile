@@ -4,12 +4,12 @@ import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/Airpo
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 import { formatNumber } from '@/utils/feature/formatNumber'
 
 interface GeneralProps {
-  airportInfo: Airport['airportInfo']
-  operations: Airport['operations']
+  airportInfo: AirportType['airportInfo']
+  operations: AirportType['operations']
 }
 
 export const General = ({ airportInfo, operations }: GeneralProps) => {
@@ -73,17 +73,17 @@ export const General = ({ airportInfo, operations }: GeneralProps) => {
       />
 
       <AirportRowItem
-        icon="people"
+        icon="account-group-outline"
         label={localeStrings.numberOfEmployees}
         value={formattedEmployeeCount}
       />
 
       <AirportRowItem icon="airplane" label={localeStrings.airportType} value={airportTypeValue} />
 
-      <AirportRowItem icon="time" label={localeStrings.open24Hours} value={is24HourValue} />
+      <AirportRowItem icon="hours-24" label={localeStrings.open24Hours} value={is24HourValue} />
 
       <AirportRowItem
-        icon="calendar-outline"
+        icon="calendar-month-outline"
         label={localeStrings.scheduledService}
         value={scheduledServiceValue}
       />

@@ -1,6 +1,7 @@
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { ScrollView } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Header, SafeLayout, ThemedText } from '@/components/common'
 import { getLocale } from '@/locales/i18next'
@@ -8,8 +9,10 @@ import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 
 export default function SettingsTermsOfUse() {
-  const { selectedTheme } = useThemeStore()
+  const { bottom, top } = useSafeAreaInsets()
+
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const trText = `Kullanım Koşulları
           \n1. Hizmet Kullanım Koşulları
@@ -75,10 +78,22 @@ export default function SettingsTermsOfUse() {
   )
 
   return (
-    <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={getLocale('termsOfUse')} />
+    <SafeLayout testID="settings-terms-of-use-screen">
+      <Header
+        backIconOnPress={handleBackPress}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        style={{ top }}
+        title={getLocale('termsOfUse')}
+      />
 
-      <ScrollView contentContainerClassName="pt-5 pb-20 px-4" indicatorStyle={indicatorStyle}>
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: bottom + 20,
+          paddingTop: top + 64,
+        }}
+        contentContainerClassName="px-4"
+        indicatorStyle={indicatorStyle}
+      >
         <ThemedText color="text-100" type="body1">
           {text}
         </ThemedText>

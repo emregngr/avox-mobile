@@ -5,11 +5,11 @@ import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/Airpo
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 import { formatNumber } from '@/utils/feature/formatNumber'
 
 interface RunwayProps {
-  infrastructure: Airport['infrastructure']
+  infrastructure: AirportType['infrastructure']
 }
 
 export const Runway = ({ infrastructure }: RunwayProps) => {
@@ -39,13 +39,9 @@ export const Runway = ({ infrastructure }: RunwayProps) => {
 
       <AirportRowItem icon="resize" label={localeStrings.runwaym} value={formattedRunwayLength} />
 
-      <AirportRowItem
-        icon="layers"
-        label={localeStrings.surface}
-        value={surface}
-      />
+      <AirportRowItem icon="layers-outline" label={localeStrings.surface} value={surface} />
 
-      <AirportRowItem icon="code" label={localeStrings.pcn} value={pcn} />
+      <AirportRowItem icon="information-outline" label={localeStrings.pcn} value={pcn} />
 
       <AirportRowItem icon="eye" label={localeStrings.ilsCategory} value={ilsCategory} />
     </AirportSectionRow>

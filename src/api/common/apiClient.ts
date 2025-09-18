@@ -1,13 +1,16 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import { router } from 'expo-router'
+import { MMKV } from 'react-native-mmkv'
 
+import config from '@/config/env/environment'
 import { ENUMS } from '@/enums'
 import type { ApiError, ApiRequestConfig, ApiResponse } from '@/types/common/api'
 
+const storage = new MMKV()
+
 const axiosInstance = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_API_URL ?? '',
+  baseURL: config.apiUrl,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -16,8 +19,8 @@ const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use(
-  async (config: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig> => {
-    const token = await AsyncStorage.getItem(ENUMS.API_TOKEN)
+  (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    const token = storage.getString(ENUMS.API_TOKEN)
 
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`
@@ -25,22 +28,18 @@ axiosInstance.interceptors.request.use(
 
     return config
   },
-  error => {
+
+  (error: AxiosError) => {
     console.warn('HTTP :: Request Error', error)
+
     return Promise.reject(error)
   },
 )
 
 axiosInstance.interceptors.response.use(
-  (response: AxiosResponse) => {
-    if (response?.status === 401) {
-      router.navigate('/token-expire')
-      return Promise.reject(new Error())
-    }
-    return response
-  },
+  (response: AxiosResponse) => response,
 
-  async (error: AxiosError) => {
+  (error: AxiosError) => {
     const originalRequest = error.config as ApiRequestConfig
 
     const apiError: ApiError = {
@@ -49,7 +48,7 @@ axiosInstance.interceptors.response.use(
       status: error.response?.status ?? 500,
     }
 
-    if (error.response?.data) {
+    if (error?.response?.data) {
       const errorData = error.response.data as any
 
       if (errorData.message) {
@@ -67,8 +66,9 @@ axiosInstance.interceptors.response.use(
       console.warn('Errors', apiError.errors)
     }
 
-    if (error?.message === 'Request failed with status code 401') {
-      router.navigate('/token-expire')
+    if (error?.response?.status === 401) {
+      router.replace('/token-expire')
+
       return Promise.reject(error)
     }
 

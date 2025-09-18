@@ -11,7 +11,7 @@ import {
   removeFromFavorites,
 } from '@/services/favoriteService'
 import useLocaleStore from '@/store/locale'
-import type { FavoriteItem } from '@/types/feature/favorite'
+import type { FavoriteItemType, FavoritesType } from '@/types/feature/favorite'
 
 const app = getApp()
 const auth = getAuth(app)
@@ -98,7 +98,7 @@ export const useAddFavorite = () => {
       }
     },
 
-    onMutate: async (variables: FavoriteItem) => {
+    onMutate: async (variables: FavoriteItemType) => {
       if (!userId) return
 
       await queryClient.cancelQueries({
@@ -107,11 +107,11 @@ export const useAddFavorite = () => {
 
       const previousFavorites = queryClient?.getQueryData(QUERY_KEYS.favorites(userId))
 
-      queryClient.setQueryData(QUERY_KEYS.favorites(userId), (old: any) => {
+      queryClient.setQueryData(QUERY_KEYS.favorites(userId), (old: FavoritesType) => {
         if (!old) return [{ id: variables?.id, type: variables?.type }]
 
         const exists = old.some(
-          (item: any) => item?.id === variables?.id && item?.type === variables?.type,
+          (item: FavoriteItemType) => item?.id === variables?.id && item?.type === variables?.type,
         )
         if (exists) return old
         return [...old, { id: variables?.id, type: variables?.type }]
@@ -148,7 +148,7 @@ export const useRemoveFavorite = () => {
       }
     },
 
-    onMutate: async (variables: FavoriteItem) => {
+    onMutate: async (variables: FavoriteItemType) => {
       if (!userId) return
 
       await queryClient.cancelQueries({
@@ -157,10 +157,11 @@ export const useRemoveFavorite = () => {
 
       const previousFavorites = queryClient.getQueryData(QUERY_KEYS.favorites(userId))
 
-      queryClient.setQueryData(QUERY_KEYS.favorites(userId), (old: any) => {
+      queryClient.setQueryData(QUERY_KEYS.favorites(userId), (old: FavoritesType) => {
         if (!old) return []
         return old?.filter(
-          (item: any) => !(item?.id === variables?.id && item?.type === variables?.type),
+          (item: FavoriteItemType) =>
+            !(item?.id === variables?.id && item?.type === variables?.type),
         )
       })
 
@@ -181,8 +182,8 @@ export const useRemoveFavorite = () => {
   })
 }
 
-export const useIsFavorite = ({ id, type }: FavoriteItem) => {
+export const useIsFavorite = ({ id, type }: FavoriteItemType) => {
   const { data: favoriteIds = [] } = useFavoriteIds()
 
-  return favoriteIds?.some((fav: FavoriteItem) => fav?.id === id && fav?.type === type)
+  return favoriteIds?.some((fav: FavoriteItemType) => fav?.id === id && fav?.type === type)
 }

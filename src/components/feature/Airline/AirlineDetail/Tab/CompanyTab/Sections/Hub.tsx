@@ -4,10 +4,10 @@ import { AirlineRowItem } from '@/components/feature/Airline/AirlineDetail/Airli
 import { AirlineSectionRow } from '@/components/feature/Airline/AirlineDetail/AirlineSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 
 interface HubProps {
-  operations: Airline['operations']
+  operations: AirlineType['operations']
 }
 
 export const Hub = ({ operations }: HubProps) => {
@@ -27,7 +27,7 @@ export const Hub = ({ operations }: HubProps) => {
 
   return (
     <AirlineSectionRow title={localeStrings.hubInformation}>
-      <AirlineRowItem icon="business" label={localeStrings.city} value={city} />
+      <AirlineRowItem icon="city-variant-outline" label={localeStrings.city} value={city} />
 
       <AirlineRowItem icon="earth" label={localeStrings.country} value={country} />
     </AirlineSectionRow>

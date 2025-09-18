@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useMemo } from 'react'
 import { View } from 'react-native'
 
@@ -7,15 +7,15 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 
 interface AirlineHeaderProps {
-  airlineData: Airline
+  airlineData: AirlineType
 }
 
 export const AirlineHeader = ({ airlineData }: AirlineHeaderProps) => {
-  const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
@@ -82,7 +82,7 @@ export const AirlineHeader = ({ airlineData }: AirlineHeaderProps) => {
         </View>
 
         <View className="flex-row items-center px-5 py-3 rounded-xl overflow-hidden bg-background-primary">
-          <Ionicons color={homeIconColor} name="home" size={20} />
+          <MaterialCommunityIcons color={homeIconColor} name="home-outline" size={20} />
           <View className="mx-4">
             <ThemedText
               color="text-100" ellipsizeMode="tail" numberOfLines={1}

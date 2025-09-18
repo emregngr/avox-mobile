@@ -3,10 +3,10 @@ import { useCallback, useMemo } from 'react'
 
 import { useAddFavorite, useIsFavorite, useRemoveFavorite } from '@/hooks/services/useFavorite'
 import useAuthStore from '@/store/auth'
-import type { FavoriteItem } from '@/types/feature/favorite'
+import type { FavoriteItemType } from '@/types/feature/favorite'
 import { Logger } from '@/utils/common/logger'
 
-export function useFavoriteToggle({ id, type }: FavoriteItem) {
+export function useFavoriteToggle({ id, type }: FavoriteItemType) {
   const { isAuthenticated } = useAuthStore()
 
   const { isPending: isAddFavoritePending, mutateAsync: addFavoriteMutation } = useAddFavorite()
@@ -20,7 +20,7 @@ export function useFavoriteToggle({ id, type }: FavoriteItem) {
     [isAddFavoritePending, isRemoveFavoritePending],
   )
 
-  const handleFavoritePress = useCallback(async () => {
+  const handleFavoritePress = useCallback(async (): Promise<void> => {
     if (!isAuthenticated) {
       router.replace('/auth')
       return

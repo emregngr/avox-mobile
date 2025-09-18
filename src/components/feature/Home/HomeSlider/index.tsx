@@ -4,15 +4,16 @@ import { FlatList, View } from 'react-native'
 
 import { BreakingNewsCard } from '@/components/feature/Home/BreakingNewsCard'
 import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
-import type { BreakingNews } from '@/types/feature/home'
+import type { BreakingNewsType } from '@/types/feature/home'
 import { cn } from '@/utils/common/cn'
 import { responsive } from '@/utils/common/responsive'
 
 interface HomeSliderProps {
-  breakingNews: BreakingNews[]
+  breakingNews: BreakingNewsType[]
 }
+
 interface BreakingNewsCardProps {
-  item: BreakingNews
+  item: BreakingNewsType
 }
 
 interface DotProps {
@@ -20,7 +21,7 @@ interface DotProps {
 }
 
 interface DotsContainerProps {
-  breakingNews: BreakingNews[]
+  breakingNews: BreakingNewsType[]
   currentIndex: number
 }
 
@@ -145,10 +146,10 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
     [],
   )
 
-  const keyExtractor = useCallback((item: BreakingNews) => item?.id?.toString(), [])
+  const keyExtractor = useCallback((item: BreakingNewsType) => item?.id, [])
 
   const getItemLayout = useCallback(
-    (_: ArrayLike<BreakingNews> | null | undefined, index: number) => ({
+    (_: ArrayLike<BreakingNewsType> | null | undefined, index: number) => ({
       index,
       length: ITEM_WIDTH,
       offset: ITEM_WIDTH * index,
@@ -178,6 +179,7 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
         renderItem={renderItem}
         scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
+        testID="home-slider-flatlist"
         updateCellsBatchingPeriod={BATCHING_PERIOD}
         windowSize={WINDOW_SIZE}
         disableIntervalMomentum

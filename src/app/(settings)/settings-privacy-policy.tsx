@@ -1,18 +1,18 @@
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { ScrollView } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Header, SafeLayout, ThemedText } from '@/components/common'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
-import { themeColors } from '@/themes'
 
 export default function SettingsPrivacyPolicy() {
-  const { selectedTheme } = useThemeStore()
-  const { selectedLocale } = useLocaleStore()
+  const { bottom, top } = useSafeAreaInsets()
 
-  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
+  const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const trText = `Gizlilik Politikası
           \nBu gizlilik politikası, uygulamanın kişisel verilerinizi nasıl topladığını,kullandığını ve koruduğunu açıklamaktadır.
@@ -84,10 +84,22 @@ export default function SettingsPrivacyPolicy() {
   )
 
   return (
-    <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={getLocale('privacyPolicy')} />
+    <SafeLayout testID="settings-privacy-policy-screen">
+      <Header
+        backIconOnPress={handleBackPress}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        style={{ top }}
+        title={getLocale('privacyPolicy')}
+      />
 
-      <ScrollView contentContainerClassName="pt-5 pb-20 px-4" indicatorStyle={indicatorStyle}>
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: bottom + 20,
+          paddingTop: top + 64,
+        }}
+        contentContainerClassName="px-4"
+        indicatorStyle={indicatorStyle}
+      >
         <ThemedText color="text-100" type="body1">
           {text}
         </ThemedText>

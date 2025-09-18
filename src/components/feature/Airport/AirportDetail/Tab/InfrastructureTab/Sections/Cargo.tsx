@@ -4,11 +4,11 @@ import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/Airpo
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 import { formatNumber } from '@/utils/feature/formatNumber'
 
 interface CargoProps {
-  cargo: Airport['cargo']
+  cargo: AirportType['cargo']
 }
 
 export const Cargo = ({ cargo }: CargoProps) => {
@@ -58,10 +58,14 @@ export const Cargo = ({ cargo }: CargoProps) => {
         value={formattedTerminalCapacity}
       />
 
-      <AirportRowItem icon="snow" label={localeStrings.coldStorage} value={coldStorageStatus} />
+      <AirportRowItem
+        icon="snowflake"
+        label={localeStrings.coldStorage}
+        value={coldStorageStatus}
+      />
 
       <AirportRowItem
-        icon="warning"
+        icon="alert-outline"
         label={localeStrings.dangerousGoods}
         value={dangerousGoodsStatus}
       />

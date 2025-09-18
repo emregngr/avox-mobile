@@ -4,11 +4,11 @@ import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/Airpo
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 import { formatNumber } from '@/utils/feature/formatNumber'
 
 interface LocationProps {
-  operations: Airport['operations']
+  operations: AirportType['operations']
 }
 
 export const Location = ({ operations }: LocationProps) => {
@@ -33,12 +33,12 @@ export const Location = ({ operations }: LocationProps) => {
 
   return (
     <AirportSectionRow title={localeStrings.locationInformation}>
-      <AirportRowItem icon="business" label={localeStrings.city} value={city} />
+      <AirportRowItem icon="city-variant-outline" label={localeStrings.city} value={city} />
 
       <AirportRowItem icon="earth" label={localeStrings.country} value={country} />
 
       <AirportRowItem
-        icon="trending-up"
+        icon="elevation-rise"
         label={localeStrings.elevation}
         value={formattedElevation}
       />

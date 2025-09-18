@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useMemo } from 'react'
 import { View } from 'react-native'
 
@@ -8,10 +8,10 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 
 interface CertificationsProps {
-  safety: Airport['safety']
+  safety: AirportType['safety']
 }
 
 export const Certifications = ({ safety }: CertificationsProps) => {
@@ -32,7 +32,7 @@ export const Certifications = ({ safety }: CertificationsProps) => {
   return (
     <AirportSectionRow title={localeStrings.certifications}>
       <View className="flex-row items-center py-2">
-        <Ionicons color={colors?.onPrimary100} name="shield-checkmark" size={20} />
+        <MaterialCommunityIcons color={colors?.onPrimary100} name="certificate-outline" size={20} />
         <ThemedText className="ml-3" color="text-100" type="body2">
           {certifications}
         </ThemedText>

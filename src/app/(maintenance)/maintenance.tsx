@@ -17,22 +17,29 @@ const STATIC_STYLES = {
 
 export default function Maintenance() {
   return (
-    <View className="flex-1 justify-center items-center px-4 bg-background-primary">
+    <View
+      className="flex-1 justify-center items-center px-4 bg-background-primary"
+      testID="maintenance-screen"
+    >
       <Image
         cachePolicy="memory-disk"
         contentFit="contain"
         source={Icon}
         style={STATIC_STYLES.icon}
+        testID="maintenance-icon"
         transition={0}
       />
 
-      <ThemedText className="mt-5" color="text-100" type="h1">
+      <ThemedText
+        className="mt-5" color="text-100" testID="app-title"
+        type="h1" center
+      >
         {getLocale('avox')}
       </ThemedText>
 
       <ThemedText
-        className="my-12" color="text-100" type="body1"
-        center
+        className="my-12" color="text-100" testID="maintenance-text"
+        type="body1" center
       >
         {getLocale('maintenanceText')}
       </ThemedText>

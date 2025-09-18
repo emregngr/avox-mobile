@@ -1,4 +1,4 @@
-import { AirportType } from '@/utils/feature/getBadge'
+import { AirportBadgeType } from '@/utils/feature/getBadge'
 
 const imageFiles = {
   large_airport: require('@/assets/images/airport/large_airport.webp'),
@@ -11,13 +11,13 @@ interface AirportImageMap {
   [key: string]: string
 }
 
-export const getAirportImage = (airportType: AirportType): string => {
+export const getAirportImage = (airportBadgeType: AirportBadgeType): string => {
   const imageMap: AirportImageMap = {
-    [AirportType.SmallAirport]: imageFiles.small_airport,
-    [AirportType.MediumAirport]: imageFiles.medium_airport,
-    [AirportType.LargeAirport]: imageFiles.large_airport,
-    [AirportType.MegaAirport]: imageFiles.mega_airport,
+    [AirportBadgeType.SmallAirport]: imageFiles.small_airport,
+    [AirportBadgeType.MediumAirport]: imageFiles.medium_airport,
+    [AirportBadgeType.LargeAirport]: imageFiles.large_airport,
+    [AirportBadgeType.MegaAirport]: imageFiles.mega_airport,
   }
 
-  return imageMap?.[airportType] ?? imageFiles.small_airport
+  return imageMap?.[airportBadgeType] ?? imageFiles.small_airport
 }

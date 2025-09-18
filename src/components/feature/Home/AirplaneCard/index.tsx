@@ -2,10 +2,10 @@ import React, { memo, useMemo } from 'react'
 import { View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
-import type { TotalAirplane } from '@/types/feature/home'
+import type { TotalAirplaneType } from '@/types/feature/home'
 
 interface AirplaneCardProps {
-  airplane: TotalAirplane
+  airplane: TotalAirplaneType
 }
 
 export const AirplaneCard = memo(({ airplane }: AirplaneCardProps) => {

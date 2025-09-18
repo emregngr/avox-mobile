@@ -11,9 +11,9 @@ import {
 } from '@react-native-firebase/firestore'
 
 import { getLocale } from '@/locales/i18next'
-import type { Airline } from '@/types/feature/airline'
-import type { Airport } from '@/types/feature/airport'
-import type { FavoriteItem, Favorites } from '@/types/feature/favorite'
+import type { AirlineType } from '@/types/feature/airline'
+import type { AirportType } from '@/types/feature/airport'
+import type { FavoriteItemType, FavoritesType } from '@/types/feature/favorite'
 import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
@@ -22,7 +22,7 @@ const db = getFirestore(app)
 
 const getCurrentUserId = (): string | undefined => auth?.currentUser?.uid
 
-export const fetchFavoriteIds = async (): Promise<Favorites> => {
+export const fetchFavoriteIds = async (): Promise<FavoritesType> => {
   const userId = getCurrentUserId()
   if (!userId) return []
 
@@ -44,9 +44,9 @@ export const fetchFavoriteIds = async (): Promise<Favorites> => {
 }
 
 export const fetchFavoriteDetails = async (
-  favoriteItems: Favorites,
+  favoriteItems: FavoritesType,
   selectedLocale: string,
-): Promise<(Airport | Airline)[]> => {
+): Promise<(AirportType | AirlineType)[]> => {
   if (!favoriteItems || favoriteItems.length === 0) {
     return []
   }
@@ -55,13 +55,13 @@ export const fetchFavoriteDetails = async (
     const fetchPromises = favoriteItems.map(favorite => {
       const type = favorite.type === 'airline' ? 'Airlines' : 'Airports'
       const collectionName = `${selectedLocale}${type}`
-      const itemRef = doc(db, collectionName, favorite.id)
+      const itemRef = doc(db, collectionName, favorite.id?.toString())
       return getDoc(itemRef)
     })
 
     const results = await Promise.allSettled(fetchPromises)
 
-    const fetchedItems: (Airport | Airline)[] = []
+    const fetchedItems: (AirportType | AirlineType)[] = []
 
     results.forEach((result, index) => {
       const favoriteType = favoriteItems[index]?.type
@@ -70,10 +70,10 @@ export const fetchFavoriteDetails = async (
         const docData = result?.value?.data()
 
         if (favoriteType === 'airport') {
-          const airportItem = docData as Airport
+          const airportItem = docData as AirportType
           fetchedItems?.push(airportItem)
         } else {
-          const airlineItem = docData as Airline
+          const airlineItem = docData as AirlineType
           fetchedItems?.push(airlineItem)
         }
       }
@@ -86,7 +86,7 @@ export const fetchFavoriteDetails = async (
   }
 }
 
-export const addToFavorites = async ({ id, type }: FavoriteItem): Promise<void> => {
+export const addToFavorites = async ({ id, type }: FavoriteItemType): Promise<void> => {
   const userId = getCurrentUserId()
   if (!userId) throw new Error(getLocale('userNotLoggedIn'))
 
@@ -111,7 +111,7 @@ export const addToFavorites = async ({ id, type }: FavoriteItem): Promise<void> 
   }
 }
 
-export const removeFromFavorites = async ({ id, type }: FavoriteItem): Promise<void> => {
+export const removeFromFavorites = async ({ id, type }: FavoriteItemType): Promise<void> => {
   const userId = getCurrentUserId()
   if (!userId) throw new Error(getLocale('userNotLoggedIn'))
 

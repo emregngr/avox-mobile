@@ -1,43 +1,47 @@
 import { vars } from 'nativewind'
 
 export type ThemeColors = {
-  af: string,
-  as: string,
+  af: string
+  as: string
   background: {
-    blur: string,
-    primary: string,
-    quaternary: string,
-    secondary: string,
+    blur: string
+    primary: string
+    quaternary: string
+    secondary: string
     tertiary: string
-  },
-  error: string,
-  eu: string,
-  info: string,
-  na: string,
-  oc: string,
-  onPrimary100: string,
-  onPrimary20: string,
-  onPrimary30: string,
-  onPrimary50: string,
-  onPrimary70: string,
-  primary100: string,
-  primary30: string,
-  primary50: string,
-  primary70: string,
-  sa: string,
-  secondary100: string,
-  secondary15: string,
-  secondary30: string,
-  secondary50: string,
+  }
+  error: string
+  eu: string
+  info: string
+  na: string
+  oc: string
+  onPrimary100: string
+  onPrimary20: string
+  onPrimary30: string
+  onPrimary50: string
+  onPrimary70: string
+  primary100: string
+  primary30: string
+  primary50: string
+  primary70: string
+  primaryGradientEnd: string
+  primaryGradientStart: string
+  sa: string
+  secondary100: string
+  secondary15: string
+  secondary30: string
+  secondary50: string
+  secondaryGradientEnd: string
+  secondaryGradientStart: string
   success: string
-  tertiary100: string,
-  tertiary30: string,
-  tertiary50: string,
-  text100: string,
-  text30: string,
-  text50: string,
-  text70: string,
-  text90: string,
+  tertiary100: string
+  tertiary30: string
+  tertiary50: string
+  text100: string
+  text30: string
+  text50: string
+  text70: string
+  text90: string
   warning: string
 }
 
@@ -64,6 +68,7 @@ const baseColors: Record<'light' | 'dark', ThemeColors> = {
     onPrimary30: '#FFFFFF4D',
 
     onPrimary50: '#FFFFFF80',
+
     onPrimary70: '#FFFFFFB2',
     primary100: '#1E40AF',
     primary30: '#1E40AF4D',
@@ -71,11 +76,17 @@ const baseColors: Record<'light' | 'dark', ThemeColors> = {
 
     primary70: '#1E40AFB2',
 
+    primaryGradientEnd: '#8635D6',
+    primaryGradientStart: '#2240A3',
+
     sa: '#8B2F00',
     secondary100: '#065F46',
+
     secondary15: '#10B981',
     secondary30: '#059669',
     secondary50: '#047857',
+    secondaryGradientEnd: '#6429C4',
+    secondaryGradientStart: '#E02A7F',
 
     success: '#047857',
     tertiary100: '#FF7849',
@@ -100,9 +111,9 @@ const baseColors: Record<'light' | 'dark', ThemeColors> = {
       secondary: '#F2F2F7',
       tertiary: '#E5E5EA',
     },
-    error: '#FCA5A5',
+    error: '#E57373',
 
-    eu: '#A8B8D1',
+    eu: '#93C5FD',
     info: '#93C5FD',
     na: '#9CCCBF',
     oc: '#D18FA1',
@@ -113,17 +124,24 @@ const baseColors: Record<'light' | 'dark', ThemeColors> = {
 
     onPrimary50: '#00000080',
     onPrimary70: '#000000B2',
+
     primary100: '#B3D9FF',
     primary30: '#B3D9FF4D',
     primary50: '#B3D9FF80',
 
     primary70: '#B3D9FFB2',
 
+    primaryGradientEnd: '#BFA1F3',
+    primaryGradientStart: '#6EAFF3',
+
     sa: '#D4CA55',
     secondary100: '#A3F3D0',
+
     secondary15: '#ECFDF5',
     secondary30: '#D1FAE5',
     secondary50: '#C2F5E0',
+    secondaryGradientEnd: '#AA98EB',
+    secondaryGradientStart: '#E694BA',
 
     success: '#86EFAC',
     tertiary100: '#FF6B35',
@@ -162,11 +180,15 @@ export const themes = {
     '--color-primary-30': baseColors.dark.primary30,
     '--color-primary-50': baseColors.dark.primary50,
     '--color-primary-70': baseColors.dark.primary70,
+    '--color-primary-gradient-end': baseColors.dark.primaryGradientEnd,
+    '--color-primary-gradient-start': baseColors.dark.primaryGradientStart,
     '--color-sa': baseColors.dark.sa,
     '--color-secondary-100': baseColors.dark.secondary100,
     '--color-secondary-15': baseColors.dark.secondary15,
     '--color-secondary-30': baseColors.dark.secondary30,
     '--color-secondary-50': baseColors.dark.secondary50,
+    '--color-secondary-gradient-end': baseColors.dark.secondaryGradientEnd,
+    '--color-secondary-gradient-start': baseColors.dark.secondaryGradientStart,
     '--color-success': baseColors.dark.success,
     '--color-tertiary-100': baseColors.dark.tertiary100,
     '--color-tertiary-30': baseColors.dark.tertiary30,
@@ -200,11 +222,15 @@ export const themes = {
     '--color-primary-30': baseColors.light.primary30,
     '--color-primary-50': baseColors.light.primary50,
     '--color-primary-70': baseColors.light.primary70,
+    '--color-primary-gradient-end': baseColors.light.primaryGradientEnd,
+    '--color-primary-gradient-start': baseColors.light.primaryGradientStart,
     '--color-sa': baseColors.light.sa,
     '--color-secondary-100': baseColors.light.secondary100,
     '--color-secondary-15': baseColors.light.secondary15,
     '--color-secondary-30': baseColors.light.secondary30,
     '--color-secondary-50': baseColors.light.secondary50,
+    '--color-secondary-gradient-end': baseColors.light.secondaryGradientEnd,
+    '--color-secondary-gradient-start': baseColors.light.secondaryGradientStart,
     '--color-success': baseColors.light.success,
     '--color-tertiary-100': baseColors.light.tertiary100,
     '--color-tertiary-30': baseColors.light.tertiary30,

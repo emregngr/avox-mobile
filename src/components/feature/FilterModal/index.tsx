@@ -1,6 +1,7 @@
 import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import Close from '@/assets/icons/close'
 import { ThemedButton } from '@/components/common/ThemedButton'
@@ -45,10 +46,12 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { FilterModalProps } from '@/types/feature/filter'
+import type { FilterModalPropsType } from '@/types/feature/filter'
 
-export const FilterModal = forwardRef<BottomSheet, FilterModalProps>(
+export const FilterModal = forwardRef<BottomSheet, FilterModalPropsType>(
   ({ currentFilters, onApply, onClose, type }, ref) => {
+    const { bottom } = useSafeAreaInsets()
+
     const [localFilters, setLocalFilters] = useState<any>(currentFilters)
 
     const { selectedTheme } = useThemeStore()
@@ -195,6 +198,9 @@ export const FilterModal = forwardRef<BottomSheet, FilterModalProps>(
         backgroundStyle={{
           backgroundColor: colors?.background?.primary,
         }}
+        containerStyle={{
+          marginBottom: bottom + 60,
+        }}
         handleIndicatorStyle={{
           backgroundColor: colors?.onPrimary100,
         }}
@@ -208,7 +214,12 @@ export const FilterModal = forwardRef<BottomSheet, FilterModalProps>(
           <ThemedText color="text-100" type="h2">
             {localeStrings.filter}
           </ThemedText>
-          <TouchableOpacity activeOpacity={0.7} hitSlop={20} onPress={onClose}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={20}
+            onPress={onClose}
+            testID="filter-close-button"
+          >
             <Close
               height={24}
               primaryColor={colors?.background?.quaternary}
@@ -523,10 +534,19 @@ export const FilterModal = forwardRef<BottomSheet, FilterModalProps>(
 
         <View className="flex-row items-center justify-between px-10 py-4 border-t border-background-quaternary">
           <View className="w-[45%]">
-            <ThemedButton label={localeStrings.clear} onPress={clearFilters} type="danger" />
+            <ThemedButton
+              label={localeStrings.clear}
+              onPress={clearFilters}
+              testID="filter-clear-button"
+              type="danger"
+            />
           </View>
           <View className="w-[45%]">
-            <ThemedButton label={localeStrings.apply} onPress={applyFilters} />
+            <ThemedButton
+              label={localeStrings.apply}
+              onPress={applyFilters}
+              testID="filter-apply-button"
+            />
           </View>
         </View>
       </BottomSheet>

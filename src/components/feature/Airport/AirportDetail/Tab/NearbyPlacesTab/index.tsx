@@ -5,13 +5,14 @@ import { AttractionCard } from '@/components/feature/Airport/AirportDetail/Tab/N
 import { useMapNavigation } from '@/hooks/maps/useMapNavigation'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 
 interface NearbyPlacesTabProps {
-  airportData: Airport
+  airportData: AirportType
 }
-interface AttractionCard {
-  attractionId: number
+
+type AttractionCard = {
+  attractionId: string
   attractionLatitude: number
   attractionLongitude: number
   attractionName: string

@@ -1,15 +1,15 @@
+import * as Linking from 'expo-linking'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
-import { Linking } from 'react-native'
 
 import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/AirportRowItem'
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 
 interface ContactProps {
-  airportInfo: Airport['airportInfo']
+  airportInfo: AirportType['airportInfo']
 }
 
 export const Contact = ({ airportInfo }: ContactProps) => {
@@ -56,21 +56,21 @@ export const Contact = ({ airportInfo }: ContactProps) => {
   return (
     <AirportSectionRow title={localeStrings.contactInformation}>
       <AirportRowItem
-        icon="globe"
+        icon="web"
         label={localeStrings.website}
         onPress={handleWebsitePress}
         value={website}
       />
 
       <AirportRowItem
-        icon="call"
+        icon="phone-outline"
         label={localeStrings.phone}
         onPress={handlePhonePress}
         value={phone}
       />
 
       <AirportRowItem
-        icon="mail"
+        icon="email-outline"
         label={localeStrings.email}
         onPress={handleEmailPress}
         value={email}

@@ -1,4 +1,6 @@
+import * as Haptics from 'expo-haptics'
 import { type ReactNode, useMemo } from 'react'
+import type { ViewStyle } from 'react-native'
 import { TouchableOpacity, View } from 'react-native'
 
 import Back from '@/assets/icons/back.svg'
@@ -12,15 +14,19 @@ type HeaderProps = {
   backIcon?: boolean
   backIconOnPress?: () => void
   containerClassName?: string
-  rightButtonLabel?: string
-  rightButtonOnPress?: () => void
-  rightIcon?: ReactNode
-  rightIconClassName?: string
-  rightIconOnPress?: () => void
-  shareIcon?: ReactNode
-  shareIconClassName?: string
-  shareIconOnPress?: () => void
-  title?: string | string[]
+  hapticFeedback?: boolean,
+  isFavorite?: boolean,
+  rightButtonLabel?: string,
+  rightButtonOnPress?: () => void,
+  rightIcon?: ReactNode,
+  rightIconClassName?: string,
+  rightIconOnPress?: () => void,
+  shareIcon?: ReactNode,
+  shareIconClassName?: string,
+  shareIconOnPress?: () => void,
+  style?: ViewStyle,
+  testID?: string,
+  title?: string | string[],
   titleClassName?: string
 }
 
@@ -28,6 +34,8 @@ export const Header = ({
   backIcon = true,
   backIconOnPress,
   containerClassName,
+  hapticFeedback = false,
+  isFavorite = false,
   rightButtonLabel,
   rightButtonOnPress,
   rightIcon,
@@ -36,6 +44,8 @@ export const Header = ({
   shareIcon,
   shareIconClassName,
   shareIconOnPress,
+  style,
+  testID,
   title,
   titleClassName,
 }: HeaderProps) => {
@@ -43,8 +53,24 @@ export const Header = ({
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
+  const handleRightIconOnPress = () => {
+    if (hapticFeedback) {
+      if (isFavorite) {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+      } else {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+      }
+    }
+
+    rightIconOnPress?.()
+  }
+
   return (
-    <View className={cn('h-11 justify-center items-center', containerClassName)}>
+    <View
+      className={cn('h-11 justify-center items-center', containerClassName)}
+      style={style}
+      testID={testID || 'header'}
+    >
       {title ? (
         <ThemedText
           className={titleClassName ?? ''}
@@ -64,6 +90,7 @@ export const Header = ({
           className="absolute left-4"
           hitSlop={20}
           onPress={backIconOnPress}
+          testID="header-back-icon"
         >
           <Back color={colors?.onPrimary100} height={24} width={24} />
         </TouchableOpacity>
@@ -75,6 +102,7 @@ export const Header = ({
           className={cn('absolute right-16', `${shareIconClassName}`)}
           hitSlop={10}
           onPress={shareIconOnPress}
+          testID="header-share-icon"
         >
           {shareIcon}
         </TouchableOpacity>
@@ -93,7 +121,8 @@ export const Header = ({
           activeOpacity={0.7}
           className={cn('absolute right-4', `${rightIconClassName}`)}
           hitSlop={10}
-          onPress={rightIconOnPress}
+          onPress={handleRightIconOnPress}
+          testID="header-right-icon"
         >
           {rightIcon}
         </TouchableOpacity>

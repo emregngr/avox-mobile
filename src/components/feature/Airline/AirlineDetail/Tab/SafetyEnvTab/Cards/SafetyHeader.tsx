@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
 import { View } from 'react-native'
 
@@ -8,7 +8,7 @@ import { cn } from '@/utils/common/cn'
 interface SafetyHeaderProps {
   className?: string
   iconColor: string
-  iconName: keyof typeof Ionicons.glyphMap
+  iconName: keyof typeof MaterialCommunityIcons.glyphMap
   title: string
 }
 
@@ -19,7 +19,7 @@ export const SafetyHeader = ({
   title,
 }: SafetyHeaderProps) => (
   <View className={cn('flex-row items-center', className)}>
-    <Ionicons color={iconColor} name={iconName} size={20} />
+    <MaterialCommunityIcons color={iconColor} name={iconName} size={20} />
     <ThemedText className="ml-2.5" color="text-90" type="h4">
       {title}
     </ThemedText>

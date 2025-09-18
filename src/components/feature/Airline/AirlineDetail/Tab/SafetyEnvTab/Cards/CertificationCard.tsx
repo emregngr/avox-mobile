@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
 import { View } from 'react-native'
 
@@ -11,7 +11,7 @@ interface CertificationCardProps {
 
 export const CertificationCard = ({ certification, iconColor }: CertificationCardProps) => (
   <View className="flex-row items-center px-3 py-2 rounded-full overflow-hidden my-1 self-start bg-background-tertiary">
-    <Ionicons color={iconColor} name="ribbon" size={16} />
+    <MaterialCommunityIcons color={iconColor} name="certificate" size={16} />
 
     <ThemedText className="ml-2" color="text-70" type="body2">
       {certification}

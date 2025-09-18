@@ -18,13 +18,17 @@ import {
 } from '@/services/authService'
 import { login, logout, register, social } from '@/store/auth'
 import useThemeStore from '@/store/theme'
-import type { AuthCredentials, LoginCredentials, RegisterCredentials } from '@/types/feature/auth'
+import type {
+  AuthCredentialsType,
+  LoginCredentialsType,
+  RegisterCredentialsType,
+} from '@/types/feature/auth'
 import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const auth = getAuth(app)
 
-const handleAuthSuccess = async <T extends AuthCredentials>(
+const handleAuthSuccess = async <T extends AuthCredentialsType>(
   userCredential: FirebaseAuthTypes.UserCredential,
   authFunction: (data: T & { token: string }) => Promise<void>,
   authData: T,
@@ -57,7 +61,7 @@ export const useEmailRegister = () => {
   const { selectedTheme } = useThemeStore()
 
   return useMutation({
-    mutationFn: async ({ email, firstName, lastName, password }: RegisterCredentials) =>
+    mutationFn: async ({ email, firstName, lastName, password }: RegisterCredentialsType) =>
       await signUpWithEmail({ email, firstName, lastName, password }),
     onError: () =>
       Alert.alert(
@@ -94,7 +98,7 @@ export const useEmailLogin = () => {
   const { selectedTheme } = useThemeStore()
 
   return useMutation({
-    mutationFn: async ({ email, password }: LoginCredentials) =>
+    mutationFn: async ({ email, password }: LoginCredentialsType) =>
       await signInWithEmail({ email, password }),
     onError: () =>
       Alert.alert(
@@ -191,7 +195,7 @@ export const useForgotPassword = () => {
     onError: () =>
       Alert.alert(
         getLocale('error'),
-        getLocale('passwordResetLinkSentMessageFailed'),
+        getLocale('passwordResetLinkSentFailed'),
         [
           {
             text: getLocale('ok'),
@@ -204,7 +208,7 @@ export const useForgotPassword = () => {
     onSuccess: () => {
       Toast.show({
         text1: getLocale('successful'),
-        text2: getLocale('passwordResetLinkSentMessage'),
+        text2: getLocale('passwordResetLinkSent'),
         type: 'success',
       })
       router.back()

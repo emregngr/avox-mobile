@@ -4,7 +4,7 @@ import React, { useCallback } from 'react'
 import { ThemedTab } from '@/components/common'
 import useAuthStore from '@/store/auth'
 
-export default function TabLayout() {
+export default function TabsLayout() {
   const { isAuthenticated } = useAuthStore()
   const segments: string[] = useSegments()
 
@@ -14,17 +14,27 @@ export default function TabLayout() {
       const protectedTabs = ['favorites']
 
       if (protectedTabs.includes(currentTab) && !isAuthenticated) {
-        router.replace({ params: { tab: currentTab }, pathname: '/auth' })
+        setTimeout(() => {
+          router.replace({ params: { tab: currentTab }, pathname: '/auth' })
+        }, 16)
       }
     }, [isAuthenticated, segments]),
   )
 
   return (
-    <Tabs screenOptions={{ headerShown: false }} tabBar={props => <ThemedTab {...props} />}>
-      <Tabs.Screen name="home" />
-      <Tabs.Screen name="discover" />
-      <Tabs.Screen name="favorites" />
-      <Tabs.Screen name="profile" />
-    </Tabs>
+    <>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: { display: 'none' },
+        }}
+      >
+        <Tabs.Screen name="home" />
+        <Tabs.Screen name="discover" />
+        <Tabs.Screen name="favorites" />
+        <Tabs.Screen name="profile" />
+      </Tabs>
+      <ThemedTab />
+    </>
   )
 }

@@ -4,22 +4,26 @@ import { useForm } from 'react-hook-form'
 import type { TextInput } from 'react-native'
 import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { z } from 'zod'
 
-import { TextFormField, ThemedButton } from '@/components/common'
+import { TextInputField } from '@/components/common/FormElements'
+import { ThemedGradientButton } from '@/components/common/ThemedGradientButton'
 import { useChangePassword } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
 
 export const ChangePassword = () => {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { isPending, mutateAsync: changePassword } = useChangePassword()
 
   const changePasswordSchema = useMemo(
     () =>
       z
         .object({
-          confirmPassword: z.string().min(6, getLocale('minPasswordMessage')),
-          currentPassword: z.string().min(6, getLocale('minPasswordMessage')),
-          newPassword: z.string().min(6, getLocale('minPasswordMessage')),
+          confirmPassword: z.string().min(6, getLocale('minPassword')),
+          currentPassword: z.string().min(6, getLocale('minPassword')),
+          newPassword: z.string().min(6, getLocale('minPassword')),
         })
         .refine(data => data.newPassword === data.confirmPassword, {
           message: getLocale('passwordsDoNotMatch'),
@@ -118,7 +122,7 @@ export const ChangePassword = () => {
     return !isValid || isPending
   }, [hasBeenSubmitted, isValid, isPending])
 
-  const renderFormField = (fieldConfig: (typeof formLabels)[0], index: number) => {
+  const renderFormField = (fieldConfig: (typeof formLabels)[0]) => {
     const getRef = () => {
       if (fieldConfig.name === 'currentPassword') return currentPasswordRef
       if (fieldConfig.name === 'newPassword') return newPasswordRef
@@ -137,7 +141,7 @@ export const ChangePassword = () => {
     const onSubmitEditingHandler = getOnSubmitEditing()
 
     return (
-      <TextFormField
+      <TextInputField
         control={control}
         editable={!isPending}
         key={fieldConfig.name}
@@ -147,6 +151,7 @@ export const ChangePassword = () => {
         returnKeyType={fieldConfig.returnKeyType}
         secureTextEntry={fieldConfig.secureTextEntry}
         showToggle={fieldConfig.showToggle}
+        testID={fieldConfig.name}
         {...(onSubmitEditingHandler && { onSubmitEditing: onSubmitEditingHandler })}
         {...(refHandler && { ref: refHandler })}
       />
@@ -156,21 +161,24 @@ export const ChangePassword = () => {
   return (
     <KeyboardAwareScrollView
       bottomOffset={50}
-      contentContainerClassName="my-5 pb-24 px-4"
+      contentContainerClassName="px-4"
+      contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
       keyboardDismissMode="on-drag"
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
     >
       <View className="gap-y-2">
-        {formLabels?.map((fieldConfig, index) => renderFormField(fieldConfig, index))}
+        {formLabels?.map(fieldConfig => renderFormField(fieldConfig))}
       </View>
 
       <View className="mt-6">
-        <ThemedButton
+        <ThemedGradientButton
           disabled={buttonDisabled}
           label={getLocale('change')}
           loading={isPending}
           onPress={handleFormSubmit}
+          testID="change-password-submit-button"
+          type="secondary"
         />
       </View>
     </KeyboardAwareScrollView>

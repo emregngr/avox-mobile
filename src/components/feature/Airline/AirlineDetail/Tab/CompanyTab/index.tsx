@@ -6,10 +6,10 @@ import { Contact } from '@/components/feature/Airline/AirlineDetail/Tab/CompanyT
 import { Hub } from '@/components/feature/Airline/AirlineDetail/Tab/CompanyTab/Sections/Hub'
 import { Map } from '@/components/feature/Airline/AirlineDetail/Tab/CompanyTab/Sections/Map'
 import { SocialMedia } from '@/components/feature/Airline/AirlineDetail/Tab/CompanyTab/Sections/SocialMedia'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 
 interface CompanyTabProps {
-  airlineData: Airline
+  airlineData: AirlineType
 }
 
 export const CompanyTab = ({ airlineData }: CompanyTabProps) => {

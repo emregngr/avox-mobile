@@ -1,10 +1,9 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { ActivityIndicator, Platform } from 'react-native'
+import { ActivityIndicator, Platform, ScrollView } from 'react-native'
 import { Tabs } from 'react-native-collapsible-tab-view'
-import { ScrollView } from 'react-native-gesture-handler'
-import { TestIds } from 'react-native-google-mobile-ads'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { FullScreenLoading, Header, RenderDetailTabBar, SafeLayout } from '@/components/common'
 import {
@@ -21,28 +20,35 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airport } from '@/types/feature/airport'
-import type { RegionKey } from '@/types/feature/region'
+import type { AirportType } from '@/types/feature/airport'
+import type { RegionKeyType } from '@/types/feature/region'
 import { AnalyticsService } from '@/utils/common/analyticsService'
 import { cn } from '@/utils/common/cn'
 import { shareAirport } from '@/utils/common/linkingService'
 import { setSystemColors } from '@/utils/common/setSystemColors'
 
+const AD_UNIT_ID =
+  Platform.OS === 'ios'
+    ? 'ca-app-pub-4123130377375974/3677410537'
+    : 'ca-app-pub-4123130377375974/8669334024'
+
 export default function AirportDetail() {
+  const { bottom } = useSafeAreaInsets()
+
   const { airport, airportId } = useLocalSearchParams() as { airport: string; airportId: string }
 
   const { data: airportByIdData } = useAirportById(airportId)
 
-  const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const airportData = useMemo(() => {
     if (airportId) {
-      return airportByIdData as Airport
+      return airportByIdData as AirportType
     }
 
     if (airport) {
-      return JSON.parse(airport) as Airport
+      return JSON.parse(airport) as AirportType
     }
 
     return null
@@ -53,9 +59,9 @@ export default function AirportDetail() {
   const { id: currentAirportId, name, operations } = airportData ?? {}
   const { region } = operations ?? {}
 
-  const regionLower = useMemo(() => region?.toLowerCase() as RegionKey, [region])
+  const regionLower = useMemo(() => region?.toLowerCase() as RegionKeyType, [region])
 
-  const regionColor = useMemo(() => colors?.[regionLower as RegionKey], [colors, regionLower])
+  const regionColor = useMemo(() => colors?.[regionLower as RegionKeyType], [colors, regionLower])
 
   useEffect(() => {
     setSystemColors(regionColor)
@@ -63,7 +69,7 @@ export default function AirportDetail() {
 
   const [activeIndex, setActiveIndex] = useState<number>(0)
 
-  const id = useMemo(() => String(currentAirportId), [currentAirportId])
+  const id = useMemo(() => currentAirportId as string, [currentAirportId])
   const type = useMemo(() => 'airport' as const, [])
 
   const { handleFavoritePress, isFavorite, isPending } = useFavoriteToggle({ id, type })
@@ -115,13 +121,14 @@ export default function AirportDetail() {
         activeIndex={activeIndex}
         indicatorBackgroundColor={regionLower}
         props={props}
+        tabType="airport"
       />
     ),
     [regionLower, activeIndex],
   )
 
   const shareIconOnPress = useCallback(async () => {
-    await shareAirport(airportData as Airport)
+    await shareAirport(airportData as AirportType)
 
     await AnalyticsService.sendEvent('airport_shared', {
       airport_id: airportData?.id,
@@ -132,7 +139,9 @@ export default function AirportDetail() {
   }, [airportData, selectedLocale])
 
   const shareIcon = useMemo(
-    () => <Ionicons color={colors.onPrimary100} name="share-outline" size={20} />,
+    () => (
+      <MaterialCommunityIcons color={colors.onPrimary100} name="share-variant-outline" size={20} />
+    ),
     [colors?.onPrimary100],
   )
 
@@ -141,7 +150,7 @@ export default function AirportDetail() {
       return <ActivityIndicator color={colors?.tertiary100} size="small" />
     }
     return (
-      <Ionicons
+      <MaterialCommunityIcons
         color={isFavorite ? colors?.tertiary100 : colors?.onPrimary100}
         name={isFavorite ? 'heart' : 'heart-outline'}
         size={20}
@@ -165,6 +174,8 @@ export default function AirportDetail() {
     () => ({
       backIconOnPress: handleBackPress,
       containerClassName: 'h-14 my-1',
+      hapticFeedback: true,
+      isFavorite,
       rightIcon,
       rightIconClassName: 'bg-background-primary overflow-hidden rounded-full p-2',
       rightIconOnPress: handleFavoritePress,
@@ -198,25 +209,18 @@ export default function AirportDetail() {
 
   const tabsScrollViewProps = useMemo(
     () => ({
-      contentContainerClassName: 'pb-10',
+      contentContainerStyle: { paddingBottom: bottom + 20 },
       showsVerticalScrollIndicator: false,
     }),
     [],
   )
 
-  const adUnitId = useMemo(() => {
-    if (__DEV__) {
-      return TestIds.BANNER
-    }
-    return Platform.OS === 'ios'
-      ? 'ca-app-pub-4123130377375974/3677410537'
-      : 'ca-app-pub-4123130377375974/8669334024'
-  }, [])
+  if (!airportData) {
+    return <FullScreenLoading />
+  }
 
-  return !airportData ? (
-    <FullScreenLoading />
-  ) : (
-    <SafeLayout className={safeAreaClassName}>
+  return (
+    <SafeLayout className={safeAreaClassName} testID="airport-detail-screen" topBlur={false}>
       <Header {...headerProps} />
 
       <ScrollView {...scrollViewProps}>
@@ -225,7 +229,7 @@ export default function AirportDetail() {
             const TabComponent = tabViews[index]
             return (
               <Tabs.Tab key={route.key} name={route.label}>
-                <Tabs.ScrollView {...tabsScrollViewProps}>
+                <Tabs.ScrollView {...tabsScrollViewProps} testID="airport-detail-scroll-view">
                   {TabComponent ? <TabComponent /> : null}
                 </Tabs.ScrollView>
               </Tabs.Tab>
@@ -234,7 +238,7 @@ export default function AirportDetail() {
         </Tabs.Container>
       </ScrollView>
 
-      <AdBanner adUnitId={adUnitId} />
+      <AdBanner adUnitId={AD_UNIT_ID} />
     </SafeLayout>
   )
 }

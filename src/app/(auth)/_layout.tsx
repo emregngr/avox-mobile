@@ -21,16 +21,17 @@ export default function AuthLayout() {
   return (
     <Stack
       screenOptions={{
+        animation: 'slide_from_bottom',
         gestureEnabled: false,
         headerShown: false,
       }}
     >
-      <Stack.Screen name="auth" options={{ animation: 'slide_from_left' }} />
-      <Stack.Screen name="login" options={{ animation: 'slide_from_bottom' }} />
-      <Stack.Screen name="register" options={{ animation: 'slide_from_bottom' }} />
-      <Stack.Screen name="forgot-password" options={{ animation: 'slide_from_bottom' }} />
-      <Stack.Screen name="privacy-policy" options={{ animation: 'slide_from_bottom' }} />
-      <Stack.Screen name="terms-of-use" options={{ animation: 'slide_from_bottom' }} />
+      <Stack.Screen name="auth" />
+      <Stack.Screen name="login" />
+      <Stack.Screen name="register" />
+      <Stack.Screen name="forgot-password" />
+      <Stack.Screen name="privacy-policy" />
+      <Stack.Screen name="terms-of-use" />
     </Stack>
   )
 }

@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { memo, useCallback, useMemo } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 
@@ -47,8 +47,9 @@ export const RatingSelector = memo(
               hitSlop={10}
               key={rating}
               onPress={() => handleRatingPress(rating)}
+              testID={`rating-button-${rating}`}
             >
-              <Ionicons color={iconColor} name="star" size={16} />
+              <MaterialCommunityIcons color={iconColor} name="star" size={16} />
               <ThemedText color={textColor} type="body3">
                 {` ${rating}`}
               </ThemedText>
@@ -59,7 +60,7 @@ export const RatingSelector = memo(
     )
 
     return (
-      <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+      <ScrollView showsHorizontalScrollIndicator={false} testID="rating-scrollview" horizontal>
         <View className="flex-row items-center">{ratingItems}</View>
       </ScrollView>
     )

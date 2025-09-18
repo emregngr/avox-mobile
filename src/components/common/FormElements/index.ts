@@ -1,2 +1,2 @@
 export * from './CheckboxField'
-export * from './TextFormField'
+export * from './TextInputField'

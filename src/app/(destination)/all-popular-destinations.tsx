@@ -1,16 +1,17 @@
 import { router } from 'expo-router'
 import React, { useCallback } from 'react'
 import { FlatList } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { FullScreenLoading, Header, SafeLayout } from '@/components/common'
 import { DestinationCard } from '@/components/feature'
 import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { useHome } from '@/hooks/services/useHome'
 import { getLocale } from '@/locales/i18next'
-import type { PopularDestination } from '@/types/feature/home'
+import type { PopularDestinationType } from '@/types/feature/home'
 
 interface DestinationCardProps {
-  item: PopularDestination
+  item: PopularDestinationType
 }
 
 const INITIAL_ITEMS_PER_PAGE = 6
@@ -20,6 +21,8 @@ const ITEM_HEIGHT = 280
 const WINDOW_SIZE = 7
 
 export default function AllPopularDestinations() {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { homeData, isLoading } = useHome()
   const { popularDestinations: destinationsData } = homeData ?? {}
 
@@ -30,10 +33,10 @@ export default function AllPopularDestinations() {
     [],
   )
 
-  const keyExtractor = useCallback((item: PopularDestination) => item?.id?.toString(), [])
+  const keyExtractor = useCallback((item: PopularDestinationType) => item?.id, [])
 
   const getItemLayout = useCallback(
-    (_: ArrayLike<PopularDestination> | null | undefined, index: number) => ({
+    (_: ArrayLike<PopularDestinationType> | null | undefined, index: number) => ({
       index,
       length: ITEM_HEIGHT,
       offset: ITEM_HEIGHT * index,
@@ -50,11 +53,17 @@ export default function AllPopularDestinations() {
   }
 
   return (
-    <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={getLocale('popularDestinations')} />
+    <SafeLayout testID="all-popular-destinations-screen">
+      <Header
+        backIconOnPress={handleBackPress}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        style={{ top }}
+        title={getLocale('popularDestinations')}
+      />
       <FlatList
         columnWrapperClassName="justify-between gap-x-4"
-        contentContainerClassName="pt-5 px-4 pb-10 self-center"
+        contentContainerClassName="px-4 self-center"
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
         data={destinationsData}
         getItemLayout={getItemLayout}
         initialNumToRender={INITIAL_ITEMS_PER_PAGE}

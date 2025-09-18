@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import type BottomSheet from '@gorhom/bottom-sheet'
 import React, { memo, useCallback, useMemo, useRef } from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -11,6 +11,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { SearchInput } from '@/components/common/SearchInput'
 import { ThemedText } from '@/components/common/ThemedText'
@@ -22,7 +23,7 @@ import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 import { cn } from '@/utils/common/cn'
 
 const INITIAL_ITEMS_PER_PAGE = 6
@@ -38,7 +39,7 @@ interface AirlinesFilters {
   [key: string]: any
 }
 interface AirlineCardProps {
-  item: Airline
+  item: AirlineType
 }
 
 interface Skeleton {
@@ -57,7 +58,7 @@ interface AirlinesTabProps {
   airlinesSearchLoading: boolean
   airlinesSearchTerm: string
   loadMoreAirlines: () => void
-  paginatedAirlines: Airline[]
+  paginatedAirlines: AirlineType[]
   setAirlinesFilters: (filters: AirlinesFilters) => void
   setAirlinesSearchTerm: (term: string) => void
 }
@@ -75,6 +76,8 @@ export const AirlinesTab = memo(
     setAirlinesFilters,
     setAirlinesSearchTerm,
   }: AirlinesTabProps) => {
+    const { bottom } = useSafeAreaInsets()
+
     const { selectedTheme } = useThemeStore()
 
     const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
@@ -285,7 +288,7 @@ export const AirlinesTab = memo(
       [],
     )
 
-    const keyExtractor = useCallback((item: Airline) => item?.id?.toString(), [])
+    const keyExtractor = useCallback((item: AirlineType) => item?.id, [])
 
     const renderItem = useMemo(() => {
       if (airlinesSearchLoading) {
@@ -332,6 +335,7 @@ export const AirlinesTab = memo(
                 className={filterButtonClassName}
                 hitSlop={{ bottom: 20, right: 20 }}
                 onPress={handleOpenPress}
+                testID="filter-button"
               >
                 {hasActiveFilters ? (
                   <View className="absolute top-[-3px] right-[-3px] bg-secondary-100 rounded-full overflow-hidden py-[1px] px-[4px] items-center justify-center z-50">
@@ -340,7 +344,7 @@ export const AirlinesTab = memo(
                     </ThemedText>
                   </View>
                 ) : null}
-                <Ionicons color={filterIconColor} name="filter" size={24} />
+                <MaterialCommunityIcons color={filterIconColor} name="filter-variant" size={24} />
               </TouchableOpacity>
             </Animated.View>
           </View>
@@ -350,8 +354,9 @@ export const AirlinesTab = memo(
           bounces={false}
           bouncesZoom={false}
           columnWrapperClassName="justify-between"
-          contentContainerClassName="pt-[148px] px-4 pb-10"
-          data={flatListData as Airline[]}
+          contentContainerClassName="pt-[148px] px-4"
+          contentContainerStyle={{ paddingBottom: bottom + 72 }}
+          data={flatListData as AirlineType[]}
           initialNumToRender={INITIAL_ITEMS_PER_PAGE}
           keyboardDismissMode="on-drag"
           keyboardShouldPersistTaps="handled"

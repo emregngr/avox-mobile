@@ -2,13 +2,13 @@ import { getApp } from '@react-native-firebase/app'
 import type { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
 import { collection, doc, getDoc, getDocs, getFirestore } from '@react-native-firebase/firestore'
 
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 import { Logger } from '@/utils/common/logger'
 
 const app = getApp()
 const db = getFirestore(app)
 
-export const getAllAirlines = async (locale: string): Promise<Airline[]> => {
+export const getAllAirlines = async (locale: string): Promise<AirlineType[]> => {
   try {
     const collectionName = locale === 'en' ? 'enAirlines' : 'trAirlines'
 
@@ -20,8 +20,8 @@ export const getAllAirlines = async (locale: string): Promise<Airline[]> => {
         ({
           ...doc.data(),
           id: doc.id,
-        }) as unknown as Airline,
-    ) as Airline[]
+        }) as unknown as AirlineType,
+    ) as AirlineType[]
 
     return airlines.sort((a, b) => (a.name ?? '').localeCompare(b.name ?? ''))
   } catch (error) {
@@ -30,7 +30,7 @@ export const getAllAirlines = async (locale: string): Promise<Airline[]> => {
   }
 }
 
-export const getAirlineById = async (id: string, locale: string): Promise<Airline | null> => {
+export const getAirlineById = async (id: string, locale: string): Promise<AirlineType | null> => {
   try {
     if (!id?.trim()) {
       return null
@@ -45,7 +45,7 @@ export const getAirlineById = async (id: string, locale: string): Promise<Airlin
       return {
         ...data,
         id: airlineDoc.id,
-      } as unknown as Airline
+      } as unknown as AirlineType
     }
 
     return null

@@ -2,7 +2,6 @@ import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { memo, useCallback, useMemo } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
-import { TestIds } from 'react-native-google-mobile-ads'
 
 import { FullScreenLoading } from '@/components/common/FullScreenLoading'
 import { ThemedText } from '@/components/common/ThemedText'
@@ -10,20 +9,19 @@ import { FavoriteButton } from '@/components/feature/FavoriteButton'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 import { AnalyticsService } from '@/utils/common/analyticsService'
 import { responsive } from '@/utils/common/responsive'
 import { getAirportImage } from '@/utils/feature/getAirportImage'
-import type { AirportType } from '@/utils/feature/getBadge'
+import type { AirportBadgeType } from '@/utils/feature/getBadge'
 import { getAirportBadge } from '@/utils/feature/getBadge'
 
 interface AirportCardProps {
-  airport: Airport
+  airport: AirportType
 }
 
-const AD_UNIT_ID = __DEV__
-  ? TestIds.INTERSTITIAL
-  : Platform.OS === 'ios'
+const AD_UNIT_ID =
+  Platform.OS === 'ios'
     ? 'ca-app-pub-4123130377375974/7531194946'
     : 'ca-app-pub-4123130377375974/8992450420'
 
@@ -53,6 +51,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
     iataCode,
     icaoCode,
     id,
+    image,
     infrastructure: { passengerCapacity },
     name,
     operations: {
@@ -74,9 +73,12 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
     [selectedLocale],
   )
 
-  const image = useMemo(() => getAirportImage(airportType as AirportType), [airportType])
+  const defaultImage = useMemo(
+    () => getAirportImage(airportType as AirportBadgeType),
+    [airportType],
+  )
 
-  const badge = useMemo(() => getAirportBadge(airportType as AirportType), [airportType])
+  const badge = useMemo(() => getAirportBadge(airportType as AirportBadgeType), [airportType])
 
   const locationText = useMemo(() => `${city}, ${country}, ${region}`, [city, country, region])
 
@@ -116,12 +118,13 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
       className="bg-background-secondary rounded-xl mb-4 w-[48%] border border-background-quaternary shadow shadow-background-quaternary"
       hitSlop={20}
       onPress={onCardPress}
+      testID={`airport-card-${id}`}
     >
-      <View className="rounded-t-xl w-full justify-center overflow-hidden">
+      <View className="rounded-t-xl overflow-hidden  justify-center w-full ">
         <Image
           cachePolicy="memory-disk"
           contentFit="cover"
-          source={image}
+          source={image || defaultImage}
           style={STATIC_STYLES.image}
           transition={0}
         />
@@ -146,7 +149,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
           </ThemedText>
         </View>
 
-        <FavoriteButton id={String(id)} type="airport" />
+        <FavoriteButton id={id} type="airport" />
       </View>
 
       <View className="px-3 py-3">
@@ -201,7 +204,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
               </View>
             </View>
 
-            <View className="my-3 w-[100px] self-center flex flex-row justify-between">
+            <View className="my-3 w-[100px] self-center flex-row justify-between">
               <View className="h-[1px] w-8 bg-primary-100" />
               <View className="h-[1px] w-8 bg-primary-100" />
             </View>
@@ -264,7 +267,7 @@ AirportCard.displayName = 'AirportCard'
 interface AirportsLoadMoreFooterProps {
   airportsHasNext: boolean
   airportsLoading: boolean
-  flatAirportsData: Airport[]
+  flatAirportsData: AirportType[]
 }
 
 const AirportsLoadMoreFooter = memo(

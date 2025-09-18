@@ -4,13 +4,13 @@ import { View } from 'react-native'
 import { StatsCard } from '@/components/feature/Airport/AirportDetail/Tab/AirportFlightTab/Cards/StatsCard'
 
 interface StatsGridProps {
-  iconColor: string,
+  iconColor: string
   localeStrings: {
-    country: string,
-    domesticDestinations: string,
-    internationalDestination: string,
+    country: string
+    domesticDestinations: string
+    internationalDestination: string
     totalDestination: string
-  },
+  }
   stats: {
     destinationCount: number
     destinationCountries: number
@@ -24,7 +24,7 @@ export const StatsGrid = ({ iconColor, localeStrings, stats }: StatsGridProps) =
     <View className="flex-row gap-x-4">
       <StatsCard
         iconColor={iconColor}
-        iconName="flag"
+        iconName="flag-outline"
         label={localeStrings.totalDestination}
         value={stats.destinationCount}
       />
@@ -39,16 +39,16 @@ export const StatsGrid = ({ iconColor, localeStrings, stats }: StatsGridProps) =
     <View className="flex-row gap-x-4">
       <StatsCard
         iconColor={iconColor}
-        iconName="home"
+        iconName="home-outline"
         label={localeStrings.domesticDestinations}
         value={stats.domesticConnections}
       />
       <StatsCard
         iconColor={iconColor}
-        iconName="globe"
+        iconName="earth-arrow-right"
         label={localeStrings.internationalDestination}
         value={stats.internationalConnections}
       />
     </View>
   </>
-  )
+)

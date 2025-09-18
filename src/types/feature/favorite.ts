@@ -1,6 +1,6 @@
-export type FavoriteItem = {
+export type FavoriteItemType = {
   id: string
   type: 'airline' | 'airport'
 }
 
-export type Favorites = FavoriteItem[]
+export type FavoritesType = FavoriteItemType[]

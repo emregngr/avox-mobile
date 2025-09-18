@@ -1,23 +1,24 @@
 import React, { useCallback, useMemo } from 'react'
-import { FlatList, RefreshControl, View } from 'react-native'
+import { FlatList, RefreshControl } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { AirportFavoriteItemCard } from '@/components/feature/Favorites/AirportFavoriteItemCard'
-import { EmptyState } from '@/components/feature/Favorites/EmptyState'
+import { EmptyFavorite } from '@/components/feature/Favorites/EmptyFavorite'
 import { FavoriteSkeleton } from '@/components/feature/Favorites/FavoriteSkeleton'
 import { useBatchingPeriod } from '@/hooks/batchingPeriod/useBatchingPeriod'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 
 interface FavoriteAirportsListProps {
-  airports: Airport[]
+  airports: AirportType[]
   isLoading: boolean
   onRefresh: () => void
 }
 
 interface AirportFavoriteItemCard {
-  item: Airport
+  item: AirportType
 }
 
 const INITIAL_ITEMS_PER_PAGE = 6
@@ -27,7 +28,10 @@ const ITEM_HEIGHT = 500
 const WINDOW_SIZE = 7
 
 export const FavoriteAirports = ({ airports, isLoading, onRefresh }: FavoriteAirportsListProps) => {
+  const { bottom } = useSafeAreaInsets()
+
   const { selectedTheme } = useThemeStore()
+
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const BATCHING_PERIOD = useBatchingPeriod()
@@ -37,10 +41,10 @@ export const FavoriteAirports = ({ airports, isLoading, onRefresh }: FavoriteAir
     [],
   )
 
-  const keyExtractor = useCallback((item: Airport) => item?.id?.toString(), [])
+  const keyExtractor = useCallback((item: AirportType) => item?.id, [])
 
   const getItemLayout = useCallback(
-    (_: ArrayLike<Airport> | null | undefined, index: number) => ({
+    (_: ArrayLike<AirportType> | null | undefined, index: number) => ({
       index,
       length: ITEM_HEIGHT,
       offset: ITEM_HEIGHT * index,
@@ -53,11 +57,7 @@ export const FavoriteAirports = ({ airports, isLoading, onRefresh }: FavoriteAir
   }
 
   if (airports?.length === 0) {
-    return (
-      <View className="flex-1 mt-[52px] px-4 pb-10">
-        <EmptyState text={getLocale('noFavoriteAirport')} />
-      </View>
-    )
+    return <EmptyFavorite icon="airport" text={getLocale('noFavoriteAirport')} />
   }
 
   const refreshControl = (
@@ -76,7 +76,8 @@ export const FavoriteAirports = ({ airports, isLoading, onRefresh }: FavoriteAir
     <FlatList
       className="mt-[52px]"
       columnWrapperClassName="justify-between"
-      contentContainerClassName="px-4 pb-10"
+      contentContainerClassName="px-4"
+      contentContainerStyle={{ paddingBottom: bottom + 72 }}
       data={airports}
       getItemLayout={getItemLayout}
       initialNumToRender={INITIAL_ITEMS_PER_PAGE}

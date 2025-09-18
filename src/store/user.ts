@@ -1,34 +1,36 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { MMKV } from 'react-native-mmkv'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 import { ENUMS } from '@/enums'
 
+const storage = new MMKV()
+
 export type UserStateType = {
-  isOnBoardingSeen: boolean
+  isOnboardingSeen: boolean
   loading: boolean
 }
 
 export type UserActions = {
   deleteUser: () => Promise<void>
-  setIsOnBoardingSeen: (status: boolean) => Promise<void>
+  setIsOnboardingSeen: (status: boolean) => Promise<void>
 }
 
 const useUserStore = create<UserStateType & UserActions>()(
   devtools(set => ({
-    deleteUser: async () => {
+    deleteUser: () => {
       set({ loading: true })
-      await AsyncStorage.removeItem(ENUMS.API_TOKEN)
+      storage.delete(ENUMS.API_TOKEN)
       set({ loading: false })
     },
-    isOnBoardingSeen: false,
+    isOnboardingSeen: false,
     loading: false,
-    setIsOnBoardingSeen: async status => {
-      await AsyncStorage.setItem(ENUMS.IS_ONBOARDING_SEEN, status ? 'true' : 'false')
+    setIsOnboardingSeen: async status => {
+      storage.set(ENUMS.IS_ONBOARDING_SEEN, status ? 'true' : 'false')
     },
   })),
 )
 
-export const { deleteUser, setIsOnBoardingSeen } = useUserStore.getState()
+export const { deleteUser, setIsOnboardingSeen } = useUserStore.getState()
 
 export default useUserStore

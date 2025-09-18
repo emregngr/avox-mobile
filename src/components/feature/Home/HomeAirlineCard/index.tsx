@@ -2,37 +2,38 @@ import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { memo, useCallback, useMemo } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
-import { TestIds } from 'react-native-google-mobile-ads'
 
 import { ThemedText } from '@/components/common/ThemedText'
 import { FavoriteButton } from '@/components/feature/FavoriteButton'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
-import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 import { AnalyticsService } from '@/utils/common/analyticsService'
-import type { AirlineType } from '@/utils/feature/getBadge'
+import type { AirlineBadgeType } from '@/utils/feature/getBadge'
 import { getAirlineBadge } from '@/utils/feature/getBadge'
 
 interface HomeAirlineCardProps {
-  airline: Airline
+  airline: AirlineType
 }
 
-const AD_UNIT_ID = __DEV__
-  ? TestIds.INTERSTITIAL
-  : Platform.OS === 'ios'
+const AD_UNIT_ID =
+  Platform.OS === 'ios'
     ? 'ca-app-pub-4123130377375974/1756124081'
     : 'ca-app-pub-4123130377375974/2330839152'
 
 const STATIC_STYLES = {
   badge: {
-    bottom: 4,
     height: 40,
     left: 4,
     position: 'absolute' as const,
+    top: 4,
     width: 40,
   },
-  title: {
+  logo: {
+    height: 40,
+    width: '50%' as const,
+  },
+  topContainer: {
     height: 130,
   },
 }
@@ -44,9 +45,9 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
     iataCode,
     icaoCode,
     id,
+    logo,
     name,
     operations: {
-      businessModel,
       businessType,
       country,
       hub: { city },
@@ -54,7 +55,7 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
     },
   } = airline ?? {}
 
-  const badge = useMemo(() => getAirlineBadge(businessType as AirlineType), [businessType])
+  const badge = useMemo(() => getAirlineBadge(businessType as AirlineBadgeType), [businessType])
 
   const locationText = useMemo(() => `${city}, ${country}, ${region}`, [city, country, region])
 
@@ -66,24 +67,14 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
       content: 'px-3 py-3',
       contentInner: 'h-28 justify-between',
       header:
-        'bg-background-primary rounded-t-xl overflow-hidden w-full justify-center overflow-hidden',
+        'bg-background-primary rounded-t-xl overflow-hidden w-full justify-center items-center',
+      iataCodeContainer:
+        'bg-primary-100 px-2 py-1 rounded-xl overflow-hidden absolute bottom-2 left-2',
       icaoCodeContainer:
         'bg-primary-100 px-2 py-1 rounded-xl overflow-hidden absolute bottom-2 right-2',
       locationText: 'mt-1',
     }),
     [],
-  )
-
-  const cargoLabel = useMemo(
-    () =>
-      businessModel === 'cargo' ? (
-        <View className={classNames.cargoContainer}>
-          <ThemedText color="text-100" type="body3">
-            {getLocale('cargo')}
-          </ThemedText>
-        </View>
-      ) : null,
-    [businessModel, classNames.cargoContainer],
   )
 
   const logAirlineCardPress = useCallback(async () => {
@@ -121,10 +112,14 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
       hitSlop={20}
       onPress={onCardPress}
     >
-      <View className={classNames.header} style={STATIC_STYLES.title}>
-        <ThemedText color="tertiary-100" type="title" center>
-          {iataCode}
-        </ThemedText>
+      <View className={classNames.header} style={STATIC_STYLES.topContainer}>
+        <Image
+          cachePolicy="memory-disk"
+          contentFit="contain"
+          source={logo}
+          style={STATIC_STYLES.logo}
+          transition={0}
+        />
 
         <Image
           cachePolicy="memory-disk"
@@ -134,15 +129,19 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
           transition={0}
         />
 
+        <View className={classNames.iataCodeContainer}>
+          <ThemedText color="text-100" type="button2">
+            {iataCode}
+          </ThemedText>
+        </View>
+
         <View className={classNames.icaoCodeContainer}>
           <ThemedText color="text-100" type="button2">
             {icaoCode}
           </ThemedText>
         </View>
 
-        {cargoLabel}
-
-        <FavoriteButton id={String(id)} type="airline" />
+        <FavoriteButton id={id} type="airline" />
       </View>
 
       <View className={classNames.content}>

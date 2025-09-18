@@ -1,8 +1,8 @@
-export type OnBoardingType = {
-  id: number
+export type OnboardingType = {
+  id: string
   image: string
   text: string
   title: string
 }
 
-export type OnBoardingsType = OnBoardingType[]
+export type OnboardingsType = OnboardingType[]

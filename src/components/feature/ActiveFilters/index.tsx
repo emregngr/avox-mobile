@@ -1,7 +1,6 @@
-import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { memo, useCallback, useMemo, useRef } from 'react'
-import { TouchableOpacity, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { ScrollView, TouchableOpacity, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
 import { getLocale } from '@/locales/i18next'
@@ -81,6 +80,7 @@ export const ActiveFilters = memo(({ filters, onClearAll, onRemove }: ActiveFilt
             className="bg-error px-3 py-1.5 rounded-full overflow-hidden mr-8 left-6"
             hitSlop={10}
             onPress={onClearAll}
+            testID="active-filters-clear-button"
           >
             <ThemedText color="text-100" type="body3">
               {getLocale('clear')} ({filterCount})
@@ -100,8 +100,9 @@ export const ActiveFilters = memo(({ filters, onClearAll, onRemove }: ActiveFilt
                 className="bg-background-quaternary rounded-full overflow-hidden ml-2"
                 hitSlop={10}
                 onPress={() => handleRemove(key)}
+                testID={`active-filters-remove-${key}`}
               >
-                <Ionicons color={colors?.onPrimary100} name="close" size={14} />
+                <MaterialCommunityIcons color={colors?.onPrimary100} name="close" size={14} />
               </TouchableOpacity>
             </View>
           ))}

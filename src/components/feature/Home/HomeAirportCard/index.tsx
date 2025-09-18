@@ -2,25 +2,23 @@ import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { memo, useCallback, useMemo } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
-import { TestIds } from 'react-native-google-mobile-ads'
 
 import { ThemedText } from '@/components/common/ThemedText'
 import { FavoriteButton } from '@/components/feature/FavoriteButton'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
 import useLocaleStore from '@/store/locale'
-import type { Airport } from '@/types/feature/airport'
+import type { AirportType } from '@/types/feature/airport'
 import { AnalyticsService } from '@/utils/common/analyticsService'
 import { getAirportImage } from '@/utils/feature/getAirportImage'
-import type { AirportType } from '@/utils/feature/getBadge'
+import type { AirportBadgeType } from '@/utils/feature/getBadge'
 import { getAirportBadge } from '@/utils/feature/getBadge'
 
 interface HomeAirportCardProps {
-  airport: Airport
+  airport: AirportType
 }
 
-const AD_UNIT_ID = __DEV__
-  ? TestIds.INTERSTITIAL
-  : Platform.OS === 'ios'
+const AD_UNIT_ID =
+  Platform.OS === 'ios'
     ? 'ca-app-pub-4123130377375974/7531194946'
     : 'ca-app-pub-4123130377375974/8992450420'
 
@@ -46,6 +44,7 @@ export const HomeAirportCard = memo(({ airport }: HomeAirportCardProps) => {
     icaoCode,
     id,
     name,
+    image,
     operations: {
       airportType,
       country,
@@ -54,9 +53,12 @@ export const HomeAirportCard = memo(({ airport }: HomeAirportCardProps) => {
     },
   } = airport ?? {}
 
-  const image = useMemo(() => getAirportImage(airportType as AirportType), [airportType])
+  const defaultImage = useMemo(
+    () => getAirportImage(airportType as AirportBadgeType),
+    [airportType],
+  )
 
-  const badge = useMemo(() => getAirportBadge(airportType as AirportType), [airportType])
+  const badge = useMemo(() => getAirportBadge(airportType as AirportBadgeType), [airportType])
 
   const locationText = useMemo(() => `${city}, ${country}, ${region}`, [city, country, region])
 
@@ -115,7 +117,7 @@ export const HomeAirportCard = memo(({ airport }: HomeAirportCardProps) => {
         <Image
           cachePolicy="memory-disk"
           contentFit="cover"
-          source={image}
+          source={image || defaultImage}
           style={STATIC_STYLES.image}
           transition={0}
         />
@@ -140,15 +142,12 @@ export const HomeAirportCard = memo(({ airport }: HomeAirportCardProps) => {
           </ThemedText>
         </View>
 
-        <FavoriteButton id={String(id)} type="airport" />
+        <FavoriteButton id={id} type="airport" />
       </View>
 
       <View className={classNames.content}>
         <View className={classNames.contentInner}>
-          <ThemedText
-            color="text-100" ellipsizeMode="tail" numberOfLines={2}
-            type="body3"
-          >
+          <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={2} type="body3">
             {name}
           </ThemedText>
 

@@ -9,15 +9,15 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 
 interface AirlineFlightTabProps {
-  airlineData: Airline
+  airlineData: AirlineType
 }
 
 export const AirlineFlightTab = ({ airlineData }: AirlineFlightTabProps) => {
-  const { selectedTheme } = useThemeStore()
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
@@ -78,9 +78,9 @@ export const AirlineFlightTab = ({ airlineData }: AirlineFlightTabProps) => {
 
       <RoutesList iconColor={iconColor} routes={routes} title={localeStrings.activeRoutes} />
 
-      {alliance !== 'none' && (
+      {alliance !== 'none' ? (
         <Alliance alliance={alliance} iconColor={iconColor} title={localeStrings.alliance} />
-      )}
+      ) : null}
     </View>
   )
 }

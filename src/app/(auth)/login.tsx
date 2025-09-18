@@ -6,14 +6,15 @@ import { useForm } from 'react-hook-form'
 import type { TextInput } from 'react-native'
 import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { z } from 'zod'
 
 import {
   Header,
   SafeLayout,
-  TextFormField,
-  ThemedButton,
+  TextInputField,
   ThemedButtonText,
+  ThemedGradientButton,
   ThemedText,
 } from '@/components/common'
 import { useEmailLogin } from '@/hooks/services/useAuth'
@@ -31,6 +32,8 @@ const STATIC_STYLES = {
 }
 
 export default function Login() {
+  const { bottom, top } = useSafeAreaInsets()
+
   const { selectedLocale } = useLocaleStore()
 
   const { isRegisterParam } = useLocalSearchParams()
@@ -40,11 +43,8 @@ export default function Login() {
   const loginSchema = useMemo(
     () =>
       z.object({
-        email: z.string().pipe(z.email(getLocale('invalidEmailMessage'))),
-        password: z
-          .string()
-          .min(6, getLocale('minPasswordMessage'))
-          .max(50, getLocale('maxPasswordMessage')),
+        email: z.string().pipe(z.email(getLocale('invalidEmail'))),
+        password: z.string().min(6, getLocale('minPassword')).max(50, getLocale('maxPassword')),
       }),
     [],
   )
@@ -162,7 +162,7 @@ export default function Login() {
   )
 
   const renderFormField = useCallback(
-    (fieldConfig: (typeof formLabels)[0], index: number) => {
+    (fieldConfig: (typeof formLabels)[0]) => {
       const getRef = () => {
         if (fieldConfig.name === 'email') return emailRef
         if (fieldConfig.name === 'password') return passwordRef
@@ -179,7 +179,7 @@ export default function Login() {
       const onSubmitEditingHandler = getOnSubmitEditing()
 
       return (
-        <TextFormField
+        <TextInputField
           control={control}
           editable={fieldConfig.editable && !isPending}
           key={fieldConfig.name}
@@ -190,6 +190,7 @@ export default function Login() {
           returnKeyType={fieldConfig.returnKeyType}
           secureTextEntry={fieldConfig.secureTextEntry}
           showToggle={fieldConfig.showToggle}
+          testID={fieldConfig.name}
           {...(onSubmitEditingHandler && { onSubmitEditing: onSubmitEditingHandler })}
           {...(refHandler && { ref: refHandler })}
         />
@@ -199,12 +200,19 @@ export default function Login() {
   )
 
   return (
-    <SafeLayout>
-      <Header backIconOnPress={handleBackPress} title={localeStrings.login} />
+    <SafeLayout testID="login-screen">
+      <Header
+        backIconOnPress={handleBackPress}
+        containerClassName="absolute left-0 right-0 bg-transparent z-50"
+        style={{ top }}
+        testID="login-screen-header"
+        title={localeStrings.login}
+      />
 
       <KeyboardAwareScrollView
         bottomOffset={50}
-        contentContainerClassName="my-5 pb-24 px-4"
+        contentContainerClassName="px-4"
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
@@ -218,27 +226,26 @@ export default function Login() {
             transition={0}
           />
         </View>
-
         <View className="gap-y-2">
-          {formLabels.map((fieldConfig, index) => renderFormField(fieldConfig, index))}
+          {formLabels.map(fieldConfig => renderFormField(fieldConfig))}
         </View>
-
         <ThemedButtonText
           containerStyle="self-end my-6"
           disabled={isPending}
           hitSlop={10}
           label={localeStrings.forgotPassword}
           onPress={handleForgotPasswordPress}
+          testID="forgot-password-button"
           textColor="text-100"
           type="body2"
         />
 
-        <ThemedButton
+        <ThemedGradientButton
           disabled={buttonDisabled}
           label={getLocale('login')}
           loading={isPending}
           onPress={handleFormSubmit}
-          type="border"
+          testID="login-submit-button"
         />
 
         <View className="flex-row justify-center items-center mt-6">
@@ -250,6 +257,7 @@ export default function Login() {
             hitSlop={10}
             label={localeStrings.createAccount}
             onPress={handleRegisterPress}
+            testID="create-account-button"
             textColor="text-100"
             textStyle="ml-1"
             type="body2"

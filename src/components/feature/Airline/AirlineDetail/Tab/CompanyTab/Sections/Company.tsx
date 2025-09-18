@@ -4,11 +4,11 @@ import { AirlineRowItem } from '@/components/feature/Airline/AirlineDetail/Airli
 import { AirlineSectionRow } from '@/components/feature/Airline/AirlineDetail/AirlineSectionRow'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import type { Airline } from '@/types/feature/airline'
+import type { AirlineType } from '@/types/feature/airline'
 import { formatNumber } from '@/utils/feature/formatNumber'
 
 interface CompanyProps {
-  airlineData: Airline
+  airlineData: AirlineType
 }
 
 export const Company = ({ airlineData }: CompanyProps) => {
@@ -79,27 +79,27 @@ export const Company = ({ airlineData }: CompanyProps) => {
   return (
     <AirlineSectionRow title={localeStrings.airlineInfo}>
       <AirlineRowItem
-        icon="calendar"
+        icon="calendar-month-outline"
         label={localeStrings.yearOfEstablishment}
         value={formattedYearOfEstablishment}
       />
 
-      <AirlineRowItem icon="business" label={localeStrings.parentCompany} value={parentCompany} />
+      <AirlineRowItem icon="domain" label={localeStrings.parentCompany} value={parentCompany} />
 
       <AirlineRowItem
-        icon="people"
+        icon="account-group-outline"
         label={localeStrings.numberOfPassengers}
         value={formattedPassengerCapacity}
       />
 
       <AirlineRowItem
-        icon="people"
+        icon="account-group-outline"
         label={localeStrings.numberOfEmployees}
         value={formattedEmployeeCount}
       />
 
       <AirlineRowItem
-        icon="briefcase"
+        icon="briefcase-outline"
         label={localeStrings.businessModel}
         value={businessModelValue}
       />
@@ -110,13 +110,21 @@ export const Company = ({ airlineData }: CompanyProps) => {
         value={businessTypeValue}
       />
 
-      <AirlineRowItem icon="flag" label={localeStrings.isoCountryCode} value={isoCountry} />
+      <AirlineRowItem icon="flag-outline" label={localeStrings.isoCountryCode} value={isoCountry} />
 
-      <AirlineRowItem icon="location" label={localeStrings.isoRegionCode} value={isoRegion} />
+      <AirlineRowItem
+        icon="map-marker-outline"
+        label={localeStrings.isoRegionCode}
+        value={isoRegion}
+      />
 
-      <AirlineRowItem icon="star" label={localeStrings.skytraxRating} value={skytraxRatingValue} />
+      <AirlineRowItem
+        icon="star-outline"
+        label={localeStrings.skytraxRating}
+        value={skytraxRatingValue}
+      />
 
-      <AirlineRowItem icon="chatbox-ellipses" label={localeStrings.slogan} value={slogan} />
+      <AirlineRowItem icon="chat-outline" label={localeStrings.slogan} value={slogan} />
     </AirlineSectionRow>
   )
 }
