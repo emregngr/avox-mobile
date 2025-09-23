@@ -45,7 +45,8 @@ const mockedAirport: AirportType = {
   isoCountry: 'TR',
   isoRegion: 'TR-34',
   name: 'İstanbul Airport',
-  image: 'https://res.cloudinary.com/dzkssh0tp/image/upload/v1758030477/IST_vy5oim.jpg',
+  image:
+    'https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758030477/IST_vy5oim.jpg',
   airportInfo: {
     foundingYear: '2018',
     employeeCount: 5000,

@@ -27,7 +27,7 @@ const mockedAirlines: AirlineType[] = [
     name: 'Aegean Airlines',
     iataCode: 'A3',
     icaoCode: 'AEE',
-    logo: '',
+    logo: 'https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758452053/A3_g7olhn.png',
     companyInfo: {
       foundingYear: '1999',
       parentCompany: 'Aegean Airlines S.A.',
@@ -125,7 +125,7 @@ const mockedAirlines: AirlineType[] = [
     name: 'Aer Lingus',
     iataCode: 'EI',
     icaoCode: 'EIN',
-    logo: '',
+    logo: 'https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758452209/EI_jdkisg.png',
     companyInfo: {
       foundingYear: '1936',
       parentCompany: 'International Airlines Group (IAG)',

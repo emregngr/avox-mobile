@@ -136,7 +136,7 @@ exports[`AllPopularAirlines Screen Snapshot should render the AllPopularAirlines
           "id": "1",
           "isoCountry": "TR",
           "isoRegion": "TR-34",
-          "logo": "https://res.cloudinary.com/dzkssh0tp/image/upload/v1758030467/TK_djxzx2.png",
+          "logo": "https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382974/TK_pog2zq.png",
           "name": "Turkish Airlines",
           "network": {
             "destinationCount": 350,
@@ -249,7 +249,7 @@ exports[`AllPopularAirlines Screen Snapshot should render the AllPopularAirlines
           "id": "2",
           "isoCountry": "TR",
           "isoRegion": "TR-34",
-          "logo": "",
+          "logo": "https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382933/PC_i3bpgq.png",
           "name": "Pegasus Airlines",
           "network": {
             "destinationCount": 120,

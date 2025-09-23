@@ -115,7 +115,7 @@ const mockedAirline: AirlineType = {
   name: 'ABX Air',
   iataCode: 'GB',
   icaoCode: 'ABX',
-  logo: '',
+  logo: 'https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758451911/GB_izo8ug.png',
   companyInfo: {
     foundingYear: '1980',
     parentCompany: 'Air Transport Services Group',

@@ -43,8 +43,8 @@ export const HomeAirportCard = memo(({ airport }: HomeAirportCardProps) => {
     iataCode,
     icaoCode,
     id,
-    name,
     image,
+    name,
     operations: {
       airportType,
       country,
@@ -147,7 +147,10 @@ export const HomeAirportCard = memo(({ airport }: HomeAirportCardProps) => {
 
       <View className={classNames.content}>
         <View className={classNames.contentInner}>
-          <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={2} type="body3">
+          <ThemedText
+            color="text-100" ellipsizeMode="tail" numberOfLines={2}
+            type="body3"
+          >
             {name}
           </ThemedText>
 

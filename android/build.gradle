@@ -1,9 +1,9 @@
 buildscript {
     ext {
-        buildToolsVersion = findProperty('android.buildToolsVersion') ?: '35.0.0'
+        buildToolsVersion = findProperty('android.buildToolsVersion') ?: '36.0.0'
         minSdkVersion = Integer.parseInt(findProperty('android.minSdkVersion') ?: '24')
-        compileSdkVersion = Integer.parseInt(findProperty('android.compileSdkVersion') ?: '35')
-        targetSdkVersion = Integer.parseInt(findProperty('android.targetSdkVersion') ?: '35')
+        compileSdkVersion = Integer.parseInt(findProperty('android.compileSdkVersion') ?: '36')
+        targetSdkVersion = Integer.parseInt(findProperty('android.targetSdkVersion') ?: '36')
         kotlinVersion = findProperty('android.kotlinVersion') ?: '2.1.20'
 
         ndkVersion = "27.3.13750724"
@@ -16,7 +16,7 @@ buildscript {
         classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.3'
         classpath 'com.google.gms:google-services:4.4.1'
         classpath 'com.android.tools.build:gradle:8.5.2'
-        classpath 'com.facebook.react:react-native-gradle-plugin:0.81.1'
+        classpath 'com.facebook.react:react-native-gradle-plugin:0.81.4'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.20'
         classpath "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.1.20-1.0.32"
     }

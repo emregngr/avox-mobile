@@ -179,7 +179,7 @@ exports[`AirlineDetail Screen Snapshot should render the AirlineDetail Screen su
             "id": "1",
             "isoCountry": "US",
             "isoRegion": "US-OH",
-            "logo": "",
+            "logo": "https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758451911/GB_izo8ug.png",
             "name": "ABX Air",
             "network": {
               "destinationCount": 25,

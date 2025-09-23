@@ -29,7 +29,8 @@ const mockedAirports: AirportType[] = [
     isoCountry: 'SB',
     isoRegion: 'SB-GU',
     name: 'Honiara International Airport',
-    image: '',
+    image:
+      'https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758392988/HIR_mnss2t.jpg',
     airportInfo: {
       foundingYear: '1942',
       employeeCount: 250,
@@ -132,7 +133,8 @@ const mockedAirports: AirportType[] = [
     isoCountry: 'PG',
     isoRegion: 'PG-NCD',
     name: 'Port Moresby Jacksons International Airport',
-    image: '',
+    image:
+      'https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758392946/POM_qxhcdg.jpg',
     airportInfo: {
       foundingYear: '1943',
       employeeCount: 600,

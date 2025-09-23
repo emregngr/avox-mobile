@@ -51,7 +51,7 @@ const mockedAirlineData: AirlineType[] = [
     name: 'Turkish Airlines',
     iataCode: 'TK',
     icaoCode: 'THY',
-    logo: 'https://res.cloudinary.com/dzkssh0tp/image/upload/v1758030467/TK_djxzx2.png',
+    logo: 'https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382974/TK_pog2zq.png',
     companyInfo: {
       foundingYear: '1933',
       parentCompany: 'Turkish Airlines Inc.',
@@ -172,7 +172,7 @@ const mockedAirlineData: AirlineType[] = [
     name: 'Pegasus Airlines',
     iataCode: 'PC',
     icaoCode: 'PGT',
-    logo: '',
+    logo: 'https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382933/PC_i3bpgq.png',
     companyInfo: {
       foundingYear: '1990',
       parentCompany: 'ESAS Holding',

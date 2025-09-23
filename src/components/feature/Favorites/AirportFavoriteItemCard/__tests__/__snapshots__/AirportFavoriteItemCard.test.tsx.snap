@@ -43,7 +43,7 @@ exports[`AirportFavoriteItemCard Component Snapshot should render the AirportFav
     <View
       cachePolicy="memory-disk"
       contentFit="cover"
-      source="https://res.cloudinary.com/dzkssh0tp/image/upload/v1758030477/IST_vy5oim.jpg"
+      source="https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758030477/IST_vy5oim.jpg"
       style={
         {
           "height": 130,

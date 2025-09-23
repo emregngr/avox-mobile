@@ -226,13 +226,15 @@ export default function Settings() {
               </ThemedText>
             </View>
 
-            <Switch
-              ios_backgroundColor={colors?.background?.quaternary}
-              onValueChange={handleSettingsPress}
-              thumbColor={colors?.onPrimary100}
-              trackColor={switchTrackColor}
-              value={notificationStatus}
-            />
+            <View className="justify-center">
+              <Switch
+                ios_backgroundColor={colors?.background?.quaternary}
+                onValueChange={handleSettingsPress}
+                thumbColor={colors?.onPrimary100}
+                trackColor={switchTrackColor}
+                value={notificationStatus}
+              />
+            </View>
           </View>
 
           <View className="border-b border-solid border-background-quaternary ml-14" />

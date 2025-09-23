@@ -198,7 +198,7 @@ exports[`AirportDetail Screen Snapshot should render the AirportDetail Screen su
             "iataCode": "HIR",
             "icaoCode": "AGGH",
             "id": "1",
-            "image": "",
+            "image": "https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758392988/HIR_mnss2t.jpg",
             "infrastructure": {
               "airportAreaHectares": 280,
               "apronCount": 3,

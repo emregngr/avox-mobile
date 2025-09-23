@@ -122,7 +122,7 @@ exports[`AllPopularAirports Screen Snapshot should render the AllPopularAirports
           "iataCode": "IST",
           "icaoCode": "LTFM",
           "id": "1",
-          "image": "https://res.cloudinary.com/dzkssh0tp/image/upload/v1758030477/IST_vy5oim.jpg",
+          "image": "https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758030477/IST_vy5oim.jpg",
           "infrastructure": {
             "airportAreaHectares": 7650,
             "apronCount": 371,
@@ -332,7 +332,7 @@ exports[`AllPopularAirports Screen Snapshot should render the AllPopularAirports
           "iataCode": "SAW",
           "icaoCode": "LTFJ",
           "id": "2",
-          "image": "",
+          "image": "https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758393230/SAW_wiye5u.jpg",
           "infrastructure": {
             "airportAreaHectares": 2550,
             "apronCount": 20,

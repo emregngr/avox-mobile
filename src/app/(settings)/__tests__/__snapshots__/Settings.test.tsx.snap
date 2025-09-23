@@ -96,27 +96,31 @@ exports[`Settings Screen Snapshot should render the Settings Screen successfully
               notification
             </Text>
           </View>
-          <RCTSwitch
-            accessibilityRole="switch"
-            onChange={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            onTintColor="#B3D9FF"
-            style={
-              [
-                {
-                  "alignSelf": "flex-start",
-                },
-                {
-                  "backgroundColor": "#D1D1D6",
-                  "borderRadius": 16,
-                },
-              ]
-            }
-            thumbTintColor="#000000"
-            tintColor="#D1D1D6"
-            value={false}
-          />
+          <View
+            className="justify-center"
+          >
+            <RCTSwitch
+              accessibilityRole="switch"
+              onChange={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              onTintColor="#B3D9FF"
+              style={
+                [
+                  {
+                    "alignSelf": "flex-start",
+                  },
+                  {
+                    "backgroundColor": "#D1D1D6",
+                    "borderRadius": 16,
+                  },
+                ]
+              }
+              thumbTintColor="#000000"
+              tintColor="#D1D1D6"
+              value={false}
+            />
+          </View>
         </View>
         <View
           className="border-b border-solid border-background-quaternary ml-14"

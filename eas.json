@@ -23,7 +23,6 @@
       },
       "android": {
         "buildType": "apk",
-        "flavor": "staging",
         "gradleCommand": ":app:assembleStagingRelease"
       },
       "ios": {
@@ -41,7 +40,6 @@
       },
       "android": {
         "buildType": "app-bundle",
-        "flavor": "production",
         "gradleCommand": ":app:bundleProductionRelease"
       },
       "ios": {

@@ -65,21 +65,17 @@ jest.mock('@/components/feature/ActiveFilters', () => {
     }) => (
       <View testID="active-filters">
         {Object.keys(filters).map((key: string) => (
-          <TouchableOpacity
-            key={key}
-            onPress={() => onRemove(key)}
-            testID={`remove-filter-${key}`}
-          >
+          <TouchableOpacity key={key} onPress={() => onRemove(key)} testID={`remove-filter-${key}`}>
             <Text>Remove {key}</Text>
           </TouchableOpacity>
-          ))}
+        ))}
         {Object.keys(filters).length > 0 ? (
           <TouchableOpacity onPress={onClearAll} testID="clear-all-filters">
             <Text>Clear All</Text>
           </TouchableOpacity>
-          ) : null}
+        ) : null}
       </View>
-      ),
+    ),
   }
 })
 
@@ -91,13 +87,13 @@ jest.mock('@/components/feature/Airport/AirportCard', () => {
       <View testID={`airport-card-${airport.id}`}>
         <Text>{airport.name}</Text>
       </View>
-      ),
+    ),
 
     AirportsLoadMoreFooter: ({ airportsHasNext, airportsLoading }: any) => (
       <View testID="load-more-footer">
         <Text>{airportsLoading ? 'Loading...' : airportsHasNext ? 'Load More' : 'No More'}</Text>
       </View>
-      ),
+    ),
   }
 })
 
@@ -125,7 +121,7 @@ jest.mock('@/components/feature/FilterModal', () => {
           <Text>Close</Text>
         </TouchableOpacity>
       </View>
-      ),
+    ),
   }
 })
 
@@ -354,7 +350,7 @@ describe('AirportsTab Component', () => {
     it('passes correct props to FlatList through data changes', () => {
       const mockedNewAirports = [
         ...mockedAirports,
-        { id: '3', name: 'AtlasGlobal', code: 'KK', logo: 'https://example.com/kk.png' },
+        { id: '3', name: 'AtlasGlobal', code: 'KK', image: 'https://example.com/kk.png' },
       ]
 
       const { rerender, getByTestId } = render(<AirportsTab {...mockedDefaultProps} />)

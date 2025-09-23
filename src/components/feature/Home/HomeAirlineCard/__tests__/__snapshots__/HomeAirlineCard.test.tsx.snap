@@ -47,7 +47,7 @@ exports[`HomeAirlineCard Component Snapshot should render the HomeAirlineCard Co
     <View
       cachePolicy="memory-disk"
       contentFit="contain"
-      source="https://res.cloudinary.com/dzkssh0tp/image/upload/v1758030467/TK_djxzx2.png"
+      source="https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382974/TK_pog2zq.png"
       style={
         {
           "height": 40,

@@ -46,7 +46,7 @@ const mockedAirline: AirlineType = {
   name: 'Turkish Airlines',
   iataCode: 'TK',
   icaoCode: 'THY',
-  logo: 'https://res.cloudinary.com/dzkssh0tp/image/upload/v1758030467/TK_djxzx2.png',
+  logo: 'https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382974/TK_pog2zq.png',
   companyInfo: {
     foundingYear: '1933',
     parentCompany: 'Turkish Airlines Inc.',
