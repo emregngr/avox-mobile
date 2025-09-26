@@ -4,37 +4,31 @@ import React from 'react'
 import { FullScreenLoading } from '@/components/common/FullScreenLoading'
 
 describe('FullScreenLoading Component', () => {
-  it('renders loading container and indicator', () => {
+  it('renders the container and the Lottie animation', () => {
     const { getByTestId } = render(<FullScreenLoading />)
 
     expect(getByTestId('full-screen-loading')).toBeTruthy()
-    expect(getByTestId('loading-indicator')).toBeTruthy()
+
+    expect(getByTestId('loading-lottie')).toBeTruthy()
   })
 
-  it('has correct accessibility properties', () => {
+  it('has correct styling for the container', () => {
     const { getByTestId } = render(<FullScreenLoading />)
-
-    const loadingIndicator = getByTestId('loading-indicator')
-
-    expect(loadingIndicator.props.size).toBe('large')
-    expect(loadingIndicator.props.className).toBe('color-text-100')
-  })
-
-  it('container has correct styling', () => {
-    const { getByTestId } = render(<FullScreenLoading />)
-
     const container = getByTestId('full-screen-loading')
+
     expect(container.props.className).toBe(
       'flex-1 items-center justify-center bg-background-primary',
     )
   })
 
-  it('renders ActivityIndicator as loading state', () => {
+  it('has correct properties for the LottieView', () => {
     const { getByTestId } = render(<FullScreenLoading />)
+    const lottieAnimation = getByTestId('loading-lottie')
 
-    const indicator = getByTestId('loading-indicator')
+    expect(lottieAnimation.props.autoPlay).toBe(true)
+    expect(lottieAnimation.props.loop).toBe(true)
 
-    expect(indicator.props.animating).not.toBe(false)
+    expect(lottieAnimation.props.style).toEqual({ width: 500, height: 500 })
   })
 })
 
