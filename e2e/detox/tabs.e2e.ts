@@ -1,4 +1,4 @@
-import { sleep, swipeScreen, tapElement, typeText, waitForElement } from './setup'
+import { sleep, swipeScreen, tapElement, tapText, typeText, waitForElement } from './setup'
 
 beforeEach(async () => {
   await device.launchApp({
@@ -25,9 +25,9 @@ describe('Tabs Flow', () => {
   it('should display the tabs and navigate through them', async () => {
     await waitForElement('home-screen')
 
-    await swipeScreen('home-screen', 'up', 'slow', 0.8)
+    await swipeScreen('home-screen-flatlist', 'up', 'slow', 0.8)
 
-    await tapElement('discover-tab')
+    await tapText('Discover')
 
     await waitForElement('discover-screen')
 
@@ -39,7 +39,7 @@ describe('Tabs Flow', () => {
 
     await swipeScreen('discover-screen', 'up', 'slow', 0.8)
 
-    await tapElement('favorites-tab')
+    await tapText('Favorites')
 
     await tapElement('login-button')
 
@@ -60,13 +60,13 @@ describe('Tabs Flow', () => {
 
     await swipeScreen('favorites-screen', 'up', 'slow', 0.8)
 
-    await tapElement('profile-tab')
+    await tapText('Profile')
   })
 
   it('should display airport search and filter successfully', async () => {
     await waitForElement('home-screen')
 
-    await tapElement('discover-tab')
+    await tapText('Discover')
 
     await waitForElement('discover-screen')
 
@@ -92,7 +92,7 @@ describe('Tabs Flow', () => {
   it('should display airline search and filter successfully', async () => {
     await waitForElement('home-screen')
 
-    await tapElement('discover-tab')
+    await tapText('Discover')
 
     await waitForElement('discover-screen')
 

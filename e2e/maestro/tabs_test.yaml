@@ -19,10 +19,10 @@ appId: com.avox.staging
 - assertVisible: { id: 'home-screen' }
 
 - swipe:
-    elementId: 'home-screen'
+    elementId: 'home-screen-flatlist'
     direction: UP
 
-- tapOn: { id: 'discover-tab' }
+- tapOn: { text: 'Discover' }
 - assertVisible: { id: 'discover-screen' }
 
 - swipe:
@@ -35,7 +35,7 @@ appId: com.avox.staging
     elementId: 'discover-screen'
     direction: UP
 
-- tapOn: { id: 'favorites-tab' }
+- tapOn: { text: 'Favorites' }
 
 - tapOn: { id: 'login-button' }
 
@@ -60,7 +60,7 @@ appId: com.avox.staging
     elementId: 'favorites-screen'
     direction: UP
 
-- tapOn: { id: 'profile-tab' }
+- tapOn: { text: 'Profile' }
 - assertVisible: { id: 'profile-screen' }
 
 - launchApp:
@@ -74,7 +74,8 @@ appId: com.avox.staging
 - tapOn: { id: 'onboarding-skip-button' }
 
 - assertVisible: { id: 'home-screen' }
-- tapOn: { id: 'discover-tab' }
+
+- tapOn: { text: 'Discover' }
 - assertVisible: { id: 'discover-screen' }
 
 - tapOn: { id: 'search-input' }
@@ -99,7 +100,7 @@ appId: com.avox.staging
 
 - assertVisible: { id: 'home-screen' }
 
-- tapOn: { id: 'discover-tab' }
+- tapOn: { text: 'Discover' }
 - assertVisible: { id: 'discover-screen' }
 - tapOn: { id: 'discover-airlines-tab' }
 

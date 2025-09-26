@@ -16,8 +16,10 @@ appId: com.avox.staging
 
 - tapOn: { id: 'onboarding-skip-button' }
 
+- assertVisible: { id: 'home-screen' }
+
 - swipe:
-    elementId: 'home-screen'
+    elementId: 'home-screen-flatlist'
     direction: UP
 
 - tapOn: { id: 'view-all-button-Total Airplanes' }

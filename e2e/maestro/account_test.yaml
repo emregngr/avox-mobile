@@ -16,7 +16,7 @@ appId: com.avox.staging
 
 - tapOn: { id: 'onboarding-skip-button' }
 
-- tapOn: { id: 'favorites-tab' }
+- tapOn: { text: 'Favorites' }
 - tapOn: { id: 'login-button' }
 
 - assertVisible: { id: 'login-screen' }
@@ -30,7 +30,7 @@ appId: com.avox.staging
 
 - assertVisible: { id: 'favorites-screen' }
 
-- tapOn: { id: 'profile-tab' }
+- tapOn: { text: 'Profile' }
 - tapOn: { id: 'update-profile-button' }
 
 - assertVisible: { id: 'update-profile-screen' }
@@ -56,7 +56,7 @@ appId: com.avox.staging
 
 - tapOn: { id: 'onboarding-skip-button' }
 
-- tapOn: { id: 'favorites-tab' }
+- tapOn: { text: 'Favorites' }
 - tapOn: { id: 'login-button' }
 
 - assertVisible: { id: 'login-screen' }
@@ -70,7 +70,7 @@ appId: com.avox.staging
 
 - assertVisible: { id: 'favorites-screen' }
 
-- tapOn: { id: 'profile-tab' }
+- tapOn: { text: 'Profile' }
 - tapOn: { id: 'password-button' }
 
 - assertVisible: { id: 'password-screen' }
@@ -98,7 +98,7 @@ appId: com.avox.staging
 
 - tapOn: { id: 'onboarding-skip-button' }
 
-- tapOn: { id: 'profile-tab' }
+- tapOn: { text: 'Profile' }
 - tapOn: { id: 'choose-theme-button' }
 
 - assertVisible: { id: 'choose-theme-screen' }
@@ -117,7 +117,7 @@ appId: com.avox.staging
 
 - tapOn: { id: 'onboarding-skip-button' }
 
-- tapOn: { id: 'profile-tab' }
+- tapOn: { text: 'Profile' }
 - tapOn: { id: 'choose-language-button' }
 
 - assertVisible: { id: 'choose-language-screen' }

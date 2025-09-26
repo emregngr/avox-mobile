@@ -23,7 +23,7 @@ beforeEach(async () => {
 
 describe('Airplane Flow', () => {
   it('should display the airplane screen', async () => {
-    await swipeScreen('home-screen', 'up', 'slow', 0.8)
+    await swipeScreen('home-screen-flatlist', 'up', 'slow', 0.8)
 
     await tapElement('view-all-button-Total Airplanes')
 

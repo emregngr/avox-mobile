@@ -26,7 +26,7 @@ beforeEach(async () => {
   })
 
   await tapElement('onboarding-skip-button')
-  await tapElement('favorites-tab')
+  await tapText('Favorites')
 })
 
 describe('Authentication Flow', () => {
@@ -185,9 +185,7 @@ describe('Authentication Flow', () => {
 
       await tapElement('login-submit-button')
 
-      await waitForElement('profile-tab')
-
-      await tapElement('profile-tab')
+      await tapText('Profile')
     })
 
     it('should cancel logout', async () => {

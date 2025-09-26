@@ -13,6 +13,8 @@ module.exports = {
 
     '\\.svg$': '<rootDir>/__mocks__/svgMock.tsx',
 
+    '\\.(lottie)$': '<rootDir>/jest/__mocks__/lottieMock.ts',
+
     '^expo/src/winter/(.*)$': '<rootDir>/__mocks__/expoWinterMock.ts',
   },
 

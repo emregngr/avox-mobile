@@ -23,7 +23,7 @@ beforeEach(async () => {
 
 describe('Destination Flow', () => {
   it('should display the destination screen', async () => {
-    await swipeScreen('home-screen', 'up', 'slow', 0.5)
+    await swipeScreen('home-screen-flatlist', 'up', 'slow', 0.5)
 
     await tapElement('view-all-button-Popular Destinations')
 

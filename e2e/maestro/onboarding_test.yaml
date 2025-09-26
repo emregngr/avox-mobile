@@ -42,6 +42,7 @@ appId: com.avox.staging
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
 - assertVisible: { id: 'home-screen' }
 
 - launchApp:

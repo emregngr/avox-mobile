@@ -1,4 +1,4 @@
-import { sleep, swipeScreen, tapElement, typeText, waitForElement } from './setup'
+import { sleep, swipeScreen, tapElement, tapText, typeText, waitForElement } from './setup'
 
 beforeEach(async () => {
   await device.launchApp({
@@ -62,7 +62,7 @@ describe('Airport Flow', () => {
 
   describe('AirportDetail Favorite and Share Flow', () => {
     it('should display the airport detail screen', async () => {
-      await tapElement('favorites-tab')
+      await tapText('Favorites')
 
       await tapElement('login-button')
       await waitForElement('login-screen')
@@ -74,7 +74,7 @@ describe('Airport Flow', () => {
 
       await waitForElement('favorites-screen')
 
-      await tapElement('home-tab')
+      await tapText('Home')
 
       await tapElement('view-all-button-Popular Airports')
 

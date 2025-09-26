@@ -32,7 +32,7 @@ beforeEach(async () => {
 describe('Settings Flow', () => {
   describe('SettingsPrivacyPolicy Flow', () => {
     it('should display the settings privacy policy screen', async () => {
-      await tapElement('profile-tab')
+      await tapText('Profile')
 
       await tapElement('header-right-icon')
 
@@ -46,7 +46,7 @@ describe('Settings Flow', () => {
 
   describe('SettingsTermsOfUse Flow', () => {
     it('should display the settings terms of use screen', async () => {
-      await tapElement('profile-tab')
+      await tapText('Profile')
 
       await tapElement('header-right-icon')
 
@@ -60,7 +60,7 @@ describe('Settings Flow', () => {
 
   describe('Faq Flow', () => {
     it('should display the faq screen', async () => {
-      await tapElement('profile-tab')
+      await tapText('Profile')
 
       await tapElement('header-right-icon')
 
@@ -76,7 +76,7 @@ describe('Settings Flow', () => {
 
   describe('Delete Flow', () => {
     beforeEach(async () => {
-      await tapElement('favorites-tab')
+      await tapText('Favorites')
 
       await tapElement('login-button')
       await waitForElement('login-screen')
@@ -86,9 +86,9 @@ describe('Settings Flow', () => {
 
       await tapElement('login-submit-button')
 
-      await waitForElement('profile-tab')
+      await tapText('Profile')
 
-      await tapElement('profile-tab')
+      await tapText('Profile')
 
       await tapElement('header-right-icon')
     })

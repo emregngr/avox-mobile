@@ -1,4 +1,4 @@
-import { tapElement, typeText, visibleText, waitForElement, waitForText } from './setup'
+import { tapElement, tapText, typeText, visibleText, waitForElement, waitForText } from './setup'
 
 beforeEach(async () => {
   await device.launchApp({
@@ -24,7 +24,7 @@ beforeEach(async () => {
 describe('Account Flow', () => {
   describe('UpdateProfile Flow', () => {
     it('should display the update profile screen', async () => {
-      await tapElement('favorites-tab')
+      await tapText('Favorites')
 
       await tapElement('login-button')
 
@@ -37,7 +37,7 @@ describe('Account Flow', () => {
 
       await waitForElement('favorites-screen')
 
-      await tapElement('profile-tab')
+      await tapText('Profile')
 
       await tapElement('update-profile-button')
 
@@ -58,7 +58,7 @@ describe('Account Flow', () => {
 
   describe('Password Flow', () => {
     it('should change password successfully', async () => {
-      await tapElement('favorites-tab')
+      await tapText('Favorites')
 
       await tapElement('login-button')
 
@@ -71,9 +71,9 @@ describe('Account Flow', () => {
 
       await waitForElement('favorites-screen')
 
-      await tapElement('profile-tab')
+      await tapText('Profile')
 
-      await tapElement('profile-tab')
+      await tapText('Profile')
 
       await tapElement('password-button')
 
@@ -95,7 +95,7 @@ describe('Account Flow', () => {
 
   describe('ChooseTheme Flow', () => {
     it('should display the choose theme screen', async () => {
-      await tapElement('profile-tab')
+      await tapText('Profile')
 
       await tapElement('choose-theme-button')
 
@@ -109,7 +109,7 @@ describe('Account Flow', () => {
 
   describe('ChooseLanguage Flow', () => {
     it('should display the choose language screen', async () => {
-      await tapElement('profile-tab')
+      await tapText('Profile')
 
       await tapElement('choose-language-button')
 
