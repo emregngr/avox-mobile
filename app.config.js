@@ -193,7 +193,7 @@ export default {
       checkAutomatically: 'ALWAYS',
       url: 'https://u.expo.dev/900feba3-8f4f-4a92-951f-a2ddb262e077',
     },
-    runtimeVersion: '1.0.8',
+    runtimeVersion: '1.0.9',
     ios: {
       googleServicesFile: envConfig.googleServicesFile.ios,
       supportsTablet: true,

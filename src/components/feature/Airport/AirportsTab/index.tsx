@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import type BottomSheet from '@gorhom/bottom-sheet'
 import React, { memo, useCallback, useMemo, useRef } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import Animated, {
   Extrapolation,
   interpolate,
@@ -78,6 +78,9 @@ export const AirportsTab = memo(
     setAirportsSearchTerm,
   }: AirportsTabProps) => {
     const { bottom } = useSafeAreaInsets()
+
+    const extraBottomPadding = Platform.OS === 'ios' ? 72 : 82
+    const bottomPadding = bottom + extraBottomPadding
 
     const { selectedTheme } = useThemeStore()
 
@@ -356,7 +359,7 @@ export const AirportsTab = memo(
           bouncesZoom={false}
           columnWrapperClassName="justify-between"
           contentContainerClassName="pt-[148px] px-4"
-          contentContainerStyle={{ paddingBottom: bottom + 72 }}
+          contentContainerStyle={{ paddingBottom: bottomPadding }}
           data={flatListData as AirportType[]}
           initialNumToRender={INITIAL_ITEMS_PER_PAGE}
           keyboardDismissMode="on-drag"

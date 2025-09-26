@@ -56,8 +56,7 @@ exports[`Profile Screen Snapshot should render the Profile screen successfully 1
     contentContainerClassName="px-4"
     contentContainerStyle={
       {
-        "paddingBottom": 40,
-        "paddingTop": 44,
+        "paddingBottom": 88,
       }
     }
     showsVerticalScrollIndicator={false}

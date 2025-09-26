@@ -81,6 +81,12 @@ def enableProguardInReleaseBuilds = (findProperty('android.enableProguardInRelea
  */
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -92,8 +98,8 @@ android {
         applicationId "com.avox"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 48
-        versionName "1.0.8"
+        versionCode 49
+        versionName "1.0.9"
     }
 
     signingConfigs {
@@ -104,16 +110,30 @@ android {
             keyPassword 'android'
         }
         stagingRelease {
-            storeFile file(AVOX_STAGING_UPLOAD_STORE_FILE)
-            storePassword AVOX_STAGING_UPLOAD_STORE_PASSWORD
-            keyAlias AVOX_STAGING_UPLOAD_KEY_ALIAS
-            keyPassword AVOX_STAGING_UPLOAD_KEY_PASSWORD
+            if (System.getenv("AVOX_STAGING_UPLOAD_STORE_FILE") != null) {
+                storeFile file(System.getenv("AVOX_STAGING_UPLOAD_STORE_FILE"))
+                storePassword System.getenv("AVOX_STAGING_UPLOAD_STORE_PASSWORD")
+                keyAlias System.getenv("AVOX_STAGING_UPLOAD_KEY_ALIAS")
+                keyPassword System.getenv("AVOX_STAGING_UPLOAD_KEY_PASSWORD")
+            } else if (keystoreProperties['AVOX_STAGING_UPLOAD_STORE_FILE'] != null) {
+                storeFile file(keystoreProperties['AVOX_STAGING_UPLOAD_STORE_FILE'])
+                storePassword keystoreProperties['AVOX_STAGING_UPLOAD_STORE_PASSWORD']
+                keyAlias keystoreProperties['AVOX_STAGING_UPLOAD_KEY_ALIAS']
+                keyPassword keystoreProperties['AVOX_STAGING_UPLOAD_KEY_PASSWORD']
+            }
         }
         productionRelease {
-            storeFile file(AVOX_UPLOAD_STORE_FILE)
-            storePassword AVOX_UPLOAD_STORE_PASSWORD
-            keyAlias AVOX_UPLOAD_KEY_ALIAS
-            keyPassword AVOX_UPLOAD_KEY_PASSWORD
+            if (System.getenv("AVOX_UPLOAD_STORE_FILE") != null) {
+                storeFile file(System.getenv("AVOX_UPLOAD_STORE_FILE"))
+                storePassword System.getenv("AVOX_UPLOAD_STORE_PASSWORD")
+                keyAlias System.getenv("AVOX_UPLOAD_KEY_ALIAS")
+                keyPassword System.getenv("AVOX_UPLOAD_KEY_PASSWORD")
+            } else if (keystoreProperties['AVOX_UPLOAD_STORE_FILE'] != null) {
+                storeFile file(keystoreProperties['AVOX_UPLOAD_STORE_FILE'])
+                storePassword keystoreProperties['AVOX_UPLOAD_STORE_PASSWORD']
+                keyAlias keystoreProperties['AVOX_UPLOAD_KEY_ALIAS']
+                keyPassword keystoreProperties['AVOX_UPLOAD_KEY_PASSWORD']
+            }
         }
     }
 

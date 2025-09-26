@@ -12,7 +12,7 @@ import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import { Logger } from '@/utils/common/logger'
 
-type LanguageItem = {
+interface LanguageItem {
   code: string
   flag: string
   id: string

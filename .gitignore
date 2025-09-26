@@ -10,7 +10,7 @@ web-build/
 expo-env.d.ts
 
 android/.kotlin/
-android/gradle.properties
+android/keystore.properties
 android/app/avox-release-key.keystore
 android/app/avox-staging-release-key.keystore
 

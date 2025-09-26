@@ -1,4 +1,3 @@
-// jest/index.ts
 import { TextDecoder, TextEncoder } from 'util'
 
 global.__ExpoImportMetaRegistry = {}

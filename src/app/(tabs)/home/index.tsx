@@ -1,6 +1,6 @@
 import { router } from 'expo-router'
 import React, { useCallback, useEffect, useMemo } from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, Platform, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { FullScreenLoading } from '@/components/common'
@@ -27,6 +27,9 @@ interface SectionProps {
 
 export default function Home() {
   const { bottom, top } = useSafeAreaInsets()
+
+  const extraBottomPadding = Platform.OS === 'ios' ? 44 : 54
+  const bottomPadding = bottom + extraBottomPadding
 
   const { homeData, isLoading } = useHome()
   const { breakingNews, popularAirlines, popularAirports, popularDestinations, totalAirplanes } =
@@ -156,16 +159,18 @@ export default function Home() {
   }
 
   return (
-    <FlatList
-      className="bg-background-primary"
-      contentContainerStyle={{ paddingBottom: bottom + 40, paddingTop: top }}
-      data={sections}
-      keyExtractor={(item, index) => `${item.type}-${index}`}
-      renderItem={renderSection}
-      scrollEventThrottle={16}
-      showsVerticalScrollIndicator={false}
-      testID="home-screen"
-      updateCellsBatchingPeriod={BATCHING_PERIOD}
-    />
+    <View className="flex-1 bg-background-primary" testID="home-screen">
+      <FlatList
+        className="bg-background-primary"
+        contentContainerStyle={{ paddingBottom: bottomPadding, paddingTop: top }}
+        data={sections}
+        keyExtractor={(item, index) => `${item.type}-${index}`}
+        renderItem={renderSection}
+        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        testID="home-screen-flatlist"
+        updateCellsBatchingPeriod={BATCHING_PERIOD}
+      />
+    </View>
   )
 }

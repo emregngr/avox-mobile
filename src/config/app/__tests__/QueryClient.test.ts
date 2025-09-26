@@ -295,11 +295,7 @@ describe('queryClient configuration', () => {
       const testError = new Error('Parameter order test')
       onError(testError)
 
-      expect(mockedLoggerBreadcrumb).toHaveBeenCalledWith(
-        'queryClientError', // first parameter
-        'error', // second parameter
-        testError, // third parameter
-      )
+      expect(mockedLoggerBreadcrumb).toHaveBeenCalledWith('queryClientError', 'error', testError)
     })
   })
 

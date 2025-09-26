@@ -14,14 +14,10 @@ const storage = new MMKV()
 const mmkvStorage = {
   getItem: (name: string) => {
     const value = storage.getString(name)
-    return value ? JSON.parse(value) : null
+    return value ?? null
   },
-  removeItem: (name: string) => {
-    storage.delete(name)
-  },
-  setItem: (name: string, value: string) => {
-    storage.set(name, value)
-  },
+  removeItem: (name: string) => storage.delete(name),
+  setItem: (name: string, value: string) => storage.set(name, value),
 }
 
 const locales = getLocales()

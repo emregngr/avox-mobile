@@ -8,11 +8,6 @@ exports[`FilterModal Snapshot should render the FilterModal successfully for air
       "backgroundColor": "#FFFFFF",
     }
   }
-  containerStyle={
-    {
-      "marginBottom": 60,
-    }
-  }
   enableDynamicSizing={false}
   enablePanDownToClose={true}
   handleIndicatorStyle={
@@ -1405,6 +1400,11 @@ exports[`FilterModal Snapshot should render the FilterModal successfully for air
   </View>
   <View
     className="flex-row items-center justify-between px-10 py-4 border-t border-background-quaternary"
+    style={
+      {
+        "marginBottom": 70,
+      }
+    }
   >
     <View
       className="w-[45%]"
@@ -1520,11 +1520,6 @@ exports[`FilterModal Snapshot should render the FilterModal successfully for air
   backgroundStyle={
     {
       "backgroundColor": "#FFFFFF",
-    }
-  }
-  containerStyle={
-    {
-      "marginBottom": 60,
     }
   }
   enableDynamicSizing={false}
@@ -3120,6 +3115,11 @@ exports[`FilterModal Snapshot should render the FilterModal successfully for air
   </View>
   <View
     className="flex-row items-center justify-between px-10 py-4 border-t border-background-quaternary"
+    style={
+      {
+        "marginBottom": 70,
+      }
+    }
   >
     <View
       className="w-[45%]"

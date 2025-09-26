@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import { FlatList, RefreshControl } from 'react-native'
+import { FlatList, Platform, RefreshControl } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { AirlineFavoriteItemCard } from '@/components/feature/Favorites/AirlineFavoriteItemCard'
@@ -29,6 +29,9 @@ const WINDOW_SIZE = 7
 
 export const FavoriteAirlines = ({ airlines, isLoading, onRefresh }: FavoriteAirlinesListProps) => {
   const { bottom } = useSafeAreaInsets()
+
+  const extraBottomPadding = Platform.OS === 'ios' ? 72 : 82
+  const bottomPadding = bottom + extraBottomPadding
 
   const { selectedTheme } = useThemeStore()
 
@@ -77,7 +80,7 @@ export const FavoriteAirlines = ({ airlines, isLoading, onRefresh }: FavoriteAir
       className="mt-[52px]"
       columnWrapperClassName="justify-between"
       contentContainerClassName="px-4"
-      contentContainerStyle={{ paddingBottom: bottom + 72 }}
+      contentContainerStyle={{ paddingBottom: bottomPadding }}
       data={airlines}
       getItemLayout={getItemLayout}
       initialNumToRender={INITIAL_ITEMS_PER_PAGE}

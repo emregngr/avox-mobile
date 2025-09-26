@@ -1,6 +1,6 @@
 import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import Close from '@/assets/icons/close'
@@ -51,6 +51,9 @@ import type { FilterModalPropsType } from '@/types/feature/filter'
 export const FilterModal = forwardRef<BottomSheet, FilterModalPropsType>(
   ({ currentFilters, onApply, onClose, type }, ref) => {
     const { bottom } = useSafeAreaInsets()
+
+    const extraBottomPadding = Platform.OS === 'ios' ? 70 : 80
+    const bottomPadding = bottom + extraBottomPadding
 
     const [localFilters, setLocalFilters] = useState<any>(currentFilters)
 
@@ -197,9 +200,6 @@ export const FilterModal = forwardRef<BottomSheet, FilterModalPropsType>(
       <BottomSheet
         backgroundStyle={{
           backgroundColor: colors?.background?.primary,
-        }}
-        containerStyle={{
-          marginBottom: bottom + 60,
         }}
         handleIndicatorStyle={{
           backgroundColor: colors?.onPrimary100,
@@ -532,7 +532,10 @@ export const FilterModal = forwardRef<BottomSheet, FilterModalPropsType>(
           )}
         </BottomSheetScrollView>
 
-        <View className="flex-row items-center justify-between px-10 py-4 border-t border-background-quaternary">
+        <View
+          className="flex-row items-center justify-between px-10 py-4 border-t border-background-quaternary"
+          style={{ marginBottom: bottomPadding }}
+        >
           <View className="w-[45%]">
             <ThemedButton
               label={localeStrings.clear}

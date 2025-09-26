@@ -3,7 +3,7 @@ import { getAuth } from '@react-native-firebase/auth'
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
-import { Alert, ScrollView, View } from 'react-native'
+import { Alert, Platform, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import Settings from '@/assets/icons/settings.svg'
@@ -29,7 +29,10 @@ const STATIC_STYLES = {
 }
 
 export default function Profile() {
-  const { bottom, top } = useSafeAreaInsets()
+  const { bottom } = useSafeAreaInsets()
+
+  const extraBottomPadding = Platform.OS === 'ios' ? 88 : 98
+  const bottomPadding = bottom + extraBottomPadding
 
   const { selectedLocale } = useLocaleStore()
   const { selectedTheme } = useThemeStore()
@@ -89,18 +92,12 @@ export default function Profile() {
   )
 
   return (
-    <SafeLayout testID="profile-screen">
-      <Header
-        backIcon={false}
-        containerClassName="absolute left-0 right-0 bg-transparent z-50"
-        rightIcon={settingsIcon}
-        rightIconOnPress={handleSettingsPress}
-        style={{ top }}
-      />
+    <SafeLayout testID="profile-screen" topBlur={false}>
+      <Header backIcon={false} rightIcon={settingsIcon} rightIconOnPress={handleSettingsPress} />
 
       <ScrollView
         contentContainerClassName="px-4"
-        contentContainerStyle={{ paddingBottom: bottom + 40, paddingTop: top + 44 }}
+        contentContainerStyle={{ paddingBottom: bottomPadding }}
         showsVerticalScrollIndicator={false}
       >
         <View className="items-center mt-5">
