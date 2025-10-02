@@ -57,8 +57,8 @@ export const ThemedGradientButton = ({
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const disabledColors: GradientColors = [
-    colors?.background.tertiary,
-    colors?.background.quaternary,
+    colors?.background?.tertiary,
+    colors?.background?.quaternary,
   ]
   const primaryColors: GradientColors = [colors?.primaryGradientStart, colors?.primaryGradientEnd]
   const secondaryColors: GradientColors = [
@@ -146,7 +146,7 @@ export const ThemedGradientButton = ({
         >
           {loading ? (
             <ActivityIndicator
-              className="color-text-100"
+              color={colors?.onPrimary100}
               size="large"
               testID="activity-indicator"
             />

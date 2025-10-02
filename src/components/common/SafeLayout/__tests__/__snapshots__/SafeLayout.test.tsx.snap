@@ -16,7 +16,7 @@ exports[`SafeLayout Component Snapshot should render the SafeLayout Component su
     intensity={30}
     style={
       {
-        "backgroundColor": "#FFFFFFCC",
+        "backgroundColor": "#FFFFFF80",
         "height": 88,
       }
     }

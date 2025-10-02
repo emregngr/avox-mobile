@@ -4,6 +4,7 @@ export type ThemeColors = {
   af: string
   as: string
   background: {
+    glass: string
     blur: string
     primary: string
     quaternary: string
@@ -50,6 +51,7 @@ const baseColors: Record<'light' | 'dark', ThemeColors> = {
     af: '#4B1F99',
     as: '#8B1717',
     background: {
+      glass: '#00000060',
       blur: '#00000099',
       primary: '#000000',
       quaternary: '#3A3A3C',
@@ -105,7 +107,8 @@ const baseColors: Record<'light' | 'dark', ThemeColors> = {
     af: '#C0B4E0',
     as: '#D9817E',
     background: {
-      blur: '#FFFFFFCC',
+      glass: '#00000015',
+      blur: '#FFFFFF80',
       primary: '#FFFFFF',
       quaternary: '#D1D1D6',
       secondary: '#F2F2F7',
@@ -161,6 +164,7 @@ export const themes = {
   dark: vars({
     '--color-af': baseColors.dark.af,
     '--color-as': baseColors.dark.as,
+    '--color-background-glass': baseColors.dark.background.glass,
     '--color-background-blur': baseColors.dark.background.blur,
     '--color-background-primary': baseColors.dark.background.primary,
     '--color-background-quaternary': baseColors.dark.background.quaternary,
@@ -203,6 +207,7 @@ export const themes = {
   light: vars({
     '--color-af': baseColors.light.af,
     '--color-as': baseColors.light.as,
+    '--color-background-glass': baseColors.light.background.glass,
     '--color-background-blur': baseColors.light.background.blur,
     '--color-background-primary': baseColors.light.background.primary,
     '--color-background-quaternary': baseColors.light.background.quaternary,

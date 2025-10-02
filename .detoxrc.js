@@ -10,9 +10,9 @@ module.exports = {
   apps: {
     'avox.ios': {
       type: 'ios.app',
-      binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/Avox.app',
+      binaryPath: 'ios/build/Build/Products/Staging-iphonesimulator/Avox.app',
       build:
-        'xcodebuild -workspace ios/Avox.xcworkspace -scheme "Avox Staging" -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build',
+        'xcodebuild -workspace ios/Avox.xcworkspace -scheme "Avox Staging" -configuration Staging -sdk iphonesimulator -derivedDataPath ios/build',
     },
     'avox.android': {
       type: 'android.apk',

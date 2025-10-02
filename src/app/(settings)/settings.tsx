@@ -237,7 +237,7 @@ export default function Settings() {
             </View>
           </View>
 
-          <View className="border-b border-solid border-background-quaternary ml-14" />
+          <View className="border-b border-background-quaternary ml-14" />
 
           <ProfileItem
             label={localeStrings.rateApp}

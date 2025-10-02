@@ -39,10 +39,27 @@ const mockedRegisterDeviceToUser = registerDeviceToUser as jest.MockedFunction<
 >
 
 jest.mock('@/components/common', () => {
+  const { View, Text } = require('react-native')
+  return {
+    FullScreenLoading: (props: any) => <View {...props} testID="full-screen-loading" />,
+
+    ThemedText: ({ children, ...props }: any) => (
+      <Text {...props} testID="themed-text">
+        {children}
+      </Text>
+    ),
+  }
+})
+
+jest.mock('expo-glass-effect', () => {
   const { View } = require('react-native')
 
   return {
-    FullScreenLoading: (props: any) => <View {...props} testID="full-screen-loading" />,
+    GlassView: ({ children, ...props }: any) => (
+      <View {...props} testID="glass-view">
+        {children}
+      </View>
+    ),
   }
 })
 

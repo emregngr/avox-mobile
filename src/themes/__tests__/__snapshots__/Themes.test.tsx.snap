@@ -7,6 +7,7 @@ exports[`Theme Definitions should match the snapshot for base colors 1`] = `
     "as": "#8B1717",
     "background": {
       "blur": "#00000099",
+      "glass": "#00000060",
       "primary": "#000000",
       "quaternary": "#3A3A3C",
       "secondary": "#1C1C1E",
@@ -50,7 +51,8 @@ exports[`Theme Definitions should match the snapshot for base colors 1`] = `
     "af": "#C0B4E0",
     "as": "#D9817E",
     "background": {
-      "blur": "#FFFFFFCC",
+      "blur": "#FFFFFF80",
+      "glass": "#00000015",
       "primary": "#FFFFFF",
       "quaternary": "#D1D1D6",
       "secondary": "#F2F2F7",
@@ -99,6 +101,7 @@ exports[`Theme Definitions should match the snapshot for nativewind theme variab
     "--color-af": "#4B1F99",
     "--color-as": "#8B1717",
     "--color-background-blur": "#00000099",
+    "--color-background-glass": "#00000060",
     "--color-background-primary": "#000000",
     "--color-background-quaternary": "#3A3A3C",
     "--color-background-secondary": "#1C1C1E",
@@ -140,7 +143,8 @@ exports[`Theme Definitions should match the snapshot for nativewind theme variab
   "light": {
     "--color-af": "#C0B4E0",
     "--color-as": "#D9817E",
-    "--color-background-blur": "#FFFFFFCC",
+    "--color-background-blur": "#FFFFFF80",
+    "--color-background-glass": "#00000015",
     "--color-background-primary": "#FFFFFF",
     "--color-background-quaternary": "#D1D1D6",
     "--color-background-secondary": "#F2F2F7",

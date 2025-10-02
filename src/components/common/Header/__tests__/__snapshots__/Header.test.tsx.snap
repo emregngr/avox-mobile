@@ -14,48 +14,62 @@ exports[`Header Component Snapshot should render the Header Component successful
   >
     Test Title
   </Text>
-  <View
-    accessibilityState={
-      {
-        "busy": undefined,
-        "checked": undefined,
-        "disabled": undefined,
-        "expanded": undefined,
-        "selected": undefined,
-      }
-    }
-    accessibilityValue={
-      {
-        "max": undefined,
-        "min": undefined,
-        "now": undefined,
-        "text": undefined,
-      }
-    }
-    accessible={true}
-    collapsable={false}
-    focusable={false}
-    hitSlop={20}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
+  <ViewManagerAdapter_ExpoGlassEffect
+    glassEffectStyle="clear"
+    isInteractive={true}
     style={
       {
-        "opacity": 1,
+        "borderRadius": 20,
+        "left": 16,
+        "padding": 8,
+        "position": "absolute",
       }
     }
-    testID="header-back-icon"
+    tintColor="#00000015"
   >
     <View
-      color="#000000"
-      height={24}
-      testID="mocked-svg-icon"
-      width={24}
-    />
-  </View>
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={false}
+      hitSlop={20}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="header-back-icon"
+    >
+      <View
+        color="#000000"
+        height={24}
+        testID="mocked-svg-icon"
+        width={24}
+      />
+    </View>
+  </ViewManagerAdapter_ExpoGlassEffect>
 </View>
 `;

@@ -1,10 +1,12 @@
 import * as Haptics from 'expo-haptics'
 import type { ReactNode } from 'react'
-import React from 'react'
+import React, { useMemo } from 'react'
 import type { TouchableOpacityProps } from 'react-native'
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
+import useThemeStore from '@/store/theme'
+import { themeColors } from '@/themes'
 import { cn } from '@/utils/common/cn'
 
 interface ThemedButtonProps extends Omit<TouchableOpacityProps, 'className'> {
@@ -31,6 +33,10 @@ export const ThemedButton = ({
   type = 'normal',
   ...rest
 }: ThemedButtonProps) => {
+  const { selectedTheme } = useThemeStore()
+
+  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
+
   const buttonClasses: Record<string, { activeOpacity: number; className: string }> = {
     border: {
       activeOpacity: 1,
@@ -103,7 +109,11 @@ export const ThemedButton = ({
         {...rest}
       >
         {loading ? (
-          <ActivityIndicator className="color-text-100" size="large" testID="activity-indicator" />
+          <ActivityIndicator
+            color={colors?.onPrimary100}
+            size="large"
+            testID="activity-indicator"
+          />
         ) : (
           <>
             {icon ? <View className="mr-2 pointer-events-none">{icon}</View> : null}

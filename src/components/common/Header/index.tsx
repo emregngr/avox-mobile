@@ -1,3 +1,4 @@
+import { GlassView } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import { type ReactNode, useMemo } from 'react'
 import type { ViewStyle } from 'react-native'
@@ -14,19 +15,17 @@ type HeaderProps = {
   backIcon?: boolean
   backIconOnPress?: () => void
   containerClassName?: string
-  hapticFeedback?: boolean,
-  isFavorite?: boolean,
-  rightButtonLabel?: string,
-  rightButtonOnPress?: () => void,
-  rightIcon?: ReactNode,
-  rightIconClassName?: string,
-  rightIconOnPress?: () => void,
-  shareIcon?: ReactNode,
-  shareIconClassName?: string,
-  shareIconOnPress?: () => void,
-  style?: ViewStyle,
-  testID?: string,
-  title?: string | string[],
+  hapticFeedback?: boolean
+  isFavorite?: boolean
+  rightButtonLabel?: string
+  rightButtonOnPress?: () => void
+  rightIcon?: ReactNode
+  rightIconOnPress?: () => void
+  shareIcon?: ReactNode
+  shareIconOnPress?: () => void
+  style?: ViewStyle
+  testID?: string
+  title?: string | string[]
   titleClassName?: string
 }
 
@@ -39,10 +38,8 @@ export const Header = ({
   rightButtonLabel,
   rightButtonOnPress,
   rightIcon,
-  rightIconClassName,
   rightIconOnPress,
   shareIcon,
-  shareIconClassName,
   shareIconOnPress,
   style,
   testID,
@@ -52,6 +49,27 @@ export const Header = ({
   const { selectedTheme } = useThemeStore()
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
+
+  const STATIC_STYLES = {
+    backIcon: {
+      left: 16,
+      position: 'absolute' as const,
+      borderRadius: 20,
+      padding: 8,
+    },
+    shareIcon: {
+      right: 64,
+      position: 'absolute' as const,
+      borderRadius: 20,
+      padding: 8,
+    },
+    rightIcon: {
+      right: 16,
+      position: 'absolute' as const,
+      borderRadius: 20,
+      padding: 8,
+    },
+  }
 
   const handleRightIconOnPress = () => {
     if (hapticFeedback) {
@@ -85,27 +103,39 @@ export const Header = ({
       ) : null}
 
       {backIcon ? (
-        <TouchableOpacity
-          activeOpacity={0.7}
-          className="absolute left-4"
-          hitSlop={20}
-          onPress={backIconOnPress}
-          testID="header-back-icon"
+        <GlassView
+          style={STATIC_STYLES.backIcon}
+          tintColor={colors?.background?.glass}
+          glassEffectStyle="clear"
+          isInteractive
         >
-          <Back color={colors?.onPrimary100} height={24} width={24} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={20}
+            onPress={backIconOnPress}
+            testID="header-back-icon"
+          >
+            <Back color={colors?.onPrimary100} height={24} width={24} />
+          </TouchableOpacity>
+        </GlassView>
       ) : null}
 
       {shareIcon ? (
-        <TouchableOpacity
-          activeOpacity={0.7}
-          className={cn('absolute right-16', `${shareIconClassName}`)}
-          hitSlop={10}
-          onPress={shareIconOnPress}
-          testID="header-share-icon"
+        <GlassView
+          style={STATIC_STYLES.shareIcon}
+          tintColor={colors?.background?.glass}
+          glassEffectStyle="clear"
+          isInteractive
         >
-          {shareIcon}
-        </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={10}
+            onPress={shareIconOnPress}
+            testID="header-share-icon"
+          >
+            {shareIcon}
+          </TouchableOpacity>
+        </GlassView>
       ) : null}
 
       {rightButtonLabel ? (
@@ -117,15 +147,21 @@ export const Header = ({
           type="h4"
         />
       ) : rightIcon ? (
-        <TouchableOpacity
-          activeOpacity={0.7}
-          className={cn('absolute right-4', `${rightIconClassName}`)}
-          hitSlop={10}
-          onPress={handleRightIconOnPress}
-          testID="header-right-icon"
+        <GlassView
+          style={STATIC_STYLES.rightIcon}
+          tintColor={colors?.background?.glass}
+          glassEffectStyle="clear"
+          isInteractive
         >
-          {rightIcon}
-        </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            hitSlop={10}
+            onPress={handleRightIconOnPress}
+            testID="header-right-icon"
+          >
+            {rightIcon}
+          </TouchableOpacity>
+        </GlassView>
       ) : null}
     </View>
   )

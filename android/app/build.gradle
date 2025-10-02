@@ -98,8 +98,8 @@ android {
         applicationId "com.avox"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 49
-        versionName "1.0.9"
+        versionCode 1
+        versionName "1.1.0"
     }
 
     signingConfigs {
@@ -142,13 +142,14 @@ android {
         staging {
             dimension "environment"
             resValue "string", "app_name", "Avox Staging"
-            applicationIdSuffix ".staging"
+            applicationId "com.avox.staging"
             buildConfigField "String", "ENVIRONMENT", "\"staging\""
             signingConfig signingConfigs.stagingRelease
         }
         production {
             dimension "environment"
             resValue "string", "app_name", "Avox"
+            applicationId "com.avox"
             buildConfigField "String", "ENVIRONMENT", "\"production\""
             signingConfig signingConfigs.productionRelease
         }

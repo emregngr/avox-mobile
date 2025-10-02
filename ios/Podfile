@@ -60,7 +60,7 @@ target 'Avox' do
 
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'FirebaseCrashlytics', :modular_headers => true
-  pod 'FirebaseInAppMessaging', :modular_headers => true
+  pod 'FirebaseInAppMessaging', '12.3.0-beta', :modular_headers => true
   pod 'FirebaseRemoteConfig', :modular_headers => true
   pod 'FirebaseSessions', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true

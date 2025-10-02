@@ -348,7 +348,7 @@ describe('RenderTabBar Component', () => {
         themeColors: {
           light: {
             background: {
-              tertiary: '#F5F5F5',
+              tertiary: '#E5E5EA',
             },
           },
         },

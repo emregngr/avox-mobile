@@ -6,10 +6,11 @@ export default function AirlineLayout() {
     <Stack
       screenOptions={{
         headerShown: false,
+        animation: 'slide_from_bottom',
       }}
     >
-      <Stack.Screen name="airline-detail" options={{ animation: 'slide_from_bottom' }} />
-      <Stack.Screen name="all-popular-airlines" options={{ animation: 'slide_from_bottom' }} />
+      <Stack.Screen name="airline-detail" />
+      <Stack.Screen name="all-popular-airlines" />
     </Stack>
   )
 }

@@ -126,9 +126,7 @@ describe('TextInputField Component', () => {
         defaultValues: { email: '' },
       })
 
-      const onSubmit = (data: any) => {
-        console.log(data)
-      }
+      const onSubmit = () => {}
 
       return (
         <>

@@ -14,7 +14,7 @@
       }
     },
     "staging": {
-      "distribution": "internal",
+      "distribution": "store",
       "channel": "staging",
       "autoIncrement": true,
       "env": {
@@ -22,11 +22,11 @@
         "NODE_ENV": "staging"
       },
       "android": {
-        "buildType": "apk",
-        "gradleCommand": ":app:assembleStagingRelease"
+        "buildType": "app-bundle",
+        "gradleCommand": ":app:bundleStagingRelease"
       },
       "ios": {
-        "buildConfiguration": "Release",
+        "buildConfiguration": "Staging",
         "simulator": false
       }
     },

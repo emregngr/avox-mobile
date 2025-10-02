@@ -43,6 +43,7 @@ module.exports = {
           20: 'var(--color-onPrimary-20)',
         },
         background: {
+          glass: 'var(--color-background-glass)',
           primary: 'var(--color-background-primary)',
           secondary: 'var(--color-background-secondary)',
           tertiary: 'var(--color-background-tertiary)',

@@ -1,6 +1,34 @@
-const IS_PRODUCTION = process.env.EXPO_PUBLIC_ENV === 'production'
+import { ExpoConfig } from 'expo/config'
 
-const getEnvironmentConfig = () => {
+interface EnvironmentConfig {
+  name: string
+  slug: string
+  bundleIdentifier: string
+  package: string
+  scheme: string[]
+  environment: 'production' | 'staging'
+  googleServicesFile: {
+    ios: string
+    android: string
+  }
+  apiUrl: string | undefined
+  sentryDsn: string | undefined
+  googleWebClientId: string | undefined
+}
+
+interface PluginConfig {
+  [key: string]: any
+}
+
+type Plugin = string | [string, PluginConfig]
+
+const IS_PRODUCTION: boolean = process.env.EXPO_PUBLIC_ENV === 'production'
+
+const PROJECT_ID = IS_PRODUCTION
+  ? '900feba3-8f4f-4a92-951f-a2ddb262e077'
+  : '157027da-853c-46f4-8670-7276189dacc6'
+
+const getEnvironmentConfig = (): EnvironmentConfig => {
   if (IS_PRODUCTION) {
     return {
       name: 'Avox',
@@ -36,9 +64,9 @@ const getEnvironmentConfig = () => {
   }
 }
 
-const envConfig = getEnvironmentConfig()
+const envConfig: EnvironmentConfig = getEnvironmentConfig()
 
-const basePlugins = [
+const basePlugins: Plugin[] = [
   '@react-native-firebase/app',
   '@react-native-firebase/auth',
   '@react-native-firebase/crashlytics',
@@ -109,7 +137,7 @@ const basePlugins = [
   ],
 ]
 
-const plugins = IS_PRODUCTION
+const plugins: Plugin[] = IS_PRODUCTION
   ? [
       ...basePlugins,
       [
@@ -173,106 +201,100 @@ const plugins = IS_PRODUCTION
     ]
   : basePlugins
 
-export default {
-  expo: {
-    name: envConfig.name,
-    slug: envConfig.slug,
-    version: '1.0.0',
-    orientation: 'portrait',
-    scheme: envConfig.scheme,
-    userInterfaceStyle: 'automatic',
-    newArchEnabled: true,
-    jsEngine: 'hermes',
-    platforms: ['ios', 'android'],
-    packagerOpts: {
-      sourceExts: ['ts', 'tsx', 'js', 'jsx', 'json'],
+const config: ExpoConfig = {
+  name: envConfig.name,
+  slug: envConfig.slug,
+  version: '1.0.0',
+  orientation: 'portrait',
+  scheme: envConfig.scheme,
+  userInterfaceStyle: 'automatic',
+  newArchEnabled: true,
+  jsEngine: 'hermes',
+  platforms: ['ios', 'android'],
+  updates: {
+    enabled: true,
+    fallbackToCacheTimeout: 0,
+    checkAutomatically: 'ON_LOAD',
+    url: `https://u.expo.dev/${PROJECT_ID}`,
+  },
+  runtimeVersion: '1.1.0',
+  ios: {
+    googleServicesFile: envConfig.googleServicesFile.ios,
+    supportsTablet: true,
+    bundleIdentifier: envConfig.bundleIdentifier,
+    config: {
+      usesNonExemptEncryption: false,
     },
-    updates: {
-      enabled: true,
-      fallbackToCacheTimeout: 0,
-      checkAutomatically: 'ALWAYS',
-      url: 'https://u.expo.dev/900feba3-8f4f-4a92-951f-a2ddb262e077',
+    entitlements: {
+      'aps-environment': 'production',
+      'com.apple.developer.applesignin': 'Default',
+      'com.apple.developer.associated-domains': 'applinks:avox',
     },
-    runtimeVersion: '1.0.9',
-    ios: {
-      googleServicesFile: envConfig.googleServicesFile.ios,
-      supportsTablet: true,
-      bundleIdentifier: envConfig.bundleIdentifier,
-      config: {
-        usesNonExemptEncryption: false,
-      },
-      entitlements: {
-        'aps-environment': 'production',
-        'com.apple.developer.applesignin': 'Default',
-        'com.apple.developer.associated-domains': 'applinks:avox',
-      },
-      infoPlist: {
-        CFBundleAllowMixedLocalizations: true,
-        GIDClientID: '396294037399-k8k5qpf3rgid0a1ujc5jjg9jbpve70vk.apps.googleusercontent.com',
-      },
-      icon: './src/assets/images/icon-ios.png',
-      splash: {
-        image: './src/assets/images/splash-ios.png',
-        resizeMode: 'contain',
-        backgroundColor: '#A2CAE5',
-        imageWidth: 200,
-      },
-      associatedDomains: ['applinks:avox'],
+    infoPlist: {
+      CFBundleAllowMixedLocalizations: true,
+      GIDClientID: '396294037399-k8k5qpf3rgid0a1ujc5jjg9jbpve70vk.apps.googleusercontent.com',
     },
-    android: {
-      googleServicesFile: envConfig.googleServicesFile.android,
-      package: envConfig.package,
-      adaptiveIcon: {
-        foregroundImage: './src/assets/images/icon-android.png',
-        backgroundColor: '#A2CAE5',
+    icon: './src/assets/images/icon-ios.png',
+    splash: {
+      image: './src/assets/images/splash-ios.png',
+      resizeMode: 'contain',
+      backgroundColor: '#A2CAE5',
+      imageWidth: 200,
+    },
+    associatedDomains: ['applinks:avox'],
+  },
+  android: {
+    googleServicesFile: envConfig.googleServicesFile.android,
+    package: envConfig.package,
+    adaptiveIcon: {
+      foregroundImage: './src/assets/images/icon-android.png',
+      backgroundColor: '#A2CAE5',
+    },
+    splash: {
+      image: './src/assets/images/splash-android.png',
+      resizeMode: 'contain',
+      backgroundColor: '#A2CAE5',
+      imageWidth: 200,
+    },
+    edgeToEdgeEnabled: false,
+    permissions: [
+      'com.google.android.gms.permission.AD_ID',
+      'android.permission.RECORD_AUDIO',
+      'android.permission.POST_NOTIFICATIONS',
+      'android.permission.ACCESS_FINE_LOCATION',
+      'android.permission.ACCESS_COARSE_LOCATION',
+      'android.permission.VIBRATE',
+    ],
+    intentFilters: [
+      {
+        action: 'VIEW',
+        data: [
+          {
+            host: 'avox',
+          },
+        ],
+        category: ['BROWSABLE', 'DEFAULT'],
       },
-      splash: {
-        image: './src/assets/images/splash-android.png',
-        resizeMode: 'contain',
-        backgroundColor: '#A2CAE5',
-        imageWidth: 200,
-      },
-      edgeToEdgeEnabled: false,
-      permissions: [
-        'com.google.android.gms.permission.AD_ID',
-        'android.permission.RECORD_AUDIO',
-        'android.permission.READ_MEDIA_IMAGES',
-        'android.permission.READ_MEDIA_VIDEO',
-        'android.permission.READ_MEDIA_AUDIO',
-        'android.permission.POST_NOTIFICATIONS',
-        'android.permission.ACCESS_FINE_LOCATION',
-        'android.permission.ACCESS_COARSE_LOCATION',
-        'android.permission.VIBRATE',
-      ],
-      intentFilters: [
-        {
-          action: 'VIEW',
-          data: [
-            {
-              host: 'avox',
-            },
-          ],
-          category: ['BROWSABLE', 'DEFAULT'],
-        },
-      ],
+    ],
+  },
+  locales: {
+    en: './src/localization/en.json',
+    tr: './src/localization/tr.json',
+  },
+  plugins: plugins,
+  experiments: {
+    typedRoutes: true,
+  },
+  extra: {
+    router: {},
+    eas: {
+      projectId: PROJECT_ID,
     },
-    locales: {
-      en: './src/localization/en.json',
-      tr: './src/localization/tr.json',
-    },
-    plugins: plugins,
-    experiments: {
-      typedRoutes: true,
-    },
-    extra: {
-      router: {},
-      eas: {
-        projectId: '900feba3-8f4f-4a92-951f-a2ddb262e077',
-      },
-      environment: envConfig.environment,
-      apiUrl: envConfig.apiUrl,
-      sentryDsn: envConfig.sentryDsn,
-      googleWebClientId: envConfig.googleWebClientId,
-    },
+    environment: envConfig.environment,
+    apiUrl: envConfig.apiUrl,
+    sentryDsn: envConfig.sentryDsn,
+    googleWebClientId: envConfig.googleWebClientId,
   },
 }
+
+export default config

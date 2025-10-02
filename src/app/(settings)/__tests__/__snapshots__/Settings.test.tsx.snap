@@ -123,7 +123,7 @@ exports[`Settings Screen Snapshot should render the Settings Screen successfully
           </View>
         </View>
         <View
-          className="border-b border-solid border-background-quaternary ml-14"
+          className="border-b border-background-quaternary ml-14"
         />
         <View
           accessibilityState={
