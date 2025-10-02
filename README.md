@@ -110,15 +110,15 @@ npm run start:production
 Run on iOS simulator:
 
 ```bash
-npm run ios:staging
-npm run ios:production
+npm run staging:ios
+npm run production:ios
 ```
 
 Run on Android emulator:
 
 ```bash
-npm run android:staging
-npm run android:production
+npm run staging:android
+npm run production:android
 ```
 
 Build for staging:
@@ -160,6 +160,17 @@ npm run lint
 npm run lint:fix
 npm run format
 npm run format:lint
+```
+
+### 📖 Storybook
+
+- **Storybook** is integrated into the project to test UI components in isolation.
+- No separate command is required; it is **automatically enabled in the staging environment**.
+- To run it, simply start the staging server:
+
+```bash
+npm run staging:ios
+npm run staging:android
 ```
 
 ---
@@ -258,7 +269,7 @@ npm run e2e:maestro
 - **i18n**: i18next + react-i18next
 - **Notifications**: React Native Notifications
 - **Error Tracking**: Sentry
-- **Testing**: Jest + React Native Testing Library + React Test Renderer + Detox + Maestro
+- **Testing**: Jest + React Native Testing Library + React Test Renderer + Detox + Maestro + Storybook
 - **Code Quality**: ESLint + Prettier + TypeScript
 
 ---
