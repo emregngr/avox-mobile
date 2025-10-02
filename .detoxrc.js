@@ -17,7 +17,8 @@ module.exports = {
     'avox.android': {
       type: 'android.apk',
       binaryPath: 'android/app/build/outputs/apk/staging/debug/app-staging-debug.apk',
-      build: 'cd android && ./gradlew assembleDebug assembleAndroidTest -D testBuildType=debug',
+      build:
+        'cd android && ./gradlew assembleStagingDebug assembleStagingDebugAndroidTest -DtestBuildType=debug && cd ..',
     },
   },
   devices: {

@@ -1216,7 +1216,7 @@ PODS:
   - EXJSONUtils (0.15.0)
   - EXManifests (1.0.8):
     - ExpoModulesCore
-  - Expo (54.0.10):
+  - Expo (54.0.12):
     - boost
     - DoubleConversion
     - ExpoModulesCore
@@ -1255,7 +1255,7 @@ PODS:
     - ExpoModulesCore
   - ExpoBlur (15.0.7):
     - ExpoModulesCore
-  - ExpoFileSystem (19.0.15):
+  - ExpoFileSystem (19.0.16):
     - ExpoModulesCore
   - ExpoFont (14.0.8):
     - ExpoModulesCore
@@ -1263,7 +1263,7 @@ PODS:
     - ExpoModulesCore
   - ExpoHaptics (15.0.7):
     - ExpoModulesCore
-  - ExpoHead (6.0.8):
+  - ExpoHead (6.0.10):
     - ExpoModulesCore
     - RNScreens
   - ExpoImage (3.0.8):
@@ -1283,9 +1283,9 @@ PODS:
     - ExpoModulesCore
   - ExpoLocalization (17.0.7):
     - ExpoModulesCore
-  - ExpoMaps (0.12.7):
+  - ExpoMaps (0.12.8):
     - ExpoModulesCore
-  - ExpoModulesCore (3.0.18):
+  - ExpoModulesCore (3.0.20):
     - boost
     - DoubleConversion
     - fast_float
@@ -1318,16 +1318,16 @@ PODS:
     - ExpoModulesCore
   - ExpoSplashScreen (31.0.10):
     - ExpoModulesCore
-  - ExpoStoreReview (9.0.7):
+  - ExpoStoreReview (9.0.8):
     - ExpoModulesCore
   - ExpoSystemUI (6.0.7):
     - ExpoModulesCore
   - ExpoTrackingTransparency (6.0.7):
     - ExpoModulesCore
-  - ExpoWebBrowser (15.0.7):
+  - ExpoWebBrowser (15.0.8):
     - ExpoModulesCore
   - EXStructuredHeaders (5.0.0)
-  - EXUpdates (29.0.11):
+  - EXUpdates (29.0.12):
     - boost
     - DoubleConversion
     - EASClient
@@ -1495,7 +1495,7 @@ PODS:
   - FirebaseSharedSwift (12.3.0)
   - fmt (11.0.2)
   - glog (0.3.5)
-  - Google-Mobile-Ads-SDK (12.9.0):
+  - Google-Mobile-Ads-SDK (12.11.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleAppMeasurement/Core (12.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 8.1)
@@ -4427,13 +4427,13 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNGoogleMobileAds (15.7.0):
+  - RNGoogleMobileAds (15.8.0):
     - boost
     - DoubleConversion
     - fast_float
     - fmt
     - glog
-    - Google-Mobile-Ads-SDK (= 12.9.0)
+    - Google-Mobile-Ads-SDK (= 12.11.0)
     - GoogleUserMessagingPlatform (= 3.0.0)
     - hermes-engine
     - RCT-Folly
@@ -5338,31 +5338,31 @@ SPEC CHECKSUMS:
   EXImageLoader: e501c001bc40b8326605e82e6e80363c80fe06b5
   EXJSONUtils: 1d3e4590438c3ee593684186007028a14b3686cd
   EXManifests: 7469efed75d694ce3c43a6da9c6f3886f66d3c26
-  Expo: bc548dffeaf1a300338bea7dc52c13303c13112d
+  Expo: a5f26d61e27e23695a32ad10b319921c3abb3c71
   ExpoAdapterGoogleSignIn: bf36536501f7d1472951f2e227492435c7add98b
   ExpoAsset: 3c3b7dd9b1318846a02ef05ce420e63d542aeb9f
   ExpoBlur: b5b7a26572b3c33a11f0b2aa2f95c17c4c393b76
-  ExpoFileSystem: 72fef9c5cb92b9995eeee114a14acb66d94d5bd4
+  ExpoFileSystem: 86f029bfb474f194ce861ba697364f661b578d64
   ExpoFont: d3e56c7cc03d9fd113b90a5513ad32b4bf46b0ff
   ExpoGlassEffect: 11f4ae0db0d49a6e96ecd81ef524ba3124a39fdc
   ExpoHaptics: b48d913e7e5f23816c6f130e525c9a6501b160b5
-  ExpoHead: 511ab91efdcf6b04fdfe76fc83931bb4c0956b09
+  ExpoHead: 5c4e84af3fb4dbb1d7672f17500cc5c1f148aa3c
   ExpoImage: 306dd755c842dba9f3ee654c51834a9cc657e6ca
   ExpoImagePicker: bd0a5c81d7734548f6908a480609257e85d19ea8
   ExpoKeepAwake: 3f5e3ac53627849174f3603271df8e08f174ed4a
   ExpoLinearGradient: f9e7182e5253d53b2de4134b69d70bbfc2d50588
   ExpoLinking: f5c171877e118e792cb9a77e5ade0b080d899b14
   ExpoLocalization: 6c6f0f89ad2822001ab0bc2eb6d4d980c77f080c
-  ExpoMaps: ac5024fd6b3db82da997bdc4074bda5c3e2e7764
-  ExpoModulesCore: 1f5cb7d443f5c12f9a53ce3e2e536a16ef4728a3
+  ExpoMaps: 62bba038bb8c2af73ccdf16cb765acd593fe3eab
+  ExpoModulesCore: d4b81541b11c67e41925480d7c3d1a20cbca9420
   ExpoNetwork: 97073786edfe405aba5d0987a544617ed0671ad1
   ExpoSplashScreen: 9d2ff8fa08f2c00336a83f93bebffed3a8312519
-  ExpoStoreReview: 142af4a031b0a7ad99e70e1de8675da03be4ff40
+  ExpoStoreReview: 65a4b93a904179d08113b1032d483478198fc302
   ExpoSystemUI: 5e7fbe4b716edb9e3a7bc0441e4a3b6b1f9eb1ea
   ExpoTrackingTransparency: fee2dc0cea16d12aeffde2f388671b029c563ed3
-  ExpoWebBrowser: 4f0dc52a559027cc0fba6920adc19a7604e2733d
+  ExpoWebBrowser: 51218ce6ef35ea769e33409aac87fea3df4b919d
   EXStructuredHeaders: c951e77f2d936f88637421e9588c976da5827368
-  EXUpdates: 5768bab0128d4e99fa19e5fb109137bbed0c6345
+  EXUpdates: 6ca0d35a88db828e3d5ada725ae24069eb3c279c
   EXUpdatesInterface: 1436757deb0d574b84bba063bd024c315e0ec08b
   fast_float: b32c788ed9c6a8c584d114d0047beda9664e7cc6
   FBLazyVector: 941bef1c8eeabd9fe1f501e30a5220beee913886
@@ -5387,7 +5387,7 @@ SPEC CHECKSUMS:
   FirebaseSharedSwift: a08758c5e2617f3ebb47865b45ecca6f02cd35ea
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
-  Google-Mobile-Ads-SDK: 36cce7d8dc1b615145d02491c8bf5640ef854e7c
+  Google-Mobile-Ads-SDK: b833c723759e32bbaf06edaaf2293f08ed898232
   GoogleAppMeasurement: 9074f50943fe26a7829be3a2b0043270ad935b9e
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleSignIn: c7f09cfbc85a1abf69187be091997c317cc33b77
@@ -5494,7 +5494,7 @@ SPEC CHECKSUMS:
   RNFBMessaging: 2f9d5e45532b8390cc61be145d85495843308048
   RNFBRemoteConfig: 5a71a1fea6ab50532ff6ed281b74864eb7c532f1
   RNGestureHandler: 9339994ea5d1ff6ad2679b7d0cc3d49053111369
-  RNGoogleMobileAds: ff39b4123e0d4c144d49b3daa721c44697765c0e
+  RNGoogleMobileAds: b97131dcd764613021be7d446227097a9e2ba427
   RNGoogleSignin: f4acd1e528303c8283c2411f3b148a6968cef339
   RNPermissions: 3148291d85b912f0a5839fb5bb0f9b7c868e41d0
   RNReanimated: 91d075aaf0c89d51a0708cd64cd6c77f7fa42cdc
