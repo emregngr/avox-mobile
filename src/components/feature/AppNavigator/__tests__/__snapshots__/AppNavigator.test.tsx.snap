@@ -6,60 +6,67 @@ exports[`AppNavigator Component Snapshot should render the AppNavigator Componen
     {
       "animation": "slide_from_bottom",
       "contentStyle": {
-        "backgroundColor": "#FFFFFFCC",
+        "backgroundColor": "#FFFFFF80",
       },
       "headerShown": false,
     }
   }
-  testID="MockStack"
+  testID="MockedStack"
 >
   <View
-    testID="MockStackScreen-index"
+    testID="MockedStackScreen-index"
   />
   <View
-    testID="MockStackScreen-(auth)"
+    testID="MockedStackScreen-(auth)"
   />
   <View
-    testID="MockStackScreen-(tabs)"
+    testID="MockedStackScreen-(tabs)"
   />
   <View
-    testID="MockStackScreen-(onboarding)"
+    testID="MockedStackScreen-(onboarding)"
   />
   <View
-    testID="MockStackScreen-(maintenance)"
+    testID="MockedStackScreen-(maintenance)"
   />
   <View
-    testID="MockStackScreen-(force-update)"
+    testID="MockedStackScreen-(force-update)"
   />
   <View
-    testID="MockStackScreen-(account)"
+    testID="MockedStackScreen-(account)"
   />
   <View
-    testID="MockStackScreen-(settings)"
+    testID="MockedStackScreen-(settings)"
   />
   <View
-    testID="MockStackScreen-(airline)"
+    testID="MockedStackScreen-(airline)"
   />
   <View
-    testID="MockStackScreen-(airport)"
+    testID="MockedStackScreen-(airport)"
   />
   <View
-    testID="MockStackScreen-(breaking-news)"
+    testID="MockedStackScreen-(breaking-news)"
   />
   <View
-    testID="MockStackScreen-(destination)"
+    testID="MockedStackScreen-(destination)"
   />
   <View
-    testID="MockStackScreen-(airplane)"
+    testID="MockedStackScreen-(airplane)"
   />
   <View
-    testID="MockStackScreen-token-expire"
+    testID="MockedStackScreen-token-expire"
   />
   <View
-    testID="MockStackScreen-(web-view-modal)"
+    testID="MockedStackScreen-(web-view-modal)"
   />
   <View
-    testID="MockStackScreen-(image-modal)"
+    testID="MockedStackScreen-(image-modal)"
   />
+  <View
+    testID="MockedStackProtected"
+  >
+    <View
+      testID="MockedStackScreen-storybook"
+    />
+  </View>
 </View>
 `;

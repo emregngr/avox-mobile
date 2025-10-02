@@ -1,6 +1,7 @@
 import { Stack } from 'expo-router'
 import { useMemo } from 'react'
 
+import { isStaging } from '@/config/env/environment'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
@@ -48,6 +49,9 @@ export const AppNavigator = ({ isAppReady }: AppNavigatorProps) => {
       <Stack.Screen name="token-expire" />
       <Stack.Screen name="(web-view-modal)" options={{ presentation: 'modal' }} />
       <Stack.Screen name="(image-modal)" options={{ presentation: 'modal' }} />
+      <Stack.Protected guard={isStaging()}>
+        <Stack.Screen name="storybook" />
+      </Stack.Protected>
     </Stack>
   )
 }

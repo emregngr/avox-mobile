@@ -38,31 +38,31 @@ export default function Onboarding() {
 
   const [currentIndex, setCurrentIndex] = useState<number>(0)
 
-  const onBoardings = useMemo(
+  const onboardings = useMemo(
     (): OnboardingsType => [
       {
         id: '1',
-        image: require('@/assets/images/onBoarding/1.webp'),
-        text: getLocale('onBoardingText1'),
-        title: getLocale('onBoardingTitle1'),
+        image: require('@/assets/images/onboarding/1.webp'),
+        text: getLocale('onboardingText1'),
+        title: getLocale('onboardingTitle1'),
       },
       {
         id: '2',
-        image: require('@/assets/images/onBoarding/2.webp'),
-        text: getLocale('onBoardingText2'),
-        title: getLocale('onBoardingTitle2'),
+        image: require('@/assets/images/onboarding/2.webp'),
+        text: getLocale('onboardingText2'),
+        title: getLocale('onboardingTitle2'),
       },
       {
         id: '3',
-        image: require('@/assets/images/onBoarding/3.webp'),
-        text: getLocale('onBoardingText3'),
-        title: getLocale('onBoardingTitle3'),
+        image: require('@/assets/images/onboarding/3.webp'),
+        text: getLocale('onboardingText3'),
+        title: getLocale('onboardingTitle3'),
       },
       {
         id: '4',
-        image: require('@/assets/images/onBoarding/4.webp'),
-        text: getLocale('onBoardingText4'),
-        title: getLocale('onBoardingTitle4'),
+        image: require('@/assets/images/onboarding/4.webp'),
+        text: getLocale('onboardingText4'),
+        title: getLocale('onboardingTitle4'),
       },
     ],
     [],
@@ -74,13 +74,13 @@ export default function Onboarding() {
   }, [])
 
   const handlePressNext = useCallback(() => {
-    if (currentIndex === onBoardings?.length - 1) {
+    if (currentIndex === onboardings?.length - 1) {
       setIsOnboardingSeen(true)
       router.replace('/home')
     } else {
       flatListRef.current?.scrollToIndex({ animated: true, index: currentIndex + 1 })
     }
-  }, [currentIndex, onBoardings])
+  }, [currentIndex, onboardings])
 
   const handleSkip = useCallback(() => {
     setIsOnboardingSeen(true)
@@ -90,8 +90,8 @@ export default function Onboarding() {
   const BATCHING_PERIOD = useBatchingPeriod()
 
   const buttonLabel = useMemo(
-    () => (currentIndex === onBoardings?.length - 1 ? getLocale('skip') : getLocale('continue')),
-    [currentIndex, onBoardings?.length],
+    () => (currentIndex === onboardings?.length - 1 ? getLocale('skip') : getLocale('continue')),
+    [currentIndex, onboardings?.length],
   )
 
   const renderItem = useCallback(
@@ -124,7 +124,7 @@ export default function Onboarding() {
 
       <FlatList
         bounces={false}
-        data={onBoardings}
+        data={onboardings}
         decelerationRate="fast"
         getItemLayout={getItemLayout}
         initialNumToRender={INITIAL_ITEMS_PER_PAGE}
@@ -148,11 +148,11 @@ export default function Onboarding() {
         <ThemedGradientButton
           label={buttonLabel}
           onPress={handlePressNext}
-          testID={currentIndex === onBoardings?.length - 1 ? 'skip-button' : 'continue-button'}
+          testID={currentIndex === onboardings?.length - 1 ? 'skip-button' : 'continue-button'}
           type="secondary"
         />
 
-        <DotsContainer currentIndex={currentIndex} length={onBoardings?.length} />
+        <DotsContainer currentIndex={currentIndex} length={onboardings?.length} />
       </View>
     </SafeLayout>
   )

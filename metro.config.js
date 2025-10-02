@@ -1,4 +1,5 @@
 const { getDefaultConfig } = require('@expo/metro-config')
+const withStorybook = require('@storybook/react-native/metro/withStorybook')
 const { withRozenite } = require('@rozenite/metro')
 const { getSentryExpoConfig } = require('@sentry/react-native/metro')
 const { withNativeWind } = require('nativewind/metro')
@@ -29,14 +30,29 @@ const mergedConfig = {
     ...sentryConfig.transformer,
     ...svgConfig.transformer,
   },
-  resolver: { ...defaultConfig.resolver, ...sentryConfig.resolver, ...svgConfig.resolver },
+  resolver: {
+    ...defaultConfig.resolver,
+    ...sentryConfig.resolver,
+    ...svgConfig.resolver,
+    resolveRequest: (context, moduleName, platform) => {
+      if (moduleName === 'tty' || moduleName === 'os') {
+        return {
+          type: 'empty',
+        }
+      }
+
+      return context.resolveRequest(context, moduleName, platform)
+    },
+  },
 }
 
 const configWithNativeWind = withNativeWind(mergedConfig, {
   input: './src/global.css',
 })
 
-module.exports = withRozenite(configWithNativeWind, {
+const configWithStorybook = withStorybook(configWithNativeWind)
+
+module.exports = withRozenite(configWithStorybook, {
   include: [
     '@rozenite/expo-atlas-plugin',
     '@rozenite/mmkv-plugin',

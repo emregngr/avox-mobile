@@ -20,18 +20,23 @@ jest.mock('expo-router', () => {
     children: ReactNode
     screenOptions: any
   }) => (
-    <View data-screenOptions={screenOptions} testID="MockStack">
+    <View data-screenOptions={screenOptions} testID="MockedStack">
       {children}
     </View>
   )
 
-  const MockScreen = (props: { name: string }) => <View testID={`MockStackScreen-${props.name}`} />
+  const MockedScreen = (props: { name: string }) => (
+    <View testID={`MockedStackScreen-${props.name}`} />
+  )
 
-  MockedStack.Screen = MockScreen
+  const MockedProtected = ({ children }: { children: ReactNode }) => (
+    <View testID="MockedStackProtected">{children}</View>
+  )
 
-  return {
-    Stack: MockedStack,
-  }
+  MockedStack.Screen = MockedScreen
+  MockedStack.Protected = MockedProtected
+
+  return { Stack: MockedStack }
 })
 
 beforeEach(() => {
@@ -42,30 +47,31 @@ describe('AppNavigator Component', () => {
   it('should render only the "index" screen when isAppReady is false', () => {
     const { getByTestId, queryByTestId } = render(<AppNavigator isAppReady={false} />)
 
-    expect(getByTestId('MockStackScreen-index')).toBeTruthy()
-    expect(queryByTestId('MockStackScreen-(auth)')).toBeNull()
-    expect(queryByTestId('MockStackScreen-(tabs)')).toBeNull()
+    expect(getByTestId('MockedStackScreen-index')).toBeTruthy()
+    expect(queryByTestId('MockedStackScreen-(auth)')).toBeNull()
+    expect(queryByTestId('MockedStackScreen-(tabs)')).toBeNull()
   })
 
   it('should render all screens when isAppReady is true', () => {
     const { getByTestId } = render(<AppNavigator isAppReady />)
 
-    expect(getByTestId('MockStackScreen-index')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(auth)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(tabs)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(onboarding)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(maintenance)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(force-update)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(account)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(settings)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(airline)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(airport)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(breaking-news)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(destination)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(airplane)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-token-expire')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(web-view-modal)')).toBeTruthy()
-    expect(getByTestId('MockStackScreen-(image-modal)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-index')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(auth)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(tabs)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(onboarding)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(maintenance)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(force-update)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(account)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(settings)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(airline)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(airport)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(breaking-news)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(destination)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(airplane)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-token-expire')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(web-view-modal)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-(image-modal)')).toBeTruthy()
+    expect(getByTestId('MockedStackScreen-storybook')).toBeTruthy()
   })
 
   it('should pass the correct screenOptions prop to the Stack component based on the selected theme', () => {
@@ -75,7 +81,7 @@ describe('AppNavigator Component', () => {
 
     const { getByTestId } = render(<AppNavigator isAppReady />)
 
-    const stack = getByTestId('MockStack')
+    const stack = getByTestId('MockedStack')
     const passedOptions = stack.props['data-screenOptions']
 
     expect(passedOptions.contentStyle.backgroundColor).toBe(expectedBackgroundColor)

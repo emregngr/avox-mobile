@@ -93,14 +93,14 @@ beforeEach(() => {
     const translations: Record<string, string> = {
       skip: 'Skip',
       continue: 'Continue',
-      onBoardingTitle1: 'Title 1',
-      onBoardingText1: 'Text 1',
-      onBoardingTitle2: 'Title 2',
-      onBoardingText2: 'Text 2',
-      onBoardingTitle3: 'Title 3',
-      onBoardingText3: 'Text 3',
-      onBoardingTitle4: 'Title 4',
-      onBoardingText4: 'Text 4',
+      onboardingTitle1: 'Title 1',
+      onboardingText1: 'Text 1',
+      onboardingTitle2: 'Title 2',
+      onboardingText2: 'Text 2',
+      onboardingTitle3: 'Title 3',
+      onboardingText3: 'Text 3',
+      onboardingTitle4: 'Title 4',
+      onboardingText4: 'Text 4',
     }
     return translations[key] || key
   })
