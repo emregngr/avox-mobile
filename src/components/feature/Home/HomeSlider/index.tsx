@@ -66,7 +66,7 @@ export const HomeSlider = memo(({ breakingNews }: HomeSliderProps) => {
 
   const flatListRef = useRef<FlatList>(null)
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<NodeJS.Timeout | number | null>(null)
 
   const memoizedBreakingNews = useMemo(() => breakingNews ?? [], [breakingNews])
 

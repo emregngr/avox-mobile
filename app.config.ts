@@ -217,7 +217,7 @@ const config: ExpoConfig = {
     checkAutomatically: 'ON_LOAD',
     url: `https://u.expo.dev/${PROJECT_ID}`,
   },
-  runtimeVersion: '1.1.0',
+  runtimeVersion: '1.1.1',
   ios: {
     googleServicesFile: envConfig.googleServicesFile.ios,
     supportsTablet: true,
@@ -278,8 +278,8 @@ const config: ExpoConfig = {
     ],
   },
   locales: {
-    en: './src/localization/en.json',
-    tr: './src/localization/tr.json',
+    en: './src/locales/en.json',
+    tr: './src/locales/tr.json',
   },
   plugins: plugins,
   experiments: {

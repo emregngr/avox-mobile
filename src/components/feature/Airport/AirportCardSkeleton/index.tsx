@@ -8,6 +8,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 
+const DURATION = 1000
+
 const STATIC_STYLES = {
   badge: {
     height: 40,
@@ -25,7 +27,7 @@ export const AirportCardSkeleton = memo(() => {
   const pulse = useSharedValue<number>(0)
 
   useEffect(() => {
-    pulse.value = withRepeat(withTiming(1, { duration: 1000 }), -1, true)
+    pulse.value = withRepeat(withTiming(1, { duration: DURATION }), -1, true)
   }, [pulse])
 
   const animatedStyle = useAnimatedStyle(() => ({
