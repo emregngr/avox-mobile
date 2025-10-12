@@ -55,7 +55,7 @@ exports[`FaqItem Component Snapshot should render the FaqItem Component successf
         </Text>
       </View>
       <View
-        color="#00000080"
+        color="#000000B2"
         name="chevron-down"
         size={24}
         testID="mocked-material-community-icon"

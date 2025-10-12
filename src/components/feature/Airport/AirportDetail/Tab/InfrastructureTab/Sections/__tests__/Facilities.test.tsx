@@ -21,7 +21,6 @@ const mockedFormatNumber = formatNumber as jest.MockedFunction<typeof formatNumb
 const mockedAirportRowItem = jest.fn()
 const mockedAirportSectionRow = jest.fn()
 
-jest.mock('@/assets/icons/fireStation.svg', () => 'FireStationIcon')
 jest.mock('@/assets/icons/tower.svg', () => 'TowerIcon')
 
 jest.mock('@/components/feature/Airport/AirportDetail/AirportRowItem', () => {
@@ -94,7 +93,7 @@ describe('Facilities Component', () => {
     )
     expect(mockedAirportRowItem).toHaveBeenCalledWith(
       expect.objectContaining({
-        customIcon: 'TowerIcon',
+        icon: 'fire-truck',
         label: 'fireDepartmentCategory',
         value: 'CAT 10',
       }),

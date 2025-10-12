@@ -16,8 +16,6 @@ jest.mock('@/locales/i18next', () => ({
   getLocale: (key: string) => key,
 }))
 
-jest.mock('@/assets/icons/settings.svg', () => 'Settings')
-
 jest.mock('@/hooks/services/useAuth')
 
 const mockedUseLogout = useLogout as jest.MockedFunction<typeof useLogout>

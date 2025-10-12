@@ -42,8 +42,6 @@ jest.mock('@/utils/common/remoteConfig')
 
 const mockedGetStringValue = getStringValue as jest.MockedFunction<typeof getStringValue>
 
-jest.mock('@/assets/icons/close', () => 'Close')
-
 jest.mock('@/assets/icons/instagram.svg', () => 'Instagram')
 
 jest.mock('@/assets/icons/tiktok.svg', () => 'Tiktok')

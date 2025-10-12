@@ -49,6 +49,7 @@ module.exports = {
           tertiary: 'var(--color-background-tertiary)',
           quaternary: 'var(--color-background-quaternary)',
           blur: 'var(--color-background-blur)',
+          airlineLogo: 'var(--color-background-airline-logo)',
         },
         success: 'var(--color-success)',
         warning: 'var(--color-warning)',

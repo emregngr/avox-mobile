@@ -6,7 +6,6 @@ import { Controller } from 'react-hook-form'
 import type { KeyboardTypeOptions } from 'react-native'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 
-import Close from '@/assets/icons/close'
 import { ThemedText } from '@/components/common/ThemedText'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
@@ -48,7 +47,7 @@ interface TextInputFieldProps<T extends FieldValues> {
   secureTextEntry?: boolean
   showToggle?: boolean
   submitBehavior?: SubmitBehavior
-  testID?: string,
+  testID?: string
   textContentType?: TextContentType
 }
 
@@ -175,11 +174,10 @@ const TextInputFieldComponent = <T extends FieldValues>(
                 onPress={() => onChange('')}
                 testID="clear-button"
               >
-                <Close
-                  height={20}
-                  primaryColor={colors?.background?.primary}
-                  secondaryColor={colors?.onPrimary100}
-                  width={20}
+                <MaterialCommunityIcons
+                  name="close-circle"
+                  size={20}
+                  color={colors?.onPrimary100}
                 />
               </TouchableOpacity>
             ) : null}

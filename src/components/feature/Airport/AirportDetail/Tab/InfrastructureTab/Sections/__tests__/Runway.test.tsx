@@ -21,8 +21,6 @@ const mockedFormatNumber = formatNumber as jest.MockedFunction<typeof formatNumb
 const mockedAirportRowItem = jest.fn()
 const mockedAirportSectionRow = jest.fn()
 
-jest.mock('@/assets/icons/runway.svg', () => 'RunwayIcon')
-
 jest.mock('@/components/feature/Airport/AirportDetail/AirportRowItem', () => {
   const { View } = require('react-native')
   return {
@@ -85,7 +83,7 @@ describe('Runway Component', () => {
       render(<Runway infrastructure={mockedInfrastructure} />)
 
       expect(mockedAirportRowItem).toHaveBeenCalledWith(
-        expect.objectContaining({ customIcon: 'RunwayIcon', label: 'runway', value: 3 }),
+        expect.objectContaining({ icon: 'road', label: 'runway', value: 3 }),
       )
       expect(mockedAirportRowItem).toHaveBeenCalledWith(
         expect.objectContaining({ icon: 'resize', label: 'runwaym', value: 'formatted_4100' }),

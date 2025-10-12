@@ -45,10 +45,11 @@ exports[`Profile Screen Snapshot should render the Profile screen successfully 1
       }
       testID="settings-button"
     >
-      <Settings
+      <View
         color="#000000"
-        height={24}
-        width={24}
+        name="cog"
+        size={20}
+        testID="mocked-material-community-icon"
       />
     </View>
   </View>

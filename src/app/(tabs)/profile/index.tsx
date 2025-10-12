@@ -6,7 +6,6 @@ import React, { useCallback, useMemo } from 'react'
 import { Alert, Platform, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import Settings from '@/assets/icons/settings.svg'
 import { Header, ProfileItem, SafeLayout, ThemedText } from '@/components/common'
 import { useLogout } from '@/hooks/services/useAuth'
 import { useGetUser } from '@/hooks/services/useUser'
@@ -14,6 +13,7 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const app = getApp()
 const auth = getAuth(app)
@@ -67,7 +67,7 @@ export default function Profile() {
   }, [handleLogoutMutation, selectedTheme])
 
   const settingsIcon = useMemo(
-    () => <Settings color={colors?.onPrimary100} height={24} width={24} />,
+    () => <MaterialCommunityIcons name="cog" size={20} color={colors?.onPrimary100} />,
     [colors?.onPrimary100],
   )
 

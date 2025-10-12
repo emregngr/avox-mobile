@@ -204,7 +204,7 @@ const plugins: Plugin[] = IS_PRODUCTION
 const config: ExpoConfig = {
   name: envConfig.name,
   slug: envConfig.slug,
-  version: '1.0.0',
+  version: '1.1.2',
   orientation: 'portrait',
   scheme: envConfig.scheme,
   userInterfaceStyle: 'automatic',
@@ -217,7 +217,7 @@ const config: ExpoConfig = {
     checkAutomatically: 'ON_LOAD',
     url: `https://u.expo.dev/${PROJECT_ID}`,
   },
-  runtimeVersion: '1.1.1',
+  runtimeVersion: '1.1.2',
   ios: {
     googleServicesFile: envConfig.googleServicesFile.ios,
     supportsTablet: true,

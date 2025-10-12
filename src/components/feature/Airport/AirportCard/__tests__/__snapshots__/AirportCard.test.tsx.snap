@@ -38,7 +38,7 @@ exports[`Airport Component Snapshot should render the Airport Component successf
   testID="airport-card-1"
 >
   <View
-    className="rounded-t-xl overflow-hidden  justify-center w-full "
+    className="rounded-t-xl overflow-hidden justify-center w-full "
   >
     <View
       cachePolicy="memory-disk"

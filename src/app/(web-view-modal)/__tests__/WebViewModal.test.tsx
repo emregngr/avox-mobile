@@ -26,8 +26,6 @@ jest.mock('@/components/common', () => {
   }
 })
 
-jest.mock('@/assets/icons/close', () => 'Close')
-
 const mockedTitle = 'Test Web Page'
 const mockedUrl = 'https://www.google.com'
 

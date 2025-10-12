@@ -47,11 +47,11 @@ exports[`Settings Screen Snapshot should render the Settings Screen successfully
       }
       testID="close-button"
     >
-      <Close
-        height={24}
-        primaryColor="#D1D1D6"
-        secondaryColor="#000000"
-        width={24}
+      <View
+        color="#000000"
+        name="close"
+        size={20}
+        testID="mocked-material-community-icon"
       />
     </View>
   </View>

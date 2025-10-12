@@ -6,6 +6,7 @@ exports[`Theme Definitions should match the snapshot for base colors 1`] = `
     "af": "#4B1F99",
     "as": "#8B1717",
     "background": {
+      "airlineLogo": "#A0A0A0",
       "blur": "#00000099",
       "glass": "#00000060",
       "primary": "#000000",
@@ -51,6 +52,7 @@ exports[`Theme Definitions should match the snapshot for base colors 1`] = `
     "af": "#C0B4E0",
     "as": "#D9817E",
     "background": {
+      "airlineLogo": "#CECECE",
       "blur": "#FFFFFF80",
       "glass": "#00000015",
       "primary": "#FFFFFF",
@@ -99,6 +101,7 @@ exports[`Theme Definitions should match the snapshot for nativewind theme variab
 {
   "dark": {
     "--color-af": "#4B1F99",
+    "--color-airline-logo": "#A0A0A0",
     "--color-as": "#8B1717",
     "--color-background-blur": "#00000099",
     "--color-background-glass": "#00000060",
@@ -142,6 +145,7 @@ exports[`Theme Definitions should match the snapshot for nativewind theme variab
   },
   "light": {
     "--color-af": "#C0B4E0",
+    "--color-airline-logo": "#CECECE",
     "--color-as": "#D9817E",
     "--color-background-blur": "#FFFFFF80",
     "--color-background-glass": "#00000015",

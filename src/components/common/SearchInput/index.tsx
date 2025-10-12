@@ -2,7 +2,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useMemo, useRef, useState } from 'react'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 
-import Close from '@/assets/icons/close'
 import { ThemedButtonText } from '@/components/common/ThemedButtonText'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
@@ -78,12 +77,7 @@ export const SearchInput = ({ className, onChangeText, placeholder, value }: Sea
             onPress={handleClear}
             testID="search-clear-button"
           >
-            <Close
-              height={20}
-              primaryColor={colors?.background?.primary}
-              secondaryColor={colors?.onPrimary100}
-              width={20}
-            />
+            <MaterialCommunityIcons name="close-circle" size={20} color={colors?.onPrimary100} />
           </TouchableOpacity>
         ) : null}
       </View>

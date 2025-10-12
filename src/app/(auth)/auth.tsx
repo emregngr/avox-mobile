@@ -5,7 +5,6 @@ import { Platform, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import Apple from '@/assets/icons/apple.svg'
-import Close from '@/assets/icons/close'
 import Google from '@/assets/icons/google.svg'
 import {
   Header,
@@ -19,6 +18,7 @@ import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const Icon = require('@/assets/images/icon-ios.png')
 
@@ -71,15 +71,8 @@ export default function Auth() {
   }, [])
 
   const closeIcon = useMemo(
-    () => (
-      <Close
-        height={24}
-        primaryColor={colors?.background?.quaternary}
-        secondaryColor={colors?.onPrimary100}
-        width={24}
-      />
-    ),
-    [colors?.background?.quaternary, colors?.onPrimary100],
+    () => <MaterialCommunityIcons name="close" size={20} color={colors?.onPrimary100} />,
+    [colors?.onPrimary100],
   )
 
   const googleIcon = useMemo(() => <Google height={24} width={24} />, [])
@@ -186,10 +179,7 @@ export default function Auth() {
             ) : null}
           </View>
 
-          <ThemedText
-            className="mt-6" color="text-70" type="body2"
-            center
-          >
+          <ThemedText className="mt-6" color="text-70" type="body2" center>
             {localeStrings.acceptText}
           </ThemedText>
         </View>

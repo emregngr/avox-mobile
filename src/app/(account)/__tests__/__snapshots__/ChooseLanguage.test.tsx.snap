@@ -173,9 +173,9 @@ exports[`ChooseLanguage Screen Snapshot should render the ChooseLanguage Screen 
             </View>
             <View
               color="#000000"
-              height={20}
-              testID="mocked-svg-icon"
-              width={20}
+              name="check"
+              size={20}
+              testID="check-icon-en"
             />
           </View>
         </View>

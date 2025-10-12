@@ -37,7 +37,7 @@ export const FaqItem = ({ index, isExpanded, item, toggleExpanded }: FaqItemProp
             </ThemedText>
           </View>
           <MaterialCommunityIcons
-            color={colors?.onPrimary50}
+            color={isExpanded ? colors?.onPrimary100 : colors?.onPrimary70}
             name={isExpanded ? 'chevron-up' : 'chevron-down'}
             size={24}
           />

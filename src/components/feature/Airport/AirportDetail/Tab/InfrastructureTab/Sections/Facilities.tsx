@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 
-import FireStationIcon from '@/assets/icons/fireStation.svg'
 import TowerIcon from '@/assets/icons/tower.svg'
 import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/AirportRowItem'
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
@@ -66,7 +65,7 @@ export const Facilities = ({ facilities, infrastructure }: FacilitiesProps) => {
       <AirportRowItem customIcon={TowerIcon} label={localeStrings.tower} value={towerHeightM} />
 
       <AirportRowItem
-        customIcon={FireStationIcon}
+        icon="fire-truck"
         label={localeStrings.fireDepartmentCategory}
         value={fireCategory}
       />

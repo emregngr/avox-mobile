@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 
-import RunwayIcon from '@/assets/icons/runway.svg'
 import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/AirportRowItem'
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
 import { getLocale } from '@/locales/i18next'
@@ -35,7 +34,7 @@ export const Runway = ({ infrastructure }: RunwayProps) => {
 
   return (
     <AirportSectionRow title={localeStrings.trackInformation}>
-      <AirportRowItem customIcon={RunwayIcon} label={localeStrings.runway} value={runwayCount} />
+      <AirportRowItem icon="road" label={localeStrings.runway} value={runwayCount} />
 
       <AirportRowItem icon="resize" label={localeStrings.runwaym} value={formattedRunwayLength} />
 

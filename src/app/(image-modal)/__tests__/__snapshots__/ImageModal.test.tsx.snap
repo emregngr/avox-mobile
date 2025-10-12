@@ -23,49 +23,61 @@ exports[`ImageModal Screen Snapshot should render the ImageModal Screen successf
           Any Title
         </Text>
       </View>
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        hitSlop={20}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
+      <ViewManagerAdapter_ExpoGlassEffect
+        glassEffectStyle="clear"
+        isInteractive={true}
         style={
           {
-            "opacity": 1,
+            "borderRadius": 20,
+            "padding": 8,
           }
         }
-        testID="close-button"
+        tintColor="#00000015"
       >
-        <Close
-          height={24}
-          primaryColor="#D1D1D6"
-          secondaryColor="#000000"
-          width={24}
-        />
-      </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          hitSlop={20}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+            }
+          }
+          testID="close-button"
+        >
+          <View
+            color="#000000"
+            name="close"
+            size={20}
+            testID="mocked-material-community-icon"
+          />
+        </View>
+      </ViewManagerAdapter_ExpoGlassEffect>
     </View>
     <View
       testID="zoomable"

@@ -120,7 +120,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
       onPress={onCardPress}
       testID={`airport-card-${id}`}
     >
-      <View className="rounded-t-xl overflow-hidden  justify-center w-full ">
+      <View className="rounded-t-xl overflow-hidden justify-center w-full ">
         <Image
           cachePolicy="memory-disk"
           contentFit="cover"
@@ -154,10 +154,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
 
       <View className="px-3 py-3">
         <View className="h-56 justify-between">
-          <ThemedText
-            color="text-100" ellipsizeMode="tail" numberOfLines={2}
-            type="h4"
-          >
+          <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={2} type="h4">
             {name}
           </ThemedText>
 
@@ -181,10 +178,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {destinationCount}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.route}
                 </ThemedText>
               </View>
@@ -195,10 +189,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {destinationCountries}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.country}
                 </ThemedText>
               </View>
@@ -214,10 +205,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {passengerCapacity} m
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.passenger}
                 </ThemedText>
               </View>
@@ -227,10 +215,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {googleMapsRating}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.rating}
                 </ThemedText>
               </View>
@@ -249,10 +234,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
           style={STATIC_STYLES.containerWidth}
         >
           <View className="flex-row items-center px-1">
-            <ThemedText
-              color="text-90" ellipsizeMode="tail" numberOfLines={2}
-              type="body4"
-            >
+            <ThemedText color="text-90" ellipsizeMode="tail" numberOfLines={2} type="body4">
               {airlinesText}
             </ThemedText>
           </View>

@@ -26,8 +26,6 @@ jest.mock('@/components/common', () => {
   }
 })
 
-jest.mock('@/assets/icons/close', () => 'Close')
-
 jest.mock('@likashefqet/react-native-image-zoom', () => {
   const { View } = require('react-native')
 

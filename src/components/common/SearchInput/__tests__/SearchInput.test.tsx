@@ -13,8 +13,6 @@ jest.mock('@/store/theme')
 
 const mockedUseThemeStore = useThemeStore as jest.MockedFunction<typeof useThemeStore>
 
-jest.mock('@/assets/icons/close', () => 'Close')
-
 jest.mock('@/components/common/ThemedButtonText', () => {
   const { TouchableOpacity } = require('react-native')
 

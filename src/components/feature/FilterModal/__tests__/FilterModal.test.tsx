@@ -201,8 +201,6 @@ jest.mock('@/constants/filterModalOptions', () => ({
   getBusinessTypes: () => [],
 }))
 
-jest.mock('@/assets/icons/close', () => 'CloseIcon')
-
 beforeEach(() => {
   mockedUseLocaleStore.mockReturnValue({ selectedLocale: 'en' })
   mockedUseThemeStore.mockReturnValue({ selectedTheme: 'light' })

@@ -5,14 +5,19 @@ import { useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
-import Close from '@/assets/icons/close'
 import { SafeLayout, ThemedText } from '@/components/common'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import type { ImageKeyType } from '@/utils/feature/getAirplaneImage'
 import { getAirplaneImageSource } from '@/utils/feature/getAirplaneImage'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { GlassView } from 'expo-glass-effect'
 
 const STATIC_STYLES = {
+  closeIcon: {
+    borderRadius: 20,
+    padding: 8,
+  },
   image: {
     height: '100%' as const,
     width: '100%' as const,
@@ -49,26 +54,25 @@ export default function ImageModal() {
       <GestureHandlerRootView className="flex-1 bg-background-primary">
         <View className="flex-row items-center justify-between p-4 z-10 bg-transparent">
           <View className="flex-1 ml-10 mr-4">
-            <ThemedText
-              color="text-100" ellipsizeMode="tail" numberOfLines={2}
-              type="h3" center
-            >
+            <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={2} type="h3" center>
               {title}
             </ThemedText>
           </View>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            hitSlop={20}
-            onPress={handleBackPress}
-            testID="close-button"
+          <GlassView
+            style={STATIC_STYLES.closeIcon}
+            tintColor={colors?.background?.glass}
+            glassEffectStyle="clear"
+            isInteractive
           >
-            <Close
-              height={24}
-              primaryColor={colors?.background?.quaternary}
-              secondaryColor={colors?.onPrimary100}
-              width={24}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              hitSlop={20}
+              onPress={handleBackPress}
+              testID="close-button"
+            >
+              <MaterialCommunityIcons name="close" size={20} color={colors?.onPrimary100} />
+            </TouchableOpacity>
+          </GlassView>
         </View>
 
         <Zoomable

@@ -3,7 +3,6 @@ import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 're
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import Close from '@/assets/icons/close'
 import { ThemedButton } from '@/components/common/ThemedButton'
 import { ThemedText } from '@/components/common/ThemedText'
 import { AirportServices } from '@/components/feature/FilterModal/AirportServices'
@@ -47,6 +46,15 @@ import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import type { FilterModalPropsType } from '@/types/feature/filter'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { GlassView } from 'expo-glass-effect'
+
+const STATIC_STYLES = {
+  closeIcon: {
+    borderRadius: 20,
+    padding: 8,
+  },
+}
 
 export const FilterModal = forwardRef<BottomSheet, FilterModalPropsType>(
   ({ currentFilters, onApply, onClose, type }, ref) => {
@@ -214,19 +222,21 @@ export const FilterModal = forwardRef<BottomSheet, FilterModalPropsType>(
           <ThemedText color="text-100" type="h2">
             {localeStrings.filter}
           </ThemedText>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            hitSlop={20}
-            onPress={onClose}
-            testID="filter-close-button"
+          <GlassView
+            style={STATIC_STYLES.closeIcon}
+            tintColor={colors?.background?.glass}
+            glassEffectStyle="clear"
+            isInteractive
           >
-            <Close
-              height={24}
-              primaryColor={colors?.background?.quaternary}
-              secondaryColor={colors?.onPrimary100}
-              width={24}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              hitSlop={20}
+              onPress={onClose}
+              testID="filter-close-button"
+            >
+              <MaterialCommunityIcons name="close" size={20} color={colors?.onPrimary100} />
+            </TouchableOpacity>
+          </GlassView>
         </View>
 
         <BottomSheetScrollView

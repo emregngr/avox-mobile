@@ -4,12 +4,12 @@ import { type ReactNode, useMemo } from 'react'
 import type { ViewStyle } from 'react-native'
 import { TouchableOpacity, View } from 'react-native'
 
-import Back from '@/assets/icons/back.svg'
 import { ThemedButtonText } from '@/components/common/ThemedButtonText'
 import { ThemedText } from '@/components/common/ThemedText'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import { cn } from '@/utils/common/cn'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 type HeaderProps = {
   backIcon?: boolean
@@ -115,7 +115,7 @@ export const Header = ({
             onPress={backIconOnPress}
             testID="header-back-icon"
           >
-            <Back color={colors?.onPrimary100} height={24} width={24} />
+            <MaterialCommunityIcons name="arrow-left" size={20} color={colors?.onPrimary100} />
           </TouchableOpacity>
         </GlassView>
       ) : null}

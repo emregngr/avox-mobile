@@ -65,9 +65,9 @@ exports[`Header Component Snapshot should render the Header Component successful
     >
       <View
         color="#000000"
-        height={24}
-        testID="mocked-svg-icon"
-        width={24}
+        name="arrow-left"
+        size={20}
+        testID="mocked-material-community-icon"
       />
     </View>
   </ViewManagerAdapter_ExpoGlassEffect>

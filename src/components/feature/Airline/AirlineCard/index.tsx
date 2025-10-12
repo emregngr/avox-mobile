@@ -9,6 +9,8 @@ import { FavoriteButton } from '@/components/feature/FavoriteButton'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
+import useThemeStore from '@/store/theme'
+import { themeColors } from '@/themes'
 import type { AirlineType } from '@/types/feature/airline'
 import { AnalyticsService } from '@/utils/common/analyticsService'
 import { responsive } from '@/utils/common/responsive'
@@ -36,8 +38,8 @@ const STATIC_STYLES = {
     width: responsive.deviceWidth / 2 - 44,
   },
   logo: {
-    height: 40,
-    width: '50%' as const,
+    height: 24,
+    width: '100%' as const,
   },
   topContainer: {
     height: 130,
@@ -46,6 +48,9 @@ const STATIC_STYLES = {
 
 const AirlineCard = memo(({ airline }: AirlineCardProps) => {
   const { selectedLocale } = useLocaleStore()
+  const { selectedTheme } = useThemeStore()
+
+  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const {
     fleet: { totalAirplane },
@@ -67,7 +72,6 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
   const localeStrings = useMemo(
     () => ({
       airplane: getLocale('airplane'),
-      cargo: getLocale('cargo'),
       country: getLocale('country'),
       popularRoutes: getLocale('popularRoutes'),
       rating: getLocale('rating'),
@@ -122,13 +126,15 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
         className="bg-background-primary rounded-t-xl overflow-hidden w-full justify-center items-center"
         style={STATIC_STYLES.topContainer}
       >
-        <Image
-          cachePolicy="memory-disk"
-          contentFit="contain"
-          source={logo}
-          style={STATIC_STYLES.logo}
-          transition={0}
-        />
+        <View className="bg-background-airlineLogo rounded-xl overflow-hidden w-[80%] h-12 mt-3 p-2 justify-center items-center">
+          <Image
+            cachePolicy="memory-disk"
+            contentFit="contain"
+            source={logo}
+            style={STATIC_STYLES.logo}
+            transition={0}
+          />
+        </View>
 
         <Image
           cachePolicy="memory-disk"
@@ -155,10 +161,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
 
       <View className="px-3 py-3">
         <View className="h-56 justify-between">
-          <ThemedText
-            color="text-100" ellipsizeMode="tail" numberOfLines={2}
-            type="h4"
-          >
+          <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={2} type="h4">
             {name}
           </ThemedText>
 
@@ -182,10 +185,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {destinationCount}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.route}
                 </ThemedText>
               </View>
@@ -196,10 +196,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {destinationCountries}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.country}
                 </ThemedText>
               </View>
@@ -215,10 +212,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {totalAirplane}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.airplane}
                 </ThemedText>
               </View>
@@ -228,10 +222,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {skytraxRating}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.rating}
                 </ThemedText>
               </View>
@@ -250,10 +241,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
           style={STATIC_STYLES.containerWidth}
         >
           <View className="flex-row items-center px-1">
-            <ThemedText
-              color="text-90" ellipsizeMode="tail" numberOfLines={2}
-              type="body4"
-            >
+            <ThemedText color="text-90" ellipsizeMode="tail" numberOfLines={2} type="body4">
               {popularDestinations}
             </ThemedText>
           </View>

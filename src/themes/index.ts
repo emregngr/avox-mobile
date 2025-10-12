@@ -10,6 +10,7 @@ export type ThemeColors = {
     quaternary: string
     secondary: string
     tertiary: string
+    airlineLogo: string
   }
   error: string
   eu: string
@@ -57,6 +58,7 @@ const baseColors: Record<'light' | 'dark', ThemeColors> = {
       quaternary: '#3A3A3C',
       secondary: '#1C1C1E',
       tertiary: '#2C2C2E',
+      airlineLogo: '#A0A0A0',
     },
     error: '#DC2626',
 
@@ -113,6 +115,7 @@ const baseColors: Record<'light' | 'dark', ThemeColors> = {
       quaternary: '#D1D1D6',
       secondary: '#F2F2F7',
       tertiary: '#E5E5EA',
+      airlineLogo: '#CECECE',
     },
     error: '#E57373',
 
@@ -170,6 +173,7 @@ export const themes = {
     '--color-background-quaternary': baseColors.dark.background.quaternary,
     '--color-background-secondary': baseColors.dark.background.secondary,
     '--color-background-tertiary': baseColors.dark.background.tertiary,
+    '--color-background-airline-logo': baseColors.dark.background.airlineLogo,
     '--color-error': baseColors.dark.error,
     '--color-eu': baseColors.dark.eu,
     '--color-info': baseColors.dark.info,
@@ -213,6 +217,7 @@ export const themes = {
     '--color-background-quaternary': baseColors.light.background.quaternary,
     '--color-background-secondary': baseColors.light.background.secondary,
     '--color-background-tertiary': baseColors.light.background.tertiary,
+    '--color-background-airline-logo': baseColors.light.background.airlineLogo,
     '--color-error': baseColors.light.error,
     '--color-eu': baseColors.light.eu,
     '--color-info': baseColors.light.info,

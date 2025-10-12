@@ -183,7 +183,7 @@ export default function AirlineDetail() {
       shareIcon,
       shareIconOnPress,
       title: name as string,
-      titleClassName: 'ml-[46px] mr-[100px]',
+      titleClassName: 'ml-[52px] mr-[100px]',
     }),
     [name, handleBackPress, rightIcon, handleFavoritePress, shareIcon, shareIconOnPress],
   )

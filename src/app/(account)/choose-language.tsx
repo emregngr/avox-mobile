@@ -4,13 +4,13 @@ import React, { useCallback, useMemo } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import CheckMark from '@/assets/icons/checkmark.svg'
 import { Header, SafeLayout, ThemedText } from '@/components/common'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore, { changeLocale } from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import { Logger } from '@/utils/common/logger'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 interface LanguageItem {
   code: string
@@ -83,7 +83,14 @@ export default function ChooseLanguage({ hapticFeedback = true }: ChooseLanguage
                 {text}
               </ThemedText>
             </View>
-            {isSelected ? <CheckMark color={checkMarkColor} height={20} width={20} /> : null}
+            {isSelected ? (
+              <MaterialCommunityIcons
+                name="check"
+                size={20}
+                color={checkMarkColor}
+                testID={`check-icon-${code}`}
+              />
+            ) : null}
           </TouchableOpacity>
           {!isLastItem ? <View className="border-b border-onPrimary-30 ml-4" /> : null}
         </View>

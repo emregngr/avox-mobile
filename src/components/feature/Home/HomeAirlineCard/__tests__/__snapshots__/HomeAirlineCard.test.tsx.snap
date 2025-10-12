@@ -49,10 +49,16 @@ exports[`HomeAirlineCard Component Snapshot should render the HomeAirlineCard Co
       contentFit="contain"
       source="https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382974/TK_pog2zq.png"
       style={
-        {
-          "height": 40,
-          "width": "50%",
-        }
+        [
+          {
+            "borderRadius": 12,
+            "height": 40,
+            "width": "50%",
+          },
+          {
+            "backgroundColor": "#A0A0A0",
+          },
+        ]
       }
       testID="mocked-image"
       transition={0}

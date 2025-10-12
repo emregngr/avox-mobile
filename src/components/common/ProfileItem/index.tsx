@@ -4,7 +4,6 @@ import React, { useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import type { SvgProps } from 'react-native-svg'
 
-import Right from '@/assets/icons/right.svg'
 import { ThemedText } from '@/components/common/ThemedText'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
@@ -66,11 +65,13 @@ export const ProfileItem = ({
         </View>
 
         {rightIcon ? (
-          <Right
-            color={iconColor} height={24} testID="right-icon"
-            width={24}
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={24}
+            color={iconColor}
+            testID="right-icon"
           />
-) : null}
+        ) : null}
       </TouchableOpacity>
 
       {!isLastItem ? (

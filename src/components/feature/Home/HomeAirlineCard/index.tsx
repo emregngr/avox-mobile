@@ -30,8 +30,8 @@ const STATIC_STYLES = {
     width: 40,
   },
   logo: {
-    height: 40,
-    width: '50%' as const,
+    height: 24,
+    width: '100%' as const,
   },
   topContainer: {
     height: 130,
@@ -61,13 +61,14 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
 
   const classNames = useMemo(
     () => ({
-      cargoContainer: 'bg-error px-2 py-1 rounded-xl overflow-hidden absolute top-2 left-2',
       container:
         'w-36 mb-4 bg-background-secondary rounded-xl border border-background-quaternary shadow shadow-background-quaternary',
       content: 'px-3 py-3',
       contentInner: 'h-28 justify-between',
       header:
         'bg-background-primary rounded-t-xl overflow-hidden w-full justify-center items-center',
+      logoContainer:
+        'bg-background-airlineLogo rounded-xl overflow-hidden w-[80%] h-12 mt-3 p-2 justify-center items-center',
       iataCodeContainer:
         'bg-primary-100 px-2 py-1 rounded-xl overflow-hidden absolute bottom-2 left-2',
       icaoCodeContainer:
@@ -113,13 +114,15 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
       onPress={onCardPress}
     >
       <View className={classNames.header} style={STATIC_STYLES.topContainer}>
-        <Image
-          cachePolicy="memory-disk"
-          contentFit="contain"
-          source={logo}
-          style={STATIC_STYLES.logo}
-          transition={0}
-        />
+        <View className={classNames.logoContainer}>
+          <Image
+            cachePolicy="memory-disk"
+            contentFit="contain"
+            source={logo}
+            style={STATIC_STYLES.logo}
+            transition={0}
+          />
+        </View>
 
         <Image
           cachePolicy="memory-disk"
@@ -146,10 +149,7 @@ export const HomeAirlineCard = memo(({ airline }: HomeAirlineCardProps) => {
 
       <View className={classNames.content}>
         <View className={classNames.contentInner}>
-          <ThemedText
-            color="text-100" ellipsizeMode="tail" numberOfLines={2}
-            type="body3"
-          >
+          <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={2} type="body3">
             {name}
           </ThemedText>
 

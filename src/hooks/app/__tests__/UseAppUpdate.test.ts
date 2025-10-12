@@ -32,6 +32,10 @@ const createMockManifest = (): Updates.Manifest =>
   }) as Updates.Manifest
 
 describe('App Update', () => {
+  beforeAll(() => {
+    __DEV__ = false
+  })
+
   describe('checkForAppUpdate', () => {
     it('should check for update and fetch if available', async () => {
       const mockManifest = createMockManifest()

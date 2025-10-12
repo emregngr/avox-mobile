@@ -76,8 +76,8 @@ describe('ChooseLanguage Screen', () => {
     const turkishItem = getByTestId('language-item-tr')
     const englishItem = getByTestId('language-item-en')
 
-    expect(within(turkishItem).queryByTestId('mocked-svg-icon')).toBeTruthy()
-    expect(within(englishItem).queryByTestId('mocked-svg-icon')).toBeNull()
+    expect(within(turkishItem).queryByTestId('check-icon-tr')).toBeTruthy()
+    expect(within(englishItem).queryByTestId('check-icon-en')).toBeNull()
   })
 
   it('should call changeLocale and router.back when a new language is selected', async () => {

@@ -9,7 +9,6 @@ import { Alert, AppState, ScrollView, Switch, View } from 'react-native'
 import { checkNotifications, openSettings } from 'react-native-permissions'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import Close from '@/assets/icons/close'
 import Instagram from '@/assets/icons/instagram.svg'
 import Tiktok from '@/assets/icons/tiktok.svg'
 import { Header, ProfileItem, SafeLayout, ThemedText } from '@/components/common'
@@ -169,15 +168,8 @@ export default function Settings() {
   )
 
   const rightIcon = useMemo(
-    () => (
-      <Close
-        height={24}
-        primaryColor={colors?.background?.quaternary}
-        secondaryColor={colors?.onPrimary100}
-        width={24}
-      />
-    ),
-    [colors?.background?.quaternary, colors?.onPrimary100],
+    () => <MaterialCommunityIcons name="close" size={20} color={colors?.onPrimary100} />,
+    [colors?.onPrimary100],
   )
 
   const localeStrings = useMemo(
