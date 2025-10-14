@@ -234,7 +234,7 @@ const config: ExpoConfig = {
       CFBundleAllowMixedLocalizations: true,
       GIDClientID: '396294037399-k8k5qpf3rgid0a1ujc5jjg9jbpve70vk.apps.googleusercontent.com',
     },
-    icon: './src/assets/images/icon-ios.png',
+    icon: './src/assets/images/app.icon',
     splash: {
       image: './src/assets/images/splash-ios.png',
       resizeMode: 'contain',
