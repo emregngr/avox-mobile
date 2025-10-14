@@ -2,7 +2,7 @@ import { Zoomable } from '@likashefqet/react-native-image-zoom'
 import { Image } from 'expo-image'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useCallback, useMemo } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { SafeLayout, ThemedText } from '@/components/common'
@@ -15,7 +15,7 @@ import { GlassView } from 'expo-glass-effect'
 
 const STATIC_STYLES = {
   closeIcon: {
-    borderRadius: 20,
+    borderRadius: 50,
     padding: 8,
   },
   image: {
@@ -49,6 +49,17 @@ export default function ImageModal() {
     router?.back()
   }, [])
 
+  const glassViewStyle = useMemo(
+    () => ({
+      ...STATIC_STYLES.closeIcon,
+      ...((Platform.OS !== 'ios' ||
+        (Platform.OS === 'ios' && parseInt(Platform.Version as string) < 26)) && {
+        backgroundColor: colors?.background?.secondary,
+      }),
+    }),
+    [colors],
+  )
+
   return (
     <SafeLayout testID="image-modal-screen" topBlur={false}>
       <GestureHandlerRootView className="flex-1 bg-background-primary">
@@ -59,7 +70,7 @@ export default function ImageModal() {
             </ThemedText>
           </View>
           <GlassView
-            style={STATIC_STYLES.closeIcon}
+            style={glassViewStyle}
             tintColor={colors?.background?.glass}
             glassEffectStyle="clear"
             isInteractive

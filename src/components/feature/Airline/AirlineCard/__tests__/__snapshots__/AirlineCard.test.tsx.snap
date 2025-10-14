@@ -46,24 +46,22 @@ exports[`AirlineCard Component Snapshot should render the AirlineCard successful
     }
   >
     <View
-      cachePolicy="memory-disk"
-      contentFit="contain"
-      source="https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382974/TK_pog2zq.png"
-      style={
-        [
+      className="bg-background-airlineLogo rounded-xl overflow-hidden w-[80%] h-12 mt-3 p-2 justify-center items-center"
+    >
+      <View
+        cachePolicy="memory-disk"
+        contentFit="contain"
+        source="https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382974/TK_pog2zq.png"
+        style={
           {
-            "borderRadius": 12,
-            "height": 40,
-            "width": "50%",
-          },
-          {
-            "backgroundColor": "#A0A0A0",
-          },
-        ]
-      }
-      testID="mocked-image"
-      transition={0}
-    />
+            "height": 24,
+            "width": "100%",
+          }
+        }
+        testID="mocked-image"
+        transition={0}
+      />
+    </View>
     <View
       cachePolicy="memory-disk"
       contentFit="contain"

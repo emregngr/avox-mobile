@@ -121,13 +121,15 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
         className="bg-background-primary rounded-t-xl overflow-hidden w-full justify-center items-center"
         style={STATIC_STYLES.topContainer}
       >
-        <Image
-          cachePolicy="memory-disk"
-          contentFit="contain"
-          source={logo}
-          style={STATIC_STYLES.logo}
-          transition={0}
-        />
+        <View className="bg-background-airlineLogo rounded-xl overflow-hidden w-[80%] h-12 mt-3 p-2 justify-center items-center">
+          <Image
+            cachePolicy="memory-disk"
+            contentFit="contain"
+            source={logo}
+            style={STATIC_STYLES.logo}
+            transition={0}
+          />
+        </View>
 
         <Image
           cachePolicy="memory-disk"
@@ -154,10 +156,7 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
 
       <View className="px-3 py-3">
         <View className="h-56 justify-between">
-          <ThemedText
-            color="text-100" ellipsizeMode="tail" numberOfLines={2}
-            type="h4"
-          >
+          <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={2} type="h4">
             {name}
           </ThemedText>
 
@@ -181,10 +180,7 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
                 <ThemedText className=" mb-1" color="text-100" type="h4">
                   {destinationCount}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.route}
                 </ThemedText>
               </View>
@@ -195,10 +191,7 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
                 <ThemedText className=" mb-1" color="text-100" type="h4">
                   {destinationCountries}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.country}
                 </ThemedText>
               </View>
@@ -214,10 +207,7 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {totalAirplane}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.airplane}
                 </ThemedText>
               </View>
@@ -228,10 +218,7 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {skytraxRating}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.rating}
                 </ThemedText>
               </View>
@@ -250,10 +237,7 @@ const AirlineFavoriteItemCard = memo(({ airline }: AirlineFavoriteItemCardProps)
           style={STATIC_STYLES.containerWidth}
         >
           <View className="flex-row items-center px-1">
-            <ThemedText
-              color="text-90" ellipsizeMode="tail" numberOfLines={2}
-              type="body4"
-            >
+            <ThemedText color="text-90" ellipsizeMode="tail" numberOfLines={2} type="body4">
               {popularDestinations}
             </ThemedText>
           </View>

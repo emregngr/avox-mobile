@@ -153,10 +153,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
 
       <View className="px-3 py-3">
         <View className="h-56 justify-between">
-          <ThemedText
-            color="text-100" ellipsizeMode="tail" numberOfLines={2}
-            type="h4"
-          >
+          <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={2} type="h4">
             {name}
           </ThemedText>
 
@@ -180,10 +177,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {destinationCount}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.route}
                 </ThemedText>
               </View>
@@ -194,16 +188,13 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {destinationCountries}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.country}
                 </ThemedText>
               </View>
             </View>
 
-            <View className="my-3 w-[100px] self-center -row justify-between">
+            <View className="my-3 w-[100px] self-center flex-row justify-between">
               <View className="h-[1px] w-8 bg-primary-100" />
               <View className="h-[1px] w-8 bg-primary-100" />
             </View>
@@ -213,10 +204,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {passengerCapacity} m
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.passenger}
                 </ThemedText>
               </View>
@@ -227,10 +215,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {googleMapsRating}
                 </ThemedText>
-                <ThemedText
-                  color="text-90" lineBreakMode="tail" numberOfLines={1}
-                  type="body4"
-                >
+                <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={1} type="body4">
                   {localeStrings.rating}
                 </ThemedText>
               </View>
@@ -249,10 +234,7 @@ export const AirportFavoriteItemCard = memo(({ airport }: AirportFavoriteItemCar
           style={STATIC_STYLES.containerWidth}
         >
           <View className="-row items-center px-1">
-            <ThemedText
-              color="text-90" ellipsizeMode="tail" numberOfLines={2}
-              type="body4"
-            >
+            <ThemedText color="text-90" ellipsizeMode="tail" numberOfLines={2} type="body4">
               {airlinesText}
             </ThemedText>
           </View>

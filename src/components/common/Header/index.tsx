@@ -2,7 +2,7 @@ import { GlassView } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import { type ReactNode, useMemo } from 'react'
 import type { ViewStyle } from 'react-native'
-import { TouchableOpacity, View } from 'react-native'
+import { Platform, TouchableOpacity, View } from 'react-native'
 
 import { ThemedButtonText } from '@/components/common/ThemedButtonText'
 import { ThemedText } from '@/components/common/ThemedText'
@@ -29,6 +29,30 @@ type HeaderProps = {
   titleClassName?: string
 }
 
+const STATIC_STYLES = {
+  backIcon: {
+    left: 16,
+    position: 'absolute' as const,
+    borderRadius: 50,
+    width: 36,
+    height: 36,
+    justifyContent: 'center' as const,
+    alignItems: 'center' as const,
+  },
+  shareIcon: {
+    right: 64,
+    position: 'absolute' as const,
+    borderRadius: 50,
+    padding: 8,
+  },
+  rightIcon: {
+    right: 16,
+    position: 'absolute' as const,
+    borderRadius: 50,
+    padding: 8,
+  },
+}
+
 export const Header = ({
   backIcon = true,
   backIconOnPress,
@@ -50,27 +74,6 @@ export const Header = ({
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const STATIC_STYLES = {
-    backIcon: {
-      left: 16,
-      position: 'absolute' as const,
-      borderRadius: 20,
-      padding: 8,
-    },
-    shareIcon: {
-      right: 64,
-      position: 'absolute' as const,
-      borderRadius: 20,
-      padding: 8,
-    },
-    rightIcon: {
-      right: 16,
-      position: 'absolute' as const,
-      borderRadius: 20,
-      padding: 8,
-    },
-  }
-
   const handleRightIconOnPress = () => {
     if (hapticFeedback) {
       if (isFavorite) {
@@ -82,6 +85,26 @@ export const Header = ({
 
     rightIconOnPress?.()
   }
+
+  const getGlassViewStyle = (baseStyle: ViewStyle) => ({
+    ...baseStyle,
+    ...((Platform.OS !== 'ios' ||
+      (Platform.OS === 'ios' && parseInt(Platform.Version as string) < 26)) && {
+      backgroundColor: colors?.background?.glass,
+    }),
+  })
+
+  const backIconGlassViewStyle = useMemo(() => getGlassViewStyle(STATIC_STYLES.backIcon), [colors])
+
+  const shareIconGlassViewStyle = useMemo(
+    () => getGlassViewStyle(STATIC_STYLES.shareIcon),
+    [colors],
+  )
+
+  const rightIconGlassViewStyle = useMemo(
+    () => getGlassViewStyle(STATIC_STYLES.rightIcon),
+    [colors],
+  )
 
   return (
     <View
@@ -104,7 +127,7 @@ export const Header = ({
 
       {backIcon ? (
         <GlassView
-          style={STATIC_STYLES.backIcon}
+          style={backIconGlassViewStyle}
           tintColor={colors?.background?.glass}
           glassEffectStyle="clear"
           isInteractive
@@ -115,14 +138,14 @@ export const Header = ({
             onPress={backIconOnPress}
             testID="header-back-icon"
           >
-            <MaterialCommunityIcons name="arrow-left" size={20} color={colors?.onPrimary100} />
+            <MaterialCommunityIcons name="chevron-left" size={36} color={colors?.onPrimary100} />
           </TouchableOpacity>
         </GlassView>
       ) : null}
 
       {shareIcon ? (
         <GlassView
-          style={STATIC_STYLES.shareIcon}
+          style={shareIconGlassViewStyle}
           tintColor={colors?.background?.glass}
           glassEffectStyle="clear"
           isInteractive
@@ -148,7 +171,7 @@ export const Header = ({
         />
       ) : rightIcon ? (
         <GlassView
-          style={STATIC_STYLES.rightIcon}
+          style={rightIconGlassViewStyle}
           tintColor={colors?.background?.glass}
           glassEffectStyle="clear"
           isInteractive

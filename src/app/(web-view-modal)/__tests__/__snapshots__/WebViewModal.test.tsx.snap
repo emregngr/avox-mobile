@@ -27,7 +27,7 @@ exports[`WebViewModal Screen Snapshot should render the WebViewModal Screen succ
         isInteractive={true}
         style={
           {
-            "borderRadius": 20,
+            "borderRadius": 50,
             "padding": 8,
           }
         }

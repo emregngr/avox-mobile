@@ -101,8 +101,8 @@ exports[`Theme Definitions should match the snapshot for nativewind theme variab
 {
   "dark": {
     "--color-af": "#4B1F99",
-    "--color-airline-logo": "#A0A0A0",
     "--color-as": "#8B1717",
+    "--color-background-airline-logo": "#A0A0A0",
     "--color-background-blur": "#00000099",
     "--color-background-glass": "#00000060",
     "--color-background-primary": "#000000",
@@ -145,8 +145,8 @@ exports[`Theme Definitions should match the snapshot for nativewind theme variab
   },
   "light": {
     "--color-af": "#C0B4E0",
-    "--color-airline-logo": "#CECECE",
     "--color-as": "#D9817E",
+    "--color-background-airline-logo": "#CECECE",
     "--color-background-blur": "#FFFFFF80",
     "--color-background-glass": "#00000015",
     "--color-background-primary": "#FFFFFF",

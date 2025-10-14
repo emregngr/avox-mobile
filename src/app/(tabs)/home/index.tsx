@@ -177,6 +177,14 @@ export default function Home() {
     return <FullScreenLoading />
   }
 
+  const glassViewStyle = {
+    ...STATIC_STYLES.storybook,
+    ...((Platform.OS !== 'ios' ||
+      (Platform.OS === 'ios' && parseInt(Platform.Version as string) < 26)) && {
+      backgroundColor: colors?.background?.secondary,
+    }),
+  }
+
   return (
     <View className="flex-1 bg-background-primary" testID="home-screen">
       <FlatList
@@ -192,7 +200,7 @@ export default function Home() {
       />
       {isStaging() ? (
         <GlassView
-          style={STATIC_STYLES.storybook}
+          style={glassViewStyle}
           tintColor={colors?.background?.glass}
           glassEffectStyle="clear"
           isInteractive

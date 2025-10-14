@@ -9,8 +9,6 @@ import { FavoriteButton } from '@/components/feature/FavoriteButton'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
-import useThemeStore from '@/store/theme'
-import { themeColors } from '@/themes'
 import type { AirlineType } from '@/types/feature/airline'
 import { AnalyticsService } from '@/utils/common/analyticsService'
 import { responsive } from '@/utils/common/responsive'
@@ -48,9 +46,6 @@ const STATIC_STYLES = {
 
 const AirlineCard = memo(({ airline }: AirlineCardProps) => {
   const { selectedLocale } = useLocaleStore()
-  const { selectedTheme } = useThemeStore()
-
-  const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const {
     fleet: { totalAirplane },
@@ -218,6 +213,7 @@ const AirlineCard = memo(({ airline }: AirlineCardProps) => {
               </View>
 
               <View className="w-[1px] h-6 bg-primary-100" />
+
               <View className="flex-1 items-center">
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {skytraxRating}

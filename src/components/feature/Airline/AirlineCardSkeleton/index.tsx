@@ -18,10 +18,6 @@ const STATIC_STYLES = {
     top: 4,
     width: 40,
   },
-  logo: {
-    height: 40,
-    width: '50%' as const,
-  },
   topContainer: {
     height: 130,
   },
@@ -51,8 +47,8 @@ export const AirlineCardSkeleton = memo(() => {
         style={[STATIC_STYLES.topContainer, animatedStyle]}
       >
         <Animated.View
-          className="bg-background-quaternary rounded-lg overflow-hidden"
-          style={[STATIC_STYLES.logo, animatedStyle]}
+          className="bg-background-airlineLogo rounded-xl overflow-hidden w-[80%] h-12 mt-3"
+          style={animatedStyle}
         />
 
         <Animated.View

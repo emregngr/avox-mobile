@@ -19,17 +19,11 @@ exports[`AirlineCardSkeleton Component Snapshot should render the AirlineCardSke
     }
   >
     <View
-      className="bg-background-quaternary rounded-lg overflow-hidden"
+      className="bg-background-airlineLogo rounded-xl overflow-hidden w-[80%] h-12 mt-3"
       style={
-        [
-          {
-            "height": 40,
-            "width": "50%",
-          },
-          {
-            "opacity": undefined,
-          },
-        ]
+        {
+          "opacity": undefined,
+        }
       }
     />
     <View

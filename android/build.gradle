@@ -17,8 +17,8 @@ buildscript {
         classpath 'com.google.gms:google-services:4.4.1'
         classpath 'com.android.tools.build:gradle:8.5.2'
         classpath 'com.facebook.react:react-native-gradle-plugin:0.81.4'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.20'
         classpath "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.1.20-1.0.32"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 
@@ -33,6 +33,10 @@ allprojects {
         maven {
             // Android JSC is installed from npm
             url(new File(['node', '--print', "require.resolve('jsc-android/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim(), '../dist'))
+        }
+
+        maven {
+            url "$rootDir/../node_modules/detox/Detox-android"
         }
 
         google()

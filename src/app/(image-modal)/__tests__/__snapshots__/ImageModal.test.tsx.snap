@@ -28,7 +28,7 @@ exports[`ImageModal Screen Snapshot should render the ImageModal Screen successf
         isInteractive={true}
         style={
           {
-            "borderRadius": 20,
+            "borderRadius": 50,
             "padding": 8,
           }
         }

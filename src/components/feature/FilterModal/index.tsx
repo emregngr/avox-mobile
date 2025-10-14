@@ -51,7 +51,7 @@ import { GlassView } from 'expo-glass-effect'
 
 const STATIC_STYLES = {
   closeIcon: {
-    borderRadius: 20,
+    borderRadius: 50,
     padding: 8,
   },
 }
@@ -204,6 +204,17 @@ export const FilterModal = forwardRef<BottomSheet, FilterModalPropsType>(
       [selectedLocale],
     )
 
+    const glassViewStyle = useMemo(
+      () => ({
+        ...STATIC_STYLES.closeIcon,
+        ...((Platform.OS !== 'ios' ||
+          (Platform.OS === 'ios' && parseInt(Platform.Version as string) < 26)) && {
+          backgroundColor: colors?.background?.secondary,
+        }),
+      }),
+      [colors],
+    )
+
     return (
       <BottomSheet
         backgroundStyle={{
@@ -223,7 +234,7 @@ export const FilterModal = forwardRef<BottomSheet, FilterModalPropsType>(
             {localeStrings.filter}
           </ThemedText>
           <GlassView
-            style={STATIC_STYLES.closeIcon}
+            style={glassViewStyle}
             tintColor={colors?.background?.glass}
             glassEffectStyle="clear"
             isInteractive

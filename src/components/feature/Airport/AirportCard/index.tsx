@@ -211,6 +211,7 @@ const AirportCard = memo(({ airport }: AirportCardProps) => {
               </View>
 
               <View className="w-[1px] h-6 bg-primary-100" />
+
               <View className="flex-1 items-center">
                 <ThemedText className="mb-1" color="text-100" type="h4">
                   {googleMapsRating}

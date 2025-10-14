@@ -5,6 +5,7 @@
   },
   "build": {
     "e2e-test": {
+      "channel": "e2e-test",
       "withoutCredentials": true,
       "ios": {
         "simulator": true

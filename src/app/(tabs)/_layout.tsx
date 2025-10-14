@@ -15,9 +15,10 @@ export default function TabsLayout() {
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
+  const currentTab = segments?.[1] as string
+
   useFocusEffect(
     useCallback(() => {
-      const currentTab = segments?.[1] as string
       const protectedTabs = ['favorites']
 
       if (protectedTabs.includes(currentTab) && !isAuthenticated) {
@@ -25,7 +26,7 @@ export default function TabsLayout() {
           router.replace({ params: { tab: currentTab }, pathname: '/auth' })
         }, 16)
       }
-    }, [isAuthenticated, segments]),
+    }, [isAuthenticated, currentTab]),
   )
 
   return (
@@ -47,22 +48,50 @@ export default function TabsLayout() {
       shadowColor={colors?.onPrimary100}
     >
       <NativeTabs.Trigger name="home">
-        <Icon src={<VectorIcon family={MaterialCommunityIcons} name="home" />} />
+        <Icon
+          src={
+            <VectorIcon
+              family={MaterialCommunityIcons}
+              name={currentTab === 'home' ? 'home' : 'home-outline'}
+            />
+          }
+        />
         <Label>{getLocale('home')}</Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="discover">
-        <Icon src={<VectorIcon family={MaterialCommunityIcons} name="magnify" />} />
+        <Icon
+          src={
+            <VectorIcon
+              family={MaterialCommunityIcons}
+              name={currentTab === 'discover' ? 'magnify' : 'magnify-plus-outline'}
+            />
+          }
+        />
         <Label>{getLocale('discover')}</Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="favorites">
-        <Icon src={<VectorIcon family={MaterialCommunityIcons} name="star" />} />
+        <Icon
+          src={
+            <VectorIcon
+              family={MaterialCommunityIcons}
+              name={currentTab === 'favorites' ? 'star' : 'star-outline'}
+            />
+          }
+        />
         <Label>{getLocale('favorites')}</Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="profile">
-        <Icon src={<VectorIcon family={MaterialCommunityIcons} name="account" />} />
+        <Icon
+          src={
+            <VectorIcon
+              family={MaterialCommunityIcons}
+              name={currentTab === 'profile' ? 'account' : 'account-outline'}
+            />
+          }
+        />
         <Label>{getLocale('profile')}</Label>
       </NativeTabs.Trigger>
     </NativeTabs>

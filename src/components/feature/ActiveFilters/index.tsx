@@ -97,12 +97,16 @@ export const ActiveFilters = memo(({ filters, onClearAll, onRemove }: ActiveFilt
               </ThemedText>
               <TouchableOpacity
                 activeOpacity={0.7}
-                className="bg-background-quaternary rounded-full overflow-hidden ml-2 p-[2px]"
+                className="ml-2"
                 hitSlop={10}
                 onPress={() => handleRemove(key)}
                 testID={`active-filters-remove-${key}`}
               >
-                <MaterialCommunityIcons color={colors?.onPrimary100} name="close" size={12} />
+                <MaterialCommunityIcons
+                  color={colors?.onPrimary100}
+                  name="close-circle"
+                  size={16}
+                />
               </TouchableOpacity>
             </View>
           ))}

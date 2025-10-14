@@ -22,7 +22,7 @@ const setFirebaseConfig = async (): Promise<boolean> => {
   try {
     await setDefaults(remoteConfig, defaultConfigs)
     await setConfigSettings(remoteConfig, {
-      minimumFetchIntervalMillis: __DEV__ ? 300 : 3600000,
+      minimumFetchIntervalMillis: 0,
     })
 
     const activated = await fetchAndActivate(remoteConfig)

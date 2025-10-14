@@ -19,10 +19,13 @@ exports[`Header Component Snapshot should render the Header Component successful
     isInteractive={true}
     style={
       {
-        "borderRadius": 20,
+        "alignItems": "center",
+        "borderRadius": 50,
+        "height": 36,
+        "justifyContent": "center",
         "left": 16,
-        "padding": 8,
         "position": "absolute",
+        "width": 36,
       }
     }
     tintColor="#00000015"
@@ -65,8 +68,8 @@ exports[`Header Component Snapshot should render the Header Component successful
     >
       <View
         color="#000000"
-        name="arrow-left"
-        size={20}
+        name="chevron-left"
+        size={36}
         testID="mocked-material-community-icon"
       />
     </View>
