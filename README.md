@@ -49,7 +49,7 @@ Everything related to the sky and aviation is on Avox Aviation! Plan your journe
 
 ## 📸 Screenshots
 
-https://github.com/user-attachments/assets/ff886a50-a7dc-41a7-81dc-fd5e57c25292
+https://github.com/user-attachments/assets/d2fafa01-ccd0-4adb-ac8b-b936bb1b4afc
 
 ---
 
