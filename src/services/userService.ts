@@ -15,7 +15,7 @@ import {
   runTransaction,
   setDoc,
 } from '@react-native-firebase/firestore'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 
 import { ENUMS } from '@/enums'
 import { getLocale } from '@/locales/i18next'
@@ -32,7 +32,7 @@ const app = getApp()
 const auth = getAuth(app)
 const db = getFirestore(app)
 
-const storage = new MMKV()
+const storage = createMMKV()
 
 export const getUser = async (): Promise<UserProfileType | null> => {
   const user = auth?.currentUser

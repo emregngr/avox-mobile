@@ -18,10 +18,6 @@ jest.mock('@/utils/common/logger')
 
 const mockedLoggerBreadcrumb = Logger.breadcrumb as jest.MockedFunction<typeof Logger.breadcrumb>
 
-beforeEach(() => {
-  __DEV__ = false
-})
-
 describe('Remote Config Utilities', () => {
   describe('setFirebaseConfig', () => {
     it('should successfully set defaults, settings, and activate in production', async () => {
@@ -32,7 +28,7 @@ describe('Remote Config Utilities', () => {
 
       expect(setDefaults).toHaveBeenCalledWith(expect.any(Object), defaultConfigs)
       expect(setConfigSettings).toHaveBeenCalledWith(expect.any(Object), {
-        minimumFetchIntervalMillis: 3600000,
+        minimumFetchIntervalMillis: 0,
       })
       expect(fetchAndActivate).toHaveBeenCalledTimes(1)
       expect(mockedLoggerBreadcrumb).toHaveBeenCalledWith('REMOTE CONFIG', 'info', {
@@ -41,17 +37,6 @@ describe('Remote Config Utilities', () => {
         default: defaultConfigs,
       })
       expect(result).toBe(true)
-    })
-
-    it('should use development fetch interval when __DEV__ is true', async () => {
-      __DEV__ = true
-      fetchAndActivate.mockResolvedValue(true)
-
-      await setFirebaseConfig()
-
-      expect(setConfigSettings).toHaveBeenCalledWith(expect.any(Object), {
-        minimumFetchIntervalMillis: 300,
-      })
     })
 
     it('should return false and log an error if fetchAndActivate fails', async () => {

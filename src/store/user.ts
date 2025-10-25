@@ -1,10 +1,19 @@
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 
 import { ENUMS } from '@/enums'
 
-const storage = new MMKV()
+const storage = createMMKV()
+
+const mmkvStorage = {
+  getItem: (name: string) => {
+    const value = storage.getString(name)
+    return value ?? null
+  },
+  removeItem: (name: string) => storage.remove(name),
+  setItem: (name: string, value: string) => storage.set(name, value),
+}
 
 export type UserStateType = {
   isOnboardingSeen: boolean
@@ -12,23 +21,31 @@ export type UserStateType = {
 }
 
 export type UserActions = {
-  deleteUser: () => Promise<void>
-  setIsOnboardingSeen: (status: boolean) => Promise<void>
+  deleteUser: () => void
+  setIsOnboardingSeen: (status: boolean) => void
 }
 
 const useUserStore = create<UserStateType & UserActions>()(
-  devtools(set => ({
-    deleteUser: () => {
-      set({ loading: true })
-      storage.delete(ENUMS.API_TOKEN)
-      set({ loading: false })
-    },
-    isOnboardingSeen: false,
-    loading: false,
-    setIsOnboardingSeen: async status => {
-      storage.set(ENUMS.IS_ONBOARDING_SEEN, status ? 'true' : 'false')
-    },
-  })),
+  devtools(
+    persist(
+      set => ({
+        deleteUser: () => {
+          set({ loading: true })
+          storage.remove(ENUMS.API_TOKEN)
+          set({ loading: false })
+        },
+        isOnboardingSeen: false,
+        loading: false,
+        setIsOnboardingSeen: status => {
+          set({ isOnboardingSeen: status })
+        },
+      }),
+      {
+        name: 'user',
+        storage: createJSONStorage(() => mmkvStorage),
+      },
+    ),
+  ),
 )
 
 export const { deleteUser, setIsOnboardingSeen } = useUserStore.getState()

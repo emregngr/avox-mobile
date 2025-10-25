@@ -3,20 +3,20 @@ import 'dayjs/locale/tr'
 
 import dayjs from 'dayjs'
 import { getLocales } from 'expo-localization'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 import { create } from 'zustand'
 import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 
 import { i18nChangeLocale } from '@/locales/i18next'
 
-const storage = new MMKV()
+const storage = createMMKV()
 
 const mmkvStorage = {
   getItem: (name: string) => {
     const value = storage.getString(name)
     return value ?? null
   },
-  removeItem: (name: string) => storage.delete(name),
+  removeItem: (name: string) => storage.remove(name),
   setItem: (name: string, value: string) => storage.set(name, value),
 }
 

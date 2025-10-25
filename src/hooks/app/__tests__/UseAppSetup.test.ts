@@ -4,7 +4,7 @@ import * as Network from 'expo-network'
 import { getTrackingPermissionsAsync, PermissionStatus } from 'expo-tracking-transparency'
 import { AppState, PermissionsAndroid, Platform } from 'react-native'
 import mobileAds from 'react-native-google-mobile-ads'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 
 import { isProduction } from '@/config/env/environment'
 import { useAppSetup } from '@/hooks/app/useAppSetup'
@@ -23,7 +23,7 @@ jest.mock('@/hooks/app/useUserSession')
 
 const mockedUseUserSession = useUserSession as jest.MockedFunction<typeof useUserSession>
 
-const storage = new MMKV()
+const storage = createMMKV()
 
 const mockedStorageGetString = storage.getString as jest.MockedFunction<typeof storage.getString>
 const mockedAddNetworkStateListener = Network.addNetworkStateListener as jest.MockedFunction<

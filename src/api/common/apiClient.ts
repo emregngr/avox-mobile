@@ -1,13 +1,13 @@
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import { router } from 'expo-router'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 
 import config from '@/config/env/environment'
 import { ENUMS } from '@/enums'
 import type { ApiError, ApiRequestConfig, ApiResponse } from '@/types/common/api'
 
-const storage = new MMKV()
+const storage = createMMKV()
 
 const axiosInstance = axios.create({
   baseURL: config.apiUrl,

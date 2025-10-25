@@ -14,7 +14,7 @@ const mockedMMKV = {
 }
 
 jest.mock('react-native-mmkv', () => ({
-  MMKV: jest.fn(() => mockedMMKV),
+  createMMKV: jest.fn(() => mockedMMKV),
 }))
 
 jest.mock('@/config/env/environment', () => ({

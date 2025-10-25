@@ -1,4 +1,4 @@
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 
 import { ENUMS } from '@/enums'
 import { getLocale } from '@/locales/i18next'
@@ -32,7 +32,7 @@ jest.mock('@/locales/i18next')
 
 const mockedGetLocale = getLocale as jest.MockedFunction<typeof getLocale>
 
-const storage = new MMKV()
+const storage = createMMKV()
 
 const mockedStorageSet = storage.set as jest.MockedFunction<typeof storage.set>
 
@@ -105,8 +105,8 @@ describe('User Service', () => {
     })
 
     it('should log and throw if firestore fails', async () => {
-      const err = new Error('firestore fail');
-(getDoc as jest.Mock).mockRejectedValue(err)
+      const err = new Error('firestore fail')
+      ;(getDoc as jest.Mock).mockRejectedValue(err)
       await expect(getUser()).rejects.toThrow()
       expect(getLocale).toHaveBeenCalledWith('somethingWentWrong')
       expect(mockedLoggerBreadcrumb).toHaveBeenCalledWith('Failed to get user', 'error', err)
@@ -174,8 +174,8 @@ describe('User Service', () => {
     })
 
     it('should throw if reauth fails', async () => {
-      const err = new Error('reauth fail');
-(reauthenticateWithCredential as jest.Mock).mockRejectedValue(err)
+      const err = new Error('reauth fail')
+      ;(reauthenticateWithCredential as jest.Mock).mockRejectedValue(err)
       await expect(
         changeUserPassword({ currentPassword: 'old', newPassword: 'new' }),
       ).rejects.toThrow()
@@ -187,8 +187,8 @@ describe('User Service', () => {
     })
 
     it('should throw if updatePassword fails', async () => {
-      const err = new Error('update fail');
-(updatePassword as jest.Mock).mockRejectedValue(err)
+      const err = new Error('update fail')
+      ;(updatePassword as jest.Mock).mockRejectedValue(err)
       await expect(
         changeUserPassword({ currentPassword: 'old', newPassword: 'new' }),
       ).rejects.toThrow()
@@ -208,8 +208,8 @@ describe('User Service', () => {
     })
 
     it('should log and throw if link fails', async () => {
-      const err = new Error('link fail');
-(linkWithCredential as jest.Mock).mockRejectedValue(err)
+      const err = new Error('link fail')
+      ;(linkWithCredential as jest.Mock).mockRejectedValue(err)
       await expect(addUserPassword({ newPassword: 'pw' })).rejects.toThrow()
       expect(getLocale).toHaveBeenCalledWith('somethingWentWrong')
       expect(mockedLoggerBreadcrumb).toHaveBeenCalledWith(

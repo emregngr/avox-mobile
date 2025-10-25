@@ -1,15 +1,15 @@
 import { render, waitFor } from '@testing-library/react-native'
 import React from 'react'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 
 import TokenExpire from '@/app/token-expire'
 import { setIsAuthenticated } from '@/store/auth'
 
 const { mockedSetQueryData, mockedRemoveQueries } = require('@tanstack/react-query')
 
-const storage = new MMKV()
+const storage = createMMKV()
 
-const mockedStorageDelete = storage.delete as jest.MockedFunction<typeof storage.delete>
+const mockedStorageDelete = storage.remove as jest.MockedFunction<typeof storage.remove>
 
 jest.mock('@/store/auth')
 

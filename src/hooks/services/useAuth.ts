@@ -30,7 +30,7 @@ const auth = getAuth(app)
 
 const handleAuthSuccess = async <T extends AuthCredentialsType>(
   userCredential: FirebaseAuthTypes.UserCredential,
-  authFunction: (data: T & { token: string }) => Promise<void>,
+  authFunction: (data: T & { token: string }) => void,
   authData: T,
   queryClient: QueryClient,
 ) => {

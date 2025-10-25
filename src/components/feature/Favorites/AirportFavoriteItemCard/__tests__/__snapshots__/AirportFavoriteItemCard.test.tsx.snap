@@ -164,7 +164,7 @@ exports[`AirportFavoriteItemCard Component Snapshot should render the AirportFav
           </View>
         </View>
         <View
-          className="my-3 w-[100px] self-center -row justify-between"
+          className="my-3 w-[100px] self-center flex-row justify-between"
         >
           <View
             className="h-[1px] w-8 bg-primary-100"

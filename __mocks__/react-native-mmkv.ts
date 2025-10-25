@@ -4,9 +4,9 @@ export const mockedMMKV = {
   getNumber: jest.fn(),
   getBoolean: jest.fn(),
   contains: jest.fn(),
-  delete: jest.fn(),
+  remove: jest.fn(),
   getAllKeys: jest.fn(),
   clearAll: jest.fn(),
 }
 
-export const MMKV = jest.fn(() => mockedMMKV)
+export const createMMKV = jest.fn(() => mockedMMKV)

@@ -1,12 +1,12 @@
 import { act } from '@testing-library/react-native'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 
 import { ENUMS } from '@/enums'
 import useAuthStore from '@/store/auth'
 
-const storage = new MMKV()
+const storage = createMMKV()
 
-const mockedStorageDelete = storage.delete as jest.MockedFunction<typeof storage.delete>
+const mockedStorageDelete = storage.remove as jest.MockedFunction<typeof storage.remove>
 
 const mockedStorageSet = storage.set as jest.MockedFunction<typeof storage.set>
 

@@ -46,18 +46,22 @@ exports[`AirlineFavoriteItemCard Component Snapshot should render the AirlineFav
     }
   >
     <View
-      cachePolicy="memory-disk"
-      contentFit="contain"
-      source="https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382974/TK_pog2zq.png"
-      style={
-        {
-          "height": 40,
-          "width": "50%",
+      className="bg-background-airlineLogo rounded-xl overflow-hidden w-[80%] h-12 mt-3 p-2 justify-center items-center"
+    >
+      <View
+        cachePolicy="memory-disk"
+        contentFit="contain"
+        source="https://res.cloudinary.com/dzkssh0tp/image/upload/c_auto,w_800,q_auto,f_auto/v1758382974/TK_pog2zq.png"
+        style={
+          {
+            "height": 40,
+            "width": "50%",
+          }
         }
-      }
-      testID="mocked-image"
-      transition={0}
-    />
+        testID="mocked-image"
+        transition={0}
+      />
+    </View>
     <View
       cachePolicy="memory-disk"
       contentFit="contain"

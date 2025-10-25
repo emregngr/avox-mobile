@@ -1,5 +1,5 @@
 import { logEvent, setUserId, setUserProperties } from '@react-native-firebase/analytics'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 
 import { ENUMS } from '@/enums'
 import type { UserProfileType } from '@/types/feature/user'
@@ -14,7 +14,7 @@ const mockedLogEvent = logEvent as jest.MockedFunction<typeof logEvent>
 const mockedSetUserId = setUserId as jest.MockedFunction<typeof setUserId>
 const mockedSetUserProperties = setUserProperties as jest.MockedFunction<typeof setUserProperties>
 
-const storage = new MMKV()
+const storage = createMMKV()
 
 const mockedStorageGetString = storage.getString as jest.MockedFunction<typeof storage.getString>
 

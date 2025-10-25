@@ -3,12 +3,12 @@ import { useFonts } from 'expo-font'
 import * as Linking from 'expo-linking'
 import { router } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
-import { MMKV } from 'react-native-mmkv'
 import { Notifications } from 'react-native-notifications'
 
 import RootLayout from '@/app/_layout'
 import { useAppSetup } from '@/hooks/app/useAppSetup'
 import useThemeStore from '@/store/theme'
+import useUserStore from '@/store/user'
 import { maintenanceControl } from '@/utils/common/maintenanceControl'
 import { versionControl } from '@/utils/common/versionControl'
 
@@ -41,8 +41,10 @@ jest.mock('@/components/feature', () => {
 })
 
 jest.mock('@/store/theme')
+jest.mock('@/store/user')
 
 const mockedUseThemeStore = useThemeStore as jest.MockedFunction<typeof useThemeStore>
+const mockedUseUserStore = useUserStore as jest.MockedFunction<typeof useUserStore>
 
 const mockedUseAppSetup = useAppSetup as jest.MockedFunction<typeof useAppSetup>
 const mockedUseFonts = useFonts as jest.MockedFunction<typeof useFonts>
@@ -50,10 +52,6 @@ const mockedMaintenanceControl = maintenanceControl as jest.MockedFunction<
   typeof maintenanceControl
 >
 const mockedVersionControl = versionControl as jest.MockedFunction<typeof versionControl>
-
-const storage = new MMKV()
-
-const mockedStorageGetString = storage.getString as jest.MockedFunction<typeof storage.getString>
 
 const mockedGetInitialURL = Linking.getInitialURL as jest.MockedFunction<
   typeof Linking.getInitialURL
@@ -67,6 +65,10 @@ const mockedHideAsync = SplashScreen.hideAsync as jest.MockedFunction<typeof Spl
 beforeEach(() => {
   mockedUseThemeStore.mockReturnValue({ selectedTheme: 'light' })
 
+  mockedUseUserStore.mockReturnValue({
+    isOnboardingSeen: true,
+  })
+
   mockedUseAppSetup.mockReturnValue({
     isConnected: true,
     setIsConnected: jest.fn(),
@@ -76,8 +78,6 @@ beforeEach(() => {
 
   mockedMaintenanceControl.mockResolvedValue(false)
   mockedVersionControl.mockResolvedValue(false)
-
-  mockedStorageGetString.mockReturnValue('true')
 
   mockedGetInitialURL.mockResolvedValue(null)
   mockedGetInitialNotification.mockResolvedValue(null as any)
@@ -113,7 +113,10 @@ describe('RootLayout', () => {
   })
 
   it('should route to /onboarding if onboarding has not been seen', async () => {
-    mockedStorageGetString.mockReturnValue(null as any)
+    mockedUseUserStore.mockReturnValue({
+      isOnboardingSeen: false,
+    })
+
     render(<RootLayout />)
 
     await waitFor(() => {

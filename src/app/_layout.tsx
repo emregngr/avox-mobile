@@ -23,7 +23,7 @@ import { LogBox, View } from 'react-native'
 import { SystemBars } from 'react-native-edge-to-edge'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { KeyboardProvider } from 'react-native-keyboard-controller'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 import { Notifications } from 'react-native-notifications'
 import performance from 'react-native-performance'
 import { configureReanimatedLogger, ReanimatedLogLevel } from 'react-native-reanimated'
@@ -34,13 +34,13 @@ import { useToastConfig } from '@/components/common'
 import { AppNavigator } from '@/components/feature'
 import { queryClient } from '@/config/app/queryClient'
 import config from '@/config/env/environment'
-import { ENUMS } from '@/enums'
 import { useAppSetup } from '@/hooks/app/useAppSetup'
 import { useAppUpdate } from '@/hooks/app/useAppUpdate'
 import { useConnectionAlert } from '@/hooks/network/useConnectionAlert'
 import { useNotificationSetup } from '@/hooks/notifications/useNotificationSetup'
 import { useSystemUI } from '@/hooks/systemUI/useSystemUI'
 import useThemeStore from '@/store/theme'
+import useUserStore from '@/store/user'
 import { themes } from '@/themes'
 import { Logger } from '@/utils/common/logger'
 import { maintenanceControl } from '@/utils/common/maintenanceControl'
@@ -70,10 +70,11 @@ SplashScreen.setOptions({
 
 SplashScreen.preventAutoHideAsync()
 
-const storage = new MMKV()
+const storage = createMMKV()
 
 const RootLayout = () => {
   const { selectedTheme } = useThemeStore()
+  const { isOnboardingSeen } = useUserStore()
 
   useNetworkActivityDevTools()
   usePerformanceMonitorDevTools()
@@ -111,11 +112,10 @@ const RootLayout = () => {
           maintenanceControl(),
           versionControl(),
         ])
-        const seenOnboarding = storage.getString(ENUMS.IS_ONBOARDING_SEEN)
 
         if (maintenance) return router.replace('/maintenance')
         if (versionInvalid) return router.replace('/force-update')
-        if (!seenOnboarding) return router.replace('/onboarding')
+        if (!isOnboardingSeen) return router.replace('/onboarding')
 
         const initialUrl = await Linking.getInitialURL()
         if (initialUrl) {
@@ -177,7 +177,7 @@ const RootLayout = () => {
     }
 
     checkAppStateAndNavigate()
-  }, [])
+  }, [isOnboardingSeen])
 
   const isAppReady = fontsLoaded && isConnected
 

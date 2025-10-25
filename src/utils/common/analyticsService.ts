@@ -5,7 +5,7 @@ import {
   setUserProperties,
 } from '@react-native-firebase/analytics'
 import { getApp } from '@react-native-firebase/app'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 
 import { ENUMS } from '@/enums'
 import type { UserProfileType } from '@/types/feature/user'
@@ -15,7 +15,7 @@ import { Logger } from '@/utils/common/logger'
 const app = getApp()
 const analytics = getAnalytics(app)
 
-const storage = new MMKV()
+const storage = createMMKV()
 
 export const AnalyticsService = {
   async sendEvent(tag: string, values: any): Promise<void> {

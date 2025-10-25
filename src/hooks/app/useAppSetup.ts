@@ -9,7 +9,7 @@ import {
 import { useCallback, useEffect, useState } from 'react'
 import { AppState, PermissionsAndroid, Platform } from 'react-native'
 import mobileAds from 'react-native-google-mobile-ads'
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 import { Notifications } from 'react-native-notifications'
 
 import { isProduction } from '@/config/env/environment'
@@ -27,7 +27,7 @@ const app = getApp()
 const messaging = getMessaging(app)
 const auth = getAuth(app)
 
-const storage = new MMKV()
+const storage = createMMKV()
 
 export const useAppSetup = () => {
   const [isConnected, setIsConnected] = useState<boolean | null>(null)

@@ -1,11 +1,11 @@
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 import { ENUMS } from '@/enums'
 import type { LoginType, RegisterType, SocialType } from '@/types/feature/auth'
 
-const storage = new MMKV()
+const storage = createMMKV()
 
 export type AuthStateType = {
   isAuthenticated: boolean
@@ -13,11 +13,11 @@ export type AuthStateType = {
 }
 
 export type AuthActions = {
-  login: ({ email, password, token }: LoginType) => Promise<void>
-  logout: () => Promise<void>
-  register: ({ email, firstName, lastName, password, token }: RegisterType) => Promise<void>
+  login: ({ email, password, token }: LoginType) => void
+  logout: () => void
+  register: ({ email, firstName, lastName, password, token }: RegisterType) => void
   setIsAuthenticated: (value: boolean) => void
-  social: ({ provider, token }: SocialType) => Promise<void>
+  social: ({ provider, token }: SocialType) => void
 }
 
 const useAuthStore = create<AuthStateType & AuthActions>()(
@@ -31,7 +31,7 @@ const useAuthStore = create<AuthStateType & AuthActions>()(
     },
     logout: () => {
       set({ loading: true })
-      storage.delete(ENUMS.API_TOKEN)
+      storage.remove(ENUMS.API_TOKEN)
       set({ isAuthenticated: false, loading: false })
     },
     register: params => {

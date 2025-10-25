@@ -1,13 +1,11 @@
-import { MMKV } from 'react-native-mmkv'
+import { createMMKV } from 'react-native-mmkv'
 
 import { ENUMS } from '@/enums'
-import useUserStore, { deleteUser, setIsOnboardingSeen } from '@/store/user'
+import useUserStore, { deleteUser } from '@/store/user'
 
-const storage = new MMKV()
+const storage = createMMKV()
 
-const mockedStorageDelete = storage.delete as jest.MockedFunction<typeof storage.delete>
-
-const mockedStorageSet = storage.set as jest.MockedFunction<typeof storage.set>
+const mockedStorageDelete = storage.remove as jest.MockedFunction<typeof storage.remove>
 
 beforeEach(() => {
   useUserStore.setState({
@@ -23,7 +21,7 @@ describe('useUserStore', () => {
     expect(loading).toBe(false)
   })
 
-  it('should call Storage.delete and update loading state when deleteUser is called', () => {
+  it('should call Storage.remove and update loading state when deleteUser is called', () => {
     deleteUser()
 
     expect(mockedStorageDelete).toHaveBeenCalledWith(ENUMS.API_TOKEN)
@@ -32,11 +30,11 @@ describe('useUserStore', () => {
     expect(loading).toBe(false)
   })
 
-  it('should call Storage.set when setIsOnboardingSeen is called', () => {
-    setIsOnboardingSeen(true)
-    expect(mockedStorageSet).toHaveBeenCalledWith(ENUMS.IS_ONBOARDING_SEEN, 'true')
+  it('should update isOnboardingSeen status', () => {
+    const { setIsOnboardingSeen } = useUserStore.getState()
 
-    setIsOnboardingSeen(false)
-    expect(mockedStorageSet).toHaveBeenCalledWith(ENUMS.IS_ONBOARDING_SEEN, 'false')
+    setIsOnboardingSeen(true)
+
+    expect(useUserStore.getState().isOnboardingSeen).toBe(true)
   })
 })
