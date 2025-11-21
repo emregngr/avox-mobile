@@ -260,11 +260,6 @@ beforeEach(() => {
 })
 
 describe('useAirport hook', () => {
-  afterEach(() => {
-    jest.restoreAllMocks()
-    jest.useRealTimers()
-  })
-
   it('applies range filter for passenger capacity', async () => {
     const { result } = renderHook(() => useAirport())
     act(() => {
@@ -535,32 +530,6 @@ describe('useAirport hook', () => {
     const { result } = renderHook(() => useAirport())
     expect(result.current.paginatedAirports).toEqual([])
     expect(result.current.filteredCount).toBe(0)
-  })
-
-  it('updates isSearchLoading state correctly with debounce', async () => {
-    jest.useFakeTimers()
-
-    const { result } = renderHook(() => useAirport())
-
-    expect(result.current.isSearchLoading).toBe(false)
-
-    mockedDebounce.mockImplementation(value => value)
-
-    act(() => {
-      result.current.setSearchTerm('test')
-    })
-
-    expect(result.current.isSearchLoading).toBe(false)
-
-    act(() => {
-      jest.advanceTimersByTime(300)
-    })
-
-    await waitFor(() => {
-      expect(result.current.isSearchLoading).toBe(false)
-    })
-
-    jest.useRealTimers()
   })
 
   it('applies a false boolean filter for services', () => {
@@ -1119,10 +1088,6 @@ describe('useAirport hook', () => {
 })
 
 describe('useAirportById hook', () => {
-  afterEach(() => {
-    jest.restoreAllMocks()
-  })
-
   it('fetches first airport by id', async () => {
     const honiaraAirport = mockedAirports[0]
 

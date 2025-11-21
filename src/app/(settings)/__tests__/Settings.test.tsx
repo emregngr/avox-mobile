@@ -9,14 +9,13 @@ import { checkNotifications, openSettings } from 'react-native-permissions'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import Settings from '@/app/(settings)/settings'
+import { useAuthUser } from '@/hooks/services/useAuth'
 import { useDeleteUser } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { Logger } from '@/utils/common/logger'
 import { getStringValue } from '@/utils/common/remoteConfig'
-
-const { mockedAuth } = require('@react-native-firebase/auth')
 
 jest.mock('@/utils/common/logger')
 
@@ -33,6 +32,10 @@ const mockedUseLocaleStore = useLocaleStore as jest.MockedFunction<typeof useLoc
 jest.mock('@/store/theme')
 
 const mockedUseThemeStore = useThemeStore as jest.MockedFunction<typeof useThemeStore>
+
+jest.mock('@/hooks/services/useAuth')
+
+const mockedUseAuthUser = useAuthUser as jest.MockedFunction<typeof useAuthUser>
 
 jest.mock('@/hooks/services/useUser')
 
@@ -132,6 +135,10 @@ beforeEach(() => {
   mockedUseLocaleStore.mockReturnValue({ selectedLocale: 'en' })
   mockedUseThemeStore.mockReturnValue({ selectedTheme: 'light' })
 
+  mockedUseAuthUser.mockReturnValue({
+    data: { uid: 'test-user-id', email: 'test@example.com' },
+  } as any)
+
   mockedUseDeleteUser.mockReturnValue({
     mutateAsync: jest.fn().mockResolvedValue(true),
   } as any)
@@ -144,8 +151,6 @@ beforeEach(() => {
 
   mockedCheckNotifications.mockResolvedValue({ status: 'granted', settings: {} })
 
-  mockedAuth.currentUser = { uid: 'test-user-id', email: 'test@example.com' }
-
   mockedGetStringValue.mockImplementation((key: string) => {
     if (key === 'TIKTOK_LINK') return 'https://tiktok.com/test'
     if (key === 'INSTAGRAM_LINK') return 'https://instagram.com/test'
@@ -153,10 +158,6 @@ beforeEach(() => {
   })
 
   mockedGetLocale.mockImplementation((key: string) => key)
-})
-
-afterEach(() => {
-  jest.restoreAllMocks()
 })
 
 describe('Settings Screen', () => {
@@ -222,7 +223,8 @@ describe('Settings Screen', () => {
   })
 
   it('does not render delete account if user is not logged in', () => {
-    mockedAuth.currentUser = null
+    mockedUseAuthUser.mockReturnValue({ data: null } as any)
+
     const { queryByTestId } = renderWithSafeAreaProvider(<Settings />)
     expect(queryByTestId('delete-account-button')).toBeNull()
   })

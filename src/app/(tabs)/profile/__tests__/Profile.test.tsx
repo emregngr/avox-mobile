@@ -6,11 +6,10 @@ import { Alert } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import Profile from '@/app/(tabs)/profile'
-import { useLogout } from '@/hooks/services/useAuth'
+import { useAuthUser, useLogout } from '@/hooks/services/useAuth'
 import { useGetUser } from '@/hooks/services/useUser'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
-const { mockedAuth } = require('@react-native-firebase/auth')
 
 jest.mock('@/locales/i18next', () => ({
   getLocale: (key: string) => key,
@@ -18,6 +17,7 @@ jest.mock('@/locales/i18next', () => ({
 
 jest.mock('@/hooks/services/useAuth')
 
+const mockedUseAuthUser = useAuthUser as jest.MockedFunction<typeof useAuthUser>
 const mockedUseLogout = useLogout as jest.MockedFunction<typeof useLogout>
 
 jest.mock('@/hooks/services/useUser')
@@ -103,7 +103,7 @@ beforeEach(() => {
   mockedUseLocaleStore.mockReturnValue({ selectedLocale: 'en' })
   mockedUseThemeStore.mockReturnValue({ selectedTheme: 'light' })
 
-  mockedAuth.currentUser = null
+  mockedUseAuthUser.mockReturnValue({ data: null } as any)
 
   mockedUseLogout.mockReturnValue({ mutateAsync: jest.fn() } as any)
 
@@ -137,8 +137,8 @@ describe('Profile Screen', () => {
   })
 
   describe('When user is logged in', () => {
-    it('should render user-specific  items', () => {
-      mockedAuth.currentUser = mockedUserWithPassword
+    it('should render user-specific items', () => {
+      mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
 
       const { getByTestId, queryByTestId, getByText } = renderWithSafeAreaProvider(<Profile />)
@@ -150,7 +150,7 @@ describe('Profile Screen', () => {
     })
 
     it('should show "Change Password" for password users', () => {
-      mockedAuth.currentUser = mockedUserWithPassword
+      mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
 
       const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
@@ -158,7 +158,7 @@ describe('Profile Screen', () => {
     })
 
     it('should show "Add Password" for non-password users', () => {
-      mockedAuth.currentUser = mockedUserWithoutPassword
+      mockedUseAuthUser.mockReturnValue({ data: mockedUserWithoutPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithoutPassword } as any)
 
       const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
@@ -166,7 +166,7 @@ describe('Profile Screen', () => {
     })
 
     it('should show a confirmation alert on logout press', () => {
-      mockedAuth.currentUser = mockedUserWithPassword
+      mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
 
       const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
@@ -181,8 +181,11 @@ describe('Profile Screen', () => {
     })
 
     it('should call the logout mutation when confirming the alert', () => {
-      mockedAuth.currentUser = mockedUserWithPassword
+      const mockMutateAsync = jest.fn()
+      mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
+      mockedUseLogout.mockReturnValue({ mutateAsync: mockMutateAsync } as any)
+
       mockedAlert.mockImplementation((title, message, buttons) => {
         const yesButton = buttons.find((b: any) => b.style === 'destructive')
         if (yesButton) {
@@ -193,7 +196,7 @@ describe('Profile Screen', () => {
       const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
       fireEvent.press(getByTestId('item-logout'))
 
-      expect(mockedUseLogout).toHaveBeenCalledTimes(1)
+      expect(mockMutateAsync).toHaveBeenCalledTimes(1)
     })
   })
 
@@ -214,6 +217,24 @@ describe('Profile Screen', () => {
       const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
       fireEvent.press(getByTestId('item-chooseLanguage'))
       expect(router.navigate).toHaveBeenCalledWith('/choose-language')
+    })
+
+    it('should navigate to update-profile when logged in user presses update profile', () => {
+      mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
+      mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
+
+      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
+      fireEvent.press(getByTestId('item-updateProfile'))
+      expect(router.navigate).toHaveBeenCalledWith('/update-profile')
+    })
+
+    it('should navigate to password screen when user presses change password', () => {
+      mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
+      mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
+
+      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
+      fireEvent.press(getByTestId('item-changePassword'))
+      expect(router.navigate).toHaveBeenCalledWith('/password')
     })
   })
 })

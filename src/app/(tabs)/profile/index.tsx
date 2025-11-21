@@ -1,5 +1,3 @@
-import { getApp } from '@react-native-firebase/app'
-import { getAuth } from '@react-native-firebase/auth'
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
@@ -7,16 +5,13 @@ import { Alert, Platform, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Header, ProfileItem, SafeLayout, ThemedText } from '@/components/common'
-import { useLogout } from '@/hooks/services/useAuth'
+import { useLogout, useAuthUser } from '@/hooks/services/useAuth'
 import { useGetUser } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
 import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-
-const app = getApp()
-const auth = getAuth(app)
 
 const Icon = require('@/assets/images/icon-ios.png')
 
@@ -42,7 +37,8 @@ export default function Profile() {
   const { mutateAsync: handleLogoutMutation } = useLogout()
   const { data: userProfile } = useGetUser()
 
-  const user = useMemo(() => auth.currentUser, [auth.currentUser])
+  const { data: user } = useAuthUser()
+
   const isPasswordUser = user?.providerData.some(provider => provider?.providerId === 'password')
 
   const handleLogout = useCallback(() => {

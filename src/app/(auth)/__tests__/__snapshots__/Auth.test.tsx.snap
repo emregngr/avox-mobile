@@ -89,16 +89,14 @@ exports[`Auth Screen Snapshot should render the Auth Screen successfully 1`] = `
           className="items-center gap-y-4 mt-6"
         >
           <Text
-            allowFontScaling={false}
-            className="text-[32px] leading-[38px] font-inter-bold text-text-100"
-            maxFontSizeMultiplier={1}
+            color="text-100"
+            type="title"
           >
             avox
           </Text>
           <Text
-            allowFontScaling={false}
-            className="text-[24px] leading-[29px] font-inter-bold text-text-90"
-            maxFontSizeMultiplier={1}
+            color="text-90"
+            type="h1"
           >
             welcomeText
           </Text>
@@ -196,9 +194,8 @@ exports[`Auth Screen Snapshot should render the Auth Screen successfully 1`] = `
             className="bg-onPrimary-70 h-0.5 w-2/5"
           />
           <Text
-            allowFontScaling={false}
-            className="text-[14px] leading-[17px] font-inter-medium text-text-90"
-            maxFontSizeMultiplier={1}
+            color="text-90"
+            type="body2"
           >
             or
           </Text>
@@ -289,9 +286,10 @@ exports[`Auth Screen Snapshot should render the Auth Screen successfully 1`] = `
           </View>
         </View>
         <Text
-          allowFontScaling={false}
-          className="text-[14px] leading-[17px] font-inter-medium text-center text-text-70 mt-6"
-          maxFontSizeMultiplier={1}
+          center={true}
+          className="mt-6"
+          color="text-70"
+          type="body2"
         >
           acceptText
         </Text>

@@ -1,5 +1,5 @@
 const { getDefaultConfig } = require('@expo/metro-config')
-const withStorybook = require('@storybook/react-native/metro/withStorybook')
+const { withStorybook } = require('@storybook/react-native/metro/withStorybook')
 const { withRozenite } = require('@rozenite/metro')
 const { getSentryExpoConfig } = require('@sentry/react-native/metro')
 const { withNativeWind } = require('nativewind/metro')

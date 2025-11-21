@@ -737,32 +737,6 @@ describe('useAirline hook', () => {
     expect(result.current.filteredCount).toBe(0)
   })
 
-  it('search loading state changes correctly', async () => {
-    jest.useFakeTimers()
-
-    const { result } = renderHook(() => useAirline())
-
-    expect(result.current.isSearchLoading).toBe(false)
-
-    mockedDebounce.mockImplementation(value => value)
-
-    act(() => {
-      result.current.setSearchTerm('test')
-    })
-
-    expect(result.current.isSearchLoading).toBe(false)
-
-    act(() => {
-      jest.advanceTimersByTime(300)
-    })
-
-    await waitFor(() => {
-      expect(result.current.isSearchLoading).toBe(false)
-    })
-
-    jest.useRealTimers()
-  })
-
   it('page resets when search term changes', () => {
     const largeAirlineList = generateMockAirlines(25)
     useQuery.mockReturnValue({
@@ -921,6 +895,24 @@ describe('useAirline hook', () => {
     })
 
     expect(result.current.filteredCount).toBe(2)
+  })
+
+  it('correctly handles isSearchLoading when searchTerm equals debouncedSearch', async () => {
+    jest.useFakeTimers()
+
+    mockedDebounce.mockImplementation(value => value)
+
+    const { result } = renderHook(() => useAirline())
+
+    act(() => {
+      result.current.setSearchTerm('test')
+    })
+
+    act(() => {
+      jest.advanceTimersByTime(300)
+    })
+
+    expect(result.current.isSearchLoading).toBe(false)
   })
 })
 

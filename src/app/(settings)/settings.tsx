@@ -1,6 +1,4 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { getApp } from '@react-native-firebase/app'
-import { getAuth } from '@react-native-firebase/auth'
 import * as Linking from 'expo-linking'
 import { router } from 'expo-router'
 import * as StoreReview from 'expo-store-review'
@@ -12,6 +10,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Instagram from '@/assets/icons/instagram.svg'
 import Tiktok from '@/assets/icons/tiktok.svg'
 import { Header, ProfileItem, SafeLayout, ThemedText } from '@/components/common'
+import { useAuthUser } from '@/hooks/services/useAuth'
 import { useDeleteUser } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'
@@ -19,9 +18,6 @@ import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import { Logger } from '@/utils/common/logger'
 import { getStringValue } from '@/utils/common/remoteConfig'
-
-const app = getApp()
-const auth = getAuth(app)
 
 export default function Settings() {
   const { bottom, top } = useSafeAreaInsets()
@@ -31,7 +27,7 @@ export default function Settings() {
 
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
-  const user = useMemo(() => auth.currentUser, [auth.currentUser])
+  const { data: user } = useAuthUser()
 
   const { mutateAsync: deleteUserAccount } = useDeleteUser()
 

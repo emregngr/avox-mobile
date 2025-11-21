@@ -31,12 +31,12 @@ const mockedUseGoogleLogin = useGoogleLogin as jest.MockedFunction<typeof useGoo
 const mockedUseAppleLogin = useAppleLogin as jest.MockedFunction<typeof useAppleLogin>
 
 jest.mock('@/components/common', () => {
-  const originalModule = jest.requireActual('@/components/common')
-
   const { View, Text, TouchableOpacity } = require('react-native')
 
   return {
-    ...originalModule,
+    ThemedText: ({ children, ...props }: { children: string }) => (
+      <Text {...props}>{children}</Text>
+    ),
 
     Header: ({
       title,

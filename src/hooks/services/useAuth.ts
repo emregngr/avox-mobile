@@ -1,6 +1,6 @@
 import { getApp } from '@react-native-firebase/app'
 import type { FirebaseAuthTypes } from '@react-native-firebase/auth'
-import { getAuth, getIdToken, onAuthStateChanged } from '@react-native-firebase/auth'
+import { getAuth, getIdToken } from '@react-native-firebase/auth'
 import type { QueryClient } from '@tanstack/react-query'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { router } from 'expo-router'
@@ -9,6 +9,7 @@ import Toast from 'react-native-toast-message'
 
 import { getLocale } from '@/locales/i18next'
 import {
+  authStateChanged,
   handleLogout,
   sendPasswordResetLink,
   signInWithApple,
@@ -24,6 +25,7 @@ import type {
   RegisterCredentialsType,
 } from '@/types/feature/auth'
 import { Logger } from '@/utils/common/logger'
+import { useEffect } from 'react'
 
 const app = getApp()
 const auth = getAuth(app)
@@ -36,25 +38,30 @@ const handleAuthSuccess = async <T extends AuthCredentialsType>(
 ) => {
   try {
     const token = await getIdToken(userCredential.user, true)
-    await authFunction({ ...authData, token })
+    authFunction({ ...authData, token })
     queryClient.invalidateQueries({ queryKey: ['user'] })
   } catch (error) {
     Logger.breadcrumb('Failed to handle auth success', 'error', error as Error)
   }
 }
 
-export const useUser = () =>
-  useQuery({
-    queryFn: () =>
-      new Promise(resolve => {
-        const unsubscribe = onAuthStateChanged(auth, userState => {
-          unsubscribe()
-          resolve(userState)
-        })
-      }),
+export const useAuthUser = () => {
+  const queryClient = useQueryClient()
+
+  useEffect(() => {
+    const unsubscribe = authStateChanged(user => {
+      queryClient.setQueryData(['user'], user)
+    })
+    return unsubscribe
+  }, [queryClient])
+
+  return useQuery<FirebaseAuthTypes.User | null>({
     queryKey: ['user'],
+    queryFn: () => auth?.currentUser ?? null,
+    initialData: auth?.currentUser ?? null,
     staleTime: Infinity,
   })
+}
 
 export const useEmailRegister = () => {
   const queryClient = useQueryClient()
@@ -179,8 +186,8 @@ export const useLogout = () => {
         },
       )
     },
-    onSuccess: async () => {
-      await logout()
+    onSuccess: () => {
+      logout()
       queryClient.setQueryData(['user'], null)
       queryClient.removeQueries()
     },

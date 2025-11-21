@@ -10,7 +10,7 @@ import {
   useForgotPassword,
   useGoogleLogin,
   useLogout,
-  useUser,
+  useAuthUser,
 } from '@/hooks/services/useAuth'
 import { getLocale } from '@/locales/i18next'
 import {
@@ -93,7 +93,7 @@ describe('auth hooks', () => {
 
       useQuery.mockReturnValue({ data: mockUser })
 
-      const { result } = renderHook(() => useUser())
+      const { result } = renderHook(() => useAuthUser())
 
       expect(result.current.data).toEqual(mockUser)
     })
@@ -106,7 +106,7 @@ describe('auth hooks', () => {
 
       useQuery.mockReturnValue({ data: null })
 
-      const { result } = renderHook(() => useUser())
+      const { result } = renderHook(() => useAuthUser())
 
       expect(result.current.data).toBeNull()
     })
@@ -129,7 +129,7 @@ describe('auth hooks', () => {
 
       mockedSignUpWithEmail.mockResolvedValue(mockUserCredential as any)
       getIdToken.mockResolvedValue(mockToken)
-      mockedRegister.mockResolvedValue(undefined)
+      mockedRegister.mockReturnValue(undefined)
 
       useMutation.mockImplementation((options: any) => ({
         mutateAsync: jest.fn().mockImplementation(async data => {
@@ -185,7 +185,9 @@ describe('auth hooks', () => {
 
       mockedSignUpWithEmail.mockResolvedValue(mockUserCredential as any)
       getIdToken.mockResolvedValue(mockToken)
-      mockedRegister.mockRejectedValue(authError)
+      mockedRegister.mockImplementation(() => {
+        throw authError
+      })
 
       useMutation.mockImplementation((options: any) => ({
         mutateAsync: jest.fn().mockImplementation(async data => {
@@ -227,7 +229,7 @@ describe('auth hooks', () => {
 
       mockedSignInWithEmail.mockResolvedValue(mockUserCredential as any)
       getIdToken.mockResolvedValue(mockToken)
-      mockedLogin.mockResolvedValue(undefined)
+      mockedLogin.mockReturnValue(undefined)
 
       useMutation.mockImplementation((options: any) => ({
         mutateAsync: jest.fn().mockImplementation(async data => {
@@ -288,7 +290,7 @@ describe('auth hooks', () => {
 
       mockedSignInWithGoogle.mockResolvedValue(mockUserCredential as any)
       getIdToken.mockResolvedValue(mockToken)
-      mockedSocial.mockResolvedValue(undefined)
+      mockedSocial.mockReturnValue(undefined)
 
       useMutation.mockImplementation((options: any) => ({
         mutateAsync: jest.fn().mockImplementation(async () => {
@@ -349,7 +351,7 @@ describe('auth hooks', () => {
 
       mockedSignInWithApple.mockResolvedValue(mockUserCredential as any)
       getIdToken.mockResolvedValue(mockToken)
-      mockedSocial.mockResolvedValue(undefined)
+      mockedSocial.mockReturnValue(undefined)
 
       useMutation.mockImplementation((options: any) => ({
         mutateAsync: jest.fn().mockImplementation(async () => {
@@ -403,7 +405,7 @@ describe('auth hooks', () => {
   describe('useLogout', () => {
     it('should successfully log out', async () => {
       mockedHandleLogout.mockResolvedValue(undefined)
-      mockedLogout.mockResolvedValue(undefined)
+      mockedLogout.mockReturnValue(undefined)
 
       useMutation.mockImplementation((options: any) => ({
         mutateAsync: jest.fn().mockImplementation(async () => {
