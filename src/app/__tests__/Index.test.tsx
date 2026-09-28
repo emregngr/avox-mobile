@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import Index from '@/app/index'
 
@@ -12,8 +11,8 @@ jest.mock('@/components/common', () => {
 })
 
 describe('Index Screen', () => {
-  it('should render the FullScreenLoading component', () => {
-    const { getByTestId } = render(<Index />)
+  it('should render the FullScreenLoading component', async () => {
+    const { getByTestId } = await render(<Index />)
 
     const loadingComponent = getByTestId('full-screen-loading')
     expect(loadingComponent).toBeTruthy()
@@ -21,8 +20,8 @@ describe('Index Screen', () => {
 })
 
 describe('Index Screen Snapshot', () => {
-  it('should render the Index Screen successfully', () => {
-    const { toJSON } = render(<Index />)
+  it('should render the Index Screen successfully', async () => {
+    const { toJSON } = await render(<Index />)
 
     expect(toJSON()).toMatchSnapshot()
   })

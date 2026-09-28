@@ -11,14 +11,14 @@ afterEach(() => {
 })
 
 describe('debounce Hook', () => {
-  it('should return the initial value immediately', () => {
-    const { result } = renderHook(() => debounce('initial value', 500))
+  it('should return the initial value immediately', async () => {
+    const { result } = await renderHook(() => debounce('initial value', 500))
 
     expect(result.current).toBe('initial value')
   })
 
-  it('should update the value only after the specified delay', () => {
-    const { result, rerender } = renderHook(
+  it('should update the value only after the specified delay', async () => {
+    const { result, rerender } = await renderHook(
       ({ value, delay }: { value: string; delay: number }) => debounce(value, delay),
       {
         initialProps: { value: 'first', delay: 500 },
@@ -27,51 +27,51 @@ describe('debounce Hook', () => {
 
     expect(result.current).toBe('first')
 
-    rerender({ value: 'second', delay: 500 })
+    await rerender({ value: 'second', delay: 500 })
 
     expect(result.current).toBe('first')
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(500)
     })
 
     expect(result.current).toBe('second')
   })
 
-  it('should only use the latest value after rapid subsequent updates', () => {
-    const { result, rerender } = renderHook(
+  it('should only use the latest value after rapid subsequent updates', async () => {
+    const { result, rerender } = await renderHook(
       ({ value, delay }: { value: string; delay: number }) => debounce(value, delay),
       {
         initialProps: { value: 'initial', delay: 500 },
       },
     )
 
-    rerender({ value: 'update 1', delay: 500 })
-    rerender({ value: 'update 2', delay: 500 })
-    rerender({ value: 'final update', delay: 500 })
+    await rerender({ value: 'update 1', delay: 500 })
+    await rerender({ value: 'update 2', delay: 500 })
+    await rerender({ value: 'final update', delay: 500 })
 
     expect(result.current).toBe('initial')
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(500)
     })
 
     expect(result.current).toBe('final update')
   })
 
-  it('should clear the timeout on rerender and on unmount', () => {
+  it('should clear the timeout on rerender and on unmount', async () => {
     const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout')
 
-    const { unmount, rerender } = renderHook(
+    const { unmount, rerender } = await renderHook(
       ({ value, delay }: { value: string; delay: number }) => debounce(value, delay),
       {
         initialProps: { value: 'hello', delay: 1000 },
       },
     )
 
-    rerender({ value: 'world', delay: 1000 })
+    await rerender({ value: 'world', delay: 1000 })
 
-    unmount()
+    await unmount()
 
     expect(clearTimeoutSpy).toHaveBeenCalledTimes(2)
 

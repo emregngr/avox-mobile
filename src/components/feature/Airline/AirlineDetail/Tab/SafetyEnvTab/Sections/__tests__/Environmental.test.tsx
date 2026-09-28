@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Environmental } from '@/components/feature/Airline/AirlineDetail/Tab/SafetyEnvTab/Sections/Environmental'
 
@@ -57,15 +56,15 @@ const mockedDefaultProps = {
 }
 
 describe('Environmental Component', () => {
-  it('should pass the main title to the AirlineSectionRow component', () => {
-    const { getByTestId } = render(<Environmental {...mockedDefaultProps} />)
+  it('should pass the main title to the AirlineSectionRow component', async () => {
+    const { getByTestId } = await render(<Environmental {...mockedDefaultProps} />)
 
     const sectionRow = getByTestId('mocked-section-row')
     expect(sectionRow.props.title).toBe(mockedDefaultProps.title)
   })
 
-  it('should pass the correct props to the SafetyHeader component', () => {
-    const { getByText, getByTestId } = render(<Environmental {...mockedDefaultProps} />)
+  it('should pass the correct props to the SafetyHeader component', async () => {
+    const { getByText, getByTestId } = await render(<Environmental {...mockedDefaultProps} />)
 
     const header = getByTestId('mocked-safety-header')
 
@@ -76,16 +75,16 @@ describe('Environmental Component', () => {
     expect(header.props['data-icon-name']).toBe('leaf')
   })
 
-  it('should render the main content text correctly', () => {
-    const { getByText } = render(<Environmental {...mockedDefaultProps} />)
+  it('should render the main content text correctly', async () => {
+    const { getByText } = await render(<Environmental {...mockedDefaultProps} />)
 
     expect(getByText(mockedDefaultProps.content)).toBeTruthy()
   })
 })
 
 describe('Environmental Component Snapshot', () => {
-  it('should render the Environmental Component successfully', () => {
-    const { toJSON } = render(<Environmental {...mockedDefaultProps} />)
+  it('should render the Environmental Component successfully', async () => {
+    const { toJSON } = await render(<Environmental {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

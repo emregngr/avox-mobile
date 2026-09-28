@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { NewsSection } from '@/components/feature/Home/NewsSection'
 import { getLocale } from '@/locales/i18next'
@@ -57,16 +56,16 @@ beforeEach(() => {
 
 describe('NewsSection Component', () => {
   describe('Component Rendering', () => {
-    it('should render both SectionHeader and HomeSlider components', () => {
-      const { getByTestId } = render(<NewsSection breakingNews={mockedBreakingNews} />)
+    it('should render both SectionHeader and HomeSlider components', async () => {
+      const { getByTestId } = await render(<NewsSection breakingNews={mockedBreakingNews} />)
 
       expect(getByTestId('section-header')).toBeTruthy()
       expect(getByTestId('home-slider')).toBeTruthy()
     })
 
-    it('should render with empty breakingNews array', () => {
+    it('should render with empty breakingNews array', async () => {
       const emptyNews: BreakingNewsType[] = []
-      const { getByTestId } = render(<NewsSection breakingNews={emptyNews} />)
+      const { getByTestId } = await render(<NewsSection breakingNews={emptyNews} />)
 
       expect(getByTestId('section-header')).toBeTruthy()
       expect(getByTestId('home-slider')).toBeTruthy()
@@ -74,53 +73,52 @@ describe('NewsSection Component', () => {
   })
 
   describe('Localization', () => {
-    it('should call getLocale with "news" key', () => {
-      render(<NewsSection breakingNews={mockedBreakingNews} />)
+    it('should call getLocale with "news" key', async () => {
+      await render(<NewsSection breakingNews={mockedBreakingNews} />)
 
       expect(mockedGetLocale).toHaveBeenCalledWith('news')
       expect(mockedGetLocale).toHaveBeenCalledTimes(1)
     })
 
-    it('should pass the localized title to SectionHeader', () => {
+    it('should pass the localized title to SectionHeader', async () => {
       const expectedTitle = 'Haberler'
       mockedGetLocale.mockReturnValue(expectedTitle)
 
-      const { getByText } = render(<NewsSection breakingNews={mockedBreakingNews} />)
+      const { getByText } = await render(<NewsSection breakingNews={mockedBreakingNews} />)
 
       expect(mockedSectionHeader).toHaveBeenCalledWith({ title: expectedTitle })
       expect(getByText(expectedTitle)).toBeTruthy()
     })
 
-    it('should handle different locale values', () => {
-      const testCases = ['News', 'Noticias', 'Nouvelles', 'Notizie']
-
-      testCases.forEach(locale => {
+    it.each(['News', 'Noticias', 'Nouvelles', 'Notizie'])(
+      'should handle locale value "%s"',
+      async locale => {
         mockedGetLocale.mockReturnValue(locale)
 
-        const { getByText } = render(<NewsSection breakingNews={mockedBreakingNews} />)
+        const { getByText } = await render(<NewsSection breakingNews={mockedBreakingNews} />)
 
         expect(mockedSectionHeader).toHaveBeenCalledWith({ title: locale })
         expect(getByText(locale)).toBeTruthy()
-      })
-    })
+      },
+    )
   })
 
   describe('Props Passing', () => {
-    it('should pass breakingNews prop to HomeSlider', () => {
-      render(<NewsSection breakingNews={mockedBreakingNews} />)
+    it('should pass breakingNews prop to HomeSlider', async () => {
+      await render(<NewsSection breakingNews={mockedBreakingNews} />)
 
       expect(mockedHomeSlider).toHaveBeenCalledWith({ breakingNews: mockedBreakingNews })
       expect(mockedHomeSlider).toHaveBeenCalledTimes(1)
     })
 
-    it('should pass empty array to HomeSlider when no breaking news', () => {
+    it('should pass empty array to HomeSlider when no breaking news', async () => {
       const emptyNews: BreakingNewsType[] = []
-      render(<NewsSection breakingNews={emptyNews} />)
+      await render(<NewsSection breakingNews={emptyNews} />)
 
       expect(mockedHomeSlider).toHaveBeenCalledWith({ breakingNews: emptyNews })
     })
 
-    it('should pass different breakingNews arrays correctly', () => {
+    it('should pass different breakingNews arrays correctly', async () => {
       const singleNews: BreakingNewsType[] = [
         {
           id: 'single',
@@ -130,15 +128,15 @@ describe('NewsSection Component', () => {
         },
       ]
 
-      render(<NewsSection breakingNews={singleNews} />)
+      await render(<NewsSection breakingNews={singleNews} />)
 
       expect(mockedHomeSlider).toHaveBeenCalledWith({ breakingNews: singleNews })
     })
   })
 
   describe('Component Interactions', () => {
-    it('should render SectionHeader before HomeSlider', () => {
-      const { getByTestId } = render(<NewsSection breakingNews={mockedBreakingNews} />)
+    it('should render SectionHeader before HomeSlider', async () => {
+      const { getByTestId } = await render(<NewsSection breakingNews={mockedBreakingNews} />)
 
       expect(mockedSectionHeader).toHaveBeenCalledTimes(1)
       expect(mockedHomeSlider).toHaveBeenCalledTimes(1)
@@ -152,24 +150,24 @@ describe('NewsSection Component', () => {
   })
 
   describe('Edge Cases', () => {
-    it('should handle undefined return from getLocale', () => {
+    it('should handle undefined return from getLocale', async () => {
       mockedGetLocale.mockReturnValue(undefined as any)
 
-      render(<NewsSection breakingNews={mockedBreakingNews} />)
+      await render(<NewsSection breakingNews={mockedBreakingNews} />)
 
       expect(mockedSectionHeader).toHaveBeenCalledWith({ title: undefined })
       expect(mockedGetLocale).toHaveBeenCalledWith('news')
     })
 
-    it('should handle empty string return from getLocale', () => {
+    it('should handle empty string return from getLocale', async () => {
       mockedGetLocale.mockReturnValue('')
 
-      render(<NewsSection breakingNews={mockedBreakingNews} />)
+      await render(<NewsSection breakingNews={mockedBreakingNews} />)
 
       expect(mockedSectionHeader).toHaveBeenCalledWith({ title: '' })
     })
 
-    it('should handle large breakingNews arrays', () => {
+    it('should handle large breakingNews arrays', async () => {
       const largeNewsArray: BreakingNewsType[] = Array.from({ length: 100 }, (_, index) => ({
         id: `news-${index}`,
         title: `News ${index}`,
@@ -177,7 +175,7 @@ describe('NewsSection Component', () => {
         description: `Description ${index}`,
       }))
 
-      const { getByTestId } = render(<NewsSection breakingNews={largeNewsArray} />)
+      const { getByTestId } = await render(<NewsSection breakingNews={largeNewsArray} />)
 
       expect(mockedHomeSlider).toHaveBeenCalledWith({ breakingNews: largeNewsArray })
       expect(getByTestId('home-slider')).toBeTruthy()
@@ -185,18 +183,18 @@ describe('NewsSection Component', () => {
   })
 
   describe('Component Structure', () => {
-    it('should render within a View container', () => {
-      const { toJSON } = render(<NewsSection breakingNews={mockedBreakingNews} />)
+    it('should render within a View container', async () => {
+      const { toJSON } = await render(<NewsSection breakingNews={mockedBreakingNews} />)
 
       expect(toJSON()).toBeTruthy()
       expect(toJSON()).not.toBeNull()
     })
 
-    it('should maintain consistent structure across different props', () => {
-      const { rerender, toJSON } = render(<NewsSection breakingNews={mockedBreakingNews} />)
+    it('should maintain consistent structure across different props', async () => {
+      const { rerender, toJSON } = await render(<NewsSection breakingNews={mockedBreakingNews} />)
       const firstRender = toJSON()
 
-      rerender(<NewsSection breakingNews={[]} />)
+      await rerender(<NewsSection breakingNews={[]} />)
       const secondRender = toJSON()
 
       expect(Array.isArray(firstRender)).toBe(Array.isArray(secondRender))
@@ -209,8 +207,8 @@ describe('NewsSection Component', () => {
 })
 
 describe('NewsSection Component Snapshot', () => {
-  it('should render the NewsSection Component successfully', () => {
-    const { toJSON } = render(<NewsSection breakingNews={mockedBreakingNews} />)
+  it('should render the NewsSection Component successfully', async () => {
+    const { toJSON } = await render(<NewsSection breakingNews={mockedBreakingNews} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

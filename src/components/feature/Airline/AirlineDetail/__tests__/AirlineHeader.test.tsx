@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { AirlineHeader } from '@/components/feature/Airline/AirlineDetail/AirlineHeader'
 import { getLocale } from '@/locales/i18next'
@@ -61,8 +60,8 @@ beforeEach(() => {
 })
 
 describe('AirlineHeader Component', () => {
-  it('should render IATA, ICAO, and continent correctly', () => {
-    const { getByText } = render(<AirlineHeader airlineData={mockedAirlineData} />)
+  it('should render IATA, ICAO, and continent correctly', async () => {
+    const { getByText } = await render(<AirlineHeader airlineData={mockedAirlineData} />)
 
     expect(getByText('iata')).toBeTruthy()
     expect(getByText('icao')).toBeTruthy()
@@ -73,28 +72,30 @@ describe('AirlineHeader Component', () => {
     expect(getByText('Europe')).toBeTruthy()
   })
 
-  it('should render hub name and address correctly', () => {
-    const { getByText } = render(<AirlineHeader airlineData={mockedAirlineData} />)
+  it('should render hub name and address correctly', async () => {
+    const { getByText } = await render(<AirlineHeader airlineData={mockedAirlineData} />)
 
     expect(getByText('Test Hub Airport')).toBeTruthy()
     expect(getByText('123 Test St, Test City')).toBeTruthy()
   })
 
-  it('should render the home icon', () => {
-    const { getByTestId } = render(<AirlineHeader airlineData={mockedAirlineData} />)
+  it('should render the home icon', async () => {
+    const { getByTestId } = await render(<AirlineHeader airlineData={mockedAirlineData} />)
 
     expect(getByTestId('mocked-material-community-icon')).toBeTruthy()
   })
 
-  it('should handle missing hub data gracefully', () => {
-    const { queryByText } = render(<AirlineHeader airlineData={mockedAirlineDataWithoutHub} />)
+  it('should handle missing hub data gracefully', async () => {
+    const { queryByText } = await render(
+      <AirlineHeader airlineData={mockedAirlineDataWithoutHub} />,
+    )
 
     expect(queryByText('Test Hub Airport')).toBeNull()
     expect(queryByText('123 Test St, Test City')).toBeNull()
   })
 
-  it('should apply a background class based on the region', () => {
-    const { toJSON } = render(<AirlineHeader airlineData={mockedAirlineData} />)
+  it('should apply a background class based on the region', async () => {
+    const { toJSON } = await render(<AirlineHeader airlineData={mockedAirlineData} />)
     const tree = toJSON()
 
     if (tree && !Array.isArray(tree)) {
@@ -106,16 +107,16 @@ describe('AirlineHeader Component', () => {
 })
 
 describe('AirlineHeader Component Snapshot', () => {
-  it('should render the AirlineHeader Component successfully', () => {
-    const { toJSON } = render(<AirlineHeader airlineData={mockedAirlineData} />)
+  it('should render the AirlineHeader Component successfully', async () => {
+    const { toJSON } = await render(<AirlineHeader airlineData={mockedAirlineData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })
 })
 
 describe('AirlineHeader Component Snapshot', () => {
-  it('should render the AirlineHeader Component with missing hub data successfully', () => {
-    const { toJSON } = render(<AirlineHeader airlineData={mockedAirlineDataWithoutHub} />)
+  it('should render the AirlineHeader Component with missing hub data successfully', async () => {
+    const { toJSON } = await render(<AirlineHeader airlineData={mockedAirlineDataWithoutHub} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

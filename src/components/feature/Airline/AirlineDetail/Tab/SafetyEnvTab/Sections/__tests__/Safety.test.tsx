@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Safety } from '@/components/feature/Airline/AirlineDetail/Tab/SafetyEnvTab/Sections/Safety'
 
@@ -84,20 +83,20 @@ const mockedDefaultProps = {
 }
 
 describe('Safety Component', () => {
-  it('should pass the main title to the AirlineSectionRow component', () => {
-    const { getByTestId } = render(<Safety {...mockedDefaultProps} />)
+  it('should pass the main title to the AirlineSectionRow component', async () => {
+    const { getByTestId } = await render(<Safety {...mockedDefaultProps} />)
 
     const sectionRow = getByTestId('mocked-section-row')
     expect(sectionRow.props.title).toBe(mockedDefaultProps.title)
   })
 
-  it('should render the safety record text', () => {
-    const { getByText } = render(<Safety {...mockedDefaultProps} />)
+  it('should render the safety record text', async () => {
+    const { getByText } = await render(<Safety {...mockedDefaultProps} />)
     expect(getByText(mockedDefaultProps.safetyRecord)).toBeTruthy()
   })
 
-  it('should pass the correct props to the SafetyHeader component', () => {
-    const { getByTestId, getByText } = render(<Safety {...mockedDefaultProps} />)
+  it('should pass the correct props to the SafetyHeader component', async () => {
+    const { getByTestId, getByText } = await render(<Safety {...mockedDefaultProps} />)
 
     const header = getByTestId('mocked-safety-header')
 
@@ -108,8 +107,8 @@ describe('Safety Component', () => {
     expect(header.props['data-icon-name']).toBe('shield-check')
   })
 
-  it('should pass the correct props to the CertificationsList component', () => {
-    const { getByTestId, getByText } = render(<Safety {...mockedDefaultProps} />)
+  it('should pass the correct props to the CertificationsList component', async () => {
+    const { getByTestId, getByText } = await render(<Safety {...mockedDefaultProps} />)
 
     const list = getByTestId('mocked-certifications-list')
 
@@ -121,8 +120,8 @@ describe('Safety Component', () => {
 })
 
 describe('Safety Component Snapshot', () => {
-  it('should render the Safety Component successfully', () => {
-    const { toJSON } = render(<Safety {...mockedDefaultProps} />)
+  it('should render the Safety Component successfully', async () => {
+    const { toJSON } = await render(<Safety {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

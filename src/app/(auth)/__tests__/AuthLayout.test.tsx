@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react-native'
 import { router, useFocusEffect, useGlobalSearchParams } from 'expo-router'
-import React from 'react'
 
 import AuthLayout from '@/app/(auth)/_layout'
 import useAuthStore from '@/store/auth'
@@ -24,55 +23,55 @@ beforeEach(() => {
 })
 
 describe('AuthLayout', () => {
-  it('should not redirect if the user is not authenticated', () => {
+  it('should not redirect if the user is not authenticated', async () => {
     mockedUseAuthStore.mockReturnValue({ isAuthenticated: false })
 
     mockedUseGlobalSearchParams.mockReturnValue({})
 
-    render(<AuthLayout />)
+    await render(<AuthLayout />)
 
     expect(router.replace).not.toHaveBeenCalled()
   })
 
-  it('should redirect to "/home" if user is authenticated and no tab param is provided', () => {
+  it('should redirect to "/home" if user is authenticated and no tab param is provided', async () => {
     mockedUseAuthStore.mockReturnValue({ isAuthenticated: true })
 
     mockedUseGlobalSearchParams.mockReturnValue({})
 
-    render(<AuthLayout />)
+    await render(<AuthLayout />)
 
     expect(router.replace).toHaveBeenCalledTimes(1)
     expect(router.replace).toHaveBeenCalledWith('/home')
   })
 
-  it('should redirect to the specified valid tab if user is authenticated', () => {
+  it('should redirect to the specified valid tab if user is authenticated', async () => {
     mockedUseAuthStore.mockReturnValue({ isAuthenticated: true })
 
     mockedUseGlobalSearchParams.mockReturnValue({ tab: 'profile' })
 
-    render(<AuthLayout />)
+    await render(<AuthLayout />)
 
     expect(router.replace).toHaveBeenCalledTimes(1)
     expect(router.replace).toHaveBeenCalledWith('/profile')
   })
 
-  it('should redirect to "/home" if user is authenticated with an invalid tab param', () => {
+  it('should redirect to "/home" if user is authenticated with an invalid tab param', async () => {
     mockedUseAuthStore.mockReturnValue({ isAuthenticated: true })
 
     mockedUseGlobalSearchParams.mockReturnValue({ tab: 'invalid-tab' })
 
-    render(<AuthLayout />)
+    await render(<AuthLayout />)
 
     expect(router.replace).toHaveBeenCalledTimes(1)
     expect(router.replace).toHaveBeenCalledWith('/home')
   })
 
-  it('should redirect to "/home" if user is authenticated and tab param is not a string', () => {
+  it('should redirect to "/home" if user is authenticated and tab param is not a string', async () => {
     mockedUseAuthStore.mockReturnValue({ isAuthenticated: true })
 
     mockedUseGlobalSearchParams.mockReturnValue({ tab: ['profile', 'home'] })
 
-    render(<AuthLayout />)
+    await render(<AuthLayout />)
 
     expect(router.replace).toHaveBeenCalledTimes(1)
     expect(router.replace).toHaveBeenCalledWith('/home')
@@ -80,8 +79,8 @@ describe('AuthLayout', () => {
 })
 
 describe('AuthLayout Snapshot', () => {
-  it('should render the AuthLayout successfully', () => {
-    const { toJSON } = render(<AuthLayout />)
+  it('should render the AuthLayout successfully', async () => {
+    const { toJSON } = await render(<AuthLayout />)
 
     expect(toJSON()).toMatchSnapshot()
   })

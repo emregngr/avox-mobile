@@ -85,7 +85,7 @@ beforeEach(() => {
 
 describe('RootLayout', () => {
   it('should render AppNavigator and hide splash screen on successful startup', async () => {
-    const { getByTestId } = render(<RootLayout />)
+    const { getByTestId } = await render(<RootLayout />)
 
     await waitFor(() => {
       expect(getByTestId('app-navigator')).toBeTruthy()
@@ -96,7 +96,7 @@ describe('RootLayout', () => {
 
   it('should route to /maintenance if maintenance mode is active', async () => {
     mockedMaintenanceControl.mockResolvedValue(true)
-    render(<RootLayout />)
+    await render(<RootLayout />)
 
     await waitFor(() => {
       expect(router.replace).toHaveBeenCalledWith('/maintenance')
@@ -105,7 +105,7 @@ describe('RootLayout', () => {
 
   it('should route to /force-update if version is invalid', async () => {
     mockedVersionControl.mockResolvedValue(true)
-    render(<RootLayout />)
+    await render(<RootLayout />)
 
     await waitFor(() => {
       expect(router.replace).toHaveBeenCalledWith('/force-update')
@@ -117,7 +117,7 @@ describe('RootLayout', () => {
       isOnboardingSeen: false,
     })
 
-    render(<RootLayout />)
+    await render(<RootLayout />)
 
     await waitFor(() => {
       expect(router.replace).toHaveBeenCalledWith('/onboarding')
@@ -132,7 +132,7 @@ describe('RootLayout', () => {
       queryParams: { id: '1' },
     } as any)
 
-    render(<RootLayout />)
+    await render(<RootLayout />)
 
     await waitFor(() => {
       expect(mockedLinkingParse).toHaveBeenCalledWith('yourapp://airline?id=1')
@@ -151,7 +151,7 @@ describe('RootLayout', () => {
       queryParams: { id: '2' },
     } as any)
 
-    render(<RootLayout />)
+    await render(<RootLayout />)
 
     await waitFor(() => {
       expect(mockedLinkingParse).toHaveBeenCalledWith('yourapp://airport?id=2')
@@ -168,7 +168,7 @@ describe('RootLayout', () => {
       throw new Error('Invalid URL')
     })
 
-    render(<RootLayout />)
+    await render(<RootLayout />)
 
     await waitFor(() => {
       expect(mockedLinkingParse).toHaveBeenCalledWith('exp://invalid-url-expo-development-client')
@@ -180,7 +180,7 @@ describe('RootLayout', () => {
     mockedGetInitialNotification.mockResolvedValue({
       payload: { type: 'airline', id: '1' },
     } as any)
-    render(<RootLayout />)
+    await render(<RootLayout />)
 
     await waitFor(() => {
       expect(router.replace).toHaveBeenCalledWith({
@@ -194,7 +194,7 @@ describe('RootLayout', () => {
     mockedGetInitialNotification.mockResolvedValue({
       payload: { type: 'airport', id: '1' },
     } as any)
-    render(<RootLayout />)
+    await render(<RootLayout />)
 
     await waitFor(() => {
       expect(router.replace).toHaveBeenCalledWith({
@@ -207,7 +207,7 @@ describe('RootLayout', () => {
   it('should handle expo development client URL correctly', async () => {
     mockedGetInitialURL.mockResolvedValue('exp://192.168.1.1:8081?expo-development-client')
 
-    render(<RootLayout />)
+    await render(<RootLayout />)
 
     await waitFor(() => {
       expect(router.replace).toHaveBeenCalledWith('/home')
@@ -216,8 +216,8 @@ describe('RootLayout', () => {
 })
 
 describe('RootLayout Snapshot', () => {
-  it('should render the RootLayout successfully', () => {
-    const { toJSON } = render(<RootLayout />)
+  it('should render the RootLayout successfully', async () => {
+    const { toJSON } = await render(<RootLayout />)
 
     expect(toJSON()).toMatchSnapshot()
   })

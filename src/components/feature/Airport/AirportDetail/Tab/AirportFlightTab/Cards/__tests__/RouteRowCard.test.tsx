@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { RouteRowCard } from '@/components/feature/Airport/AirportDetail/Tab/AirportFlightTab/Cards/RouteRowCard'
 
@@ -20,15 +19,15 @@ const mockedDefaultProps = {
 }
 
 describe('RouteRowCard Component', () => {
-  it('should render the destination and frequency correctly', () => {
-    const { getByText } = render(<RouteRowCard {...mockedDefaultProps} />)
+  it('should render the destination and frequency correctly', async () => {
+    const { getByText } = await render(<RouteRowCard {...mockedDefaultProps} />)
 
     expect(getByText(mockedDefaultProps.destinationIata)).toBeTruthy()
     expect(getByText(mockedDefaultProps.frequency)).toBeTruthy()
   })
 
-  it('should pass the correct props to MaterialCommunityIcons', () => {
-    const { getByTestId } = render(<RouteRowCard {...mockedDefaultProps} />)
+  it('should pass the correct props to MaterialCommunityIcons', async () => {
+    const { getByTestId } = await render(<RouteRowCard {...mockedDefaultProps} />)
 
     const icon = getByTestId('mocked-material-community-icon')
 
@@ -37,8 +36,8 @@ describe('RouteRowCard Component', () => {
     expect(icon.props.color).toBe(mockedDefaultProps.iconColor)
   })
 
-  it('should pass the correct props to both ThemedText components', () => {
-    const { getByText } = render(<RouteRowCard {...mockedDefaultProps} />)
+  it('should pass the correct props to both ThemedText components', async () => {
+    const { getByText } = await render(<RouteRowCard {...mockedDefaultProps} />)
 
     const destinationText = getByText(mockedDefaultProps.destinationIata)
     const frequencyText = getByText(mockedDefaultProps.frequency)
@@ -50,12 +49,12 @@ describe('RouteRowCard Component', () => {
     expect(frequencyText.props.type).toBe('body3')
   })
 
-  it('should handle a number type for the frequency prop', () => {
+  it('should handle a number type for the frequency prop', async () => {
     const propsWithNumberFrequency = {
       ...mockedDefaultProps,
       frequency: 7,
     }
-    const { getByText } = render(<RouteRowCard {...propsWithNumberFrequency} />)
+    const { getByText } = await render(<RouteRowCard {...propsWithNumberFrequency} />)
 
     const frequencyText = getByText(String(propsWithNumberFrequency.frequency))
     expect(frequencyText).toBeTruthy()
@@ -63,8 +62,8 @@ describe('RouteRowCard Component', () => {
 })
 
 describe('RouteRowCard Component Snapshot', () => {
-  it('should render the RouteRowCard Component successfully', () => {
-    const { toJSON } = render(<RouteRowCard {...mockedDefaultProps} />)
+  it('should render the RouteRowCard Component successfully', async () => {
+    const { toJSON } = await render(<RouteRowCard {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

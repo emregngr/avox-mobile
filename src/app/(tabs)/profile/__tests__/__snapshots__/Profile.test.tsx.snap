@@ -72,11 +72,7 @@ exports[`Profile Screen Snapshot should render the Profile screen successfully 1
           <View
             cachePolicy="memory-disk"
             contentFit="contain"
-            source={
-              {
-                "default": "mocked-test-file",
-              }
-            }
+            source="mocked-test-file"
             style={
               {
                 "borderRadius": 40,

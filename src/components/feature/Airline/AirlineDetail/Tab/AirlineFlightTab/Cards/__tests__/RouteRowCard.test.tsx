@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { RouteRowCard } from '@/components/feature/Airline/AirlineDetail/Tab/AirlineFlightTab/Cards/RouteRowCard'
 
@@ -18,8 +17,8 @@ const mockedDestination = 'ESB'
 const mockedIconColor = '#1E90FF'
 
 describe('RouteRowCard Component', () => {
-  it('should render the origin and destination IATA codes correctly', () => {
-    const { getByText } = render(
+  it('should render the origin and destination IATA codes correctly', async () => {
+    const { getByText } = await render(
       <RouteRowCard
         destinationIata={mockedDestination}
         iconColor={mockedIconColor}
@@ -31,8 +30,8 @@ describe('RouteRowCard Component', () => {
     expect(getByText(mockedDestination)).toBeTruthy()
   })
 
-  it('should render three icons', () => {
-    const { getAllByTestId } = render(
+  it('should render three icons', async () => {
+    const { getAllByTestId } = await render(
       <RouteRowCard
         destinationIata={mockedDestination}
         iconColor={mockedIconColor}
@@ -44,8 +43,8 @@ describe('RouteRowCard Component', () => {
     expect(icons.length).toBe(3)
   })
 
-  it('should pass the correct props to all MaterialCommunityIcons', () => {
-    const { getAllByTestId } = render(
+  it('should pass the correct props to all MaterialCommunityIcons', async () => {
+    const { getAllByTestId } = await render(
       <RouteRowCard
         destinationIata={mockedDestination}
         iconColor={mockedIconColor}
@@ -69,8 +68,8 @@ describe('RouteRowCard Component', () => {
     expect(airplaneIcon?.props.size).toBe(20)
   })
 
-  it('should pass the correct props to both ThemedText components', () => {
-    const { getByText } = render(
+  it('should pass the correct props to both ThemedText components', async () => {
+    const { getByText } = await render(
       <RouteRowCard
         destinationIata={mockedDestination}
         iconColor={mockedIconColor}
@@ -89,8 +88,8 @@ describe('RouteRowCard Component', () => {
 })
 
 describe('RouteRowCard Component Snapshot', () => {
-  it('should render the RouteRowCard Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the RouteRowCard Component successfully', async () => {
+    const { toJSON } = await render(
       <RouteRowCard
         destinationIata={mockedDestination}
         iconColor={mockedIconColor}

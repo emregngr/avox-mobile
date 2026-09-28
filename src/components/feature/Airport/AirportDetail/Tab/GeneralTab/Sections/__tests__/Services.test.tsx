@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Services } from '@/components/feature/Airport/AirportDetail/Tab/GeneralTab/Sections/Services'
 import { getLocale } from '@/locales/i18next'
@@ -53,8 +52,8 @@ beforeEach(() => {
 
 describe('Services Component', () => {
   describe('When services are available', () => {
-    it('should render the section with the correct title', () => {
-      const { getByTestId } = render(<Services facilities={mockedFacilities} />)
+    it('should render the section with the correct title', async () => {
+      const { getByTestId } = await render(<Services facilities={mockedFacilities} />)
       expect(mockedGetLocale).toHaveBeenCalledWith('services')
       expect(mockedAirportSectionRow).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -64,45 +63,45 @@ describe('Services Component', () => {
       expect(getByTestId('mocked-section-row')).toBeTruthy()
     })
 
-    it('should render an item for each service in the list', () => {
-      const { getAllByTestId, getByText } = render(<Services facilities={mockedFacilities} />)
+    it('should render an item for each service in the list', async () => {
+      const { getAllByTestId, getByText } = await render(<Services facilities={mockedFacilities} />)
       expect(getAllByTestId('mocked-material-community-icon').length).toBe(3)
       expect(getByText('Free Wi-Fi')).toBeTruthy()
       expect(getByText('Lounge Access')).toBeTruthy()
       expect(getByText('Duty-Free Shopping')).toBeTruthy()
     })
 
-    it('should pass correct props to icons and text for each service', () => {
-      render(<Services facilities={mockedFacilities} />)
+    it('should pass correct props to icons and text for each service', async () => {
+      await render(<Services facilities={mockedFacilities} />)
     })
   })
 
   describe('When services are not available', () => {
-    it('should render nothing if facilities prop is undefined', () => {
-      const { toJSON } = render(<Services facilities={undefined as any} />)
+    it('should render nothing if facilities prop is undefined', async () => {
+      const { toJSON } = await render(<Services facilities={undefined as any} />)
       expect(toJSON()).toBeNull()
     })
 
-    it('should render nothing if services array is missing', () => {
-      const { toJSON } = render(<Services facilities={{} as any} />)
+    it('should render nothing if services array is missing', async () => {
+      const { toJSON } = await render(<Services facilities={{} as any} />)
       expect(toJSON()).toBeNull()
     })
 
-    it('should render nothing if services array is empty', () => {
-      const { toJSON } = render(<Services facilities={{ services: [] } as any} />)
+    it('should render nothing if services array is empty', async () => {
+      const { toJSON } = await render(<Services facilities={{ services: [] } as any} />)
       expect(toJSON()).toBeNull()
     })
 
-    it('should render nothing if services array is null', () => {
-      const { toJSON } = render(<Services facilities={{ services: null } as any} />)
+    it('should render nothing if services array is null', async () => {
+      const { toJSON } = await render(<Services facilities={{ services: null } as any} />)
       expect(toJSON()).toBeNull()
     })
   })
 })
 
 describe('Services Component Snapshot', () => {
-  it('should render the Services Component successfully', () => {
-    const { toJSON } = render(<Services facilities={mockedFacilities} />)
+  it('should render the Services Component successfully', async () => {
+    const { toJSON } = await render(<Services facilities={mockedFacilities} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

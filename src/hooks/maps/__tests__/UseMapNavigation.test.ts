@@ -32,7 +32,7 @@ describe('useMapNavigation', () => {
   })
 
   it('should not open action sheet if latitude or longitude is invalid', async () => {
-    const { result } = renderHook(() => useMapNavigation(mockedLocaleStrings))
+    const { result } = await renderHook(() => useMapNavigation(mockedLocaleStrings))
 
     await act(async () => {
       result.current.openMapNavigation(0, 0, placeName)
@@ -47,7 +47,7 @@ describe('useMapNavigation', () => {
     })
 
     it('should open Apple Maps when the first option is selected', async () => {
-      const { result } = renderHook(() => useMapNavigation(mockedLocaleStrings))
+      const { result } = await renderHook(() => useMapNavigation(mockedLocaleStrings))
 
       await act(async () => {
         result.current.openMapNavigation(lat, lng, placeName)
@@ -69,7 +69,7 @@ describe('useMapNavigation', () => {
     })
 
     it('should open Google Maps when the second option is selected', async () => {
-      const { result } = renderHook(() => useMapNavigation(mockedLocaleStrings))
+      const { result } = await renderHook(() => useMapNavigation(mockedLocaleStrings))
 
       await act(async () => {
         result.current.openMapNavigation(lat, lng, placeName)
@@ -85,7 +85,7 @@ describe('useMapNavigation', () => {
     })
 
     it('should do nothing when cancel is selected', async () => {
-      const { result } = renderHook(() => useMapNavigation(mockedLocaleStrings))
+      const { result } = await renderHook(() => useMapNavigation(mockedLocaleStrings))
 
       await act(async () => {
         result.current.openMapNavigation(lat, lng, placeName)
@@ -106,7 +106,7 @@ describe('useMapNavigation', () => {
     })
 
     it('should open Google Maps when the first option is selected', async () => {
-      const { result } = renderHook(() => useMapNavigation(mockedLocaleStrings))
+      const { result } = await renderHook(() => useMapNavigation(mockedLocaleStrings))
 
       await act(async () => {
         result.current.openMapNavigation(lat, lng, placeName)
@@ -124,7 +124,7 @@ describe('useMapNavigation', () => {
     })
 
     it('should do nothing when cancel is selected', async () => {
-      const { result } = renderHook(() => useMapNavigation(mockedLocaleStrings))
+      const { result } = await renderHook(() => useMapNavigation(mockedLocaleStrings))
 
       await act(async () => {
         result.current.openMapNavigation(lat, lng, placeName)

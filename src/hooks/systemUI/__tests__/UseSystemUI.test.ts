@@ -19,7 +19,7 @@ const mockedSystemUI = SystemUI as jest.Mocked<typeof SystemUI>
 describe('useSystemUI Hook', () => {
   it('should set the system background color on initial render', async () => {
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'light' })
-    renderHook(() => useSystemUI())
+    await renderHook(() => useSystemUI())
     await waitFor(() => {
       expect(mockedSystemUI.setBackgroundColorAsync).toHaveBeenCalledTimes(1)
       expect(mockedSystemUI.setBackgroundColorAsync).toHaveBeenCalledWith(
@@ -30,14 +30,14 @@ describe('useSystemUI Hook', () => {
 
   it('should update the system background color when the theme changes', async () => {
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'light' })
-    const { rerender } = renderHook(() => useSystemUI())
+    const { rerender } = await renderHook(() => useSystemUI())
     await waitFor(() => {
       expect(mockedSystemUI.setBackgroundColorAsync).toHaveBeenCalledWith(
         themeColors.light.background.primary,
       )
     })
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'dark' })
-    rerender(undefined)
+    await rerender(undefined)
     await waitFor(() => {
       expect(mockedSystemUI.setBackgroundColorAsync).toHaveBeenCalledTimes(2)
       expect(mockedSystemUI.setBackgroundColorAsync).toHaveBeenCalledWith(
@@ -50,7 +50,7 @@ describe('useSystemUI Hook', () => {
     const mockError = new Error('System UI is unavailable')
     mockedSystemUI.setBackgroundColorAsync.mockRejectedValue(mockError)
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'light' })
-    renderHook(() => useSystemUI())
+    await renderHook(() => useSystemUI())
     await waitFor(() => {
       expect(mockedLoggerBreadcrumb).toHaveBeenCalledTimes(1)
       expect(mockedLoggerBreadcrumb).toHaveBeenCalledWith(
@@ -63,7 +63,7 @@ describe('useSystemUI Hook', () => {
 
   it('should handle cases where the primary background color is undefined', async () => {
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'brokenTheme' })
-    renderHook(() => useSystemUI())
+    await renderHook(() => useSystemUI())
     await waitFor(() => {
       expect(mockedSystemUI.setBackgroundColorAsync).toHaveBeenCalledTimes(1)
       expect(mockedSystemUI.setBackgroundColorAsync).toHaveBeenCalledWith(undefined)

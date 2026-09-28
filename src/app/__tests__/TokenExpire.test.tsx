@@ -1,5 +1,4 @@
 import { render, waitFor } from '@testing-library/react-native'
-import React from 'react'
 import { createMMKV } from 'react-native-mmkv'
 
 import TokenExpire from '@/app/token-expire'
@@ -19,7 +18,7 @@ const mockedSetIsAuthenticated = setIsAuthenticated as jest.MockedFunction<
 
 describe('TokenExpire Screen', () => {
   it('should clear user session and render image on mount', async () => {
-    const { getByTestId } = render(<TokenExpire />)
+    const { getByTestId } = await render(<TokenExpire />)
 
     expect(getByTestId('token-expire-icon')).toBeTruthy()
 
@@ -36,8 +35,8 @@ describe('TokenExpire Screen', () => {
 })
 
 describe('TokenExpire Screen Snapshot', () => {
-  it('should render the TokenExpire Screen successfully', () => {
-    const { toJSON } = render(<TokenExpire />)
+  it('should render the TokenExpire Screen successfully', async () => {
+    const { toJSON } = await render(<TokenExpire />)
 
     expect(toJSON()).toMatchSnapshot()
   })

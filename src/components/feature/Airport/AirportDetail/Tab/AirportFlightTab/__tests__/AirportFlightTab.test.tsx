@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { AirportFlightTab } from '@/components/feature/Airport/AirportDetail/Tab/AirportFlightTab'
 import useLocaleStore from '@/store/locale'
@@ -78,15 +77,15 @@ beforeEach(() => {
 })
 
 describe('AirportFlightTab Component', () => {
-  it('should render all section components', () => {
-    const { getByTestId } = render(<AirportFlightTab airportData={mockedAirportData} />)
+  it('should render all section components', async () => {
+    const { getByTestId } = await render(<AirportFlightTab airportData={mockedAirportData} />)
     expect(getByTestId('stats-grid-section')).toBeTruthy()
     expect(getByTestId('airlines-list-section')).toBeTruthy()
     expect(getByTestId('routes-list-section')).toBeTruthy()
   })
 
-  it('should pass correct props to StatsGrid component', () => {
-    render(<AirportFlightTab airportData={mockedAirportData} />)
+  it('should pass correct props to StatsGrid component', async () => {
+    await render(<AirportFlightTab airportData={mockedAirportData} />)
     const { flightOperations } = mockedAirportData
 
     expect(mockedStatsGrid).toHaveBeenCalledWith({
@@ -106,8 +105,8 @@ describe('AirportFlightTab Component', () => {
     })
   })
 
-  it('should pass correct props to AirlinesList component', () => {
-    render(<AirportFlightTab airportData={mockedAirportData} />)
+  it('should pass correct props to AirlinesList component', async () => {
+    await render(<AirportFlightTab airportData={mockedAirportData} />)
     expect(mockedAirlinesList).toHaveBeenCalledWith({
       airlines: mockedAirportData.flightOperations.airlines,
       title: 'airlines',
@@ -115,8 +114,8 @@ describe('AirportFlightTab Component', () => {
     })
   })
 
-  it('should pass correct props to RoutesList component', () => {
-    render(<AirportFlightTab airportData={mockedAirportData} />)
+  it('should pass correct props to RoutesList component', async () => {
+    await render(<AirportFlightTab airportData={mockedAirportData} />)
     expect(mockedRoutesList).toHaveBeenCalledWith({
       routes: mockedAirportData.flightOperations.routes,
       title: 'popularDestinations',
@@ -124,8 +123,8 @@ describe('AirportFlightTab Component', () => {
     })
   })
 
-  it('should handle undefined airportData gracefully', () => {
-    render(<AirportFlightTab airportData={undefined as any} />)
+  it('should handle undefined airportData gracefully', async () => {
+    await render(<AirportFlightTab airportData={undefined as any} />)
     expect(mockedStatsGrid).toHaveBeenCalledWith(
       expect.objectContaining({
         stats: {
@@ -142,7 +141,7 @@ describe('AirportFlightTab Component', () => {
     expect(mockedRoutesList).toHaveBeenCalledWith(expect.objectContaining({ routes: undefined }))
   })
 
-  it('should handle partial flightOperations data (missing routes)', () => {
+  it('should handle partial flightOperations data (missing routes)', async () => {
     const partialData: any = {
       flightOperations: {
         ...mockedAirportData.flightOperations,
@@ -150,7 +149,7 @@ describe('AirportFlightTab Component', () => {
       },
     }
 
-    render(<AirportFlightTab airportData={partialData} />)
+    await render(<AirportFlightTab airportData={partialData} />)
 
     expect(mockedAirlinesList).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -165,8 +164,8 @@ describe('AirportFlightTab Component', () => {
     )
   })
 
-  it('should call all section components exactly once', () => {
-    render(<AirportFlightTab airportData={mockedAirportData} />)
+  it('should call all section components exactly once', async () => {
+    await render(<AirportFlightTab airportData={mockedAirportData} />)
     expect(mockedStatsGrid).toHaveBeenCalledTimes(1)
     expect(mockedAirlinesList).toHaveBeenCalledTimes(1)
     expect(mockedRoutesList).toHaveBeenCalledTimes(1)
@@ -174,8 +173,8 @@ describe('AirportFlightTab Component', () => {
 })
 
 describe('AirportFlightTab Component Snapshot', () => {
-  it('should render the AirportFlightTab Component successfully', () => {
-    const { toJSON } = render(<AirportFlightTab airportData={mockedAirportData} />)
+  it('should render the AirportFlightTab Component successfully', async () => {
+    const { toJSON } = await render(<AirportFlightTab airportData={mockedAirportData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

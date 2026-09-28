@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 import { View } from 'react-native'
 
 import { ThemedButtonText } from '@/components/common/ThemedButtonText'
@@ -26,23 +25,23 @@ const mockedRequiredProps = {
 }
 
 describe('ThemedButtonText Component', () => {
-  it('renders correctly with required props', () => {
-    const { getByText, getByTestId } = render(<ThemedButtonText {...mockedRequiredProps} />)
+  it('renders correctly with required props', async () => {
+    const { getByText, getByTestId } = await render(<ThemedButtonText {...mockedRequiredProps} />)
 
     expect(getByText('Test Button')).toBeTruthy()
     expect(getByTestId('themed-text')).toBeTruthy()
   })
 
-  it('renders with default values', () => {
-    const { getByTestId } = render(<ThemedButtonText {...mockedRequiredProps} />)
+  it('renders with default values', async () => {
+    const { getByTestId } = await render(<ThemedButtonText {...mockedRequiredProps} />)
 
     const themedText = getByTestId('themed-text')
     expect(themedText).toBeTruthy()
   })
 
   describe('Props Handling', () => {
-    it('applies custom containerStyle', () => {
-      const { getByTestId } = render(
+    it('applies custom containerStyle', async () => {
+      const { getByTestId } = await render(
         <ThemedButtonText
           {...mockedRequiredProps}
           containerStyle="custom-container-style"
@@ -54,8 +53,8 @@ describe('ThemedButtonText Component', () => {
       expect(pressable).toBeTruthy()
     })
 
-    it('applies custom textStyle', () => {
-      const { getByTestId } = render(
+    it('applies custom textStyle', async () => {
+      const { getByTestId } = await render(
         <ThemedButtonText {...mockedRequiredProps} textStyle="custom-text-style" />,
       )
 
@@ -63,15 +62,15 @@ describe('ThemedButtonText Component', () => {
       expect(themedText.props.className).toBe('custom-text-style')
     })
 
-    it('uses custom typography type', () => {
-      const { getByTestId } = render(<ThemedButtonText {...mockedRequiredProps} type="h1" />)
+    it('uses custom typography type', async () => {
+      const { getByTestId } = await render(<ThemedButtonText {...mockedRequiredProps} type="h1" />)
 
       const themedText = getByTestId('themed-text')
       expect(themedText.props.type).toBe('h1')
     })
 
-    it('uses custom textColor', () => {
-      const { getByTestId } = render(
+    it('uses custom textColor', async () => {
+      const { getByTestId } = await render(
         <ThemedButtonText {...mockedRequiredProps} textColor="text-primary" />,
       )
 
@@ -79,8 +78,8 @@ describe('ThemedButtonText Component', () => {
       expect(themedText.props.color).toBe('text-primary')
     })
 
-    it('applies custom hitSlop', () => {
-      const { getByTestId } = render(
+    it('applies custom hitSlop', async () => {
+      const { getByTestId } = await render(
         <ThemedButtonText {...mockedRequiredProps} hitSlop={30} testID="pressable-button" />,
       )
 
@@ -90,24 +89,26 @@ describe('ThemedButtonText Component', () => {
   })
 
   describe('Icon Rendering', () => {
-    it('renders without icon by default', () => {
-      const { queryByTestId } = render(<ThemedButtonText {...mockedRequiredProps} />)
+    it('renders without icon by default', async () => {
+      const { queryByTestId } = await render(<ThemedButtonText {...mockedRequiredProps} />)
 
       expect(queryByTestId('test-icon')).toBeFalsy()
     })
 
-    it('renders with icon when provided', () => {
+    it('renders with icon when provided', async () => {
       const icon = <View testID="test-icon" />
-      const { getByTestId } = render(<ThemedButtonText {...mockedRequiredProps} icon={icon} />)
+      const { getByTestId } = await render(
+        <ThemedButtonText {...mockedRequiredProps} icon={icon} />,
+      )
 
       expect(getByTestId('test-icon')).toBeTruthy()
     })
   })
 
   describe('Press Handling', () => {
-    it('calls onPress when pressed', () => {
+    it('calls onPress when pressed', async () => {
       const mockedOnPressMock = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <ThemedButtonText
           {...mockedRequiredProps}
           onPress={mockedOnPressMock}
@@ -115,24 +116,22 @@ describe('ThemedButtonText Component', () => {
         />,
       )
 
-      fireEvent.press(getByTestId('pressable-button'))
+      await fireEvent.press(getByTestId('pressable-button'))
       expect(mockedOnPressMock).toHaveBeenCalledTimes(1)
     })
 
-    it('does not crash when onPress is not provided', () => {
-      const { getByTestId } = render(
+    it('does not crash when onPress is not provided', async () => {
+      const { getByTestId } = await render(
         <ThemedButtonText {...mockedRequiredProps} testID="pressable-button" />,
       )
 
-      expect(() => {
-        fireEvent.press(getByTestId('pressable-button'))
-      }).not.toThrow()
+      expect(() => fireEvent.press(getByTestId('pressable-button'))).not.toThrow()
     })
   })
 
   describe('Rest Props', () => {
-    it('passes through additional Pressable props', () => {
-      const { getByTestId } = render(
+    it('passes through additional Pressable props', async () => {
+      const { getByTestId } = await render(
         <ThemedButtonText
           {...mockedRequiredProps}
           accessibilityLabel="Custom accessibility label"
@@ -149,8 +148,8 @@ describe('ThemedButtonText Component', () => {
 })
 
 describe('ThemedButtonText Component Snapshot', () => {
-  it('should render the ThemedButtonText Component successfully', () => {
-    const { toJSON } = render(<ThemedButtonText {...mockedRequiredProps} />)
+  it('should render the ThemedButtonText Component successfully', async () => {
+    const { toJSON } = await render(<ThemedButtonText {...mockedRequiredProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

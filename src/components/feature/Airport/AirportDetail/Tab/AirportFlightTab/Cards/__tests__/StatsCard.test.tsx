@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { StatsCard } from '@/components/feature/Airport/AirportDetail/Tab/AirportFlightTab/Cards/StatsCard'
 
@@ -21,15 +20,15 @@ const mockedDefaultProps = {
 }
 
 describe('StatsCard Component', () => {
-  it('should render the value and label text correctly', () => {
-    const { getByText } = render(<StatsCard {...mockedDefaultProps} />)
+  it('should render the value and label text correctly', async () => {
+    const { getByText } = await render(<StatsCard {...mockedDefaultProps} />)
 
     expect(getByText(String(mockedDefaultProps.value))).toBeTruthy()
     expect(getByText(mockedDefaultProps.label)).toBeTruthy()
   })
 
-  it('should pass the correct props to MaterialCommunityIcons', () => {
-    const { getByTestId } = render(<StatsCard {...mockedDefaultProps} />)
+  it('should pass the correct props to MaterialCommunityIcons', async () => {
+    const { getByTestId } = await render(<StatsCard {...mockedDefaultProps} />)
 
     const icon = getByTestId('mocked-material-community-icon')
 
@@ -38,8 +37,8 @@ describe('StatsCard Component', () => {
     expect(icon.props.color).toBe(mockedDefaultProps.iconColor)
   })
 
-  it('should pass the correct props to both ThemedText components', () => {
-    const { getByText } = render(<StatsCard {...mockedDefaultProps} />)
+  it('should pass the correct props to both ThemedText components', async () => {
+    const { getByText } = await render(<StatsCard {...mockedDefaultProps} />)
 
     const valueText = getByText(String(mockedDefaultProps.value))
     const labelText = getByText(mockedDefaultProps.label)
@@ -54,12 +53,12 @@ describe('StatsCard Component', () => {
     expect(labelText.props.numberOfLines).toBe(2)
   })
 
-  it('should handle a string type for the value prop', () => {
+  it('should handle a string type for the value prop', async () => {
     const propsWithStringValue = {
       ...mockedDefaultProps,
       value: '1.2k',
     }
-    const { getByText } = render(<StatsCard {...propsWithStringValue} />)
+    const { getByText } = await render(<StatsCard {...propsWithStringValue} />)
 
     const valueText = getByText(propsWithStringValue.value)
     expect(valueText).toBeTruthy()
@@ -67,8 +66,8 @@ describe('StatsCard Component', () => {
 })
 
 describe('StatsCard Component Snapshot', () => {
-  it('should render the StatsCard Component successfully', () => {
-    const { toJSON } = render(<StatsCard {...mockedDefaultProps} />)
+  it('should render the StatsCard Component successfully', async () => {
+    const { toJSON } = await render(<StatsCard {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

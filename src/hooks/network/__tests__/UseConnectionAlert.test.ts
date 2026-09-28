@@ -33,18 +33,18 @@ afterEach(() => {
 })
 
 describe('useConnectionAlert', () => {
-  it('should not show an alert if the connection is active', () => {
-    renderHook(() => useConnectionAlert({ isConnected: true }))
+  it('should not show an alert if the connection is active', async () => {
+    await renderHook(() => useConnectionAlert({ isConnected: true }))
     expect(mockedAlert).not.toHaveBeenCalled()
   })
 
-  it('should not show an alert if the connection state is null', () => {
-    renderHook(() => useConnectionAlert({ isConnected: null }))
+  it('should not show an alert if the connection state is null', async () => {
+    await renderHook(() => useConnectionAlert({ isConnected: null }))
     expect(mockedAlert).not.toHaveBeenCalled()
   })
 
-  it('should show an alert if there is no connection', () => {
-    renderHook(() => useConnectionAlert({ isConnected: false }))
+  it('should show an alert if there is no connection', async () => {
+    await renderHook(() => useConnectionAlert({ isConnected: false }))
     expect(mockedAlert).toHaveBeenCalledTimes(1)
     expect(mockedAlert).toHaveBeenCalledWith(
       'connectionError',
@@ -54,8 +54,8 @@ describe('useConnectionAlert', () => {
     )
   })
 
-  it('should not show a new alert if one is already visible', () => {
-    const { rerender } = renderHook(
+  it('should not show a new alert if one is already visible', async () => {
+    const { rerender } = await renderHook(
       ({ isConnected }: { isConnected: boolean }) => useConnectionAlert({ isConnected }),
       {
         initialProps: { isConnected: false },
@@ -64,19 +64,19 @@ describe('useConnectionAlert', () => {
 
     expect(mockedAlert).toHaveBeenCalledTimes(1)
 
-    rerender({ isConnected: false })
+    await rerender({ isConnected: false })
 
     expect(mockedAlert).toHaveBeenCalledTimes(1)
   })
 
   describe('Alert Button Interactions', () => {
-    it('should handle the "Cancel" button press', () => {
-      renderHook(() => useConnectionAlert({ isConnected: false }))
+    it('should handle the "Cancel" button press', async () => {
+      await renderHook(() => useConnectionAlert({ isConnected: false }))
 
       const alertButtons = mockedAlert.mock.calls[0][2]
       const cancelButton = alertButtons?.find((button: AlertButton) => button.text === 'cancel')
 
-      act(() => {
+      await act(() => {
         cancelButton?.onPress?.()
       })
 
@@ -89,7 +89,7 @@ describe('useConnectionAlert', () => {
         isInternetReachable: false,
       })
 
-      renderHook(() => useConnectionAlert({ isConnected: false }))
+      await renderHook(() => useConnectionAlert({ isConnected: false }))
       expect(mockedAlert).toHaveBeenCalledTimes(1)
 
       const alertButtons = mockedAlert.mock.calls[0][2]
@@ -99,7 +99,7 @@ describe('useConnectionAlert', () => {
         await retryButton?.onPress?.()
       })
 
-      act(() => {
+      await act(() => {
         jest.runAllTimers()
       })
 
@@ -113,7 +113,7 @@ describe('useConnectionAlert', () => {
         isInternetReachable: true,
       })
 
-      renderHook(() =>
+      await renderHook(() =>
         useConnectionAlert({ isConnected: false, onConnectionChange: mockedOnConnectionChange }),
       )
       expect(mockedAlert).toHaveBeenCalledTimes(1)
@@ -136,7 +136,7 @@ describe('useConnectionAlert', () => {
         isConnected: true,
         isInternetReachable: true,
       })
-      const { result } = renderHook(() => useConnectionAlert({ isConnected: true }))
+      const { result } = await renderHook(() => useConnectionAlert({ isConnected: true }))
 
       let connectionStatus
       await act(async () => {
@@ -151,7 +151,7 @@ describe('useConnectionAlert', () => {
         isConnected: false,
         isInternetReachable: false,
       })
-      const { result } = renderHook(() => useConnectionAlert({ isConnected: true }))
+      const { result } = await renderHook(() => useConnectionAlert({ isConnected: true }))
 
       let connectionStatus
       await act(async () => {

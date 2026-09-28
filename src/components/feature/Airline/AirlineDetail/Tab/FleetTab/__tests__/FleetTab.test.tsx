@@ -1,6 +1,5 @@
 import { act, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
-import React from 'react'
 
 import { FleetTab } from '@/components/feature/Airline/AirlineDetail/Tab/FleetTab'
 import { getLocale } from '@/locales/i18next'
@@ -71,8 +70,8 @@ beforeEach(() => {
 })
 
 describe('FleetTab Component', () => {
-  it('should render all child components', () => {
-    const { getByTestId } = render(<FleetTab airlineData={mockedAirlineData} />)
+  it('should render all child components', async () => {
+    const { getByTestId } = await render(<FleetTab airlineData={mockedAirlineData} />)
 
     expect(getByTestId('mocked-fleet-stats')).toBeTruthy()
     expect(getByTestId('mocked-fleet-header')).toBeTruthy()
@@ -80,8 +79,8 @@ describe('FleetTab Component', () => {
   })
 
   describe('Prop Passing and Component Calls', () => {
-    it('should pass correct props to FleetStats', () => {
-      render(<FleetTab airlineData={mockedAirlineData} />)
+    it('should pass correct props to FleetStats', async () => {
+      await render(<FleetTab airlineData={mockedAirlineData} />)
 
       expect(mockedFleetStats).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -92,8 +91,8 @@ describe('FleetTab Component', () => {
       )
     })
 
-    it('should pass correct props to FleetHeader', () => {
-      render(<FleetTab airlineData={mockedAirlineData} />)
+    it('should pass correct props to FleetHeader', async () => {
+      await render(<FleetTab airlineData={mockedAirlineData} />)
 
       expect(mockedGetLocale).toHaveBeenCalledWith('fleetDetail')
       expect(mockedFleetHeader).toHaveBeenCalledWith(
@@ -103,8 +102,8 @@ describe('FleetTab Component', () => {
       )
     })
 
-    it('should sort airplanes and pass correct props to FleetList', () => {
-      render(<FleetTab airlineData={mockedAirlineData} />)
+    it('should sort airplanes and pass correct props to FleetList', async () => {
+      await render(<FleetTab airlineData={mockedAirlineData} />)
 
       const sortedAirplanes = [
         { airplaneType: 'Boeing 777', count: 25, imageKeys: [] },
@@ -121,8 +120,8 @@ describe('FleetTab Component', () => {
       )
     })
 
-    it('should call all components exactly once', () => {
-      render(<FleetTab airlineData={mockedAirlineData} />)
+    it('should call all components exactly once', async () => {
+      await render(<FleetTab airlineData={mockedAirlineData} />)
 
       expect(mockedFleetStats).toHaveBeenCalledTimes(1)
       expect(mockedFleetHeader).toHaveBeenCalledTimes(1)
@@ -131,13 +130,13 @@ describe('FleetTab Component', () => {
   })
 
   describe('Functionality and Edge Cases', () => {
-    it('should call router.navigate with correct parameters when onImagePress is triggered', () => {
-      render(<FleetTab airlineData={mockedAirlineData} />)
+    it('should call router.navigate with correct parameters when onImagePress is triggered', async () => {
+      await render(<FleetTab airlineData={mockedAirlineData} />)
 
       const onImagePressCallback = mockedFleetList.mock.calls[0][0].onImagePress
       const testAirplaneType = 'Test Plane'
       const testImageKey = 'test-image-123'
-      act(() => {
+      await act(() => {
         onImagePressCallback(testAirplaneType, testImageKey)
       })
       expect(router.navigate).toHaveBeenCalledTimes(1)
@@ -150,13 +149,13 @@ describe('FleetTab Component', () => {
       })
     })
 
-    it('should handle partially incomplete data gracefully', () => {
+    it('should handle partially incomplete data gracefully', async () => {
       const incompleteData: any = {
         operations: {
           region: 'Asia',
         },
       }
-      render(<FleetTab airlineData={incompleteData} />)
+      await render(<FleetTab airlineData={incompleteData} />)
 
       expect(mockedFleetStats).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -174,8 +173,8 @@ describe('FleetTab Component', () => {
       )
     })
 
-    it('should handle completely empty data without crashing', () => {
-      const { getByTestId } = render(<FleetTab airlineData={{} as any} />)
+    it('should handle completely empty data without crashing', async () => {
+      const { getByTestId } = await render(<FleetTab airlineData={{} as any} />)
 
       expect(getByTestId('mocked-fleet-stats')).toBeTruthy()
       expect(getByTestId('mocked-fleet-header')).toBeTruthy()
@@ -191,8 +190,8 @@ describe('FleetTab Component', () => {
 })
 
 describe('FleetTab Component Snapshot', () => {
-  it('should render the FleetTab Component successfully', () => {
-    const { toJSON } = render(<FleetTab airlineData={mockedAirlineData} />)
+  it('should render the FleetTab Component successfully', async () => {
+    const { toJSON } = await render(<FleetTab airlineData={mockedAirlineData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -1,17 +1,20 @@
-import { requestPermission } from '@react-native-firebase/messaging'
+import { signOut } from '@react-native-firebase/auth'
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import * as Network from 'expo-network'
-import { getTrackingPermissionsAsync, PermissionStatus } from 'expo-tracking-transparency'
+import {
+  getTrackingPermissionsAsync,
+  PermissionStatus,
+  requestTrackingPermissionsAsync,
+} from 'expo-tracking-transparency'
 import { AppState, PermissionsAndroid, Platform } from 'react-native'
 import mobileAds from 'react-native-google-mobile-ads'
 import { createMMKV } from 'react-native-mmkv'
+import { requestNotifications } from 'react-native-permissions'
 
 import { isProduction } from '@/config/env/environment'
 import { useAppSetup } from '@/hooks/app/useAppSetup'
 import { useUserSession } from '@/hooks/app/useUserSession'
 import { setIsAuthenticated } from '@/store/auth'
-
-const { signOut } = require('@react-native-firebase/auth')
 
 jest.mock('@/store/auth')
 
@@ -32,7 +35,11 @@ const mockedAddNetworkStateListener = Network.addNetworkStateListener as jest.Mo
 const mockedGetTrackingPermissionsAsync = getTrackingPermissionsAsync as jest.MockedFunction<
   typeof getTrackingPermissionsAsync
 >
-const mockedRequestPermission = requestPermission as jest.MockedFunction<typeof requestPermission>
+const mockedRequestTrackingPermissionsAsync =
+  requestTrackingPermissionsAsync as jest.MockedFunction<typeof requestTrackingPermissionsAsync>
+const mockedRequestNotifications = requestNotifications as jest.MockedFunction<
+  typeof requestNotifications
+>
 
 jest.mock('@/config/env/environment')
 
@@ -47,10 +54,20 @@ describe('useAppSetup', () => {
     mockedMobileAds.mockReturnValue({
       initialize: mockedInitialize,
     } as any)
+    mockedAddNetworkStateListener.mockReturnValue({ remove: jest.fn() } as any)
+    mockedGetTrackingPermissionsAsync.mockResolvedValue({
+      status: PermissionStatus.GRANTED,
+    } as any)
+    mockedRequestTrackingPermissionsAsync.mockResolvedValue({
+      status: PermissionStatus.GRANTED,
+    } as any)
+    mockedRequestNotifications.mockResolvedValue({} as any)
+    jest.spyOn(PermissionsAndroid, 'request').mockResolvedValue('granted' as any)
+    jest.spyOn(AppState, 'addEventListener').mockReturnValue({ remove: jest.fn() } as any)
   })
 
-  it('should initialize isConnected state as null', () => {
-    const { result } = renderHook(() => useAppSetup())
+  it('should initialize isConnected state as null', async () => {
+    const { result } = await renderHook(() => useAppSetup())
     expect(result.current.isConnected).toBeNull()
   })
 
@@ -59,7 +76,7 @@ describe('useAppSetup', () => {
       mockedStorageGetString.mockReturnValue('fake-token')
       mockedUseUserSession.mockResolvedValue(true)
 
-      renderHook(() => useAppSetup())
+      await renderHook(() => useAppSetup())
 
       await waitFor(() => {
         expect(mockedSetIsAuthenticated).toHaveBeenCalledWith(true)
@@ -71,7 +88,7 @@ describe('useAppSetup', () => {
       mockedStorageGetString.mockReturnValue('fake-token')
       mockedUseUserSession.mockResolvedValue(false)
 
-      renderHook(() => useAppSetup())
+      await renderHook(() => useAppSetup())
 
       await waitFor(() => {
         expect(mockedSetIsAuthenticated).toHaveBeenCalledWith(false)
@@ -94,7 +111,7 @@ describe('useAppSetup', () => {
       mockedIsProduction.mockReturnValue(true)
       __DEV__ = false
 
-      renderHook(() => useAppSetup())
+      await renderHook(() => useAppSetup())
 
       await waitFor(() => {
         expect(mockedMobileAds).toHaveBeenCalled()
@@ -106,7 +123,7 @@ describe('useAppSetup', () => {
       mockedIsProduction.mockReturnValue(true)
       __DEV__ = true
 
-      renderHook(() => useAppSetup())
+      await renderHook(() => useAppSetup())
 
       await waitFor(() => {
         expect(mockedInitialize).not.toHaveBeenCalled()
@@ -117,7 +134,7 @@ describe('useAppSetup', () => {
       mockedIsProduction.mockReturnValue(false)
       __DEV__ = false
 
-      renderHook(() => useAppSetup())
+      await renderHook(() => useAppSetup())
 
       await waitFor(() => {
         expect(mockedInitialize).not.toHaveBeenCalled()
@@ -129,7 +146,7 @@ describe('useAppSetup', () => {
       __DEV__ = false
       mockedInitialize.mockRejectedValue(new Error('Ads initialization failed'))
 
-      renderHook(() => useAppSetup())
+      await renderHook(() => useAppSetup())
 
       await waitFor(() => {
         expect(mockedInitialize).toHaveBeenCalled()
@@ -144,56 +161,79 @@ describe('useAppSetup', () => {
       mockedGetTrackingPermissionsAsync.mockResolvedValue({
         status: PermissionStatus.UNDETERMINED,
       } as any)
-      const mockedRemove = jest.fn()
-      jest.spyOn(AppState, 'addEventListener').mockReturnValueOnce({ remove: mockedRemove })
 
-      renderHook(() => useAppSetup())
+      const addEventListenerSpy = jest.spyOn(AppState, 'addEventListener')
+
+      await renderHook(() => useAppSetup())
 
       await waitFor(() => {
         expect(mockedGetTrackingPermissionsAsync).toHaveBeenCalled()
-        expect(mockedRequestPermission).toHaveBeenCalled()
+        expect(addEventListenerSpy).toHaveBeenCalledTimes(2)
+      })
+
+      const trackingCallback = addEventListenerSpy.mock.calls?.[1]?.[1] as (
+        state: string,
+      ) => void | Promise<void>
+
+      await act(async () => {
+        await trackingCallback('active')
+      })
+
+      await waitFor(() => {
+        expect(mockedRequestTrackingPermissionsAsync).toHaveBeenCalled()
       })
     })
 
     it('should not request tracking permissions on Android, only notification permissions', async () => {
       Platform.OS = 'android'
-      jest.spyOn(PermissionsAndroid, 'request').mockResolvedValue('granted')
 
-      renderHook(() => useAppSetup())
+      await renderHook(() => useAppSetup())
 
       await waitFor(() => {
-        expect(mockedRequestPermission).toHaveBeenCalled()
-        expect(PermissionsAndroid.request).toHaveBeenCalled()
+        expect(mockedRequestNotifications).toHaveBeenCalledWith(['alert', 'badge', 'sound'])
+        expect(PermissionsAndroid.request).toHaveBeenCalledWith(
+          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+        )
         expect(mockedGetTrackingPermissionsAsync).not.toHaveBeenCalled()
       })
     })
   })
 
   describe('Listeners and Cleanup', () => {
-    it.concurrent('should update isConnected state when network status changes', () => {
+    it('should update isConnected state when network status changes', async () => {
       const mockedRemove = jest.fn()
       let networkCallback: (state: { isConnected: boolean }) => void
       mockedAddNetworkStateListener.mockImplementation(callback => {
         networkCallback = callback
-        return { remove: mockedRemove }
+        return { remove: mockedRemove } as any
       })
 
-      const { result } = renderHook(() => useAppSetup())
+      const { result } = await renderHook(() => useAppSetup())
 
-      act(() => {
+      await act(async () => {
         networkCallback({ isConnected: true })
       })
-      expect(result.current.isConnected).toBe(true)
+
+      await waitFor(() => {
+        expect(result.current.isConnected).toBe(true)
+      })
     })
 
-    it.concurrent('should remove listeners on unmount', () => {
+    it('should remove listeners on unmount', async () => {
       const mockedRemove = jest.fn()
-      mockedAddNetworkStateListener.mockReturnValue({ remove: mockedRemove })
+      mockedAddNetworkStateListener.mockReturnValue({ remove: mockedRemove } as any)
 
-      const { unmount } = renderHook(() => useAppSetup())
+      const { unmount } = await renderHook(() => useAppSetup())
+
+      await waitFor(() => {
+        expect(mockedAddNetworkStateListener).toHaveBeenCalled()
+      })
+
       unmount()
 
-      expect(mockedRemove).toHaveBeenCalled()
+      await waitFor(() => {
+        expect(mockedRemove).toHaveBeenCalled()
+      })
     })
   })
 
@@ -208,13 +248,13 @@ describe('useAppSetup', () => {
         status: PermissionStatus.GRANTED,
       } as any)
 
-      renderHook(() => useAppSetup())
+      await renderHook(() => useAppSetup())
 
       await waitFor(() => {
         expect(mockedInitialize).toHaveBeenCalled()
         expect(mockedSetIsAuthenticated).toHaveBeenCalledWith(true)
-        expect(mockedRequestPermission).toHaveBeenCalled()
         expect(mockedGetTrackingPermissionsAsync).toHaveBeenCalled()
+        expect(mockedRequestNotifications).toHaveBeenCalled()
       })
     })
 
@@ -225,7 +265,7 @@ describe('useAppSetup', () => {
       mockedStorageGetString.mockReturnValue('fake-token')
       mockedUseUserSession.mockResolvedValue(true)
 
-      renderHook(() => useAppSetup())
+      await renderHook(() => useAppSetup())
 
       await waitFor(() => {
         expect(mockedInitialize).toHaveBeenCalled()

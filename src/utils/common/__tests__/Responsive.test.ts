@@ -1,24 +1,16 @@
 import { Dimensions } from 'react-native'
 
-jest.mock('react-native', () => ({
-  Dimensions: {
-    get: jest.fn(),
-  },
-}))
-
-const mockedDimensionsGet = Dimensions.get as jest.Mock
-
 describe('responsive', () => {
   it('should export the correct device height and width from Dimensions', () => {
-    const mockScreenDimensions = { width: 375, height: 812 }
-    mockedDimensionsGet.mockReturnValue(mockScreenDimensions)
+    const mockedScreenDimensions = { width: 375, height: 812, scale: 2, fontScale: 1 }
+    const mockedGetSpy = jest.spyOn(Dimensions, 'get').mockReturnValue(mockedScreenDimensions)
 
     const { responsive } = require('@/utils/common/responsive')
 
-    expect(responsive.deviceWidth).toBe(mockScreenDimensions.width)
-    expect(responsive.deviceHeight).toBe(mockScreenDimensions.height)
+    expect(responsive.deviceWidth).toBe(mockedScreenDimensions.width)
+    expect(responsive.deviceHeight).toBe(mockedScreenDimensions.height)
 
-    expect(mockedDimensionsGet).toHaveBeenCalledWith('screen')
-    expect(mockedDimensionsGet).toHaveBeenCalledTimes(1)
+    expect(mockedGetSpy).toHaveBeenCalledWith('screen')
+    expect(mockedGetSpy).toHaveBeenCalledTimes(1)
   })
 })

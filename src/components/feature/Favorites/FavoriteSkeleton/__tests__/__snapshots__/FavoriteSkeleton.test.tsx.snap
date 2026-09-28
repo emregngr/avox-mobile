@@ -51,7 +51,7 @@ exports[`FavoriteSkeleton Component Snapshot should render the FavoriteSkeleton 
   showsVerticalScrollIndicator={false}
   stickyHeaderIndices={[]}
   testID="favorite-skeleton-flatlist"
-  updateCellsBatchingPeriod={150}
+  updateCellsBatchingPeriod={100}
   viewabilityConfigCallbackPairs={[]}
   windowSize={7}
 >

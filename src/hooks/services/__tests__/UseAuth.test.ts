@@ -86,27 +86,27 @@ describe('auth hooks', () => {
     it('should resolve user from onAuthStateChanged', async () => {
       const mockUser = { uid: '123', email: 'test@test.com' }
 
-      onAuthStateChanged.mockImplementation((auth: any, callback: any) => {
+      onAuthStateChanged.mockImplementation((_auth: any, callback: any) => {
         callback(mockUser)
         return jest.fn()
       })
 
       useQuery.mockReturnValue({ data: mockUser })
 
-      const { result } = renderHook(() => useAuthUser())
+      const { result } = await renderHook(() => useAuthUser())
 
       expect(result.current.data).toEqual(mockUser)
     })
 
     it('should handle null user state', async () => {
-      onAuthStateChanged.mockImplementation((auth: any, callback: any) => {
+      onAuthStateChanged.mockImplementation((_auth: any, callback: any) => {
         callback(null)
         return jest.fn()
       })
 
       useQuery.mockReturnValue({ data: null })
 
-      const { result } = renderHook(() => useAuthUser())
+      const { result } = await renderHook(() => useAuthUser())
 
       expect(result.current.data).toBeNull()
     })
@@ -142,7 +142,7 @@ describe('auth hooks', () => {
         error: null,
       }))
 
-      const { result } = renderHook(() => useEmailRegister())
+      const { result } = await renderHook(() => useEmailRegister())
 
       await act(async () => {
         await result.current.mutateAsync(mockRegisterData)
@@ -167,10 +167,10 @@ describe('auth hooks', () => {
         error,
       }))
 
-      renderHook(() => useEmailRegister())
+      await renderHook(() => useEmailRegister())
       const mutationOptions = useMutation.mock.calls[0][0]
 
-      act(() => {
+      await act(() => {
         mutationOptions.onError(error, mockRegisterData)
       })
 
@@ -200,7 +200,7 @@ describe('auth hooks', () => {
         error: null,
       }))
 
-      const { result } = renderHook(() => useEmailRegister())
+      const { result } = await renderHook(() => useEmailRegister())
 
       await act(async () => {
         await result.current.mutateAsync(mockRegisterData)
@@ -242,7 +242,7 @@ describe('auth hooks', () => {
         error: null,
       }))
 
-      const { result } = renderHook(() => useEmailLogin())
+      const { result } = await renderHook(() => useEmailLogin())
 
       await act(async () => {
         await result.current.mutateAsync(mockLoginData)
@@ -267,10 +267,10 @@ describe('auth hooks', () => {
         error,
       }))
 
-      renderHook(() => useEmailLogin())
+      await renderHook(() => useEmailLogin())
       const mutationOptions = useMutation.mock.calls[0][0]
 
-      act(() => {
+      await act(() => {
         mutationOptions.onError(error, mockLoginData)
       })
 
@@ -303,7 +303,7 @@ describe('auth hooks', () => {
         error: null,
       }))
 
-      const { result } = renderHook(() => useGoogleLogin())
+      const { result } = await renderHook(() => useGoogleLogin())
 
       await act(async () => {
         await result.current.mutateAsync()
@@ -328,10 +328,10 @@ describe('auth hooks', () => {
         error,
       }))
 
-      renderHook(() => useGoogleLogin())
+      await renderHook(() => useGoogleLogin())
       const mutationOptions = useMutation.mock.calls[0][0]
 
-      act(() => {
+      await act(() => {
         mutationOptions.onError(error)
       })
 
@@ -364,7 +364,7 @@ describe('auth hooks', () => {
         error: null,
       }))
 
-      const { result } = renderHook(() => useAppleLogin())
+      const { result } = await renderHook(() => useAppleLogin())
 
       await act(async () => {
         await result.current.mutateAsync()
@@ -389,10 +389,10 @@ describe('auth hooks', () => {
         error,
       }))
 
-      renderHook(() => useAppleLogin())
+      await renderHook(() => useAppleLogin())
       const mutationOptions = useMutation.mock.calls[0][0]
 
-      act(() => {
+      await act(() => {
         mutationOptions.onError(error)
       })
 
@@ -418,7 +418,7 @@ describe('auth hooks', () => {
         error: null,
       }))
 
-      const { result } = renderHook(() => useLogout())
+      const { result } = await renderHook(() => useLogout())
 
       await act(async () => {
         await result.current.mutateAsync()
@@ -440,10 +440,10 @@ describe('auth hooks', () => {
         error,
       }))
 
-      renderHook(() => useLogout())
+      await renderHook(() => useLogout())
       const mutationOptions = useMutation.mock.calls[0][0]
 
-      act(() => {
+      await act(() => {
         mutationOptions.onError(error)
       })
 
@@ -470,7 +470,7 @@ describe('auth hooks', () => {
         error: null,
       }))
 
-      const { result } = renderHook(() => useForgotPassword())
+      const { result } = await renderHook(() => useForgotPassword())
 
       await act(async () => {
         await result.current.mutateAsync(testEmail)
@@ -495,10 +495,10 @@ describe('auth hooks', () => {
         error,
       }))
 
-      renderHook(() => useForgotPassword())
+      await renderHook(() => useForgotPassword())
       const mutationOptions = useMutation.mock.calls[0][0]
 
-      act(() => {
+      await act(() => {
         mutationOptions.onError(error, testEmail)
       })
 
@@ -532,7 +532,7 @@ describe('auth hooks', () => {
         error: null,
       }))
 
-      const { result } = renderHook(() => useEmailLogin())
+      const { result } = await renderHook(() => useEmailLogin())
 
       await act(async () => {
         await result.current.mutateAsync({
@@ -562,10 +562,10 @@ describe('auth hooks', () => {
         error,
       }))
 
-      renderHook(() => useEmailLogin())
+      await renderHook(() => useEmailLogin())
       const mutationOptions = useMutation.mock.calls[0][0]
 
-      act(() => {
+      await act(() => {
         mutationOptions.onError(error, { email: 'test@test.com', password: 'password' })
       })
 

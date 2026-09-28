@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { EmptyFavorite } from '@/components/feature/Favorites/EmptyFavorite'
 import useThemeStore from '@/store/theme'
@@ -30,13 +29,13 @@ beforeEach(() => {
 })
 
 describe('EmptyFavorite Component', () => {
-  it('renders given text', () => {
-    const { getByText } = render(<EmptyFavorite icon="airplane" text="No favorites yet" />)
+  it('renders given text', async () => {
+    const { getByText } = await render(<EmptyFavorite icon="airplane" text="No favorites yet" />)
     expect(getByText('No favorites yet')).toBeTruthy()
   })
 
-  it('renders given icon with correct props', () => {
-    const { getByTestId } = render(<EmptyFavorite icon="heart" text="Empty list" />)
+  it('renders given icon with correct props', async () => {
+    const { getByTestId } = await render(<EmptyFavorite icon="heart" text="Empty list" />)
     const icon = getByTestId('mocked-material-community-icon')
 
     expect(icon.props.name).toBe('heart')
@@ -44,8 +43,8 @@ describe('EmptyFavorite Component', () => {
     expect(icon.props.color).toBe(colors.onPrimary100)
   })
 
-  it('applies safe area bottom margin', () => {
-    const { getByTestId } = render(<EmptyFavorite icon="star" text="Empty" />)
+  it('applies safe area bottom margin', async () => {
+    const { getByTestId } = await render(<EmptyFavorite icon="star" text="Empty" />)
     const container = getByTestId('EmptyFavoriteContainer')
 
     expect(container.props.style.marginBottom).toBe(20 + 60)
@@ -53,8 +52,8 @@ describe('EmptyFavorite Component', () => {
 })
 
 describe('EmptyFavorite Component Snapshot', () => {
-  it('should render the EmptyFavorite Component successfully', () => {
-    const { toJSON } = render(<EmptyFavorite icon="airplane" text="No favorites yet" />)
+  it('should render the EmptyFavorite Component successfully', async () => {
+    const { toJSON } = await render(<EmptyFavorite icon="airplane" text="No favorites yet" />)
 
     expect(toJSON()).toMatchSnapshot()
   })

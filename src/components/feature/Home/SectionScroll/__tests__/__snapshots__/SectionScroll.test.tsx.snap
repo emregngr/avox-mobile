@@ -47,7 +47,7 @@ exports[`SectionScroll Component Snapshot should render the SectionScroll Compon
     showsHorizontalScrollIndicator={false}
     showsVerticalScrollIndicator={false}
     stickyHeaderIndices={[]}
-    updateCellsBatchingPeriod={150}
+    updateCellsBatchingPeriod={50}
     viewabilityConfigCallbackPairs={[]}
     windowSize={7}
   >

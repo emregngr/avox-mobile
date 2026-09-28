@@ -54,7 +54,7 @@ exports[`Register Screen Snapshot should render the Register successfully 1`] = 
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     keyboardDismissMode="on-drag"
@@ -68,11 +68,7 @@ exports[`Register Screen Snapshot should render the Register successfully 1`] = 
         <View
           cachePolicy="memory-disk"
           contentFit="contain"
-          source={
-            {
-              "default": "mocked-test-file",
-            }
-          }
+          source="mocked-test-file"
           style={
             {
               "borderRadius": 50,

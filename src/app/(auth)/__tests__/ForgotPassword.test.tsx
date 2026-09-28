@@ -1,6 +1,5 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -92,8 +91,8 @@ beforeEach(() => {
 })
 
 describe('ForgotPassword Screen', () => {
-  it('should render correctly and button should be enabled', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<ForgotPassword />)
+  it('should render correctly and button should be enabled', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<ForgotPassword />)
     const submitButton = getByTestId('submit-button')
     expect(submitButton).toBeTruthy()
     expect(submitButton).not.toBeDisabled()
@@ -106,10 +105,10 @@ describe('ForgotPassword Screen', () => {
       formState: { isValid: false },
       reset: mockedReset,
     } as any)
-    const { getByTestId } = renderWithSafeAreaProvider(<ForgotPassword />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<ForgotPassword />)
     const submitButton = getByTestId('submit-button')
     expect(submitButton).not.toBeDisabled()
-    fireEvent.press(submitButton)
+    await fireEvent.press(submitButton)
     await waitFor(() => {
       expect(submitButton).toBeDisabled()
     })
@@ -123,21 +122,21 @@ describe('ForgotPassword Screen', () => {
       formState: { isValid: true },
       reset: mockedReset,
     } as any)
-    const { getByTestId } = renderWithSafeAreaProvider(<ForgotPassword />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<ForgotPassword />)
     const submitButton = getByTestId('submit-button')
-    fireEvent.press(submitButton)
+    await fireEvent.press(submitButton)
     expect(handleSubmitMock).toHaveBeenCalled()
     expect(mockedForgotPassword).toHaveBeenCalledWith('test@example.com')
     expect(mockedReset).toHaveBeenCalled()
   })
 
-  it('should show loading state and disable button', () => {
+  it('should show loading state and disable button', async () => {
     ;(require('@/hooks/services/useAuth').useForgotPassword as jest.Mock).mockReturnValue({
       isPending: true,
       mutateAsync: mockedForgotPassword,
     })
 
-    const { getByTestId, getByText, getByLabelText } = renderWithSafeAreaProvider(
+    const { getByTestId, getByText, getByLabelText } = await renderWithSafeAreaProvider(
       <ForgotPassword />,
     )
     const submitButton = getByTestId('submit-button')
@@ -151,8 +150,8 @@ describe('ForgotPassword Screen', () => {
 })
 
 describe('ForgotPassword Screen Snapshot', () => {
-  it('should render the ForgotPassword successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<ForgotPassword />)
+  it('should render the ForgotPassword successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<ForgotPassword />)
 
     expect(toJSON()).toMatchSnapshot()
   })

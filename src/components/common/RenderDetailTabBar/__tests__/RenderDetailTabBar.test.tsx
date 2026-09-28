@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react-native'
 import type { ReactNode } from 'react'
-import React from 'react'
 
 import { RenderDetailTabBar } from '@/components/common/RenderDetailTabBar'
 import useThemeStore from '@/store/theme'
@@ -45,7 +44,7 @@ jest.mock('react-native-collapsible-tab-view', () => {
               index: 0,
               name: 'Test Tab',
               testID: 'tab-item',
-              label: ({ index, name }: any) => (
+              label: ({ index: _index, name }: any) => (
                 <View testID="tab-label">
                   <View>{name}</View>
                 </View>
@@ -107,36 +106,36 @@ beforeEach(() => {
 
 describe('RenderDetailTabBar Component', () => {
   describe('Rendering', () => {
-    it('renders with basic props', () => {
-      const { getByTestId } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('renders with basic props', async () => {
+      const { getByTestId } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
       expect(getByTestId('material-tab-bar')).toBeTruthy()
     })
 
-    it('renders MaterialTabBar with correct props', () => {
-      const { getByTestId } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('renders MaterialTabBar with correct props', async () => {
+      const { getByTestId } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
       const tabBar = getByTestId('material-tab-bar')
       expect(tabBar).toBeTruthy()
     })
 
-    it('renders MaterialTabItem with correct props', () => {
-      const { getByTestId } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('renders MaterialTabItem with correct props', async () => {
+      const { getByTestId } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
       const tabItemComponent = getByTestId('tab-item-component')
       expect(tabItemComponent).toBeTruthy()
     })
 
-    it('renders tab label with correct text', () => {
-      const { getByText } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('renders tab label with correct text', async () => {
+      const { getByText } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
       expect(getByText('Test Tab')).toBeTruthy()
     })
   })
 
   describe('Styling', () => {
-    it('applies correct indicator background color from theme', () => {
-      const { getByTestId } = render(
+    it('applies correct indicator background color from theme', async () => {
+      const { getByTestId } = await render(
         <RenderDetailTabBar {...mockedDefaultProps} indicatorBackgroundColor="primary" />,
       )
 
@@ -144,8 +143,8 @@ describe('RenderDetailTabBar Component', () => {
       expect(tabBar).toBeTruthy()
     })
 
-    it('uses secondary color when specified', () => {
-      const { getByTestId } = render(
+    it('uses secondary color when specified', async () => {
+      const { getByTestId } = await render(
         <RenderDetailTabBar {...mockedDefaultProps} indicatorBackgroundColor="secondary" />,
       )
 
@@ -153,8 +152,8 @@ describe('RenderDetailTabBar Component', () => {
       expect(tabBar).toBeTruthy()
     })
 
-    it('uses accent color when specified', () => {
-      const { getByTestId } = render(
+    it('uses accent color when specified', async () => {
+      const { getByTestId } = await render(
         <RenderDetailTabBar {...mockedDefaultProps} indicatorBackgroundColor="accent" />,
       )
 
@@ -162,8 +161,8 @@ describe('RenderDetailTabBar Component', () => {
       expect(tabBar).toBeTruthy()
     })
 
-    it('applies correct width based on device width', () => {
-      const { getByTestId } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('applies correct width based on device width', async () => {
+      const { getByTestId } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
       const tabBar = getByTestId('material-tab-bar')
       expect(tabBar).toBeTruthy()
@@ -171,15 +170,19 @@ describe('RenderDetailTabBar Component', () => {
   })
 
   describe('Active State', () => {
-    it('applies active text color when tab is active', () => {
-      const { getByText } = render(<RenderDetailTabBar {...mockedDefaultProps} activeIndex={0} />)
+    it('applies active text color when tab is active', async () => {
+      const { getByText } = await render(
+        <RenderDetailTabBar {...mockedDefaultProps} activeIndex={0} />,
+      )
 
       const tabText = getByText('Test Tab')
       expect(tabText).toBeTruthy()
     })
 
-    it('applies inactive text color when tab is not active', () => {
-      const { getByText } = render(<RenderDetailTabBar {...mockedDefaultProps} activeIndex={1} />)
+    it('applies inactive text color when tab is not active', async () => {
+      const { getByText } = await render(
+        <RenderDetailTabBar {...mockedDefaultProps} activeIndex={1} />,
+      )
 
       const tabText = getByText('Test Tab')
       expect(tabText).toBeTruthy()
@@ -187,47 +190,47 @@ describe('RenderDetailTabBar Component', () => {
   })
 
   describe('Theme Integration', () => {
-    it('uses light theme colors by default', () => {
-      const { getByTestId } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('uses light theme colors by default', async () => {
+      const { getByTestId } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
       const tabBar = getByTestId('material-tab-bar')
       expect(tabBar).toBeTruthy()
     })
 
-    it('handles missing theme colors gracefully', () => {
+    it('handles missing theme colors gracefully', async () => {
       jest.doMock('@/store/theme', () => ({
         default: () => ({
           selectedTheme: 'nonexistent',
         }),
       }))
 
-      const component = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+      const component = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
       expect(component).toBeTruthy()
     })
   })
 
   describe('Responsive Design', () => {
-    it('calculates tab width based on device width', () => {
-      const { getByTestId } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('calculates tab width based on device width', async () => {
+      const { getByTestId } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
       const tabBar = getByTestId('material-tab-bar')
       expect(tabBar).toBeTruthy()
     })
 
-    it('handles different device widths', () => {
+    it('handles different device widths', async () => {
       jest.doMock('@/utils/common/responsive', () => ({
         responsive: {
           deviceWidth: 414,
         },
       }))
 
-      const component = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+      const component = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
       expect(component).toBeTruthy()
     })
   })
 
   describe('Props Forwarding', () => {
-    it('forwards props to MaterialTabBar', () => {
+    it('forwards props to MaterialTabBar', async () => {
       const customProps = {
         ...mockedDefaultProps,
         props: {
@@ -236,7 +239,7 @@ describe('RenderDetailTabBar Component', () => {
         },
       }
 
-      const { getByTestId } = render(<RenderDetailTabBar {...customProps} />)
+      const { getByTestId } = await render(<RenderDetailTabBar {...customProps} />)
 
       const tabBar = getByTestId('material-tab-bar')
       expect(tabBar).toBeTruthy()
@@ -244,8 +247,8 @@ describe('RenderDetailTabBar Component', () => {
   })
 
   describe('Android Ripple Effect', () => {
-    it('configures android ripple effect correctly', () => {
-      const { getByTestId } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('configures android ripple effect correctly', async () => {
+      const { getByTestId } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
       const tabItemComponent = getByTestId('tab-item-component')
       expect(tabItemComponent).toBeTruthy()
@@ -253,57 +256,57 @@ describe('RenderDetailTabBar Component', () => {
   })
 
   describe('Edge Cases', () => {
-    it('handles undefined indicatorBackgroundColor', () => {
+    it('handles undefined indicatorBackgroundColor', async () => {
       const propsWithUndefinedColor = {
         ...mockedDefaultProps,
         indicatorBackgroundColor: undefined,
       }
 
-      const component = render(<RenderDetailTabBar {...(propsWithUndefinedColor as any)} />)
+      const component = await render(<RenderDetailTabBar {...(propsWithUndefinedColor as any)} />)
       expect(component).toBeTruthy()
     })
 
-    it('handles negative activeIndex', () => {
+    it('handles negative activeIndex', async () => {
       const propsWithNegativeIndex = {
         ...mockedDefaultProps,
         activeIndex: -1,
       }
 
-      const component = render(<RenderDetailTabBar {...propsWithNegativeIndex} />)
+      const component = await render(<RenderDetailTabBar {...propsWithNegativeIndex} />)
       expect(component).toBeTruthy()
     })
 
-    it('handles very large activeIndex', () => {
+    it('handles very large activeIndex', async () => {
       const propsWithLargeIndex = {
         ...mockedDefaultProps,
         activeIndex: 999,
       }
 
-      const component = render(<RenderDetailTabBar {...propsWithLargeIndex} />)
+      const component = await render(<RenderDetailTabBar {...propsWithLargeIndex} />)
       expect(component).toBeTruthy()
     })
 
-    it('handles empty props object', () => {
+    it('handles empty props object', async () => {
       const propsWithEmptyProps = {
         ...mockedDefaultProps,
         props: {},
       }
 
-      const component = render(<RenderDetailTabBar {...propsWithEmptyProps} />)
+      const component = await render(<RenderDetailTabBar {...propsWithEmptyProps} />)
       expect(component).toBeTruthy()
     })
   })
 
   describe('Tab Item Component', () => {
-    it('renders custom TabItemComponent', () => {
-      const { getByTestId } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('renders custom TabItemComponent', async () => {
+      const { getByTestId } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
       const tabItemComponent = getByTestId('tab-item-component')
       expect(tabItemComponent).toBeTruthy()
     })
 
-    it('renders tab label container', () => {
-      const { getByTestId } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('renders tab label container', async () => {
+      const { getByTestId } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
       const labelContainer = getByTestId('tab-label-container')
       expect(labelContainer).toBeTruthy()
@@ -311,18 +314,18 @@ describe('RenderDetailTabBar Component', () => {
   })
 
   describe('Container Styling', () => {
-    it('applies self-center className to container', () => {
-      render(<RenderDetailTabBar {...mockedDefaultProps} />)
+    it('applies self-center className to container', async () => {
+      await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
-      const component = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+      const component = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
       expect(component).toBeTruthy()
     })
   })
 })
 
 describe('RenderDetailTabBar Component Snapshot', () => {
-  it('should render the RenderDetailTabBar Component successfully', () => {
-    const { toJSON } = render(<RenderDetailTabBar {...mockedDefaultProps} />)
+  it('should render the RenderDetailTabBar Component successfully', async () => {
+    const { toJSON } = await render(<RenderDetailTabBar {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

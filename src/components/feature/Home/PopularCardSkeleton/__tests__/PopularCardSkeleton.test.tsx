@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { PopularCardSkeleton } from '@/components/feature/Home/PopularCardSkeleton'
 
@@ -29,8 +28,8 @@ beforeEach(() => {
 })
 
 describe('PopularCardSkeleton Component', () => {
-  it('should render AirportCardSkeleton components when type is "airport"', () => {
-    const { getAllByTestId, queryByTestId } = render(<PopularCardSkeleton type="airport" />)
+  it('should render AirportCardSkeleton components when type is "airport"', async () => {
+    const { getAllByTestId, queryByTestId } = await render(<PopularCardSkeleton type="airport" />)
 
     const airportSkeletons = getAllByTestId('airport-skeleton')
     expect(airportSkeletons).toHaveLength(6)
@@ -39,8 +38,8 @@ describe('PopularCardSkeleton Component', () => {
     expect(airlineSkeletons).toBeNull()
   })
 
-  it('should render AirlineCardSkeleton components when type is "airline"', () => {
-    const { getAllByTestId, queryByTestId } = render(<PopularCardSkeleton type="airline" />)
+  it('should render AirlineCardSkeleton components when type is "airline"', async () => {
+    const { getAllByTestId, queryByTestId } = await render(<PopularCardSkeleton type="airline" />)
 
     const airlineSkeletons = getAllByTestId('airline-skeleton')
     expect(airlineSkeletons).toHaveLength(6)
@@ -49,26 +48,26 @@ describe('PopularCardSkeleton Component', () => {
     expect(airportSkeletons).toBeNull()
   })
 
-  it('should pass correct prop values to FlatList component', () => {
-    render(<PopularCardSkeleton type="airport" />)
+  it('should pass correct prop values to FlatList component', async () => {
+    await render(<PopularCardSkeleton type="airport" />)
 
-    const { toJSON } = render(<PopularCardSkeleton type="airport" />)
+    const { toJSON } = await render(<PopularCardSkeleton type="airport" />)
 
     expect(toJSON()).toMatchSnapshot()
   })
 
-  it('should pass correct prop values to FlatList component', () => {
-    render(<PopularCardSkeleton type="airline" />)
+  it('should pass correct prop values to FlatList component', async () => {
+    await render(<PopularCardSkeleton type="airline" />)
 
-    const { toJSON } = render(<PopularCardSkeleton type="airline" />)
+    const { toJSON } = await render(<PopularCardSkeleton type="airline" />)
 
     expect(toJSON()).toMatchSnapshot()
   })
 })
 
 describe('PopularCardSkeleton Component Snapshot', () => {
-  it('should render the PopularCardSkeleton Component successfully', () => {
-    const { toJSON } = render(<PopularCardSkeleton type="airport" />)
+  it('should render the PopularCardSkeleton Component successfully', async () => {
+    const { toJSON } = await render(<PopularCardSkeleton type="airport" />)
 
     expect(toJSON()).toMatchSnapshot()
   })

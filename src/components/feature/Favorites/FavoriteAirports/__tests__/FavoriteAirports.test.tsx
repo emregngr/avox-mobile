@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { FavoriteAirports } from '@/components/feature/Favorites/FavoriteAirports'
 import useThemeStore from '@/store/theme'
@@ -49,20 +48,22 @@ beforeEach(() => {
 })
 
 describe('FavoriteAirports Component', () => {
-  it('renders skeleton when loading', () => {
-    const { getByText } = render(<FavoriteAirports airports={[]} onRefresh={jest.fn()} isLoading />)
+  it('renders skeleton when loading', async () => {
+    const { getByText } = await render(
+      <FavoriteAirports airports={[]} onRefresh={jest.fn()} isLoading />,
+    )
     expect(getByText('Skeleton airport')).toBeTruthy()
   })
 
-  it('renders empty state when no airports', () => {
-    const { getByText } = render(
+  it('renders empty state when no airports', async () => {
+    const { getByText } = await render(
       <FavoriteAirports airports={[]} isLoading={false} onRefresh={jest.fn()} />,
     )
     expect(getByText('Empty noFavoriteAirport')).toBeTruthy()
   })
 
-  it('renders airport cards when data is provided', () => {
-    const { getByText } = render(
+  it('renders airport cards when data is provided', async () => {
+    const { getByText } = await render(
       <FavoriteAirports airports={mockedAirports} isLoading={false} onRefresh={jest.fn()} />,
     )
     expect(getByText('AirportCard IST')).toBeTruthy()
@@ -71,8 +72,10 @@ describe('FavoriteAirports Component', () => {
 })
 
 describe('FavoriteAirports Component Snapshot', () => {
-  it('should render the FavoriteAirports Component successfully', () => {
-    const { toJSON } = render(<FavoriteAirports airports={[]} onRefresh={jest.fn()} isLoading />)
+  it('should render the FavoriteAirports Component successfully', async () => {
+    const { toJSON } = await render(
+      <FavoriteAirports airports={[]} onRefresh={jest.fn()} isLoading />,
+    )
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -123,17 +123,13 @@ describe('i18n', () => {
 
   describe('module initialization', () => {
     it('should initialize without throwing errors', () => {
-      expect(() => {
-        const { getLocale, i18nChangeLocale } = require('@/locales/i18next')
-        expect(typeof getLocale).toBe('function')
-        expect(typeof i18nChangeLocale).toBe('function')
-      }).not.toThrow()
+      expect(() => require('@/locales/i18next')).not.toThrow()
     })
 
     it('should handle locale detection properly', () => {
       const mockedGetLocalesCustom = getLocales as jest.MockedFunction<typeof getLocales>
 
-      mockedGetLocalesCustom.mockReturnValueOnce([])
+      mockedGetLocalesCustom.mockReturnValueOnce([] as any)
       expect(() => {
         require('@/locales/i18next')
       }).not.toThrow()

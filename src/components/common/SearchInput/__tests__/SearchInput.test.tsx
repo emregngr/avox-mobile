@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import { SearchInput } from '@/components/common/SearchInput'
 import { getLocale } from '@/locales/i18next'
@@ -52,14 +51,14 @@ beforeEach(() => {
 
 describe('SearchInput Component', () => {
   describe('Rendering', () => {
-    it('renders correctly with default props', () => {
-      const { getByPlaceholderText } = render(<SearchInput {...mockedDefaultProps} />)
+    it('renders correctly with default props', async () => {
+      const { getByPlaceholderText } = await render(<SearchInput {...mockedDefaultProps} />)
 
       expect(getByPlaceholderText('Search...')).toBeTruthy()
     })
 
-    it('renders with custom className', () => {
-      render(<SearchInput {...mockedDefaultProps} className="custom-class" />)
+    it('renders with custom className', async () => {
+      await render(<SearchInput {...mockedDefaultProps} className="custom-class" />)
 
       expect(require('@/utils/common/cn').cn).toHaveBeenCalledWith(
         'flex-row items-center self-center',
@@ -67,16 +66,16 @@ describe('SearchInput Component', () => {
       )
     })
 
-    it('displays the correct placeholder text', () => {
-      const { getByPlaceholderText } = render(
+    it('displays the correct placeholder text', async () => {
+      const { getByPlaceholderText } = await render(
         <SearchInput {...mockedDefaultProps} placeholder="Custom placeholder" />,
       )
 
       expect(getByPlaceholderText('Custom placeholder')).toBeTruthy()
     })
 
-    it('displays the current value', () => {
-      const { getByDisplayValue } = render(
+    it('displays the current value', async () => {
+      const { getByDisplayValue } = await render(
         <SearchInput {...mockedDefaultProps} value="test value" />,
       )
 
@@ -86,32 +85,34 @@ describe('SearchInput Component', () => {
   })
 
   describe('Focus behavior', () => {
-    it('shows cancel button when focused', () => {
-      const { getByPlaceholderText, getByTestId } = render(<SearchInput {...mockedDefaultProps} />)
-
-      const textInput = getByPlaceholderText('Search...')
-      fireEvent(textInput, 'focus')
-
-      expect(getByTestId('search-cancel-button')).toBeTruthy()
-    })
-
-    it('hides cancel button when blurred', () => {
-      const { getByPlaceholderText, queryByTestId } = render(
+    it('shows cancel button when focused', async () => {
+      const { getByPlaceholderText, getByTestId } = await render(
         <SearchInput {...mockedDefaultProps} />,
       )
 
       const textInput = getByPlaceholderText('Search...')
-      fireEvent(textInput, 'focus')
-      fireEvent(textInput, 'blur')
+      await fireEvent(textInput, 'focus')
+
+      expect(getByTestId('search-cancel-button')).toBeTruthy()
+    })
+
+    it('hides cancel button when blurred', async () => {
+      const { getByPlaceholderText, queryByTestId } = await render(
+        <SearchInput {...mockedDefaultProps} />,
+      )
+
+      const textInput = getByPlaceholderText('Search...')
+      await fireEvent(textInput, 'focus')
+      await fireEvent(textInput, 'blur')
 
       expect(queryByTestId('ThemedButtonText')).toBeFalsy()
     })
 
-    it('applies focused styles when input is focused', () => {
-      const { getByPlaceholderText } = render(<SearchInput {...mockedDefaultProps} />)
+    it('applies focused styles when input is focused', async () => {
+      const { getByPlaceholderText } = await render(<SearchInput {...mockedDefaultProps} />)
 
       const textInput = getByPlaceholderText('Search...')
-      fireEvent(textInput, 'focus')
+      await fireEvent(textInput, 'focus')
 
       expect(require('@/utils/common/cn').cn).toHaveBeenCalledWith(
         'flex-row items-center px-4 rounded-xl overflow-hidden bg-background-tertiary transition-all duration-300',
@@ -121,96 +122,96 @@ describe('SearchInput Component', () => {
   })
 
   describe('Clear functionality', () => {
-    it('shows clear button when focused and has value', () => {
-      const { getByPlaceholderText, getByTestId } = render(
+    it('shows clear button when focused and has value', async () => {
+      const { getByPlaceholderText, getByTestId } = await render(
         <SearchInput {...mockedDefaultProps} value="test" />,
       )
 
       const textInput = getByPlaceholderText('Search...')
-      fireEvent(textInput, 'focus')
+      await fireEvent(textInput, 'focus')
 
       expect(getByTestId('search-clear-button')).toBeTruthy()
     })
 
-    it('hides clear button when not focused', () => {
-      const { queryByTestId } = render(<SearchInput {...mockedDefaultProps} value="test" />)
+    it('hides clear button when not focused', async () => {
+      const { queryByTestId } = await render(<SearchInput {...mockedDefaultProps} value="test" />)
 
       expect(queryByTestId('search-clear-button')).toBeFalsy()
     })
 
-    it('hides clear button when focused but no value', () => {
-      const { getByPlaceholderText, queryByTestId } = render(
+    it('hides clear button when focused but no value', async () => {
+      const { getByPlaceholderText, queryByTestId } = await render(
         <SearchInput {...mockedDefaultProps} value="" />,
       )
 
       const textInput = getByPlaceholderText('Search...')
-      fireEvent(textInput, 'focus')
+      await fireEvent(textInput, 'focus')
 
       expect(queryByTestId('search-clear-button')).toBeFalsy()
     })
 
-    it('calls onChangeText with empty string when clear button is pressed', () => {
+    it('calls onChangeText with empty string when clear button is pressed', async () => {
       const mockedOnChangeText = jest.fn()
-      const { getByPlaceholderText, getByTestId } = render(
+      const { getByPlaceholderText, getByTestId } = await render(
         <SearchInput {...mockedDefaultProps} onChangeText={mockedOnChangeText} value="test" />,
       )
 
       const textInput = getByPlaceholderText('Search...')
-      fireEvent(textInput, 'focus')
+      await fireEvent(textInput, 'focus')
 
       const clearButton = getByTestId('search-clear-button')
-      fireEvent.press(clearButton)
+      await fireEvent.press(clearButton)
 
       expect(mockedOnChangeText).toHaveBeenCalledWith('')
     })
   })
 
   describe('Cancel functionality', () => {
-    it('calls onChangeText with empty string when cancel is pressed', () => {
+    it('calls onChangeText with empty string when cancel is pressed', async () => {
       const mockedOnChangeText = jest.fn()
-      const { getByPlaceholderText, getByTestId } = render(
+      const { getByPlaceholderText, getByTestId } = await render(
         <SearchInput {...mockedDefaultProps} onChangeText={mockedOnChangeText} />,
       )
 
       const textInput = getByPlaceholderText('Search...')
-      fireEvent(textInput, 'focus')
+      await fireEvent(textInput, 'focus')
 
       const cancelButton = getByTestId('search-cancel-button')
-      fireEvent.press(cancelButton)
+      await fireEvent.press(cancelButton)
 
       expect(mockedOnChangeText).toHaveBeenCalledWith('')
     })
 
-    it('blurs the input when cancel is pressed', () => {
-      const { getByPlaceholderText, getByTestId, queryByTestId } = render(
+    it('blurs the input when cancel is pressed', async () => {
+      const { getByPlaceholderText, getByTestId, queryByTestId } = await render(
         <SearchInput {...mockedDefaultProps} />,
       )
 
       const textInput = getByPlaceholderText('Search...')
-      fireEvent(textInput, 'focus')
+      await fireEvent(textInput, 'focus')
 
       const cancelButton = getByTestId('search-cancel-button')
-      fireEvent.press(cancelButton)
+      await fireEvent.press(cancelButton)
 
       expect(queryByTestId('ThemedButtonText')).toBeFalsy()
     })
   })
 
   describe('Text input behavior', () => {
-    it('calls onChangeText when text is entered', () => {
+    it('calls onChangeText when text is entered', async () => {
       const mockedOnChangeText = jest.fn()
-      const { getByPlaceholderText } = render(
+      const { getByPlaceholderText } = await render(
         <SearchInput {...mockedDefaultProps} onChangeText={mockedOnChangeText} />,
       )
 
       const textInput = getByPlaceholderText('Search...')
-      fireEvent.changeText(textInput, 'new text')
+      await fireEvent.changeText(textInput, 'new text')
 
       expect(mockedOnChangeText).toHaveBeenCalledWith('new text')
     })
 
-    it('has correct text input properties', () => {
-      const { getByPlaceholderText } = render(<SearchInput {...mockedDefaultProps} />)
+    it('has correct text input properties', async () => {
+      const { getByPlaceholderText } = await render(<SearchInput {...mockedDefaultProps} />)
 
       const textInput = getByPlaceholderText('Search...')
 
@@ -223,8 +224,8 @@ describe('SearchInput Component', () => {
   })
 
   describe('Theme integration', () => {
-    it('passes keyboard appearance based on selected theme', () => {
-      const { getByPlaceholderText } = render(<SearchInput {...mockedDefaultProps} />)
+    it('passes keyboard appearance based on selected theme', async () => {
+      const { getByPlaceholderText } = await render(<SearchInput {...mockedDefaultProps} />)
 
       const textInput = getByPlaceholderText('Search...')
       expect(textInput.props.keyboardAppearance).toBe('light')
@@ -232,25 +233,26 @@ describe('SearchInput Component', () => {
   })
 
   describe('Accessibility', () => {
-    it('has proper hit slop for touchable elements', () => {
-      const { getByPlaceholderText, getByTestId } = render(
+    it('has proper hit slop for touchable elements', async () => {
+      const { getByPlaceholderText, getByTestId } = await render(
         <SearchInput {...mockedDefaultProps} value="test" />,
       )
 
       const textInput = getByPlaceholderText('Search...')
-      fireEvent(textInput, 'focus')
+      await fireEvent(textInput, 'focus')
 
       const clearButton = getByTestId('search-clear-button')
 
-      const parentElement = clearButton.parent?.parent || clearButton.parent
-      expect(parentElement?.props?.hitSlop).toBe(10)
+      expect(clearButton.props.hitSlop).toBe(10)
     })
 
-    it('cancel button has proper hit slop', () => {
-      const { getByPlaceholderText, getByTestId } = render(<SearchInput {...mockedDefaultProps} />)
+    it('cancel button has proper hit slop', async () => {
+      const { getByPlaceholderText, getByTestId } = await render(
+        <SearchInput {...mockedDefaultProps} />,
+      )
 
       const textInput = getByPlaceholderText('Search...')
-      fireEvent(textInput, 'focus')
+      await fireEvent(textInput, 'focus')
 
       const cancelButton = getByTestId('search-cancel-button')
       expect(cancelButton.props.hitSlop).toBe(10)
@@ -258,8 +260,8 @@ describe('SearchInput Component', () => {
   })
 
   describe('Layout', () => {
-    it('sets correct width based on device width', () => {
-      const { root } = render(<SearchInput {...mockedDefaultProps} />)
+    it('sets correct width based on device width', async () => {
+      const { root } = await render(<SearchInput {...mockedDefaultProps} />)
 
       const findElementWithWidth = (element: any): any => {
         if (element.props?.style?.width === 343) {
@@ -282,21 +284,21 @@ describe('SearchInput Component', () => {
 })
 
 describe('SearchInput Component Integration', () => {
-  it('handles complete user interaction flow', () => {
+  it('handles complete user interaction flow', async () => {
     const mockedOnChangeText = jest.fn()
-    const { rerender, getByPlaceholderText, getByTestId } = render(
+    const { rerender, getByPlaceholderText, getByTestId } = await render(
       <SearchInput {...mockedDefaultProps} onChangeText={mockedOnChangeText} />,
     )
 
     const textInput = getByPlaceholderText('Search...')
 
-    fireEvent(textInput, 'focus')
+    await fireEvent(textInput, 'focus')
     expect(getByTestId('search-cancel-button')).toBeTruthy()
 
-    fireEvent.changeText(textInput, 'search query')
+    await fireEvent.changeText(textInput, 'search query')
     expect(mockedOnChangeText).toHaveBeenCalledWith('search query')
 
-    rerender(
+    await rerender(
       <SearchInput
         {...mockedDefaultProps}
         onChangeText={mockedOnChangeText}
@@ -304,21 +306,21 @@ describe('SearchInput Component Integration', () => {
       />,
     )
 
-    fireEvent(textInput, 'focus')
+    await fireEvent(textInput, 'focus')
 
     expect(getByTestId('search-clear-button')).toBeTruthy()
 
-    fireEvent.press(getByTestId('search-clear-button'))
+    await fireEvent.press(getByTestId('search-clear-button'))
     expect(mockedOnChangeText).toHaveBeenCalledWith('')
 
-    fireEvent.press(getByTestId('search-cancel-button'))
+    await fireEvent.press(getByTestId('search-cancel-button'))
     expect(mockedOnChangeText).toHaveBeenCalledWith('')
   })
 })
 
 describe('SearchInput Component Snapshot', () => {
-  it('should render the SearchInput Component successfully', () => {
-    const { toJSON } = render(<SearchInput {...mockedDefaultProps} />)
+  it('should render the SearchInput Component successfully', async () => {
+    const { toJSON } = await render(<SearchInput {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

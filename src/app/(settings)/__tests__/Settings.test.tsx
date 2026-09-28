@@ -1,9 +1,8 @@
-import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native'
 import * as Linking from 'expo-linking'
 import { router } from 'expo-router'
 import * as StoreReview from 'expo-store-review'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { Alert, AppState } from 'react-native'
 import { checkNotifications, openSettings } from 'react-native-permissions'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -161,79 +160,81 @@ beforeEach(() => {
 })
 
 describe('Settings Screen', () => {
-  it('renders correctly', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Settings />)
+  it('renders correctly', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Settings />)
     expect(getByTestId('safe-layout')).toBeTruthy()
   })
 
-  it('navigates back when close button is pressed', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Settings />)
-    fireEvent.press(getByTestId('close-button'))
+  it('navigates back when close button is pressed', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Settings />)
+    await fireEvent.press(getByTestId('close-button'))
     expect(router.back).toHaveBeenCalled()
   })
 
-  it('calls delete user when confirmed', () => {
+  it('calls delete user when confirmed', async () => {
     const localMockMutateAsync = jest.fn().mockResolvedValue(true)
     mockedUseDeleteUser.mockReturnValue({ mutateAsync: localMockMutateAsync } as any)
-    mockedAlert.mockImplementation((title, message, buttons) => {
+    mockedAlert.mockImplementation((_title, _message, buttons) => {
       buttons?.find((b: any) => b.style === 'destructive')?.onPress?.()
     })
-    const { getByTestId } = renderWithSafeAreaProvider(<Settings />)
-    fireEvent.press(getByTestId('delete-account-button'))
+    const { getByTestId } = await renderWithSafeAreaProvider(<Settings />)
+    await fireEvent.press(getByTestId('delete-account-button'))
     expect(localMockMutateAsync).toHaveBeenCalled()
   })
 
-  it('cleans up event listener on unmount', () => {
-    const { unmount } = renderWithSafeAreaProvider(<Settings />)
-    unmount()
-    expect(mockedRemove).toHaveBeenCalled()
+  it('cleans up event listener on unmount', async () => {
+    await renderWithSafeAreaProvider(<Settings />)
+    await act(async () => {})
+    screen.unmount()
+    await waitFor(() => expect(mockedRemove).toHaveBeenCalled())
   })
 
-  it('navigates to correct pages on item press', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Settings />)
-    fireEvent.press(getByTestId('settings-privacy-policy-button'))
+  it('navigates to correct pages on item press', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Settings />)
+    await fireEvent.press(getByTestId('settings-privacy-policy-button'))
     expect(router.navigate).toHaveBeenCalledWith('/settings-privacy-policy')
-    fireEvent.press(getByTestId('settings-terms-of-use-button'))
+    await fireEvent.press(getByTestId('settings-terms-of-use-button'))
     expect(router.navigate).toHaveBeenCalledWith('/settings-terms-of-use')
-    fireEvent.press(getByTestId('faq-button'))
+    await fireEvent.press(getByTestId('faq-button'))
     expect(router.navigate).toHaveBeenCalledWith('/faq')
   })
 
-  it('opens external social media links', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Settings />)
-    fireEvent.press(getByTestId('tiktok-button'))
+  it('opens external social media links', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Settings />)
+    await fireEvent.press(getByTestId('tiktok-button'))
     expect(Linking.openURL).toHaveBeenCalledWith('https://tiktok.com/test')
-    fireEvent.press(getByTestId('instagram-button'))
+    await fireEvent.press(getByTestId('instagram-button'))
     expect(Linking.openURL).toHaveBeenCalledWith('https://instagram.com/test')
   })
 
-  it('opens app settings when notification switch is toggled', () => {
-    const { getByRole } = renderWithSafeAreaProvider(<Settings />)
+  it('opens app settings when notification switch is toggled', async () => {
+    const { getByRole } = await renderWithSafeAreaProvider(<Settings />)
     const notificationSwitch = getByRole('switch')
-    fireEvent(notificationSwitch, 'onValueChange', true)
+    await fireEvent(notificationSwitch, 'onValueChange', true)
     expect(openSettings).toHaveBeenCalled()
   })
 
   it('shows an alert if store review is not available', async () => {
     jest.spyOn(StoreReview, 'isAvailableAsync').mockResolvedValue(false)
-    const { getByTestId } = renderWithSafeAreaProvider(<Settings />)
-    fireEvent.press(getByTestId('rate-app-button'))
+    const { getByTestId } = await renderWithSafeAreaProvider(<Settings />)
+    await fireEvent.press(getByTestId('rate-app-button'))
     await act(async () => {})
     expect(mockedAlert).toHaveBeenCalled()
   })
 
-  it('does not render delete account if user is not logged in', () => {
+  it('does not render delete account if user is not logged in', async () => {
     mockedUseAuthUser.mockReturnValue({ data: null } as any)
 
-    const { queryByTestId } = renderWithSafeAreaProvider(<Settings />)
+    const { queryByTestId } = await renderWithSafeAreaProvider(<Settings />)
     expect(queryByTestId('delete-account-button')).toBeNull()
   })
 
-  it('refetches notification status when app becomes active', () => {
-    renderWithSafeAreaProvider(<Settings />)
+  it('refetches notification status when app becomes active', async () => {
+    await renderWithSafeAreaProvider(<Settings />)
+    await act(async () => {})
     expect(mockedCheckNotifications).toHaveBeenCalledTimes(1)
     const appStateChangeHandler = mockedAddEventListener.mock.calls[0][1]
-    act(() => {
+    await act(() => {
       appStateChangeHandler('active')
     })
     expect(mockedCheckNotifications).toHaveBeenCalledTimes(2)
@@ -274,8 +275,8 @@ describe('Settings Screen', () => {
     it('logs error if store review request fails', async () => {
       jest.spyOn(StoreReview, 'isAvailableAsync').mockResolvedValue(true)
       jest.spyOn(StoreReview, 'requestReview').mockRejectedValue(new Error('Review failed'))
-      const { getByTestId } = renderWithSafeAreaProvider(<Settings />)
-      fireEvent.press(getByTestId('rate-app-button'))
+      const { getByTestId } = await renderWithSafeAreaProvider(<Settings />)
+      await fireEvent.press(getByTestId('rate-app-button'))
       await waitFor(() => {
         expect(mockedLoggerBreadcrumb).toHaveBeenCalledWith(
           'requestReviewError',
@@ -288,8 +289,8 @@ describe('Settings Screen', () => {
 })
 
 describe('Settings Screen Snapshot', () => {
-  it('should render the Settings Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Settings />)
+  it('should render the Settings Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Settings />)
 
     expect(toJSON()).toMatchSnapshot()
   })

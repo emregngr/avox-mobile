@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
-import React from 'react'
 
 import { AirlineFavoriteItemCard } from '@/components/feature/Favorites/AirlineFavoriteItemCard'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
@@ -165,8 +164,8 @@ beforeEach(() => {
 })
 
 describe('AirlineFavoriteItemCard Component', () => {
-  it('renders airline details correctly', () => {
-    const { getByText } = render(<AirlineFavoriteItemCard airline={mockedAirline} />)
+  it('renders airline details correctly', async () => {
+    const { getByText } = await render(<AirlineFavoriteItemCard airline={mockedAirline} />)
 
     expect(getByText('TK')).toBeTruthy()
     expect(getByText('THY')).toBeTruthy()
@@ -185,11 +184,11 @@ describe('AirlineFavoriteItemCard Component', () => {
     expect(getByText('FavoriteButton-1')).toBeTruthy()
   })
 
-  it('calls analytics, router and ad handler on press', () => {
-    const { getByTestId } = render(<AirlineFavoriteItemCard airline={mockedAirline} />)
+  it('calls analytics, router and ad handler on press', async () => {
+    const { getByTestId } = await render(<AirlineFavoriteItemCard airline={mockedAirline} />)
 
     const button = getByTestId('airline-card-1')
-    fireEvent.press(button)
+    await fireEvent.press(button)
 
     expect(AnalyticsService.sendEvent).toHaveBeenCalledWith(
       'airline_card_press',
@@ -204,8 +203,8 @@ describe('AirlineFavoriteItemCard Component', () => {
 })
 
 describe('AirlineFavoriteItemCard Component Snapshot', () => {
-  it('should render the AirlineFavoriteItemCard Component successfully', () => {
-    const { toJSON } = render(<AirlineFavoriteItemCard airline={mockedAirline} />)
+  it('should render the AirlineFavoriteItemCard Component successfully', async () => {
+    const { toJSON } = await render(<AirlineFavoriteItemCard airline={mockedAirline} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -60,7 +60,7 @@ exports[`Settings Screen Snapshot should render the Settings Screen successfully
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     showsVerticalScrollIndicator={false}
@@ -118,7 +118,7 @@ exports[`Settings Screen Snapshot should render the Settings Screen successfully
               }
               thumbTintColor="#000000"
               tintColor="#D1D1D6"
-              value={false}
+              value={true}
             />
           </View>
         </View>

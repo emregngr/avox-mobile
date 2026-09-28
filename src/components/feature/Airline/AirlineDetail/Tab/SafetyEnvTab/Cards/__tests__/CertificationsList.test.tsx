@@ -32,8 +32,8 @@ const mockedIconColor = '#FFA500'
 const mockedCertifications = ['IOSA Certified', 'EASA Compliant', 'Stage 4 Noise Certified']
 
 describe('CertificationsList Component', () => {
-  it('should render the title and a card for each certification', () => {
-    const { getByText, getAllByTestId } = render(
+  it('should render the title and a card for each certification', async () => {
+    const { getByText, getAllByTestId } = await render(
       <CertificationsList
         certifications={mockedCertifications}
         iconColor={mockedIconColor}
@@ -51,8 +51,8 @@ describe('CertificationsList Component', () => {
     })
   })
 
-  it('should render only the title when the certifications list is empty', () => {
-    const { getByText, queryAllByTestId } = render(
+  it('should render only the title when the certifications list is empty', async () => {
+    const { getByText, queryAllByTestId } = await render(
       <CertificationsList certifications={[]} iconColor={mockedIconColor} title={mockedTitle} />,
     )
 
@@ -62,8 +62,8 @@ describe('CertificationsList Component', () => {
     expect(cards).toHaveLength(0)
   })
 
-  it('should render only the title when certifications prop is null or undefined', () => {
-    const { rerender, getByText, queryAllByTestId } = render(
+  it('should render only the title when certifications prop is null or undefined', async () => {
+    const { rerender, getByText, queryAllByTestId } = await render(
       <CertificationsList
         certifications={null as any}
         iconColor={mockedIconColor}
@@ -74,7 +74,7 @@ describe('CertificationsList Component', () => {
     expect(getByText(`${mockedTitle}:`)).toBeTruthy()
     expect(queryAllByTestId('certification-card')).toHaveLength(0)
 
-    rerender(
+    await rerender(
       <CertificationsList
         certifications={undefined as any}
         iconColor={mockedIconColor}
@@ -88,8 +88,8 @@ describe('CertificationsList Component', () => {
 })
 
 describe('CertificationsList Component Snapshot', () => {
-  it('should render the CertificationsList Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the CertificationsList Component successfully', async () => {
+    const { toJSON } = await render(
       <CertificationsList
         certifications={mockedCertifications}
         iconColor={mockedIconColor}

@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Hub } from '@/components/feature/Airline/AirlineDetail/Tab/CompanyTab/Sections/Hub'
 
@@ -15,8 +14,8 @@ const mockedOperations: any = {
 }
 
 describe('Hub Component', () => {
-  it('renders hub information section', () => {
-    const { getByText } = render(<Hub operations={mockedOperations} />)
+  it('renders hub information section', async () => {
+    const { getByText } = await render(<Hub operations={mockedOperations} />)
 
     expect(getByText('hubInformation')).toBeTruthy()
 
@@ -27,8 +26,8 @@ describe('Hub Component', () => {
     expect(getByText('Türkiye')).toBeTruthy()
   })
 
-  it('renders without values if operations is empty', () => {
-    const { queryByText } = render(<Hub operations={{} as any} />)
+  it('renders without values if operations is empty', async () => {
+    const { queryByText } = await render(<Hub operations={{} as any} />)
 
     expect(queryByText('İstanbul')).toBeNull()
     expect(queryByText('Türkiye')).toBeNull()
@@ -36,8 +35,8 @@ describe('Hub Component', () => {
 })
 
 describe('Hub Component Snapshot', () => {
-  it('should render the Hub Component successfully', () => {
-    const { toJSON } = render(<Hub operations={mockedOperations} />)
+  it('should render the Hub Component successfully', async () => {
+    const { toJSON } = await render(<Hub operations={mockedOperations} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

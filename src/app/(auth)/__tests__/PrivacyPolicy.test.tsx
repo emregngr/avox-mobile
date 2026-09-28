@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router, useLocalSearchParams } from 'expo-router'
-import type React from 'react'
 import type { ReactNode } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -83,29 +82,29 @@ beforeEach(() => {
 })
 
 describe('PrivacyPolicy Screen', () => {
-  it('should render correctly and display Turkish text', () => {
-    const { getByText } = renderWithSafeAreaProvider(<PrivacyPolicy />)
+  it('should render correctly and display Turkish text', async () => {
+    const { getByText } = await renderWithSafeAreaProvider(<PrivacyPolicy />)
     expect(getByText('privacyPolicy')).toBeTruthy()
     expect(getByText(/6698 sayılı Kişisel Verilerin Korunması Kanunu/i)).toBeTruthy()
   })
 
-  it('should display English text when locale is "en"', () => {
+  it('should display English text when locale is "en"', async () => {
     mockedUseLocaleStore.mockReturnValue({ selectedLocale: 'en' })
-    const { getByText } = renderWithSafeAreaProvider(<PrivacyPolicy />)
+    const { getByText } = await renderWithSafeAreaProvider(<PrivacyPolicy />)
     expect(getByText(/Personal Data Protection Law No. 6698/i)).toBeTruthy()
   })
 
-  it('should call router.back when back button is pressed', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<PrivacyPolicy />)
-    fireEvent.press(getByTestId('back-button'))
+  it('should call router.back when back button is pressed', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<PrivacyPolicy />)
+    await fireEvent.press(getByTestId('back-button'))
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to register while preserving params', () => {
+  it('should navigate to register while preserving params', async () => {
     mockedUseLocalSearchParams.mockReturnValue({ someParam: 'test' })
 
-    const { getByText } = renderWithSafeAreaProvider(<PrivacyPolicy />)
-    fireEvent.press(getByText('accept'))
+    const { getByText } = await renderWithSafeAreaProvider(<PrivacyPolicy />)
+    await fireEvent.press(getByText('accept'))
 
     expect(router.navigate).toHaveBeenCalledWith({
       pathname: '/register',
@@ -115,8 +114,8 @@ describe('PrivacyPolicy Screen', () => {
 })
 
 describe('PrivacyPolicy Screen Snapshot', () => {
-  it('should render the PrivacyPolicy successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<PrivacyPolicy />)
+  it('should render the PrivacyPolicy successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<PrivacyPolicy />)
 
     expect(toJSON()).toMatchSnapshot()
   })

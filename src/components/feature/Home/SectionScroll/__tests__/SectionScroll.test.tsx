@@ -1,8 +1,11 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 import { Text } from 'react-native'
 
 import { SectionScroll } from '@/components/feature/Home/SectionScroll'
+
+jest.mock('@/hooks/batchingPeriod/useBatchingPeriod', () => ({
+  useBatchingPeriod: () => 50,
+}))
 
 jest.mock('@/components/feature/Home/SectionHeader', () => {
   const { Text, TouchableOpacity, View } = require('react-native')
@@ -34,7 +37,7 @@ const mockedData = [
   { id: '3', name: 'Product 3' },
 ]
 
-const renderItemProp = jest.fn((item: { id: string; name: string }, index: number) => (
+const renderItemProp = jest.fn((item: { id: string; name: string }) => (
   <Text testID={`item-${item.id}`}>{item.name}</Text>
 ))
 
@@ -43,8 +46,8 @@ const keyExtractor = jest.fn((item: { id: string; name: string }) => item.id)
 const mockedOnViewAll = jest.fn()
 
 describe('SectionScroll Component', () => {
-  it('should render a horizontal list correctly', () => {
-    const { getByText, queryByTestId, getByTestId } = render(
+  it('should render a horizontal list correctly', async () => {
+    const { getByText, queryByTestId, getByTestId } = await render(
       <SectionScroll
         data={mockedData}
         keyExtractor={keyExtractor}
@@ -74,8 +77,8 @@ describe('SectionScroll Component', () => {
     }
   })
 
-  it('should render a vertical list correctly', () => {
-    const { getByText, getByTestId } = render(
+  it('should render a vertical list correctly', async () => {
+    const { getByText, getByTestId } = await render(
       <SectionScroll
         data={mockedData}
         isHorizontal={false}
@@ -97,8 +100,8 @@ describe('SectionScroll Component', () => {
     }
   })
 
-  it('should show "View All" button and handle press when props are provided', () => {
-    const { getByTestId } = render(
+  it('should show "View All" button and handle press when props are provided', async () => {
+    const { getByTestId } = await render(
       <SectionScroll
         data={mockedData}
         keyExtractor={keyExtractor}
@@ -113,13 +116,13 @@ describe('SectionScroll Component', () => {
     const viewAllButton = getByTestId('view-all-button')
     expect(viewAllButton).toBeTruthy()
 
-    fireEvent.press(viewAllButton)
+    await fireEvent.press(viewAllButton)
 
     expect(mockedOnViewAll).toHaveBeenCalledTimes(1)
   })
 
-  it('should render correctly with empty data', () => {
-    const { getByText } = render(
+  it('should render correctly with empty data', async () => {
+    const { getByText } = await render(
       <SectionScroll
         data={[]}
         keyExtractor={keyExtractor}
@@ -134,8 +137,8 @@ describe('SectionScroll Component', () => {
     expect(renderItemProp).not.toHaveBeenCalled()
   })
 
-  it('should debug component structure', () => {
-    const { debug, getByText } = render(
+  it('should debug component structure', async () => {
+    const { debug, getByText } = await render(
       <SectionScroll
         data={mockedData}
         keyExtractor={keyExtractor}
@@ -153,8 +156,8 @@ describe('SectionScroll Component', () => {
 })
 
 describe('SectionScroll Component Snapshot', () => {
-  it('should render the SectionScroll Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the SectionScroll Component successfully', async () => {
+    const { toJSON } = await render(
       <SectionScroll
         data={mockedData}
         keyExtractor={keyExtractor}

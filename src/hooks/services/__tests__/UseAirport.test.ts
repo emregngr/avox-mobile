@@ -261,8 +261,8 @@ beforeEach(() => {
 
 describe('useAirport hook', () => {
   it('applies range filter for passenger capacity', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ passengerCapacity: '1-2' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -272,8 +272,8 @@ describe('useAirport hook', () => {
   })
 
   it('should filter out airports with invalid range', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ passengerCapacity: '100-200' })
     })
     expect(result.current.filteredCount).toBe(0)
@@ -281,8 +281,8 @@ describe('useAirport hook', () => {
   })
 
   it('applies boolean filters correctly - freeWifi true', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ freeWifi: true })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -292,8 +292,8 @@ describe('useAirport hook', () => {
   })
 
   it('applies boolean filters correctly - freeWifi false', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ freeWifi: false })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -301,8 +301,8 @@ describe('useAirport hook', () => {
   })
 
   it('applies service filters correctly - car rental', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasCarRental: true })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -312,16 +312,16 @@ describe('useAirport hook', () => {
   })
 
   it('applies service filters correctly - duty free', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasDutyFree: true })
     })
     expect(result.current.filteredCount).toBe(1)
   })
 
   it('combines search and filters', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('Honiara')
       result.current.setFilters({ region: 'OC' })
     })
@@ -330,8 +330,8 @@ describe('useAirport hook', () => {
   })
 
   it('basic filtering works individually - region', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ region: 'OC' })
     })
     expect(result.current.filteredCount).toBe(2)
@@ -342,16 +342,16 @@ describe('useAirport hook', () => {
   })
 
   it('basic filtering works individually - airport type', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ airportType: 'small_airport' })
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
   it('basic search works individually', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('Port Moresby')
     })
     expect(result.current.filteredCount).toBe(1)
@@ -361,8 +361,8 @@ describe('useAirport hook', () => {
   })
 
   it('search by IATA code works', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('HIR')
     })
     expect(result.current.filteredCount).toBe(1)
@@ -370,8 +370,8 @@ describe('useAirport hook', () => {
   })
 
   it('search by ICAO code works', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('AYPY')
     })
     expect(result.current.filteredCount).toBe(1)
@@ -381,8 +381,8 @@ describe('useAirport hook', () => {
   })
 
   it('applies minimum Google rating filter', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ minGoogleRating: 3.85 })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -392,16 +392,16 @@ describe('useAirport hook', () => {
   })
 
   it('applies founding year range filter', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ foundingYear: '1940-1945' })
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
   it('applies employee count range filter', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ employeeCount: '500-700' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -411,8 +411,8 @@ describe('useAirport hook', () => {
   })
 
   it('applies terminal count filter', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ terminalCount: '2-5' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -422,8 +422,8 @@ describe('useAirport hook', () => {
   })
 
   it('applies runway length range filter', async () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ mainRunwayLengthM: '2500-3000' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -433,17 +433,17 @@ describe('useAirport hook', () => {
   })
 
   it('check if mocks are working', async () => {
-    const { result } = renderHook(() => useAirport())
+    const { result } = await renderHook(() => useAirport())
     expect(result.current.filteredCount).toBe(2)
   })
 
   it('handles pagination and loadMore correctly', async () => {
     const largeAirportList = generateMockAirports(25)
     useQuery.mockReturnValue({ data: largeAirportList, isLoading: false, isSuccess: true })
-    const { result } = renderHook(() => useAirport())
+    const { result } = await renderHook(() => useAirport())
     expect(result.current.paginatedAirports.length).toBe(20)
     expect(result.current.hasMore).toBe(true)
-    act(() => {
+    await act(() => {
       result.current.loadMore()
     })
     expect(result.current.paginatedAirports.length).toBe(25)
@@ -453,28 +453,28 @@ describe('useAirport hook', () => {
   it('does not load more when isLoading is true', async () => {
     const largeAirportList = generateMockAirports(25)
     useQuery.mockReturnValue({ data: largeAirportList, isLoading: true, isSuccess: false })
-    const { result } = renderHook(() => useAirport())
+    const { result } = await renderHook(() => useAirport())
     expect(result.current.paginatedAirports.length).toBe(20)
-    act(() => {
+    await act(() => {
       result.current.loadMore()
     })
     expect(result.current.paginatedAirports.length).toBe(20)
   })
 
   it('does not load more when hasMore is false', async () => {
-    const { result } = renderHook(() => useAirport())
+    const { result } = await renderHook(() => useAirport())
     expect(result.current.paginatedAirports.length).toBe(2)
     expect(result.current.hasMore).toBe(false)
-    act(() => {
+    await act(() => {
       result.current.loadMore()
     })
     expect(result.current.paginatedAirports.length).toBe(2)
   })
 
-  it('handles invalid range format gracefully by not filtering', () => {
+  it('handles invalid range format gracefully by not filtering', async () => {
     mockedParseFilterRange.mockReturnValue(null)
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ passengerCapacity: 'invalid-range' })
     })
     expect(result.current.filteredCount).toBe(2)
@@ -494,8 +494,8 @@ describe('useAirport hook', () => {
       data: [...mockedAirports, airportWithMissingData],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ passengerCapacity: '1-2' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -504,7 +504,7 @@ describe('useAirport hook', () => {
     ).toBeUndefined()
   })
 
-  it('handles error state from useQuery', () => {
+  it('handles error state from useQuery', async () => {
     const mockError = new Error('Failed to fetch')
     useQuery.mockReturnValue({
       data: null,
@@ -514,12 +514,12 @@ describe('useAirport hook', () => {
       isSuccess: false,
     })
 
-    const { result } = renderHook(() => useAirport())
+    const { result } = await renderHook(() => useAirport())
     expect(result.current.error).toBe(mockError)
     expect(result.current.paginatedAirports).toEqual([])
   })
 
-  it('handles empty or null data from useQuery gracefully', () => {
+  it('handles empty or null data from useQuery gracefully', async () => {
     useQuery.mockReturnValue({
       data: null,
       error: null,
@@ -527,12 +527,12 @@ describe('useAirport hook', () => {
       isError: false,
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
+    const { result } = await renderHook(() => useAirport())
     expect(result.current.paginatedAirports).toEqual([])
     expect(result.current.filteredCount).toBe(0)
   })
 
-  it('applies a false boolean filter for services', () => {
+  it('applies a false boolean filter for services', async () => {
     const airportWithoutCarRental: any = {
       ...mockedAirports[0],
       facilities: { ...mockedAirports?.[0]?.facilities, services: ['lounge'] },
@@ -542,14 +542,14 @@ describe('useAirport hook', () => {
       isSuccess: true,
     })
 
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasCarRental: false })
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
-  it('applies is24Hour false filter correctly', () => {
+  it('applies is24Hour false filter correctly', async () => {
     const not24HourAirport: any = {
       ...mockedAirports[0],
       operations: { ...mockedAirports?.[0]?.operations, is24Hour: false },
@@ -558,15 +558,15 @@ describe('useAirport hook', () => {
       data: [not24HourAirport, mockedAirports[1]],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ is24Hour: false })
     })
     expect(result.current.filteredCount).toBe(1)
     expect(result.current.paginatedAirports[0]?.operations.is24Hour).toBe(false)
   })
 
-  it('filters out items where range value is null', () => {
+  it('filters out items where range value is null', async () => {
     const airportWithNullData: any = {
       ...mockedAirports[0],
       id: '3',
@@ -576,24 +576,24 @@ describe('useAirport hook', () => {
       data: [airportWithNullData, mockedAirports[1]],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ passengerCapacity: '0-1' })
     })
     expect(result.current.filteredCount).toBe(0)
   })
 
-  it('handles null airport in filter function', () => {
+  it('handles null airport in filter function', async () => {
     const dataWithNull = [null, ...mockedAirports]
     useQuery.mockReturnValue({
       data: dataWithNull,
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
+    const { result } = await renderHook(() => useAirport())
     expect(result.current.filteredCount).toBe(2)
   })
 
-  it('applies hasMetro true filter correctly', () => {
+  it('applies hasMetro true filter correctly', async () => {
     const airportWithMetro: any = {
       ...mockedAirports[0],
       facilities: { ...mockedAirports[0]?.facilities, hasMetro: true },
@@ -602,22 +602,22 @@ describe('useAirport hook', () => {
       data: [airportWithMetro, mockedAirports[1]],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasMetro: true })
     })
     expect(result.current.filteredCount).toBe(1)
   })
 
-  it('applies hasMetro false filter correctly', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('applies hasMetro false filter correctly', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasMetro: false })
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
-  it('handles airports with missing or undefined services array', () => {
+  it('handles airports with missing or undefined services array', async () => {
     const airportWithoutServices: any = {
       ...mockedAirports[0],
       facilities: { ...mockedAirports[0]?.facilities, services: undefined },
@@ -626,14 +626,14 @@ describe('useAirport hook', () => {
       data: [airportWithoutServices, mockedAirports[1]],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasCarRental: true })
     })
     expect(result.current.filteredCount).toBe(1)
   })
 
-  it('tests all service filter keywords - hasChildrensPlayArea', () => {
+  it('tests all service filter keywords - hasChildrensPlayArea', async () => {
     const airportWithChildrensArea: any = {
       ...mockedAirports[0],
       facilities: {
@@ -645,14 +645,14 @@ describe('useAirport hook', () => {
       data: [airportWithChildrensArea],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasChildrensPlayArea: true })
     })
     expect(result.current.filteredCount).toBe(1)
   })
 
-  it('tests all service filter keywords - hasHealthServices', () => {
+  it('tests all service filter keywords - hasHealthServices', async () => {
     const airportWithHealthServices: any = {
       ...mockedAirports[0],
       facilities: {
@@ -664,14 +664,14 @@ describe('useAirport hook', () => {
       data: [airportWithHealthServices],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasHealthServices: true })
     })
     expect(result.current.filteredCount).toBe(1)
   })
 
-  it('tests all service filter keywords - hasHotels', () => {
+  it('tests all service filter keywords - hasHotels', async () => {
     const airportWithHotels: any = {
       ...mockedAirports[0],
       facilities: {
@@ -683,14 +683,14 @@ describe('useAirport hook', () => {
       data: [airportWithHotels],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasHotels: true })
     })
     expect(result.current.filteredCount).toBe(1)
   })
 
-  it('tests all service filter keywords - hasLounges', () => {
+  it('tests all service filter keywords - hasLounges', async () => {
     const airportWithLounges: any = {
       ...mockedAirports[0],
       facilities: {
@@ -702,14 +702,14 @@ describe('useAirport hook', () => {
       data: [airportWithLounges],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasLounges: true })
     })
     expect(result.current.filteredCount).toBe(1)
   })
 
-  it('tests all service filter keywords - hasPrayerRoom', () => {
+  it('tests all service filter keywords - hasPrayerRoom', async () => {
     const airportWithPrayerRoom: any = {
       ...mockedAirports[0],
       facilities: {
@@ -721,16 +721,16 @@ describe('useAirport hook', () => {
       data: [airportWithPrayerRoom],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasPrayerRoom: true })
     })
     expect(result.current.filteredCount).toBe(1)
   })
 
-  it('tests all service filter keywords - hasRestaurants', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all service filter keywords - hasRestaurants', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ hasRestaurants: true })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -739,7 +739,7 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('applies minGoogleRating filter when rating is missing', () => {
+  it('applies minGoogleRating filter when rating is missing', async () => {
     const airportWithoutRating: any = {
       ...mockedAirports[0],
       facilities: { ...mockedAirports[0]?.facilities, googleMapsRating: undefined },
@@ -748,16 +748,16 @@ describe('useAirport hook', () => {
       data: [airportWithoutRating, mockedAirports[1]],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ minGoogleRating: 3.0 })
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
-  it('tests all range filters - elevationFt', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - elevationFt', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ elevationFt: '100-200' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -766,9 +766,9 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('tests all range filters - baggageCapacity', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - baggageCapacity', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ baggageCapacity: '250-350' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -777,9 +777,9 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('tests all range filters - terminalAreaHectares', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - terminalAreaHectares', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ terminalAreaHectares: '1-2' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -788,9 +788,9 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('tests all range filters - airportAreaHectares', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - airportAreaHectares', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ airportAreaHectares: '290-310' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -799,9 +799,9 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('tests all range filters - apronCount', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - apronCount', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ apronCount: '4-5' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -810,9 +810,9 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('tests all range filters - runwayCount', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - runwayCount', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ runwayCount: '2-3' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -821,17 +821,17 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('tests all range filters - towerHeightM', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - towerHeightM', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ towerHeightM: '20-30' })
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
-  it('tests all range filters - parkingCapacityVehicles', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - parkingCapacityVehicles', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ parkingCapacityVehicles: '400-600' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -840,9 +840,9 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('tests all range filters - loungeCount', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - loungeCount', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ loungeCount: '2-3' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -851,9 +851,9 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('tests all range filters - securityQueueTime', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - securityQueueTime', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ securityQueueTime: '8-12' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -862,9 +862,9 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('tests all range filters - checkinTimeAvg', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - checkinTimeAvg', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ checkinTimeAvg: '10-18' })
     })
     expect(result.current.filteredCount).toBe(1)
@@ -873,39 +873,39 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('tests all range filters - destinationCount', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - destinationCount', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ destinationCount: '3-5' })
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
-  it('tests all range filters - destinationCountries', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - destinationCountries', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ destinationCountries: '3-5' })
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
-  it('tests all range filters - domesticConnections', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - domesticConnections', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ domesticConnections: '1-2' })
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
-  it('tests all range filters - internationalConnections', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests all range filters - internationalConnections', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ internationalConnections: '3-4' })
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
-  it('handles range filter with NaN value', () => {
+  it('handles range filter with NaN value', async () => {
     const airportWithNaNValue: any = {
       ...mockedAirports[0],
       infrastructure: { ...mockedAirports[0]?.infrastructure, passengerCapacity: 'invalid' },
@@ -914,32 +914,32 @@ describe('useAirport hook', () => {
       data: [airportWithNaNValue, mockedAirports[1]],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setFilters({ passengerCapacity: '0-2' })
     })
     expect(result.current.filteredCount).toBe(1)
   })
 
-  it('tests search by city', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests search by city', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('honiara')
     })
     expect(result.current.filteredCount).toBe(1)
     expect(result.current.paginatedAirports[0]?.name).toBe('Honiara International Airport')
   })
 
-  it('tests search by country', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('tests search by country', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('solomon')
     })
     expect(result.current.filteredCount).toBe(1)
     expect(result.current.paginatedAirports[0]?.name).toBe('Honiara International Airport')
   })
 
-  it('tests search with exact IATA code match takes precedence', () => {
+  it('tests search with exact IATA code match takes precedence', async () => {
     const airportWithSimilarName: any = {
       ...mockedAirports[0],
       id: '3',
@@ -950,15 +950,15 @@ describe('useAirport hook', () => {
       data: [...mockedAirports, airportWithSimilarName],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('HIR')
     })
     expect(result.current.filteredCount).toBe(1)
     expect(result.current.paginatedAirports[0]?.iataCode).toBe('HIR')
   })
 
-  it('tests search with exact ICAO code match takes precedence', () => {
+  it('tests search with exact ICAO code match takes precedence', async () => {
     const airportWithSimilarName: any = {
       ...mockedAirports[0],
       id: '3',
@@ -969,15 +969,15 @@ describe('useAirport hook', () => {
       data: [...mockedAirports, airportWithSimilarName],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('AGGH')
     })
     expect(result.current.filteredCount).toBe(1)
     expect(result.current.paginatedAirports[0]?.icaoCode).toBe('AGGH')
   })
 
-  it('handles search with missing location data', () => {
+  it('handles search with missing location data', async () => {
     const airportWithMissingLocation: any = {
       ...mockedAirports[0],
       operations: {
@@ -989,8 +989,8 @@ describe('useAirport hook', () => {
       data: [airportWithMissingLocation, mockedAirports[1]],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('Port Moresby')
     })
     expect(result.current.filteredCount).toBe(1)
@@ -999,7 +999,7 @@ describe('useAirport hook', () => {
     )
   })
 
-  it('handles search with missing codes gracefully', () => {
+  it('handles search with missing codes gracefully', async () => {
     const airportWithMissingCodes: any = {
       ...mockedAirports[0],
       iataCode: undefined,
@@ -1009,60 +1009,60 @@ describe('useAirport hook', () => {
       data: [airportWithMissingCodes, mockedAirports[1]],
       isSuccess: true,
     })
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('HIR')
     })
     expect(result.current.filteredCount).toBe(0)
   })
 
-  it('resets page when filters change', () => {
+  it('resets page when filters change', async () => {
     const largeAirportList = generateMockAirports(25)
     useQuery.mockReturnValue({ data: largeAirportList, isLoading: false, isSuccess: true })
-    const { result } = renderHook(() => useAirport())
+    const { result } = await renderHook(() => useAirport())
 
-    act(() => {
+    await act(() => {
       result.current.loadMore()
     })
 
     expect(result.current.paginatedAirports.length).toBe(25)
 
-    act(() => {
+    await act(() => {
       result.current.setFilters({ region: 'OC' })
     })
 
     expect(result.current.paginatedAirports.length).toBeLessThanOrEqual(20)
   })
 
-  it('resets page when search term changes', () => {
+  it('resets page when search term changes', async () => {
     const largeAirportList = generateMockAirports(25)
     useQuery.mockReturnValue({ data: largeAirportList, isLoading: false, isSuccess: true })
-    const { result } = renderHook(() => useAirport())
+    const { result } = await renderHook(() => useAirport())
 
-    act(() => {
+    await act(() => {
       result.current.loadMore()
     })
 
     expect(result.current.paginatedAirports.length).toBe(25)
 
-    act(() => {
+    await act(() => {
       result.current.setSearchTerm('test')
     })
 
     expect(result.current.paginatedAirports.length).toBeLessThanOrEqual(20)
   })
 
-  it('handles empty string search term', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('handles empty string search term', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('')
     })
     expect(result.current.filteredCount).toBe(2)
   })
 
-  it('handles whitespace-only search term', () => {
-    const { result } = renderHook(() => useAirport())
-    act(() => {
+  it('handles whitespace-only search term', async () => {
+    const { result } = await renderHook(() => useAirport())
+    await act(() => {
       result.current.setSearchTerm('   ')
     })
     expect(result.current.filteredCount).toBe(2)
@@ -1073,13 +1073,13 @@ describe('useAirport hook', () => {
 
     mockedDebounce.mockImplementation(value => value)
 
-    const { result } = renderHook(() => useAirport())
+    const { result } = await renderHook(() => useAirport())
 
-    act(() => {
+    await act(() => {
       result.current.setSearchTerm('test')
     })
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(300)
     })
 
@@ -1099,7 +1099,7 @@ describe('useAirportById hook', () => {
       isSuccess: true,
     })
 
-    const { result } = renderHook(() => useAirportById('1'))
+    const { result } = await renderHook(() => useAirportById('1'))
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true))
 
@@ -1108,8 +1108,8 @@ describe('useAirportById hook', () => {
     expect(result.current.isSuccess).toBe(true)
   })
 
-  it('disables the query when id is not provided', () => {
-    renderHook(() => useAirportById(''))
+  it('disables the query when id is not provided', async () => {
+    await renderHook(() => useAirportById(''))
     expect(useQuery).toHaveBeenCalledWith(
       expect.objectContaining({
         enabled: false,
@@ -1128,7 +1128,7 @@ describe('useAirportById hook', () => {
       isSuccess: true,
     })
 
-    const { result } = renderHook(() => useAirportById('2'))
+    const { result } = await renderHook(() => useAirportById('2'))
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true))
 
@@ -1146,7 +1146,7 @@ describe('useAirportById hook', () => {
       isSuccess: true,
     })
 
-    const { result } = renderHook(() => useAirportById('999'))
+    const { result } = await renderHook(() => useAirportById('999'))
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true))
 
@@ -1163,7 +1163,7 @@ describe('useAirportById hook', () => {
       isSuccess: false,
     })
 
-    const { result } = renderHook(() => useAirportById('1'))
+    const { result } = await renderHook(() => useAirportById('1'))
 
     expect(result.current.isError).toBe(true)
     expect(result.current.error).toBe(mockError)
@@ -1178,7 +1178,7 @@ describe('useAirportById hook', () => {
       isSuccess: false,
     })
 
-    const { result } = renderHook(() => useAirportById('1'))
+    const { result } = await renderHook(() => useAirportById('1'))
 
     expect(result.current.isLoading).toBe(true)
     expect(result.current.data).toBe(null)

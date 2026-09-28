@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Facilities } from '@/components/feature/Airport/AirportDetail/Tab/InfrastructureTab/Sections/Facilities'
 import { getLocale } from '@/locales/i18next'
@@ -67,26 +66,26 @@ beforeEach(() => {
 })
 
 describe('Facilities Component', () => {
-  it('should render the section with the correct title', () => {
-    render(<Facilities facilities={mockedFacilities} infrastructure={mockedInfrastructure} />)
+  it('should render the section with the correct title', async () => {
+    await render(<Facilities facilities={mockedFacilities} infrastructure={mockedInfrastructure} />)
     expect(mockedGetLocale).toHaveBeenCalledWith('facilities')
     expect(mockedAirportSectionRow).toHaveBeenCalledWith(
       expect.objectContaining({ title: 'facilities' }),
     )
   })
 
-  it('should render nine row items', () => {
-    render(<Facilities facilities={mockedFacilities} infrastructure={mockedInfrastructure} />)
+  it('should render nine row items', async () => {
+    await render(<Facilities facilities={mockedFacilities} infrastructure={mockedInfrastructure} />)
     expect(mockedAirportRowItem).toHaveBeenCalledTimes(9)
   })
 
-  it('should call formatNumber for parking capacity', () => {
-    render(<Facilities facilities={mockedFacilities} infrastructure={mockedInfrastructure} />)
+  it('should call formatNumber for parking capacity', async () => {
+    await render(<Facilities facilities={mockedFacilities} infrastructure={mockedInfrastructure} />)
     expect(mockedFormatNumber).toHaveBeenCalledWith(40000)
   })
 
-  it('should pass correct props to all AirportRowItems', () => {
-    render(<Facilities facilities={mockedFacilities} infrastructure={mockedInfrastructure} />)
+  it('should pass correct props to all AirportRowItems', async () => {
+    await render(<Facilities facilities={mockedFacilities} infrastructure={mockedInfrastructure} />)
 
     expect(mockedAirportRowItem).toHaveBeenCalledWith(
       expect.objectContaining({ customIcon: 'TowerIcon', label: 'tower', value: 90 }),
@@ -125,9 +124,9 @@ describe('Facilities Component', () => {
     )
   })
 
-  it('should display correct status when booleans are false', () => {
+  it('should display correct status when booleans are false', async () => {
     const falseFacilities = { ...mockedFacilities, hasMetro: false, freeWifi: false }
-    render(<Facilities facilities={falseFacilities} infrastructure={mockedInfrastructure} />)
+    await render(<Facilities facilities={falseFacilities} infrastructure={mockedInfrastructure} />)
 
     expect(mockedAirportRowItem).toHaveBeenCalledWith(
       expect.objectContaining({ label: 'metro', value: 'no' }),
@@ -137,8 +136,8 @@ describe('Facilities Component', () => {
     )
   })
 
-  it('should handle undefined props gracefully', () => {
-    render(<Facilities facilities={undefined as any} infrastructure={undefined as any} />)
+  it('should handle undefined props gracefully', async () => {
+    await render(<Facilities facilities={undefined as any} infrastructure={undefined as any} />)
 
     expect(mockedAirportRowItem).toHaveBeenCalledTimes(9)
     expect(mockedAirportRowItem).toHaveBeenCalledWith(
@@ -151,8 +150,8 @@ describe('Facilities Component', () => {
 })
 
 describe('Facilities Component Snapshot', () => {
-  it('should render the Facilities Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the Facilities Component successfully', async () => {
+    const { toJSON } = await render(
       <Facilities facilities={mockedFacilities} infrastructure={mockedInfrastructure} />,
     )
 

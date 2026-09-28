@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
-import React from 'react'
 
 import { HomeAirportCard } from '@/components/feature/Home/HomeAirportCard'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
@@ -246,8 +245,8 @@ beforeEach(() => {
 })
 
 describe('HomeAirportCard Component', () => {
-  it('renders airport info correctly', () => {
-    const { getByText } = render(<HomeAirportCard airport={mockedAirport} />)
+  it('renders airport info correctly', async () => {
+    const { getByText } = await render(<HomeAirportCard airport={mockedAirport} />)
 
     expect(getByText('IST')).toBeTruthy()
     expect(getByText('LTFM')).toBeTruthy()
@@ -255,11 +254,11 @@ describe('HomeAirportCard Component', () => {
     expect(getByText('Arnavutköy, İstanbul, Turkey, EU')).toBeTruthy()
   })
 
-  it('calls analytics, router and showInterstitialAd on press', () => {
-    const { getByText } = render(<HomeAirportCard airport={mockedAirport} />)
-    const card = getByText('IST').parent?.parent?.parent?.parent as any
+  it('calls analytics, router and showInterstitialAd on press', async () => {
+    const { getByText } = await render(<HomeAirportCard airport={mockedAirport} />)
+    const cardText = getByText('IST')
 
-    fireEvent.press(card)
+    await fireEvent.press(cardText)
 
     expect(AnalyticsService.sendEvent).toHaveBeenCalledWith('airport_card_press', {
       airline_id: '1',
@@ -276,22 +275,22 @@ describe('HomeAirportCard Component', () => {
     expect(mockedShowInterstitialAd).toHaveBeenCalled()
   })
 
-  it('renders images with correct props', () => {
-    const { getAllByTestId } = render(<HomeAirportCard airport={mockedAirport} />)
+  it('renders images with correct props', async () => {
+    const { getAllByTestId } = await render(<HomeAirportCard airport={mockedAirport} />)
     const images = getAllByTestId('mocked-image')
 
     expect(images).toHaveLength(2)
   })
 
-  it('calls useInterstitialAdHandler with correct adUnitId', () => {
-    render(<HomeAirportCard airport={mockedAirport} />)
+  it('calls useInterstitialAdHandler with correct adUnitId', async () => {
+    await render(<HomeAirportCard airport={mockedAirport} />)
 
     expect(mockedUseInterstitialAdHandler).toHaveBeenCalledWith({
       adUnitId: expect.any(String),
     })
   })
 
-  it('handles missing airport data gracefully', () => {
+  it('handles missing airport data gracefully', async () => {
     const incompleteAirport = {
       id: '2',
       name: 'Test Airport',
@@ -307,7 +306,7 @@ describe('HomeAirportCard Component', () => {
       },
     }
 
-    const { getByText } = render(<HomeAirportCard airport={incompleteAirport as any} />)
+    const { getByText } = await render(<HomeAirportCard airport={incompleteAirport as any} />)
 
     expect(getByText('TST')).toBeTruthy()
     expect(getByText('TEST')).toBeTruthy()
@@ -317,8 +316,8 @@ describe('HomeAirportCard Component', () => {
 })
 
 describe('HomeAirportCard Component Snapshot', () => {
-  it('should render the HomeAirportCard Component successfully', () => {
-    const { toJSON } = render(<HomeAirportCard airport={mockedAirport} />)
+  it('should render the HomeAirportCard Component successfully', async () => {
+    const { toJSON } = await render(<HomeAirportCard airport={mockedAirport} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -1,7 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import SettingsPrivacyPolicy from '@/app/(settings)/settings-privacy-policy'
@@ -82,29 +81,29 @@ beforeEach(() => {
 })
 
 describe('SettingsPrivacyPolicy Screen', () => {
-  it('should render privacy policy screen with header and initial state', () => {
-    const { getByTestId, getByText } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it('should render privacy policy screen with header and initial state', async () => {
+    const { getByTestId, getByText } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     expect(getByTestId('safe-layout')).toBeTruthy()
     expect(getByTestId('header-title')).toBeTruthy()
     expect(getByText('Privacy Policy')).toBeTruthy()
   })
 
-  it('should call router.back when back button is pressed', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it('should call router.back when back button is pressed', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const backButton = getByTestId('back-button')
-    fireEvent.press(backButton)
+    await fireEvent.press(backButton)
 
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should render English privacy policy text when locale is en', () => {
+  it('should render English privacy policy text when locale is en', async () => {
     mockedUseLocaleStore.mockReturnValue({
       selectedLocale: 'en',
     })
 
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('Privacy Policy')
@@ -115,7 +114,7 @@ describe('SettingsPrivacyPolicy Screen', () => {
     expect(themedText.props.children).toContain('Use of Information')
   })
 
-  it('should render Turkish privacy policy text when locale is tr', () => {
+  it('should render Turkish privacy policy text when locale is tr', async () => {
     mockedUseLocaleStore.mockReturnValue({
       selectedLocale: 'tr',
     })
@@ -127,7 +126,7 @@ describe('SettingsPrivacyPolicy Screen', () => {
       return translations[key] || key
     })
 
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('Gizlilik Politikası')
@@ -138,28 +137,28 @@ describe('SettingsPrivacyPolicy Screen', () => {
     expect(themedText.props.children).toContain('Bilgilerin Kullanımı')
   })
 
-  it('should display KVKK information in Turkish content', () => {
+  it('should display KVKK information in Turkish content', async () => {
     mockedUseLocaleStore.mockReturnValue({
       selectedLocale: 'tr',
     })
 
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('KVKK')
     expect(themedText.props.children).toContain('6698 sayılı Kişisel Verilerin Korunması Kanunu')
   })
 
-  it('should display contact information', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it('should display contact information', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('avox.aviation@gmail.com')
     expect(themedText.props.children).toContain('+90 xxx xxx xx xx')
   })
 
-  it('should display data collection information', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it('should display data collection information', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('Email address')
@@ -168,8 +167,8 @@ describe('SettingsPrivacyPolicy Screen', () => {
     expect(themedText.props.children).toContain('IP address')
   })
 
-  it('should display user rights information', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it('should display user rights information', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('Right to access')
@@ -177,8 +176,8 @@ describe('SettingsPrivacyPolicy Screen', () => {
     expect(themedText.props.children).toContain('Right to data portability')
   })
 
-  it('should display data security measures', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it('should display data security measures', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('Encryption technologies')
@@ -186,16 +185,16 @@ describe('SettingsPrivacyPolicy Screen', () => {
     expect(themedText.props.children).toContain('Regular security assessments')
   })
 
-  it("should display information about children's privacy", () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it("should display information about children's privacy", async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('children under the age of 13')
     expect(themedText.props.children).toContain('not intended for children')
   })
 
-  it('should display cookie and tracking information', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it('should display cookie and tracking information', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('cookies')
@@ -203,30 +202,30 @@ describe('SettingsPrivacyPolicy Screen', () => {
     expect(themedText.props.children).toContain('Usage analysis')
   })
 
-  it('should work with dark theme', () => {
+  it('should work with dark theme', async () => {
     mockedUseThemeStore.mockReturnValue({
       selectedTheme: 'dark',
     })
 
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     expect(getByTestId('safe-layout')).toBeTruthy()
     expect(getByTestId('themed-text-body1-text-100')).toBeTruthy()
   })
 
-  it('should work with light theme', () => {
+  it('should work with light theme', async () => {
     mockedUseThemeStore.mockReturnValue({
       selectedTheme: 'light',
     })
 
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     expect(getByTestId('safe-layout')).toBeTruthy()
     expect(getByTestId('themed-text-body1-text-100')).toBeTruthy()
   })
 
-  it('should display data sharing information', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it('should display data sharing information', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('Information Sharing')
@@ -234,8 +233,8 @@ describe('SettingsPrivacyPolicy Screen', () => {
     expect(themedText.props.children).toContain('service providers')
   })
 
-  it('should display international data transfer information', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it('should display international data transfer information', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     const themedText = getByTestId('themed-text-body1-text-100')
     expect(themedText.props.children).toContain('International Data Transfer')
@@ -245,8 +244,8 @@ describe('SettingsPrivacyPolicy Screen', () => {
 })
 
 describe('SettingsPrivacyPolicy Screen Snapshot', () => {
-  it('should render the SettingsPrivacyPolicy Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
+  it('should render the SettingsPrivacyPolicy Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<SettingsPrivacyPolicy />)
 
     expect(toJSON()).toMatchSnapshot()
   })

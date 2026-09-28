@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react-native'
 import type { ReactNode } from 'react'
-import React from 'react'
 
 import { AppNavigator } from '@/components/feature/AppNavigator'
 import useThemeStore from '@/store/theme'
@@ -44,16 +43,16 @@ beforeEach(() => {
 })
 
 describe('AppNavigator Component', () => {
-  it('should render only the "index" screen when isAppReady is false', () => {
-    const { getByTestId, queryByTestId } = render(<AppNavigator isAppReady={false} />)
+  it('should render only the "index" screen when isAppReady is false', async () => {
+    const { getByTestId, queryByTestId } = await render(<AppNavigator isAppReady={false} />)
 
     expect(getByTestId('MockedStackScreen-index')).toBeTruthy()
     expect(queryByTestId('MockedStackScreen-(auth)')).toBeNull()
     expect(queryByTestId('MockedStackScreen-(tabs)')).toBeNull()
   })
 
-  it('should render all screens when isAppReady is true', () => {
-    const { getByTestId } = render(<AppNavigator isAppReady />)
+  it('should render all screens when isAppReady is true', async () => {
+    const { getByTestId } = await render(<AppNavigator isAppReady />)
 
     expect(getByTestId('MockedStackScreen-index')).toBeTruthy()
     expect(getByTestId('MockedStackScreen-(auth)')).toBeTruthy()
@@ -74,12 +73,12 @@ describe('AppNavigator Component', () => {
     expect(getByTestId('MockedStackScreen-storybook')).toBeTruthy()
   })
 
-  it('should pass the correct screenOptions prop to the Stack component based on the selected theme', () => {
+  it('should pass the correct screenOptions prop to the Stack component based on the selected theme', async () => {
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'dark' })
 
     const expectedBackgroundColor = themeColors.dark.background.blur
 
-    const { getByTestId } = render(<AppNavigator isAppReady />)
+    const { getByTestId } = await render(<AppNavigator isAppReady />)
 
     const stack = getByTestId('MockedStack')
     const passedOptions = stack.props['data-screenOptions']
@@ -91,8 +90,8 @@ describe('AppNavigator Component', () => {
 })
 
 describe('AppNavigator Component Snapshot', () => {
-  it('should render the AppNavigator Component successfully', () => {
-    const { toJSON } = render(<AppNavigator isAppReady />)
+  it('should render the AppNavigator Component successfully', async () => {
+    const { toJSON } = await render(<AppNavigator isAppReady />)
 
     expect(toJSON()).toMatchSnapshot()
   })

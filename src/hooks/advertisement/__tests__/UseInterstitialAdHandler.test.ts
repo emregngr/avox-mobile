@@ -54,12 +54,14 @@ describe('useInterstitialAdHandler', () => {
       __DEV__ = originalDev
     })
 
-    it('should create, load, and show an ad in a production environment', () => {
+    it('should create, load, and show an ad in a production environment', async () => {
       mockedIsProduction.mockReturnValue(true)
 
-      const { result } = renderHook(() => useInterstitialAdHandler({ adUnitId: mockedAdUnitId }))
+      const { result } = await renderHook(() =>
+        useInterstitialAdHandler({ adUnitId: mockedAdUnitId }),
+      )
 
-      act(() => {
+      await act(() => {
         result.current.showInterstitialAd()
       })
 
@@ -71,7 +73,7 @@ describe('useInterstitialAdHandler', () => {
       )
       expect(mockedInterstitialAdInstance.show).not.toHaveBeenCalled()
 
-      act(() => {
+      await act(() => {
         if (loadedCallback) {
           loadedCallback()
         }
@@ -81,12 +83,14 @@ describe('useInterstitialAdHandler', () => {
     })
   })
 
-  it('should not load an ad in a development environment', () => {
+  it('should not load an ad in a development environment', async () => {
     mockedIsProduction.mockReturnValue(false)
 
-    const { result } = renderHook(() => useInterstitialAdHandler({ adUnitId: mockedAdUnitId }))
+    const { result } = await renderHook(() =>
+      useInterstitialAdHandler({ adUnitId: mockedAdUnitId }),
+    )
 
-    act(() => {
+    await act(() => {
       result.current.showInterstitialAd()
     })
 
@@ -94,12 +98,12 @@ describe('useInterstitialAdHandler', () => {
     expect(mockedInterstitialAdInstance.load).not.toHaveBeenCalled()
   })
 
-  it('should clean up event listeners when the component unmounts', () => {
-    const { result, unmount } = renderHook(() =>
+  it('should clean up event listeners when the component unmounts', async () => {
+    const { result, unmount } = await renderHook(() =>
       useInterstitialAdHandler({ adUnitId: mockedAdUnitId }),
     )
 
-    act(() => {
+    await act(() => {
       result.current.showInterstitialAd()
     })
 
@@ -116,7 +120,7 @@ describe('useInterstitialAdHandler', () => {
       expect.any(Function),
     )
 
-    unmount()
+    await unmount()
 
     expect(mockedUnsubscribeLoaded).toHaveBeenCalledTimes(1)
     expect(mockedUnsubscribeClosed).toHaveBeenCalledTimes(1)

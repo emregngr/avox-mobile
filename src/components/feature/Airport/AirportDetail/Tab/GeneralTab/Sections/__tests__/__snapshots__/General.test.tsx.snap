@@ -9,7 +9,7 @@ exports[`General Component Snapshot should render the General Component successf
   >
     Year of Establishment
     : 
-    1955 (70 years)
+    1955 (71 years)
   </Text>
   <Text
     testID="row-item-account-group-outline"

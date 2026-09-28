@@ -1,7 +1,6 @@
 import { fireEvent, render, within } from '@testing-library/react-native'
 import { router } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import ChooseTheme from '@/app/(account)/choose-theme'
@@ -57,8 +56,8 @@ beforeEach(() => {
 })
 
 describe('ChooseTheme Screen', () => {
-  it('should render theme options correctly', () => {
-    const { getByText, getByTestId } = renderWithSafeAreaProvider(<ChooseTheme />)
+  it('should render theme options correctly', async () => {
+    const { getByText, getByTestId } = await renderWithSafeAreaProvider(<ChooseTheme />)
 
     expect(getByText('chooseTheme')).toBeTruthy()
     expect(getByText('modeSelection')).toBeTruthy()
@@ -69,8 +68,8 @@ describe('ChooseTheme Screen', () => {
     expect(getByText('dark')).toBeTruthy()
   })
 
-  it('should display the correct radio icon for the selected theme', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<ChooseTheme />)
+  it('should display the correct radio icon for the selected theme', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<ChooseTheme />)
 
     const lightThemeItem = getByTestId('theme-item-light')
     const darkThemeItem = getByTestId('theme-item-dark')
@@ -79,9 +78,9 @@ describe('ChooseTheme Screen', () => {
     expect(within(darkThemeItem).getByTestId('mocked-material-community-icon')).toBeTruthy()
   })
 
-  it('should update radio icons when the selected theme is dark', () => {
+  it('should update radio icons when the selected theme is dark', async () => {
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'dark' })
-    const { getByTestId } = renderWithSafeAreaProvider(<ChooseTheme />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<ChooseTheme />)
 
     const lightThemeItem = getByTestId('theme-item-light')
     const darkThemeItem = getByTestId('theme-item-dark')
@@ -91,7 +90,7 @@ describe('ChooseTheme Screen', () => {
   })
 
   it('should call changeTheme and router.back when a new theme is selected', async () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<ChooseTheme />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<ChooseTheme />)
 
     const darkThemeButton = getByTestId('theme-item-dark')
     await fireEvent.press(darkThemeButton)
@@ -102,11 +101,11 @@ describe('ChooseTheme Screen', () => {
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should call router.back when the header back button is pressed', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<ChooseTheme />)
+  it('should call router.back when the header back button is pressed', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<ChooseTheme />)
 
     const backButton = getByTestId('back-button')
-    fireEvent.press(backButton)
+    await fireEvent.press(backButton)
 
     expect(router.back).toHaveBeenCalledTimes(1)
     expect(mockedChangeTheme).not.toHaveBeenCalled()
@@ -114,10 +113,8 @@ describe('ChooseTheme Screen', () => {
 })
 
 describe('ChooseTheme Screen Snapshot', () => {
-  it('should render the ChooseTheme Screen successfully', () => {
-    renderWithSafeAreaProvider(<ChooseTheme />)
-
-    const { toJSON } = renderWithSafeAreaProvider(<ChooseTheme />)
+  it('should render the ChooseTheme Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<ChooseTheme />)
 
     expect(toJSON()).toMatchSnapshot()
   })

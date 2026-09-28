@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`ProfileItem Component Snapshot renders the ProfileItem Component successfully 1`] = `
-[
+<>
   <View
     accessibilityState={
       {
@@ -60,10 +60,10 @@ exports[`ProfileItem Component Snapshot renders the ProfileItem Component succes
       size={24}
       testID="right-icon"
     />
-  </View>,
+  </View>
   <View
     className="border-b border-background-quaternary ml-14"
     testID="separator"
-  />,
-]
+  />
+</>
 `;

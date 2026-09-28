@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router, useLocalSearchParams } from 'expo-router'
-import type React from 'react'
 import type { ReactNode } from 'react'
 import { Platform } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -132,59 +131,59 @@ beforeEach(() => {
 })
 
 describe('Auth Screen', () => {
-  it('should render correctly', () => {
-    const { getByText } = renderWithSafeAreaProvider(<Auth />)
+  it('should render correctly', async () => {
+    const { getByText } = await renderWithSafeAreaProvider(<Auth />)
     expect(getByText('avox')).toBeTruthy()
   })
 
-  it('should handle close button press to home', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Auth />)
-    fireEvent.press(getByTestId('close-button'))
+  it('should handle close button press to home', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Auth />)
+    await fireEvent.press(getByTestId('close-button'))
     expect(router.replace).toHaveBeenCalledWith('/home')
   })
 
-  it('should handle close button press to profile', () => {
+  it('should handle close button press to profile', async () => {
     mockedUseLocalSearchParams.mockReturnValue({ tab: 'profile' })
-    const { getByTestId } = renderWithSafeAreaProvider(<Auth />)
-    fireEvent.press(getByTestId('close-button'))
+    const { getByTestId } = await renderWithSafeAreaProvider(<Auth />)
+    await fireEvent.press(getByTestId('close-button'))
     expect(router.replace).toHaveBeenCalledWith('/profile')
   })
 
   describe('Button Actions', () => {
-    it('should call Google login', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<Auth />)
-      fireEvent.press(getByTestId('google-signin-button'))
+    it('should call Google login', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<Auth />)
+      await fireEvent.press(getByTestId('google-signin-button'))
       expect(mockedLoginWithGoogle).toHaveBeenCalledTimes(1)
     })
 
-    it('should call Apple login on iOS', () => {
+    it('should call Apple login on iOS', async () => {
       Platform.OS = 'ios'
-      const { getByTestId } = renderWithSafeAreaProvider(<Auth />)
-      fireEvent.press(getByTestId('apple-signin-button'))
+      const { getByTestId } = await renderWithSafeAreaProvider(<Auth />)
+      await fireEvent.press(getByTestId('apple-signin-button'))
       expect(mockedLoginWithApple).toHaveBeenCalledTimes(1)
     })
 
-    it('should navigate to login screen', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<Auth />)
-      fireEvent.press(getByTestId('login-button'))
+    it('should navigate to login screen', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<Auth />)
+      await fireEvent.press(getByTestId('login-button'))
       expect(router.navigate).toHaveBeenCalledWith('/login')
     })
 
-    it('should navigate to register screen', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<Auth />)
-      fireEvent.press(getByTestId('register-button'))
+    it('should navigate to register screen', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<Auth />)
+      await fireEvent.press(getByTestId('register-button'))
       expect(router.navigate).toHaveBeenCalledWith('/register')
     })
   })
 
   describe('Pending State', () => {
-    it('should disable all buttons when a login is pending', () => {
+    it('should disable all buttons when a login is pending', async () => {
       mockedUseGoogleLogin.mockReturnValue({
         isPending: true,
         mutateAsync: mockedLoginWithGoogle,
       } as any)
 
-      const { getByTestId } = renderWithSafeAreaProvider(<Auth />)
+      const { getByTestId } = await renderWithSafeAreaProvider(<Auth />)
 
       const appleButton = getByTestId('apple-signin-button')
       const googleButton = getByTestId('google-signin-button')
@@ -200,8 +199,8 @@ describe('Auth Screen', () => {
 })
 
 describe('Auth Screen Snapshot', () => {
-  it('should render the Auth Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Auth />)
+  it('should render the Auth Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Auth />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -1,7 +1,6 @@
 import { act, fireEvent, render, within } from '@testing-library/react-native'
 import { router } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import ChooseLanguageScreen from '@/app/(account)/choose-language'
@@ -62,16 +61,16 @@ beforeEach(() => {
 })
 
 describe('ChooseLanguage Screen', () => {
-  it('should render the list of languages correctly', () => {
-    const { getByText } = renderWithSafeAreaProvider(<ChooseLanguageScreen />)
+  it('should render the list of languages correctly', async () => {
+    const { getByText } = await renderWithSafeAreaProvider(<ChooseLanguageScreen />)
     expect(getByText('Türkçe')).toBeTruthy()
     expect(getByText('English')).toBeTruthy()
   })
 
-  it('should display a checkmark next to the selected language', () => {
+  it('should display a checkmark next to the selected language', async () => {
     mockedUseLocaleStore.mockReturnValue({ selectedLocale: 'tr' })
 
-    const { getByTestId } = renderWithSafeAreaProvider(<ChooseLanguageScreen />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<ChooseLanguageScreen />)
 
     const turkishItem = getByTestId('language-item-tr')
     const englishItem = getByTestId('language-item-en')
@@ -82,11 +81,11 @@ describe('ChooseLanguage Screen', () => {
 
   it('should call changeLocale and router.back when a new language is selected', async () => {
     mockedChangeLocale.mockResolvedValue(undefined)
-    const { getByTestId } = renderWithSafeAreaProvider(<ChooseLanguageScreen />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<ChooseLanguageScreen />)
 
     const turkishButton = getByTestId('language-item-tr')
     await act(async () => {
-      fireEvent.press(turkishButton)
+      await fireEvent.press(turkishButton)
     })
 
     expect(mockedChangeLocale).toHaveBeenCalledWith('tr')
@@ -96,28 +95,28 @@ describe('ChooseLanguage Screen', () => {
   it('should log an error if changing locale fails', async () => {
     const error = new Error('Failed to change locale')
     mockedChangeLocale.mockRejectedValue(error)
-    const { getByTestId } = renderWithSafeAreaProvider(<ChooseLanguageScreen />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<ChooseLanguageScreen />)
 
     const englishButton = getByTestId('language-item-en')
     await act(async () => {
-      fireEvent.press(englishButton)
+      await fireEvent.press(englishButton)
     })
 
     expect(mockedLoggerBreadcrumb).toHaveBeenCalledWith('changeLocaleError', 'error', error)
     expect(router.back).not.toHaveBeenCalled()
   })
 
-  it('should call router.back when the header back button is pressed', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<ChooseLanguageScreen />)
+  it('should call router.back when the header back button is pressed', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<ChooseLanguageScreen />)
     const backButton = getByTestId('back-button')
-    fireEvent.press(backButton)
+    await fireEvent.press(backButton)
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 })
 
 describe('ChooseLanguage Screen Snapshot', () => {
-  it('should render the ChooseLanguage Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<ChooseLanguageScreen />)
+  it('should render the ChooseLanguage Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<ChooseLanguageScreen />)
 
     expect(toJSON()).toMatchSnapshot()
   })

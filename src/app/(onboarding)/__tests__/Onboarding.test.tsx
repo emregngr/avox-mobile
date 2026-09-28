@@ -1,7 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { FlatList } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -107,22 +106,22 @@ beforeEach(() => {
 })
 
 describe('Onboarding Screen', () => {
-  it('should render the first slide and initial state correctly', () => {
-    const { getByText } = renderWithSafeAreaProvider(<Onboarding />)
+  it('should render the first slide and initial state correctly', async () => {
+    const { getByText } = await renderWithSafeAreaProvider(<Onboarding />)
     expect(getByText('Title 1')).toBeTruthy()
     expect(getByText('Continue')).toBeTruthy()
   })
 
-  it('should update component state when scrolled', () => {
-    const { getByTestId, queryAllByText } = renderWithSafeAreaProvider(<Onboarding />)
+  it('should update component state when scrolled', async () => {
+    const { getByTestId, queryAllByText } = await renderWithSafeAreaProvider(<Onboarding />)
 
     const flatList = getByTestId('onboarding-flatlist')
 
-    fireEvent(flatList, 'layout', {
+    await fireEvent(flatList, 'layout', {
       nativeEvent: { layout: { width: ITEM_WIDTH, height: 500 } },
     })
 
-    fireEvent(flatList, 'onMomentumScrollEnd', {
+    await fireEvent(flatList, 'onMomentumScrollEnd', {
       nativeEvent: {
         contentOffset: { x: ITEM_WIDTH * 3 },
         layoutMeasurement: { width: ITEM_WIDTH, height: 500 },
@@ -134,39 +133,39 @@ describe('Onboarding Screen', () => {
     expect(skipButtons.length).toBeGreaterThanOrEqual(1)
   })
 
-  it('should call scrollToIndex when "Continue" is pressed', () => {
+  it('should call scrollToIndex when "Continue" is pressed', async () => {
     const scrollToIndexSpy = jest.spyOn(FlatList.prototype, 'scrollToIndex')
-    const { getByText } = renderWithSafeAreaProvider(<Onboarding />)
+    const { getByText } = await renderWithSafeAreaProvider(<Onboarding />)
 
-    fireEvent.press(getByText('Continue'))
+    await fireEvent.press(getByText('Continue'))
     expect(scrollToIndexSpy).toHaveBeenCalledWith({ animated: true, index: 1 })
     scrollToIndexSpy.mockRestore()
   })
 
-  it('should navigate to home when reaching last slide via continue button', () => {
-    const { getByText } = renderWithSafeAreaProvider(<Onboarding />)
+  it('should navigate to home when reaching last slide via continue button', async () => {
+    const { getByText } = await renderWithSafeAreaProvider(<Onboarding />)
 
-    fireEvent.press(getByText('Continue'))
-    fireEvent.press(getByText('Continue'))
-    fireEvent.press(getByText('Continue'))
-    fireEvent.press(getByText('Skip'))
+    await fireEvent.press(getByText('Continue'))
+    await fireEvent.press(getByText('Continue'))
+    await fireEvent.press(getByText('Continue'))
+    await fireEvent.press(getByText('Skip'))
 
     expect(mockedSetIsOnboardingSeen).toHaveBeenCalledWith(true)
     expect(router.replace).toHaveBeenCalledWith('/home')
   })
 
-  it('should navigate to home when the main button is pressed on the last slide', () => {
-    const { getByTestId, queryAllByText, queryAllByTestId } = renderWithSafeAreaProvider(
+  it('should navigate to home when the main button is pressed on the last slide', async () => {
+    const { getByTestId, queryAllByText, queryAllByTestId } = await renderWithSafeAreaProvider(
       <Onboarding />,
     )
 
     const flatList = getByTestId('onboarding-flatlist')
 
-    fireEvent(flatList, 'layout', {
+    await fireEvent(flatList, 'layout', {
       nativeEvent: { layout: { width: ITEM_WIDTH, height: 500 } },
     })
 
-    fireEvent(flatList, 'onMomentumScrollEnd', {
+    await fireEvent(flatList, 'onMomentumScrollEnd', {
       nativeEvent: {
         contentOffset: { x: ITEM_WIDTH * 1 },
         layoutMeasurement: { width: ITEM_WIDTH, height: 500 },
@@ -174,7 +173,7 @@ describe('Onboarding Screen', () => {
       },
     })
 
-    fireEvent(flatList, 'onMomentumScrollEnd', {
+    await fireEvent(flatList, 'onMomentumScrollEnd', {
       nativeEvent: {
         contentOffset: { x: ITEM_WIDTH * 2 },
         layoutMeasurement: { width: ITEM_WIDTH, height: 500 },
@@ -182,7 +181,7 @@ describe('Onboarding Screen', () => {
       },
     })
 
-    fireEvent(flatList, 'onMomentumScrollEnd', {
+    await fireEvent(flatList, 'onMomentumScrollEnd', {
       nativeEvent: {
         contentOffset: { x: ITEM_WIDTH * 3 },
         layoutMeasurement: { width: ITEM_WIDTH, height: 500 },
@@ -198,7 +197,7 @@ describe('Onboarding Screen', () => {
       if (buttons.length > 0) {
         const lastButton = buttons[buttons.length - 1]
         if (lastButton) {
-          fireEvent.press(lastButton)
+          await fireEvent.press(lastButton)
           buttonPressed = true
           break
         }
@@ -210,7 +209,7 @@ describe('Onboarding Screen', () => {
       if (themedButtons.length > 0) {
         const lastButton = themedButtons[themedButtons.length - 1]
         if (lastButton) {
-          fireEvent.press(lastButton)
+          await fireEvent.press(lastButton)
           buttonPressed = true
         }
       }
@@ -221,7 +220,7 @@ describe('Onboarding Screen', () => {
       if (themedButtonTexts.length > 0) {
         const lastButton = themedButtonTexts[themedButtonTexts.length - 1]
         if (lastButton) {
-          fireEvent.press(lastButton)
+          await fireEvent.press(lastButton)
           buttonPressed = true
         }
       }
@@ -232,7 +231,7 @@ describe('Onboarding Screen', () => {
       if (themedGradientButtons.length > 0) {
         const lastButton = themedGradientButtons[themedGradientButtons.length - 1]
         if (lastButton) {
-          fireEvent.press(lastButton)
+          await fireEvent.press(lastButton)
           buttonPressed = true
         }
       }
@@ -243,28 +242,28 @@ describe('Onboarding Screen', () => {
     expect(router.replace).toHaveBeenCalledWith('/home')
   })
 
-  it('should navigate to home when the top "Skip" button is pressed', () => {
-    const { getAllByText } = renderWithSafeAreaProvider(<Onboarding />)
+  it('should navigate to home when the top "Skip" button is pressed', async () => {
+    const { getAllByText } = await renderWithSafeAreaProvider(<Onboarding />)
 
     const skipButtons = getAllByText('Skip')
     const topSkipButton = skipButtons[0] as any
 
-    fireEvent.press(topSkipButton)
+    await fireEvent.press(topSkipButton)
     expect(mockedSetIsOnboardingSeen).toHaveBeenCalledWith(true)
     expect(router.replace).toHaveBeenCalledWith('/home')
   })
 
-  it('should change button text on last slide', () => {
-    const { getByTestId, queryByText } = renderWithSafeAreaProvider(<Onboarding />)
+  it('should change button text on last slide', async () => {
+    const { getByTestId, queryByText } = await renderWithSafeAreaProvider(<Onboarding />)
     const flatList = getByTestId('onboarding-flatlist')
 
-    fireEvent(flatList, 'layout', {
+    await fireEvent(flatList, 'layout', {
       nativeEvent: { layout: { width: ITEM_WIDTH, height: 500 } },
     })
 
     expect(queryByText('Continue')).toBeTruthy()
 
-    fireEvent(flatList, 'onMomentumScrollEnd', {
+    await fireEvent(flatList, 'onMomentumScrollEnd', {
       nativeEvent: {
         contentOffset: { x: ITEM_WIDTH * 3 },
         layoutMeasurement: { width: ITEM_WIDTH, height: 500 },
@@ -275,8 +274,8 @@ describe('Onboarding Screen', () => {
 })
 
 describe('Onboarding Screen Snapshot', () => {
-  it('should render the Onboarding Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Onboarding />)
+  it('should render the Onboarding Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Onboarding />)
 
     expect(toJSON()).toMatchSnapshot()
   })

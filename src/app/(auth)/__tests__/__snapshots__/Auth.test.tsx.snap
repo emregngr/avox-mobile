@@ -70,11 +70,7 @@ exports[`Auth Screen Snapshot should render the Auth Screen successfully 1`] = `
         <View
           cachePolicy="memory-disk"
           contentFit="contain"
-          source={
-            {
-              "default": "mocked-test-file",
-            }
-          }
+          source="mocked-test-file"
           style={
             {
               "borderRadius": 75,

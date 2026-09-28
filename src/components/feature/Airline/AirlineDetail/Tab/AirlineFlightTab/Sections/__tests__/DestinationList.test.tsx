@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { DestinationList } from '@/components/feature/Airline/AirlineDetail/Tab/AirlineFlightTab/Sections/DestinationList'
 
@@ -40,23 +39,23 @@ const mockedDefaultProps = {
 }
 
 describe('DestinationList Component', () => {
-  it('should pass the correct title to AirlineSectionRow', () => {
-    const { getByTestId } = render(<DestinationList {...mockedDefaultProps} />)
+  it('should pass the correct title to AirlineSectionRow', async () => {
+    const { getByTestId } = await render(<DestinationList {...mockedDefaultProps} />)
 
     const sectionRow = getByTestId('mocked-section-row')
     expect(sectionRow.props.title).toBe(mockedDefaultProps.title)
   })
 
-  it('should render a DestinationRowCard for each destination', () => {
-    const { getAllByTestId } = render(<DestinationList {...mockedDefaultProps} />)
+  it('should render a DestinationRowCard for each destination', async () => {
+    const { getAllByTestId } = await render(<DestinationList {...mockedDefaultProps} />)
 
     const destinationCards = getAllByTestId('mocked-destination-card')
     expect(destinationCards.length).toBe(mockedDefaultProps.destinations.length)
     expect(mockedDestinationRowCard).toHaveBeenCalledTimes(mockedDefaultProps.destinations.length)
   })
 
-  it('should pass correct props to each DestinationRowCard', () => {
-    render(<DestinationList {...mockedDefaultProps} />)
+  it('should pass correct props to each DestinationRowCard', async () => {
+    await render(<DestinationList {...mockedDefaultProps} />)
 
     expect(mockedDestinationRowCard).toHaveBeenNthCalledWith(
       1,
@@ -83,8 +82,8 @@ describe('DestinationList Component', () => {
     )
   })
 
-  it('should render nothing inside the list when destinations array is empty', () => {
-    const { queryAllByTestId } = render(
+  it('should render nothing inside the list when destinations array is empty', async () => {
+    const { queryAllByTestId } = await render(
       <DestinationList {...mockedDefaultProps} destinations={[]} />,
     )
     const destinationCards = queryAllByTestId('mocked-destination-card')
@@ -92,22 +91,22 @@ describe('DestinationList Component', () => {
     expect(mockedDestinationRowCard).not.toHaveBeenCalled()
   })
 
-  it('should handle undefined or null destinations prop gracefully', () => {
-    const { rerender, queryAllByTestId } = render(
+  it('should handle undefined or null destinations prop gracefully', async () => {
+    const { rerender, queryAllByTestId } = await render(
       <DestinationList {...mockedDefaultProps} destinations={undefined as any} />,
     )
     expect(queryAllByTestId('mocked-destination-card').length).toBe(0)
     expect(mockedDestinationRowCard).not.toHaveBeenCalled()
 
-    rerender(<DestinationList {...mockedDefaultProps} destinations={null as any} />)
+    await rerender(<DestinationList {...mockedDefaultProps} destinations={null as any} />)
     expect(queryAllByTestId('mocked-destination-card').length).toBe(0)
     expect(mockedDestinationRowCard).not.toHaveBeenCalled()
   })
 })
 
 describe('DestinationList Component Snapshot', () => {
-  it('should render the DestinationList Component successfully', () => {
-    const { toJSON } = render(<DestinationList {...mockedDefaultProps} />)
+  it('should render the DestinationList Component successfully', async () => {
+    const { toJSON } = await render(<DestinationList {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -15,35 +15,35 @@ jest.mock('@/utils/common/logger')
 const mockedLoggerBreadcrumb = Logger.breadcrumb as jest.MockedFunction<typeof Logger.breadcrumb>
 
 describe('useNotificationSetup', () => {
-  it('should set up all notification handlers on mount', () => {
-    renderHook(() => useNotificationSetup())
+  it('should set up all notification handlers on mount', async () => {
+    await renderHook(() => useNotificationSetup())
 
     expect(setBackgroundMessageHandler).toHaveBeenCalledTimes(1)
     expect(onMessage).toHaveBeenCalledTimes(1)
     expect(onNotificationOpenedApp).toHaveBeenCalledTimes(1)
   })
 
-  it('should call the cleanup functions on unmount', () => {
+  it('should call the cleanup functions on unmount', async () => {
     const mockedUnsubscribeMessage = jest.fn()
     const mockedUnsubscribeNotificationOpened = jest.fn()
     onMessage.mockReturnValue(mockedUnsubscribeMessage)
     onNotificationOpenedApp.mockReturnValue(mockedUnsubscribeNotificationOpened)
 
-    const { unmount } = renderHook(() => useNotificationSetup())
+    const { unmount } = await renderHook(() => useNotificationSetup())
 
-    unmount()
+    await unmount()
 
     expect(mockedUnsubscribeMessage).toHaveBeenCalledTimes(1)
     expect(mockedUnsubscribeNotificationOpened).toHaveBeenCalledTimes(1)
   })
 
-  it('should handle a foreground message correctly', () => {
-    renderHook(() => useNotificationSetup())
+  it('should handle a foreground message correctly', async () => {
+    await renderHook(() => useNotificationSetup())
 
     const onMessageCallback = onMessage.mock.calls[0][1]
     const mockMessage = { data: { info: 'Foreground Test' } }
 
-    act(() => {
+    await act(() => {
       onMessageCallback(mockMessage)
     })
 
@@ -54,8 +54,8 @@ describe('useNotificationSetup', () => {
     )
   })
 
-  it('should navigate to airline details when an airline notification is opened', () => {
-    renderHook(() => useNotificationSetup())
+  it('should navigate to airline details when an airline notification is opened', async () => {
+    await renderHook(() => useNotificationSetup())
 
     const onNotificationOpenedCallback = onNotificationOpenedApp.mock.calls[0][1]
     const mockNotification = {
@@ -65,7 +65,7 @@ describe('useNotificationSetup', () => {
       },
     }
 
-    act(() => {
+    await act(() => {
       onNotificationOpenedCallback(mockNotification)
     })
 
@@ -81,8 +81,8 @@ describe('useNotificationSetup', () => {
     })
   })
 
-  it('should navigate to airport details when an airport notification is opened', () => {
-    renderHook(() => useNotificationSetup())
+  it('should navigate to airport details when an airport notification is opened', async () => {
+    await renderHook(() => useNotificationSetup())
 
     const onNotificationOpenedCallback = onNotificationOpenedApp.mock.calls[0][1]
     const mockNotification = {
@@ -92,7 +92,7 @@ describe('useNotificationSetup', () => {
       },
     }
 
-    act(() => {
+    await act(() => {
       onNotificationOpenedCallback(mockNotification)
     })
 
@@ -108,8 +108,8 @@ describe('useNotificationSetup', () => {
     })
   })
 
-  it('should not navigate if notification data is missing type or id', () => {
-    renderHook(() => useNotificationSetup())
+  it('should not navigate if notification data is missing type or id', async () => {
+    await renderHook(() => useNotificationSetup())
 
     const onNotificationOpenedCallback = onNotificationOpenedApp.mock.calls[0][1]
     const mockNotification = {
@@ -118,22 +118,22 @@ describe('useNotificationSetup', () => {
       },
     }
 
-    act(() => {
+    await act(() => {
       onNotificationOpenedCallback(mockNotification)
     })
 
     expect(router.replace).not.toHaveBeenCalled()
   })
 
-  it('should log an error if notification setup fails', () => {
+  it('should log an error if notification setup fails', async () => {
     const setupError = new Error('Firebase init failed')
     setBackgroundMessageHandler.mockImplementation(() => {
       throw setupError
     })
 
-    const { unmount } = renderHook(() => useNotificationSetup())
+    const { unmount } = await renderHook(() => useNotificationSetup())
 
-    unmount()
+    await unmount()
 
     expect(mockedLoggerBreadcrumb).toHaveBeenCalledWith(
       'Failed to setup notifications',

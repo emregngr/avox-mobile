@@ -4,11 +4,7 @@ exports[`TokenExpire Screen Snapshot should render the TokenExpire Screen succes
 <View
   cachePolicy="memory-disk"
   contentFit="contain"
-  source={
-    {
-      "default": "mocked-test-file",
-    }
-  }
+  source="mocked-test-file"
   style={
     {
       "height": 1334,

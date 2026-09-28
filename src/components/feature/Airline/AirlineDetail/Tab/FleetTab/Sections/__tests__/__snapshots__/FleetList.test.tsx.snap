@@ -40,7 +40,7 @@ exports[`FleetList Component Snapshot should render the FleetList Component succ
   showsVerticalScrollIndicator={false}
   stickyHeaderIndices={[]}
   testID="fleet-list"
-  updateCellsBatchingPeriod={150}
+  updateCellsBatchingPeriod={100}
   viewabilityConfigCallbackPairs={[]}
   windowSize={7}
 >

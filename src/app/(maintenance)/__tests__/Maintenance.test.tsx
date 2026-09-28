@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react-native'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import Maintenance from '@/app/(maintenance)/maintenance'
@@ -33,7 +32,7 @@ const renderWithSafeAreaProvider = (component: ReactNode) =>
   )
 
 describe('Maintenance Screen', () => {
-  it('should render the icon, title, and maintenance text correctly', () => {
+  it('should render the icon, title, and maintenance text correctly', async () => {
     const mockedTitle = 'Application Title'
     const mockedMaintenanceText =
       'The application is currently under maintenance. Please try again later.'
@@ -46,7 +45,7 @@ describe('Maintenance Screen', () => {
       return translations[key] || key
     })
 
-    const { getByText, getByTestId } = renderWithSafeAreaProvider(<Maintenance />)
+    const { getByText, getByTestId } = await renderWithSafeAreaProvider(<Maintenance />)
 
     expect(getByText(mockedTitle)).toBeTruthy()
     expect(getByText(mockedMaintenanceText)).toBeTruthy()
@@ -61,8 +60,8 @@ describe('Maintenance Screen', () => {
 })
 
 describe('Maintenance Screen Snapshot', () => {
-  it('should render the Maintenance Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Maintenance />)
+  it('should render the Maintenance Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Maintenance />)
 
     expect(toJSON()).toMatchSnapshot()
   })

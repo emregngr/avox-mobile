@@ -53,8 +53,8 @@ beforeEach(() => {
 })
 
 describe('WebViewModal Screen', () => {
-  it('should render the title and WebView with the correct URL', () => {
-    renderWithSafeAreaProvider(<WebViewModal />)
+  it('should render the title and WebView with the correct URL', async () => {
+    await renderWithSafeAreaProvider(<WebViewModal />)
 
     expect(screen.getByText(mockedTitle)).toBeTruthy()
 
@@ -62,23 +62,23 @@ describe('WebViewModal Screen', () => {
     expect(webView.props.source.uri).toBe(mockedUrl)
   })
 
-  it('should call router.back() when the close button is pressed', () => {
-    renderWithSafeAreaProvider(<WebViewModal />)
+  it('should call router.back() when the close button is pressed', async () => {
+    await renderWithSafeAreaProvider(<WebViewModal />)
 
     const closeButton = screen.getByTestId('close-button')
 
-    fireEvent.press(closeButton)
+    await fireEvent.press(closeButton)
 
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should render correctly even if params are undefined', () => {
+  it('should render correctly even if params are undefined', async () => {
     useLocalSearchParams.mockReturnValue({
       title: undefined,
       webViewUrl: undefined,
     })
 
-    renderWithSafeAreaProvider(<WebViewModal />)
+    await renderWithSafeAreaProvider(<WebViewModal />)
 
     expect(screen.queryByText(mockedTitle)).toBeNull()
 
@@ -88,8 +88,8 @@ describe('WebViewModal Screen', () => {
 })
 
 describe('WebViewModal Screen Snapshot', () => {
-  it('should render the WebViewModal Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<WebViewModal />)
+  it('should render the WebViewModal Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<WebViewModal />)
 
     expect(toJSON()).toMatchSnapshot()
   })

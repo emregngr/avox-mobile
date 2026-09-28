@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { AirportHeader } from '@/components/feature/Airport/AirportDetail/AirportHeader'
 import { getLocale } from '@/locales/i18next'
@@ -66,8 +65,8 @@ beforeEach(() => {
 })
 
 describe('AirportHeader Component', () => {
-  it('should render IATA, ICAO, country, region, and continent correctly', () => {
-    const { getByText } = render(<AirportHeader airportData={mockedAirportData} />)
+  it('should render IATA, ICAO, country, region, and continent correctly', async () => {
+    const { getByText } = await render(<AirportHeader airportData={mockedAirportData} />)
 
     expect(getByText('iata')).toBeTruthy()
     expect(getByText('icao')).toBeTruthy()
@@ -82,26 +81,28 @@ describe('AirportHeader Component', () => {
     expect(getByText('Europe')).toBeTruthy()
   })
 
-  it('should render the address correctly', () => {
-    const { getByText } = render(<AirportHeader airportData={mockedAirportData} />)
+  it('should render the address correctly', async () => {
+    const { getByText } = await render(<AirportHeader airportData={mockedAirportData} />)
 
     expect(getByText('123 Test St, Test City')).toBeTruthy()
   })
 
-  it('should render the location icon', () => {
-    const { getByTestId } = render(<AirportHeader airportData={mockedAirportData} />)
+  it('should render the location icon', async () => {
+    const { getByTestId } = await render(<AirportHeader airportData={mockedAirportData} />)
 
     expect(getByTestId('mocked-material-community-icon')).toBeTruthy()
   })
 
-  it('should handle missing address data gracefully', () => {
-    const { queryByText } = render(<AirportHeader airportData={mockedAirportDataWithoutAddress} />)
+  it('should handle missing address data gracefully', async () => {
+    const { queryByText } = await render(
+      <AirportHeader airportData={mockedAirportDataWithoutAddress} />,
+    )
 
     expect(queryByText('123 Test St, Test City')).toBeNull()
   })
 
-  it('should apply a background class based on the region', () => {
-    const { toJSON } = render(<AirportHeader airportData={mockedAirportData} />)
+  it('should apply a background class based on the region', async () => {
+    const { toJSON } = await render(<AirportHeader airportData={mockedAirportData} />)
     const tree = toJSON()
 
     if (tree && !Array.isArray(tree)) {
@@ -113,16 +114,16 @@ describe('AirportHeader Component', () => {
 })
 
 describe('AirportHeader Component Snapshot', () => {
-  it('should render the AirportHeader Component successfully', () => {
-    const { toJSON } = render(<AirportHeader airportData={mockedAirportData} />)
+  it('should render the AirportHeader Component successfully', async () => {
+    const { toJSON } = await render(<AirportHeader airportData={mockedAirportData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })
 })
 
 describe('AirportHeader Component Snapshot', () => {
-  it('should render the AirportHeader Component with missing address data successfully', () => {
-    const { toJSON } = render(<AirportHeader airportData={mockedAirportDataWithoutAddress} />)
+  it('should render the AirportHeader Component with missing address data successfully', async () => {
+    const { toJSON } = await render(<AirportHeader airportData={mockedAirportDataWithoutAddress} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

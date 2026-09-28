@@ -56,11 +56,7 @@ exports[`Airport Component Snapshot should render the Airport Component successf
     <View
       cachePolicy="memory-disk"
       contentFit="contain"
-      source={
-        {
-          "default": "mocked-test-file",
-        }
-      }
+      source="mocked-test-file"
       style={
         {
           "height": 40,
@@ -95,7 +91,9 @@ exports[`Airport Component Snapshot should render the Airport Component successf
         LTFM
       </Text>
     </View>
-    FavoriteButton-1
+    <Text>
+      FavoriteButton-1
+    </Text>
   </View>
   <View
     className="px-3 py-3"

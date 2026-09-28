@@ -53,7 +53,7 @@ exports[`BreakingNewsDetail Screen Snapshot should render the BreakingNewsDetail
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     indicatorStyle="black"

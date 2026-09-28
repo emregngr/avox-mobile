@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import * as Linking from 'expo-linking'
-import React from 'react'
 
 import { SocialMedia } from '@/components/feature/Airline/AirlineDetail/Tab/CompanyTab/Sections/SocialMedia'
 import useLocaleStore from '@/store/locale'
@@ -76,8 +75,8 @@ beforeEach(() => {
 })
 
 describe('SocialMedia Component', () => {
-  it('renders all social media icons when all URLs are provided', () => {
-    const { getByTestId } = render(<SocialMedia companyInfo={mockedCompanyInfo} />)
+  it('renders all social media icons when all URLs are provided', async () => {
+    const { getByTestId } = await render(<SocialMedia companyInfo={mockedCompanyInfo} />)
 
     expect(getByTestId('Instagram')).toBeTruthy()
     expect(getByTestId('Linkedin')).toBeTruthy()
@@ -85,24 +84,24 @@ describe('SocialMedia Component', () => {
     expect(getByTestId('X')).toBeTruthy()
   })
 
-  it('opens correct URL when an icon is pressed', () => {
-    const { getByTestId } = render(<SocialMedia companyInfo={mockedCompanyInfo} />)
+  it('opens correct URL when an icon is pressed', async () => {
+    const { getByTestId } = await render(<SocialMedia companyInfo={mockedCompanyInfo} />)
 
-    fireEvent.press(getByTestId('Instagram'))
+    await fireEvent.press(getByTestId('Instagram'))
     expect(Linking.openURL).toHaveBeenCalledWith('https://instagram.com/test')
 
-    fireEvent.press(getByTestId('Linkedin'))
+    await fireEvent.press(getByTestId('Linkedin'))
     expect(Linking.openURL).toHaveBeenCalledWith('https://linkedin.com/test')
 
-    fireEvent.press(getByTestId('Tiktok'))
+    await fireEvent.press(getByTestId('Tiktok'))
     expect(Linking.openURL).toHaveBeenCalledWith('https://tiktok.com/@test')
 
-    fireEvent.press(getByTestId('X'))
+    await fireEvent.press(getByTestId('X'))
     expect(Linking.openURL).toHaveBeenCalledWith('https://x.com/test')
   })
 
-  it('renders nothing when no social media is provided', () => {
-    const { queryByTestId } = render(<SocialMedia companyInfo={{ socialMedia: {} } as any} />)
+  it('renders nothing when no social media is provided', async () => {
+    const { queryByTestId } = await render(<SocialMedia companyInfo={{ socialMedia: {} } as any} />)
 
     expect(queryByTestId('Instagram')).toBeNull()
     expect(queryByTestId('Linkedin')).toBeNull()
@@ -110,7 +109,7 @@ describe('SocialMedia Component', () => {
     expect(queryByTestId('X')).toBeNull()
   })
 
-  it('only renders icons for provided social media URLs', () => {
+  it('only renders icons for provided social media URLs', async () => {
     const partialCompanyInfo: any = {
       socialMedia: {
         instagram: 'https://instagram.com/test',
@@ -118,7 +117,9 @@ describe('SocialMedia Component', () => {
       },
     }
 
-    const { getByTestId, queryByTestId } = render(<SocialMedia companyInfo={partialCompanyInfo} />)
+    const { getByTestId, queryByTestId } = await render(
+      <SocialMedia companyInfo={partialCompanyInfo} />,
+    )
 
     expect(getByTestId('Instagram')).toBeTruthy()
     expect(getByTestId('X')).toBeTruthy()
@@ -126,8 +127,8 @@ describe('SocialMedia Component', () => {
     expect(queryByTestId('Tiktok')).toBeNull()
   })
 
-  it('handles undefined companyInfo gracefully', () => {
-    const { queryByTestId } = render(<SocialMedia companyInfo={undefined as any} />)
+  it('handles undefined companyInfo gracefully', async () => {
+    const { queryByTestId } = await render(<SocialMedia companyInfo={undefined as any} />)
 
     expect(queryByTestId('Instagram')).toBeNull()
     expect(queryByTestId('Linkedin')).toBeNull()
@@ -137,8 +138,8 @@ describe('SocialMedia Component', () => {
 })
 
 describe('SocialMedia Component Snapshot', () => {
-  it('should render the SocialMedia Component successfully', () => {
-    const { toJSON } = render(<SocialMedia companyInfo={mockedCompanyInfo} />)
+  it('should render the SocialMedia Component successfully', async () => {
+    const { toJSON } = await render(<SocialMedia companyInfo={mockedCompanyInfo} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

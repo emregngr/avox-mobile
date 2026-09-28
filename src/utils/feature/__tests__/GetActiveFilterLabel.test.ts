@@ -52,16 +52,16 @@ beforeEach(() => {
 
 describe('getActiveFilterLabel', () => {
   describe('rating filters', () => {
-    it('should format minGoogleRating correctly', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should format minGoogleRating correctly', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('minGoogleRating', 4)).toBe('Google Rating: 4+')
       expect(getLabel('minGoogleRating', 3.5)).toBe('Google Rating: 3.5+')
     })
 
-    it('should format minSkytraxRating correctly', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should format minSkytraxRating correctly', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('minSkytraxRating', 5)).toBe('Skytrax Rating: 5+')
@@ -70,8 +70,8 @@ describe('getActiveFilterLabel', () => {
   })
 
   describe('boolean filters', () => {
-    it('should return correct labels for true boolean values', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should return correct labels for true boolean values', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('freeWifi', true)).toBe('Free WiFi')
@@ -87,16 +87,16 @@ describe('getActiveFilterLabel', () => {
       expect(getLabel('is24Hour', true)).toBe('Open 24 Hours')
     })
 
-    it('should return correct labels for "true" string values', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should return correct labels for "true" string values', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('freeWifi', 'true')).toBe('Free WiFi')
       expect(getLabel('hasCarRental', 'true')).toBe('Car Rental')
     })
 
-    it('should return undefined for false boolean values', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should return undefined for false boolean values', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('freeWifi', false)).toBeUndefined()
@@ -105,8 +105,8 @@ describe('getActiveFilterLabel', () => {
   })
 
   describe('filter label map options', () => {
-    it('should return correct labels for continent filter', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should return correct labels for continent filter', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('continent', 'europe')).toBe('Europe')
@@ -114,8 +114,8 @@ describe('getActiveFilterLabel', () => {
       expect(getLabel('continent', 'america')).toBe('America')
     })
 
-    it('should return correct labels for country filter', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should return correct labels for country filter', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('country', 'turkey')).toBe('Turkey')
@@ -123,16 +123,16 @@ describe('getActiveFilterLabel', () => {
       expect(getLabel('country', 'germany')).toBe('Germany')
     })
 
-    it('should return correct labels for airportType filter', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should return correct labels for airportType filter', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('airportType', 'international')).toBe('International')
       expect(getLabel('airportType', 'domestic')).toBe('Domestic')
     })
 
-    it('should handle case-insensitive string matching', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should handle case-insensitive string matching', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('continent', 'EUROPE')).toBe('Europe')
@@ -142,23 +142,23 @@ describe('getActiveFilterLabel', () => {
   })
 
   describe('edge cases', () => {
-    it('should return undefined for unknown keys', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should return undefined for unknown keys', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('unknownKey', 'someValue')).toBeUndefined()
     })
 
-    it('should return undefined for unknown values in existing keys', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should return undefined for unknown values in existing keys', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('continent', 'unknownContinent')).toBeUndefined()
       expect(getLabel('country', 'unknownCountry')).toBeUndefined()
     })
 
-    it('should handle empty values', () => {
-      const { result } = renderHook(() => getActiveFilterLabel())
+    it('should handle empty values', async () => {
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('continent', '')).toBeUndefined()
@@ -166,7 +166,7 @@ describe('getActiveFilterLabel', () => {
       expect(getLabel('continent', undefined)).toBeUndefined()
     })
 
-    it('should handle numeric values correctly', () => {
+    it('should handle numeric values correctly', async () => {
       mockedGetFilterLabelMap.mockReturnValue({
         ...mockedGetFilterLabelMap(),
         numericFilter: [
@@ -175,7 +175,7 @@ describe('getActiveFilterLabel', () => {
         ],
       })
 
-      const { result } = renderHook(() => getActiveFilterLabel())
+      const { result } = await renderHook(() => getActiveFilterLabel())
       const getLabel = result.current
 
       expect(getLabel('numericFilter', 1)).toBe('Option 1')
@@ -184,11 +184,11 @@ describe('getActiveFilterLabel', () => {
   })
 
   describe('memoization', () => {
-    it('should return the same function reference on re-renders', () => {
-      const { result, rerender } = renderHook(() => getActiveFilterLabel())
+    it('should return the same function reference on re-renders', async () => {
+      const { result, rerender } = await renderHook(() => getActiveFilterLabel())
       const firstFunction = result.current
 
-      rerender({})
+      await rerender({})
 
       const secondFunction = result.current
 
@@ -197,14 +197,14 @@ describe('getActiveFilterLabel', () => {
   })
 
   describe('mock verification', () => {
-    it('should call getFilterLabelMap once during hook initialization', () => {
-      renderHook(() => getActiveFilterLabel())
+    it('should call getFilterLabelMap once during hook initialization', async () => {
+      await renderHook(() => getActiveFilterLabel())
 
       expect(mockedGetFilterLabelMap).toHaveBeenCalledTimes(1)
     })
 
-    it('should call getLocale for each boolean label key', () => {
-      renderHook(() => getActiveFilterLabel())
+    it('should call getLocale for each boolean label key', async () => {
+      await renderHook(() => getActiveFilterLabel())
 
       const expectedCalls = [
         'freeWifi',

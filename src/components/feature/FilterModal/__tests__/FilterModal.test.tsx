@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React, { createRef } from 'react'
+import { createRef } from 'react'
 
 import { FilterModal } from '@/components/feature/FilterModal'
 import { getLocale } from '@/locales/i18next'
@@ -259,8 +259,10 @@ const ref = createRef<any>()
 
 describe('FilterModal', () => {
   describe('Rendering Tests', () => {
-    it('should render the FilterModal correctly with default props', () => {
-      const { getByText, getByTestId } = render(<FilterModal {...mockedDefaultProps} ref={ref} />)
+    it('should render the FilterModal correctly with default props', async () => {
+      const { getByText, getByTestId } = await render(
+        <FilterModal {...mockedDefaultProps} ref={ref} />,
+      )
 
       expect(getByText('Filter')).toBeTruthy()
       expect(getByTestId('filter-close-button')).toBeTruthy()
@@ -268,8 +270,8 @@ describe('FilterModal', () => {
       expect(getByTestId('filter-apply-button')).toBeTruthy()
     })
 
-    it('should render airport-specific filters when type is airports', () => {
-      const { getByTestId, queryByTestId } = render(
+    it('should render airport-specific filters when type is airports', async () => {
+      const { getByTestId, queryByTestId } = await render(
         <FilterModal {...mockedDefaultProps} ref={ref} type="airports" />,
       )
 
@@ -281,8 +283,8 @@ describe('FilterModal', () => {
       expect(queryByTestId('rating-section-minSkytraxRating')).toBeFalsy()
     })
 
-    it('should render airline-specific filters when type is airlines', () => {
-      const { getByTestId, queryByTestId } = render(
+    it('should render airline-specific filters when type is airlines', async () => {
+      const { getByTestId, queryByTestId } = await render(
         <FilterModal {...mockedDefaultProps} ref={ref} type="airlines" />,
       )
 
@@ -292,8 +294,8 @@ describe('FilterModal', () => {
       expect(queryByTestId('switch-filter-is24Hour')).toBeFalsy()
     })
 
-    it('should render common filters for both types', () => {
-      const { getByTestId } = render(<FilterModal {...mockedDefaultProps} ref={ref} />)
+    it('should render common filters for both types', async () => {
+      const { getByTestId } = await render(<FilterModal {...mockedDefaultProps} ref={ref} />)
 
       expect(getByTestId('filter-section-region')).toBeTruthy()
       expect(getByTestId('filter-section-foundingYear')).toBeTruthy()
@@ -304,85 +306,85 @@ describe('FilterModal', () => {
   })
 
   describe('Filter Interaction Tests', () => {
-    it('should handle single select toggle correctly', () => {
-      const { getByTestId } = render(<FilterModal {...mockedDefaultProps} ref={ref} />)
+    it('should handle single select toggle correctly', async () => {
+      const { getByTestId } = await render(<FilterModal {...mockedDefaultProps} ref={ref} />)
 
       const regionOption = getByTestId('filter-option-region-europe')
-      fireEvent.press(regionOption)
+      await fireEvent.press(regionOption)
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith(
         expect.objectContaining({ region: 'europe' }),
       )
     })
 
-    it('should handle boolean toggle correctly for airports', () => {
-      const { getByTestId } = render(
+    it('should handle boolean toggle correctly for airports', async () => {
+      const { getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} ref={ref} type="airports" />,
       )
 
       const switchButton = getByTestId('switch-is24Hour')
-      fireEvent.press(switchButton)
+      await fireEvent.press(switchButton)
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith(
         expect.objectContaining({ is24Hour: true }),
       )
     })
 
-    it('should handle rating change correctly for airports', () => {
-      const { getByTestId } = render(
+    it('should handle rating change correctly for airports', async () => {
+      const { getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} ref={ref} type="airports" />,
       )
 
       const ratingButton = getByTestId('rating-minGoogleRating-4')
-      fireEvent.press(ratingButton)
+      await fireEvent.press(ratingButton)
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith(
         expect.objectContaining({ minGoogleRating: 4 }),
       )
     })
 
-    it('should handle rating change correctly for airlines', () => {
-      const { getByTestId } = render(
+    it('should handle rating change correctly for airlines', async () => {
+      const { getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} ref={ref} type="airlines" />,
       )
 
       const ratingButton = getByTestId('rating-minSkytraxRating-3')
-      fireEvent.press(ratingButton)
+      await fireEvent.press(ratingButton)
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith(
         expect.objectContaining({ minSkytraxRating: 3 }),
       )
     })
 
-    it('should remove filter when same option is selected twice', () => {
-      const { getByTestId } = render(
+    it('should remove filter when same option is selected twice', async () => {
+      const { getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} currentFilters={{ region: 'europe' }} ref={ref} />,
       )
 
       const regionOption = getByTestId('filter-option-region-europe')
-      fireEvent.press(regionOption)
+      await fireEvent.press(regionOption)
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith({})
     })
   })
 
   describe('Filter Management Tests', () => {
-    it('should clear all filters when clear button is pressed', () => {
+    it('should clear all filters when clear button is pressed', async () => {
       const currentFilters = {
         region: 'europe',
         airportType: 'international',
@@ -390,52 +392,52 @@ describe('FilterModal', () => {
         minGoogleRating: 4,
       }
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} currentFilters={currentFilters} ref={ref} />,
       )
 
       const clearButton = getByTestId('filter-clear-button')
-      fireEvent.press(clearButton)
+      await fireEvent.press(clearButton)
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith({})
     })
 
-    it('should apply filters and close modal when apply button is pressed', () => {
-      const { getByTestId } = render(<FilterModal {...mockedDefaultProps} ref={ref} />)
+    it('should apply filters and close modal when apply button is pressed', async () => {
+      const { getByTestId } = await render(<FilterModal {...mockedDefaultProps} ref={ref} />)
 
       const regionOption = getByTestId('filter-option-region-asia')
-      fireEvent.press(regionOption)
+      await fireEvent.press(regionOption)
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith({ region: 'asia' })
       expect(mockedDefaultProps.onClose).toHaveBeenCalled()
     })
 
-    it('should close modal when close button is pressed', () => {
-      const { getByTestId } = render(<FilterModal {...mockedDefaultProps} ref={ref} />)
+    it('should close modal when close button is pressed', async () => {
+      const { getByTestId } = await render(<FilterModal {...mockedDefaultProps} ref={ref} />)
 
       const closeButton = getByTestId('filter-close-button')
-      fireEvent.press(closeButton)
+      await fireEvent.press(closeButton)
 
       expect(mockedDefaultProps.onClose).toHaveBeenCalled()
     })
   })
 
   describe('Multiple Filter Selection Tests', () => {
-    it('should handle multiple filter selections correctly', () => {
-      const { getByTestId } = render(<FilterModal {...mockedDefaultProps} ref={ref} />)
+    it('should handle multiple filter selections correctly', async () => {
+      const { getByTestId } = await render(<FilterModal {...mockedDefaultProps} ref={ref} />)
 
-      fireEvent.press(getByTestId('filter-option-region-europe'))
-      fireEvent.press(getByTestId('filter-option-foundingYear-1900-1950'))
-      fireEvent.press(getByTestId('filter-option-passengerCapacity-1000000-10000000'))
+      await fireEvent.press(getByTestId('filter-option-region-europe'))
+      await fireEvent.press(getByTestId('filter-option-foundingYear-1900-1950'))
+      await fireEvent.press(getByTestId('filter-option-passengerCapacity-1000000-10000000'))
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith({
         region: 'europe',
@@ -444,16 +446,16 @@ describe('FilterModal', () => {
       })
     })
 
-    it('should maintain existing filters when adding new ones', () => {
+    it('should maintain existing filters when adding new ones', async () => {
       const currentFilters = { region: 'europe', airportType: 'international' }
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} currentFilters={currentFilters} ref={ref} />,
       )
 
-      fireEvent.press(getByTestId('filter-option-foundingYear-1950-2000'))
+      await fireEvent.press(getByTestId('filter-option-foundingYear-1950-2000'))
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith({
         region: 'europe',
@@ -464,69 +466,69 @@ describe('FilterModal', () => {
   })
 
   describe('Props Update Tests', () => {
-    it('should update local filters when currentFilters prop changes', () => {
+    it('should update local filters when currentFilters prop changes', async () => {
       const initialFilters = { region: 'europe' }
-      const { rerender, getByTestId } = render(
+      const { rerender, getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} currentFilters={initialFilters} ref={ref} />,
       )
 
       const newFilters = { region: 'asia', airportType: 'domestic' }
-      rerender(<FilterModal {...mockedDefaultProps} currentFilters={newFilters} ref={ref} />)
+      await rerender(<FilterModal {...mockedDefaultProps} currentFilters={newFilters} ref={ref} />)
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith(newFilters)
     })
   })
 
   describe('Edge Cases', () => {
-    it('should handle empty currentFilters gracefully', () => {
-      const { getByTestId } = render(
+    it('should handle empty currentFilters gracefully', async () => {
+      const { getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} currentFilters={{}} ref={ref} />,
       )
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith({})
     })
 
-    it('should handle undefined currentFilters', () => {
-      const { getByTestId } = render(
+    it('should handle undefined currentFilters', async () => {
+      const { getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} currentFilters={{}} ref={ref} />,
       )
 
       expect(getByTestId('filter-section-region')).toBeTruthy()
     })
 
-    it('should handle null filter values', () => {
+    it('should handle null filter values', async () => {
       const currentFilters = { region: null }
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} currentFilters={currentFilters} ref={ref} />,
       )
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalled()
     })
   })
 
   describe('Complex Filter Scenarios', () => {
-    it('should handle mixed filter types correctly', () => {
-      const { getByTestId } = render(
+    it('should handle mixed filter types correctly', async () => {
+      const { getByTestId } = await render(
         <FilterModal {...mockedDefaultProps} ref={ref} type="airports" />,
       )
 
-      fireEvent.press(getByTestId('filter-option-region-north_america'))
+      await fireEvent.press(getByTestId('filter-option-region-north_america'))
 
-      fireEvent.press(getByTestId('switch-freeWifi'))
+      await fireEvent.press(getByTestId('switch-freeWifi'))
 
-      fireEvent.press(getByTestId('rating-minGoogleRating-5'))
+      await fireEvent.press(getByTestId('rating-minGoogleRating-5'))
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith({
         region: 'north_america',
@@ -535,9 +537,9 @@ describe('FilterModal', () => {
       })
     })
 
-    it('should toggle boolean filters correctly', () => {
+    it('should toggle boolean filters correctly', async () => {
       const currentFilters = { freeWifi: true, hasMetro: true }
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterModal
           {...mockedDefaultProps}
           currentFilters={currentFilters}
@@ -546,10 +548,10 @@ describe('FilterModal', () => {
         />,
       )
 
-      fireEvent.press(getByTestId('switch-freeWifi'))
+      await fireEvent.press(getByTestId('switch-freeWifi'))
 
       const applyButton = getByTestId('filter-apply-button')
-      fireEvent.press(applyButton)
+      await fireEvent.press(applyButton)
 
       expect(mockedDefaultProps.onApply).toHaveBeenCalledWith({
         hasMetro: true,
@@ -559,16 +561,20 @@ describe('FilterModal', () => {
 })
 
 describe('FilterModal Snapshot', () => {
-  it('should render the FilterModal successfully for airports', () => {
+  it('should render the FilterModal successfully for airports', async () => {
     const ref = createRef<any>()
-    const { toJSON } = render(<FilterModal {...mockedDefaultProps} ref={ref} type="airports" />)
+    const { toJSON } = await render(
+      <FilterModal {...mockedDefaultProps} ref={ref} type="airports" />,
+    )
 
     expect(toJSON()).toMatchSnapshot()
   })
 
-  it('should render the FilterModal successfully for airlines', () => {
+  it('should render the FilterModal successfully for airlines', async () => {
     const ref = createRef<any>()
-    const { toJSON } = render(<FilterModal {...mockedDefaultProps} ref={ref} type="airlines" />)
+    const { toJSON } = await render(
+      <FilterModal {...mockedDefaultProps} ref={ref} type="airlines" />,
+    )
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -52,7 +52,7 @@ exports[`UpdateProfile Screen Snapshot should render the UpdateProfile Screen su
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     keyboardDismissMode="on-drag"

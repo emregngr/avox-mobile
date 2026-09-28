@@ -1414,7 +1414,7 @@ exports[`FilterModal Snapshot should render the FilterModal successfully for air
     className="flex-row items-center justify-between px-10 py-4 border-t border-background-quaternary"
     style={
       {
-        "marginBottom": 70,
+        "marginBottom": 20,
       }
     }
   >
@@ -3141,7 +3141,7 @@ exports[`FilterModal Snapshot should render the FilterModal successfully for air
     className="flex-row items-center justify-between px-10 py-4 border-t border-background-quaternary"
     style={
       {
-        "marginBottom": 70,
+        "marginBottom": 20,
       }
     }
   >

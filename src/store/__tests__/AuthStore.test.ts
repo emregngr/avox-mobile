@@ -10,8 +10,8 @@ const mockedStorageDelete = storage.remove as jest.MockedFunction<typeof storage
 
 const mockedStorageSet = storage.set as jest.MockedFunction<typeof storage.set>
 
-beforeEach(() => {
-  act(() => {
+beforeEach(async () => {
+  await act(() => {
     useAuthStore.setState({
       isAuthenticated: false,
       loading: false,
@@ -29,18 +29,18 @@ describe('useAuthStore', () => {
   })
 
   describe('setIsAuthenticated', () => {
-    it('should update isAuthenticated state', () => {
-      act(() => {
+    it('should update isAuthenticated state', async () => {
+      await act(() => {
         useAuthStore.getState().setIsAuthenticated(true)
       })
       expect(useAuthStore.getState().isAuthenticated).toBe(true)
     })
 
-    it('should update isAuthenticated to false', () => {
-      act(() => {
+    it('should update isAuthenticated to false', async () => {
+      await act(() => {
         useAuthStore.getState().setIsAuthenticated(true)
       })
-      act(() => {
+      await act(() => {
         useAuthStore.getState().setIsAuthenticated(false)
       })
       expect(useAuthStore.getState().isAuthenticated).toBe(false)
@@ -48,10 +48,10 @@ describe('useAuthStore', () => {
   })
 
   describe('login', () => {
-    it('should login successfully and store token', () => {
+    it('should login successfully and store token', async () => {
       const mockedToken = 'mocked-token-123'
 
-      act(() => {
+      await act(() => {
         useAuthStore.getState().login({
           email: 'test@example.com',
           password: 'password123',
@@ -66,8 +66,8 @@ describe('useAuthStore', () => {
       expect(state.loading).toBe(false)
     })
 
-    it('should handle login with empty token', () => {
-      act(() => {
+    it('should handle login with empty token', async () => {
+      await act(() => {
         useAuthStore.getState().login({
           email: 'test@example.com',
           password: 'password123',
@@ -81,8 +81,8 @@ describe('useAuthStore', () => {
       expect(state.isAuthenticated).toBe(true)
     })
 
-    it('should set loading state correctly during login', () => {
-      act(() => {
+    it('should set loading state correctly during login', async () => {
+      await act(() => {
         useAuthStore.getState().login({
           email: 'test@example.com',
           password: 'password123',
@@ -97,10 +97,10 @@ describe('useAuthStore', () => {
   })
 
   describe('register', () => {
-    it('should register successfully and store token', () => {
+    it('should register successfully and store token', async () => {
       const mockToken = 'register-token-456'
 
-      act(() => {
+      await act(() => {
         useAuthStore.getState().register({
           email: 'newuser@example.com',
           firstName: 'John',
@@ -119,10 +119,10 @@ describe('useAuthStore', () => {
   })
 
   describe('social', () => {
-    it('should handle social login successfully', () => {
+    it('should handle social login successfully', async () => {
       const mockToken = 'social-token-789'
 
-      act(() => {
+      await act(() => {
         useAuthStore.getState().social({
           provider: 'google',
           token: mockToken,
@@ -138,8 +138,8 @@ describe('useAuthStore', () => {
   })
 
   describe('logout', () => {
-    it('should logout successfully and remove token', () => {
-      act(() => {
+    it('should logout successfully and remove token', async () => {
+      await act(() => {
         useAuthStore.getState().login({
           email: 'test@example.com',
           password: 'password123',
@@ -149,7 +149,7 @@ describe('useAuthStore', () => {
 
       expect(useAuthStore.getState().isAuthenticated).toBe(true)
 
-      act(() => {
+      await act(() => {
         useAuthStore.getState().logout()
       })
 
@@ -162,8 +162,8 @@ describe('useAuthStore', () => {
   })
 
   describe('Storage error handling', () => {
-    it('should handle Storage.set error during login gracefully', () => {
-      act(() => {
+    it('should handle Storage.set error during login gracefully', async () => {
+      await act(() => {
         useAuthStore.getState().login({
           email: 'test@example.com',
           password: 'password123',
@@ -175,8 +175,8 @@ describe('useAuthStore', () => {
       expect(state.loading).toBe(false)
     })
 
-    it('should handle delete error during logout gracefully', () => {
-      act(() => {
+    it('should handle delete error during logout gracefully', async () => {
+      await act(() => {
         useAuthStore.getState().logout()
       })
 

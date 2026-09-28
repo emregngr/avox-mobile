@@ -1,7 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { router } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import UpdateProfile from '@/app/(account)/update-profile'
@@ -52,10 +51,7 @@ jest.mock('@/components/common', () => {
         }) => (
           <View>
             <Text>{label}</Text>
-            <TextInput
-              onBlur={onBlur} onChangeText={onChange} value={value}
-              {...props}
-            />
+            <TextInput onBlur={onBlur} onChangeText={onChange} value={value} {...props} />
             {error ? <Text>{error.message}</Text> : null}
           </View>
         )}
@@ -141,14 +137,14 @@ beforeEach(() => {
 })
 
 describe('UpdateProfile Screen', () => {
-  it('should show loading screen while user profile is loading', () => {
+  it('should show loading screen while user profile is loading', async () => {
     mockedUseGetUser.mockReturnValue({ data: undefined, isLoading: true } as any)
-    const { getByTestId } = renderWithSafeAreaProvider(<UpdateProfile />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<UpdateProfile />)
     expect(getByTestId('full-screen-loading')).toBeTruthy()
   })
 
   it('should populate form fields with user data', async () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<UpdateProfile />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<UpdateProfile />)
     await waitFor(() => {
       expect(getByTestId('firstName').props.value).toBe('John')
       expect(getByTestId('lastName').props.value).toBe('Doe')
@@ -157,7 +153,7 @@ describe('UpdateProfile Screen', () => {
   })
 
   it('should have a disabled submit button when no changes are made', async () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<UpdateProfile />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<UpdateProfile />)
     await waitFor(() => {
       expect(getByTestId('firstName').props.value).toBe('John')
     })
@@ -166,27 +162,27 @@ describe('UpdateProfile Screen', () => {
   })
 
   it('should enable the submit button after a change is made', async () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<UpdateProfile />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<UpdateProfile />)
     const firstNameInput = getByTestId('firstName')
     const submitButton = getByTestId('submit-button')
     await waitFor(() => {
       expect(submitButton.props.accessibilityState.disabled).toBe(true)
     })
-    fireEvent.changeText(firstNameInput, 'Jane')
+    await fireEvent.changeText(firstNameInput, 'Jane')
     await waitFor(() => {
       expect(submitButton.props.accessibilityState.disabled).toBe(false)
     })
   })
 
   it('should call updateUser with correct data on successful submission', async () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<UpdateProfile />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<UpdateProfile />)
     const firstNameInput = getByTestId('firstName')
     const submitButton = getByTestId('submit-button')
     await waitFor(() => {
       expect(getByTestId('firstName').props.value).toBe('John')
     })
-    fireEvent.changeText(firstNameInput, 'Jane')
-    fireEvent.press(submitButton)
+    await fireEvent.changeText(firstNameInput, 'Jane')
+    await fireEvent.press(submitButton)
     await waitFor(() => {
       expect(mockedMutateAsync).toHaveBeenCalledWith({
         email: 'test@example.com',
@@ -196,27 +192,27 @@ describe('UpdateProfile Screen', () => {
     })
   })
 
-  it('should disable the submit button while updating', () => {
+  it('should disable the submit button while updating', async () => {
     mockedUseUpdateUser.mockReturnValue({
       isPending: true,
       mutateAsync: mockedMutateAsync,
     } as any)
-    const { getByTestId } = renderWithSafeAreaProvider(<UpdateProfile />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<UpdateProfile />)
     const submitButton = getByTestId('submit-button')
     expect(submitButton.props.accessibilityState.disabled).toBe(true)
   })
 
-  it('should call router.back when header back button is pressed', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<UpdateProfile />)
+  it('should call router.back when header back button is pressed', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<UpdateProfile />)
     const backButton = getByTestId('back-button')
-    fireEvent.press(backButton)
+    await fireEvent.press(backButton)
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 })
 
 describe('UpdateProfile Screen Snapshot', () => {
-  it('should render the UpdateProfile Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<UpdateProfile />)
+  it('should render the UpdateProfile Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<UpdateProfile />)
 
     expect(toJSON()).toMatchSnapshot()
   })

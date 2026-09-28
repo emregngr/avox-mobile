@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { OnboardingItem } from '@/components/common/OnboardingItem'
 import type { OnboardingType } from '@/types/common/onboarding'
@@ -12,18 +11,18 @@ const mockedItem: OnboardingType = {
 }
 
 describe('OnboardingItem Component', () => {
-  it('renders the title correctly', () => {
-    const { getByText } = render(<OnboardingItem item={mockedItem} />)
+  it('renders the title correctly', async () => {
+    const { getByText } = await render(<OnboardingItem item={mockedItem} />)
     expect(getByText('Welcome to the App')).toBeTruthy()
   })
 
-  it('renders the text correctly', () => {
-    const { getByText } = render(<OnboardingItem item={mockedItem} />)
+  it('renders the text correctly', async () => {
+    const { getByText } = await render(<OnboardingItem item={mockedItem} />)
     expect(getByText('This is the onboarding description text')).toBeTruthy()
   })
 
-  it('renders the image with correct props', () => {
-    const { getByTestId } = render(<OnboardingItem item={mockedItem} />)
+  it('renders the image with correct props', async () => {
+    const { getByTestId } = await render(<OnboardingItem item={mockedItem} />)
     const image = getByTestId('mocked-image')
     expect(image).toBeTruthy()
     expect(image.props.style).toMatchObject({
@@ -35,8 +34,8 @@ describe('OnboardingItem Component', () => {
 })
 
 describe('OnboardingItem Component Snapshot', () => {
-  it('should render the OnboardingItem Component successfully', () => {
-    const { toJSON } = render(<OnboardingItem item={mockedItem} />)
+  it('should render the OnboardingItem Component successfully', async () => {
+    const { toJSON } = await render(<OnboardingItem item={mockedItem} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

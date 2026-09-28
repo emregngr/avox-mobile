@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Runway } from '@/components/feature/Airport/AirportDetail/Tab/InfrastructureTab/Sections/Runway'
 import { getLocale } from '@/locales/i18next'
@@ -61,26 +60,26 @@ beforeEach(() => {
 
 describe('Runway Component', () => {
   describe('When full data is provided', () => {
-    it('should render the section with the correct title', () => {
-      render(<Runway infrastructure={mockedInfrastructure} />)
+    it('should render the section with the correct title', async () => {
+      await render(<Runway infrastructure={mockedInfrastructure} />)
       expect(mockedGetLocale).toHaveBeenCalledWith('trackInformation')
       expect(mockedAirportSectionRow).toHaveBeenCalledWith(
         expect.objectContaining({ title: 'trackInformation' }),
       )
     })
 
-    it('should render five row items', () => {
-      render(<Runway infrastructure={mockedInfrastructure} />)
+    it('should render five row items', async () => {
+      await render(<Runway infrastructure={mockedInfrastructure} />)
       expect(mockedAirportRowItem).toHaveBeenCalledTimes(5)
     })
 
-    it('should call formatNumber for the runway length', () => {
-      render(<Runway infrastructure={mockedInfrastructure} />)
+    it('should call formatNumber for the runway length', async () => {
+      await render(<Runway infrastructure={mockedInfrastructure} />)
       expect(mockedFormatNumber).toHaveBeenCalledWith(4100)
     })
 
-    it('should pass correct props to each AirportRowItem', () => {
-      render(<Runway infrastructure={mockedInfrastructure} />)
+    it('should pass correct props to each AirportRowItem', async () => {
+      await render(<Runway infrastructure={mockedInfrastructure} />)
 
       expect(mockedAirportRowItem).toHaveBeenCalledWith(
         expect.objectContaining({ icon: 'road', label: 'runway', value: 3 }),
@@ -105,15 +104,15 @@ describe('Runway Component', () => {
   })
 
   describe('When data is incomplete', () => {
-    it('should throw an error if infrastructure prop is undefined', () => {
-      expect(() => render(<Runway infrastructure={undefined as any} />)).toThrow(
+    it('should throw an error if infrastructure prop is undefined', async () => {
+      await expect(render(<Runway infrastructure={undefined as any} />)).rejects.toThrow(
         "Cannot read properties of undefined (reading 'ilsCategory')",
       )
     })
 
-    it('should throw an error if the nested runways object is missing', () => {
+    it('should throw an error if the nested runways object is missing', async () => {
       const partialData = { runwayCount: 2 }
-      expect(() => render(<Runway infrastructure={partialData as any} />)).toThrow(
+      await expect(render(<Runway infrastructure={partialData as any} />)).rejects.toThrow(
         "Cannot read properties of undefined (reading 'ilsCategory')",
       )
     })
@@ -121,8 +120,8 @@ describe('Runway Component', () => {
 })
 
 describe('Runway Component Snapshot', () => {
-  it('should render the Runway Component successfully', () => {
-    const { toJSON } = render(<Runway infrastructure={mockedInfrastructure} />)
+  it('should render the Runway Component successfully', async () => {
+    const { toJSON } = await render(<Runway infrastructure={mockedInfrastructure} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

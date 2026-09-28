@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router, useLocalSearchParams } from 'expo-router'
-import type React from 'react'
 import type { ReactNode } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -83,8 +82,8 @@ beforeEach(() => {
 })
 
 describe('TermsOfUse Screen', () => {
-  it('should render correctly and display Turkish text', () => {
-    const { getByText } = renderWithSafeAreaProvider(<TermsOfUse />)
+  it('should render correctly and display Turkish text', async () => {
+    const { getByText } = await renderWithSafeAreaProvider(<TermsOfUse />)
 
     expect(getByText('termsOfUse')).toBeTruthy()
     expect(getByText('accept')).toBeTruthy()
@@ -92,28 +91,28 @@ describe('TermsOfUse Screen', () => {
     expect(getByText(/Türkiye Cumhuriyeti yasalarına tabidir/i)).toBeTruthy()
   })
 
-  it('should display English text when locale is "en"', () => {
+  it('should display English text when locale is "en"', async () => {
     mockedUseLocaleStore.mockReturnValue({ selectedLocale: 'en' })
-    const { getByText } = renderWithSafeAreaProvider(<TermsOfUse />)
+    const { getByText } = await renderWithSafeAreaProvider(<TermsOfUse />)
 
     expect(
       getByText(/governed by and construed in accordance with the laws of the Republic of Turkey/i),
     ).toBeTruthy()
   })
 
-  it('should call router.back when back button is pressed', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<TermsOfUse />)
+  it('should call router.back when back button is pressed', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<TermsOfUse />)
 
-    fireEvent.press(getByTestId('back-button'))
+    await fireEvent.press(getByTestId('back-button'))
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to register while preserving existing params', () => {
+  it('should navigate to register while preserving existing params', async () => {
     mockedUseLocalSearchParams.mockReturnValue({ someParam: 'testValue' })
 
-    const { getByText } = renderWithSafeAreaProvider(<TermsOfUse />)
+    const { getByText } = await renderWithSafeAreaProvider(<TermsOfUse />)
 
-    fireEvent.press(getByText('accept'))
+    await fireEvent.press(getByText('accept'))
 
     expect(router.navigate).toHaveBeenCalledWith({
       pathname: '/register',
@@ -126,8 +125,8 @@ describe('TermsOfUse Screen', () => {
 })
 
 describe('TermsOfUse Screen Snapshot', () => {
-  it('should render the TermsOfUse successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<TermsOfUse />)
+  it('should render the TermsOfUse successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<TermsOfUse />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -1,6 +1,5 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { router } from 'expo-router'
-import React from 'react'
 
 import { AirlineCard, AirlinesLoadMoreFooter } from '@/components/feature/Airline/AirlineCard'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
@@ -29,9 +28,13 @@ const mockedUseInterstitialAdHandler = useInterstitialAdHandler as jest.MockedFu
   typeof useInterstitialAdHandler
 >
 
-jest.mock('@/components/feature/FavoriteButton', () => ({
-  FavoriteButton: ({ id }: { id: string }) => <>{`FavoriteButton-${id}`}</>,
-}))
+jest.mock('@/components/feature/FavoriteButton', () => {
+  const { Text } = require('react-native')
+
+  return {
+    FavoriteButton: ({ id }: { id: string }) => <Text>{`FavoriteButton-${id}`}</Text>,
+  }
+})
 
 jest.mock('@/components/common/FullScreenLoading', () => {
   const { View } = require('react-native')
@@ -170,8 +173,8 @@ beforeEach(() => {
 })
 
 describe('AirlineCard Component', () => {
-  it('renders airline card with name and codes', () => {
-    const { getByText } = render(<AirlineCard airline={mockedAirline} />)
+  it('renders airline card with name and codes', async () => {
+    const { getByText } = await render(<AirlineCard airline={mockedAirline} />)
 
     expect(getByText('Turkish Airlines')).toBeTruthy()
     expect(getByText('TK')).toBeTruthy()
@@ -179,10 +182,10 @@ describe('AirlineCard Component', () => {
   })
 
   it('navigates on press and logs analytics', async () => {
-    const { getByText } = render(<AirlineCard airline={mockedAirline} />)
+    const { getByText } = await render(<AirlineCard airline={mockedAirline} />)
     const card = getByText('Turkish Airlines')
 
-    fireEvent.press(card)
+    await fireEvent.press(card)
 
     await waitFor(() => {
       expect(router.navigate).toHaveBeenCalledWith(
@@ -194,22 +197,22 @@ describe('AirlineCard Component', () => {
     })
   })
 
-  it('renders popular destinations', () => {
-    const { getByText } = render(<AirlineCard airline={mockedAirline} />)
+  it('renders popular destinations', async () => {
+    const { getByText } = await render(<AirlineCard airline={mockedAirline} />)
     expect(getByText(/İstanbul, New York, London, Tokyo/)).toBeTruthy()
   })
 })
 
 describe('AirlinesLoadMoreFooter Component', () => {
-  it('renders loading state when loading initially', () => {
-    const { getByTestId } = render(
+  it('renders loading state when loading initially', async () => {
+    const { getByTestId } = await render(
       <AirlinesLoadMoreFooter flatAirlinesData={[]} airlinesHasNext airlinesLoading />,
     )
     expect(getByTestId('full-screen-loading')).toBeTruthy()
   })
 
-  it('renders no airline state', () => {
-    const { getByText } = render(
+  it('renders no airline state', async () => {
+    const { getByText } = await render(
       <AirlinesLoadMoreFooter
         airlinesHasNext={false}
         airlinesLoading={false}
@@ -219,8 +222,8 @@ describe('AirlinesLoadMoreFooter Component', () => {
     expect(getByText('noAirline')).toBeTruthy()
   })
 
-  it('renders all airlines shown state', () => {
-    const { getByText } = render(
+  it('renders all airlines shown state', async () => {
+    const { getByText } = await render(
       <AirlinesLoadMoreFooter
         airlinesHasNext={false}
         airlinesLoading={false}
@@ -230,8 +233,8 @@ describe('AirlinesLoadMoreFooter Component', () => {
     expect(getByText(/allAirlinesShown/)).toBeTruthy()
   })
 
-  it('renders nothing if still loading with data', () => {
-    const { toJSON } = render(
+  it('renders nothing if still loading with data', async () => {
+    const { toJSON } = await render(
       <AirlinesLoadMoreFooter
         flatAirlinesData={[{ id: '1' } as any]}
         airlinesHasNext
@@ -243,16 +246,16 @@ describe('AirlinesLoadMoreFooter Component', () => {
 })
 
 describe('AirlineCard Component Snapshot', () => {
-  it('should render the AirlineCard successfully', () => {
-    const { toJSON } = render(<AirlineCard airline={mockedAirline} />)
+  it('should render the AirlineCard successfully', async () => {
+    const { toJSON } = await render(<AirlineCard airline={mockedAirline} />)
 
     expect(toJSON()).toMatchSnapshot()
   })
 })
 
 describe('AirlinesLoadMoreFooter Component Snapshot', () => {
-  it('should render the AirlinesLoadMoreFooter Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the AirlinesLoadMoreFooter Component successfully', async () => {
+    const { toJSON } = await render(
       <AirlinesLoadMoreFooter
         flatAirlinesData={[{ id: '1' } as any]}
         airlinesHasNext

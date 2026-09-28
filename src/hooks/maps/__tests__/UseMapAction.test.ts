@@ -44,7 +44,7 @@ describe('useMapActions', () => {
   })
 
   it('should not open action sheet if marker coordinate are missing', async () => {
-    const { result } = renderHook(() => useMapActions(mockedLocaleStrings))
+    const { result } = await renderHook(() => useMapActions(mockedLocaleStrings))
 
     await act(async () => {
       result.current.onMarkerClick({ id: '2' }, mockedLocationName)
@@ -59,7 +59,7 @@ describe('useMapActions', () => {
     })
 
     it('should open Apple Maps when selected', async () => {
-      const { result } = renderHook(() => useMapActions(mockedLocaleStrings))
+      const { result } = await renderHook(() => useMapActions(mockedLocaleStrings))
 
       await act(async () => {
         result.current.onMarkerClick(mockedMarker, mockedLocationName)
@@ -76,7 +76,7 @@ describe('useMapActions', () => {
     })
 
     it('should open Google Maps when selected', async () => {
-      const { result } = renderHook(() => useMapActions(mockedLocaleStrings))
+      const { result } = await renderHook(() => useMapActions(mockedLocaleStrings))
 
       await act(async () => {
         result.current.onMarkerClick(mockedMarker, mockedLocationName)
@@ -93,7 +93,7 @@ describe('useMapActions', () => {
     })
 
     it('should do nothing when cancel is selected', async () => {
-      const { result } = renderHook(() => useMapActions(mockedLocaleStrings))
+      const { result } = await renderHook(() => useMapActions(mockedLocaleStrings))
 
       await act(async () => {
         result.current.onMarkerClick(mockedMarker, mockedLocationName)
@@ -115,7 +115,7 @@ describe('useMapActions', () => {
     })
 
     it('should open Google Maps when selected', async () => {
-      const { result } = renderHook(() => useMapActions(mockedLocaleStrings))
+      const { result } = await renderHook(() => useMapActions(mockedLocaleStrings))
 
       await act(async () => {
         result.current.onMarkerClick(mockedMarker, mockedLocationName)
@@ -137,7 +137,7 @@ describe('useMapActions', () => {
     })
 
     it('should do nothing when cancel is selected', async () => {
-      const { result } = renderHook(() => useMapActions(mockedLocaleStrings))
+      const { result } = await renderHook(() => useMapActions(mockedLocaleStrings))
 
       await act(async () => {
         result.current.onMarkerClick(mockedMarker, mockedLocationName)

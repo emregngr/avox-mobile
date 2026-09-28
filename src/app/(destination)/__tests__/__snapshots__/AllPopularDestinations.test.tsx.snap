@@ -52,7 +52,7 @@ exports[`AllPopularDestinations Screen Snapshot should render the AllPopularDest
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     data={
@@ -93,7 +93,7 @@ exports[`AllPopularDestinations Screen Snapshot should render the AllPopularDest
     scrollEventThrottle={16}
     showsVerticalScrollIndicator={false}
     stickyHeaderIndices={[]}
-    updateCellsBatchingPeriod={150}
+    updateCellsBatchingPeriod={100}
     viewabilityConfigCallbackPairs={[]}
     windowSize={7}
   >

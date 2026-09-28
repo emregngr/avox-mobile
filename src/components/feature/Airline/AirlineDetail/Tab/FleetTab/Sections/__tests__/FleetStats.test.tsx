@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { FleetStats } from '@/components/feature/Airline/AirlineDetail/Tab/FleetTab/Sections/FleetStats'
 import { getLocale } from '@/locales/i18next'
@@ -46,8 +45,8 @@ beforeEach(() => {
 })
 
 describe('FleetStats Component', () => {
-  it('should render all statistics and labels correctly', () => {
-    const { getByText } = render(<FleetStats {...mockedDefaultProps} />)
+  it('should render all statistics and labels correctly', async () => {
+    const { getByText } = await render(<FleetStats {...mockedDefaultProps} />)
 
     expect(getByText('150')).toBeTruthy()
     expect(getByText('12.5')).toBeTruthy()
@@ -58,8 +57,8 @@ describe('FleetStats Component', () => {
     expect(getByText('Aircraft Types')).toBeTruthy()
   })
 
-  it('should call the localization function with the correct keys', () => {
-    render(<FleetStats {...mockedDefaultProps} />)
+  it('should call the localization function with the correct keys', async () => {
+    await render(<FleetStats {...mockedDefaultProps} />)
 
     expect(mockedGetLocale).toHaveBeenCalledWith('totalAirplane')
     expect(mockedGetLocale).toHaveBeenCalledWith('averageAgeYears')
@@ -67,30 +66,30 @@ describe('FleetStats Component', () => {
     expect(mockedGetLocale).toHaveBeenCalledTimes(3)
   })
 
-  it('should not re-render when props are the same', () => {
-    const { rerender } = render(<FleetStats {...mockedDefaultProps} />)
+  it('should not re-render when props are the same', async () => {
+    const { rerender } = await render(<FleetStats {...mockedDefaultProps} />)
 
     mockedThemedText.mockClear()
 
-    rerender(<FleetStats {...mockedDefaultProps} />)
+    await rerender(<FleetStats {...mockedDefaultProps} />)
 
     expect(mockedThemedText).not.toHaveBeenCalled()
   })
 
-  it('should re-render when props change', () => {
-    const { rerender } = render(<FleetStats {...mockedDefaultProps} />)
+  it('should re-render when props change', async () => {
+    const { rerender } = await render(<FleetStats {...mockedDefaultProps} />)
 
     mockedThemedText.mockClear()
 
-    rerender(<FleetStats {...mockedDefaultProps} totalAirplane={200} />)
+    await rerender(<FleetStats {...mockedDefaultProps} totalAirplane={200} />)
 
     expect(mockedThemedText).toHaveBeenCalled()
   })
 })
 
 describe('FleetStats Component Snapshot', () => {
-  it('should render the FleetStats Component successfully', () => {
-    const { toJSON } = render(<FleetStats {...mockedDefaultProps} />)
+  it('should render the FleetStats Component successfully', async () => {
+    const { toJSON } = await render(<FleetStats {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

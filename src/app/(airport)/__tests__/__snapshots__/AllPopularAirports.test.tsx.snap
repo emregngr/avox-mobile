@@ -52,7 +52,7 @@ exports[`AllPopularAirports Screen Snapshot should render the AllPopularAirports
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     data={
@@ -497,7 +497,7 @@ exports[`AllPopularAirports Screen Snapshot should render the AllPopularAirports
     scrollEventThrottle={16}
     showsVerticalScrollIndicator={false}
     stickyHeaderIndices={[]}
-    updateCellsBatchingPeriod={150}
+    updateCellsBatchingPeriod={100}
     viewabilityConfigCallbackPairs={[]}
     windowSize={7}
   >

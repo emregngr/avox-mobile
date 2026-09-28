@@ -6,6 +6,7 @@ exports[`FullScreenLoading Component Snapshot should render the FullScreenLoadin
   testID="full-screen-loading"
 >
   <LottieAnimationView
+    applyOpacityToLayersAndroid={false}
     autoPlay={true}
     cacheComposition={true}
     colorFilters={[]}

@@ -1,4 +1,4 @@
-import type { FirebaseAuthTypes } from '@react-native-firebase/auth'
+import type { User } from '@react-native-firebase/auth'
 
 import { useUserSession } from '@/hooks/app/useUserSession'
 import { Logger } from '@/utils/common/logger'
@@ -16,7 +16,7 @@ const mockedUser = {
   displayName: 'mocked-display-name',
   photoURL: 'mocked-photo-url',
   isAnonymous: false,
-} as FirebaseAuthTypes.User
+} as User
 
 describe('useUserSession', () => {
   beforeEach(() => {

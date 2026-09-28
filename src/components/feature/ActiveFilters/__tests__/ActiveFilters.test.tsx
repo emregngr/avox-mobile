@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import { ActiveFilters } from '@/components/feature/ActiveFilters'
 import { getLocale } from '@/locales/i18next'
@@ -37,52 +36,52 @@ beforeEach(() => {
 })
 
 describe('ActiveFilters Component', () => {
-  it('renders nothing when there are no filters', () => {
-    const { toJSON } = render(
+  it('renders nothing when there are no filters', async () => {
+    const { toJSON } = await render(
       <ActiveFilters filters={{}} onClearAll={mockedOnClearAll} onRemove={onRemove} />,
     )
     expect(toJSON()).toBeNull()
   })
 
-  it('renders active filters with count', () => {
-    const { getByText } = render(
+  it('renders active filters with count', async () => {
+    const { getByText } = await render(
       <ActiveFilters filters={mockedFilters} onClearAll={mockedOnClearAll} onRemove={onRemove} />,
     )
 
     expect(getByText(/clear/i).props.children.join('')).toContain('Clear (13)')
   })
 
-  it('calls onClearAll when clear button pressed', () => {
-    const { getByText } = render(
+  it('calls onClearAll when clear button pressed', async () => {
+    const { getByText } = await render(
       <ActiveFilters filters={mockedFilters} onClearAll={mockedOnClearAll} onRemove={onRemove} />,
     )
 
-    fireEvent.press(getByText(/clear/i))
+    await fireEvent.press(getByText(/clear/i))
     expect(mockedOnClearAll).toHaveBeenCalledTimes(1)
   })
 
-  it('calls onClearAll when clear button pressed', () => {
-    const { getByTestId } = render(
+  it('calls onClearAll when clear button pressed', async () => {
+    const { getByTestId } = await render(
       <ActiveFilters filters={mockedFilters} onClearAll={mockedOnClearAll} onRemove={onRemove} />,
     )
 
-    fireEvent.press(getByTestId('active-filters-clear-button'))
+    await fireEvent.press(getByTestId('active-filters-clear-button'))
     expect(mockedOnClearAll).toHaveBeenCalledTimes(1)
   })
 
-  it('calls onRemove when a filter close button pressed', () => {
-    const { getByTestId } = render(
+  it('calls onRemove when a filter close button pressed', async () => {
+    const { getByTestId } = await render(
       <ActiveFilters filters={mockedFilters} onClearAll={mockedOnClearAll} onRemove={onRemove} />,
     )
 
-    fireEvent.press(getByTestId('active-filters-remove-freeWifi'))
+    await fireEvent.press(getByTestId('active-filters-remove-freeWifi'))
     expect(onRemove).toHaveBeenCalledWith('freeWifi')
   })
 })
 
 describe('ActiveFilters Component Snapshot', () => {
-  it('should render the ActiveFilters Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the ActiveFilters Component successfully', async () => {
+    const { toJSON } = await render(
       <ActiveFilters filters={{}} onClearAll={mockedOnClearAll} onRemove={onRemove} />,
     )
     expect(toJSON()).toMatchSnapshot()

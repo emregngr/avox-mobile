@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { General } from '@/components/feature/Airport/AirportDetail/Tab/GeneralTab/Sections/General'
 import { getLocale } from '@/locales/i18next'
@@ -82,8 +81,8 @@ beforeEach(() => {
 })
 
 describe('General Component', () => {
-  it('should render the main section with the correct title', () => {
-    render(<General airportInfo={mockedAirportInfo} operations={mockedOperations} />)
+  it('should render the main section with the correct title', async () => {
+    await render(<General airportInfo={mockedAirportInfo} operations={mockedOperations} />)
 
     expect(mockedAirportSectionRow).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -92,8 +91,8 @@ describe('General Component', () => {
     )
   })
 
-  it('should render all data rows with correct props', () => {
-    render(<General airportInfo={mockedAirportInfo} operations={mockedOperations} />)
+  it('should render all data rows with correct props', async () => {
+    await render(<General airportInfo={mockedAirportInfo} operations={mockedOperations} />)
 
     expect(mockedAirportRowItem).toHaveBeenCalledTimes(5)
 
@@ -139,13 +138,13 @@ describe('General Component', () => {
     )
   })
 
-  it('should correctly call formatNumber for employee count', () => {
-    render(<General airportInfo={mockedAirportInfo} operations={mockedOperations} />)
+  it('should correctly call formatNumber for employee count', async () => {
+    await render(<General airportInfo={mockedAirportInfo} operations={mockedOperations} />)
     expect(mockedFormatNumber).toHaveBeenCalledWith(12500)
   })
 
-  it('should handle different airport types correctly', () => {
-    const { rerender } = render(
+  it('should handle different airport types correctly', async () => {
+    const { rerender } = await render(
       <General
         airportInfo={mockedAirportInfo}
         operations={{ airportType: 'small_airport' } as any}
@@ -153,7 +152,7 @@ describe('General Component', () => {
     )
     expect(mockedAirportRowItem).toHaveBeenCalledWith(expect.objectContaining({ value: 'Small' }))
 
-    rerender(
+    await rerender(
       <General
         airportInfo={mockedAirportInfo}
         operations={{ airportType: 'unknown_type' } as any}
@@ -165,9 +164,9 @@ describe('General Component', () => {
     )
   })
 
-  it('should handle boolean props (is24Hour, scheduledService) correctly when false', () => {
+  it('should handle boolean props (is24Hour, scheduledService) correctly when false', async () => {
     const falseOperations: any = { is24Hour: false, scheduledService: false }
-    render(<General airportInfo={mockedAirportInfo} operations={falseOperations} />)
+    await render(<General airportInfo={mockedAirportInfo} operations={falseOperations} />)
 
     expect(mockedAirportRowItem).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -184,8 +183,8 @@ describe('General Component', () => {
     )
   })
 
-  it('should handle missing or undefined props gracefully', () => {
-    render(<General airportInfo={undefined as any} operations={undefined as any} />)
+  it('should handle missing or undefined props gracefully', async () => {
+    await render(<General airportInfo={undefined as any} operations={undefined as any} />)
 
     expect(mockedAirportSectionRow).toHaveBeenCalled()
     expect(mockedAirportRowItem).toHaveBeenCalledTimes(5)
@@ -204,23 +203,23 @@ describe('General Component', () => {
     )
   })
 
-  it('should not recall getLocale on rerender if locale does not change', () => {
-    const { rerender } = render(
+  it('should not recall getLocale on rerender if locale does not change', async () => {
+    const { rerender } = await render(
       <General airportInfo={mockedAirportInfo} operations={mockedOperations} />,
     )
 
     const initialCallCount = mockedGetLocale.mock.calls.length
     expect(initialCallCount).toBeGreaterThan(0)
 
-    rerender(<General airportInfo={mockedAirportInfo} operations={mockedOperations} />)
+    await rerender(<General airportInfo={mockedAirportInfo} operations={mockedOperations} />)
 
     expect(mockedGetLocale.mock.calls.length).toBe(initialCallCount)
   })
 })
 
 describe('General Component Snapshot', () => {
-  it('should render the General Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the General Component successfully', async () => {
+    const { toJSON } = await render(
       <General airportInfo={mockedAirportInfo} operations={mockedOperations} />,
     )
 

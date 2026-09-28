@@ -79,59 +79,63 @@ beforeEach(() => {
 })
 
 describe('BreakingNewsDetail Screen', () => {
-  it('should render the news title, description, and image correctly', () => {
-    const { getByText, getByTestId } = renderWithSafeAreaProvider(<BreakingNewsDetail />)
+  it('should render the news title, description, and image correctly', async () => {
+    const { getByText, getByTestId } = await renderWithSafeAreaProvider(<BreakingNewsDetail />)
     expect(getByText(mockedNewsItem.title)).toBeTruthy()
     expect(getByText(mockedNewsItem.description)).toBeTruthy()
     const image = getByTestId('mocked-image')
     expect(image.props.source.uri).toBe(mockedNewsItem.image)
   })
 
-  it('should pass the correct title and top inset to the Header', () => {
-    renderWithSafeAreaProvider(<BreakingNewsDetail />)
+  it('should pass the correct title and top inset to the Header', async () => {
+    await renderWithSafeAreaProvider(<BreakingNewsDetail />)
     expect(getLocale).toHaveBeenCalledWith('breakingNewsDetailTitle')
   })
 
-  it('should navigate back when the back button is pressed', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<BreakingNewsDetail />)
-    fireEvent.press(getByTestId('back-button'))
+  it('should navigate back when the back button is pressed', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<BreakingNewsDetail />)
+    await fireEvent.press(getByTestId('back-button'))
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should throw an error if item data is missing', () => {
+  it('should throw an error if item data is missing', async () => {
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
     mockedUseLocalSearchParams.mockReturnValue({ item: undefined } as any)
 
-    const renderComponentThatThrows = () => renderWithSafeAreaProvider(<BreakingNewsDetail />)
+    await expect(renderWithSafeAreaProvider(<BreakingNewsDetail />)).rejects.toThrow(
+      '"undefined" is not valid JSON',
+    )
 
-    expect(renderComponentThatThrows).toThrow('"undefined" is not valid JSON')
+    consoleErrorSpy.mockRestore()
   })
 
   describe('Theme and Style Logic', () => {
-    it('should use "black" scroll indicator style for light theme', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<BreakingNewsDetail />)
+    it('should use "black" scroll indicator style for light theme', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<BreakingNewsDetail />)
       const scrollView = getByTestId('breaking-news-scroll-view')
       expect(scrollView.props.indicatorStyle).toBe('black')
     })
 
-    it('should use "white" scroll indicator style for dark theme', () => {
+    it('should use "white" scroll indicator style for dark theme', async () => {
       mockedUseThemeStore.mockReturnValue({ selectedTheme: 'dark' })
 
-      const { getByTestId } = renderWithSafeAreaProvider(<BreakingNewsDetail />)
+      const { getByTestId } = await renderWithSafeAreaProvider(<BreakingNewsDetail />)
       const scrollView = getByTestId('breaking-news-scroll-view')
       expect(scrollView.props.indicatorStyle).toBe('white')
     })
   })
 
   describe('Platform-Specific Ad Banner', () => {
-    it('should render AdBanner with the correct ad unit ID for iOS', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<BreakingNewsDetail />)
+    it('should render AdBanner with the correct ad unit ID for iOS', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<BreakingNewsDetail />)
       const adBanner = getByTestId('ad-banner')
 
       expect(adBanner.props.adUnitId).toBe('ca-app-pub-4123130377375974/8155997003')
     })
 
-    it('should render AdBanner with the correct ad unit ID for Android', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<BreakingNewsDetail />)
+    it('should render AdBanner with the correct ad unit ID for Android', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<BreakingNewsDetail />)
       const adBanner = getByTestId('ad-banner')
 
       expect(adBanner.props.adUnitId).toBeDefined()
@@ -145,8 +149,8 @@ describe('BreakingNewsDetail Screen', () => {
 })
 
 describe('BreakingNewsDetail Screen Snapshot', () => {
-  it('should render the BreakingNewsDetail Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<BreakingNewsDetail />)
+  it('should render the BreakingNewsDetail Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<BreakingNewsDetail />)
 
     expect(toJSON()).toMatchSnapshot()
   })

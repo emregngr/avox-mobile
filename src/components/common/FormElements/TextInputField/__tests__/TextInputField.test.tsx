@@ -1,5 +1,4 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
-import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Text, TouchableOpacity } from 'react-native'
 
@@ -33,37 +32,39 @@ beforeEach(() => {
 })
 
 describe('TextInputField Component', () => {
-  it('renders label and placeholder', () => {
-    const { getByText, getByPlaceholderText } = render(<MockedTextInputField />)
+  it('renders label and placeholder', async () => {
+    const { getByText, getByPlaceholderText } = await render(<MockedTextInputField />)
     expect(getByText('Email')).toBeTruthy()
     expect(getByPlaceholderText('Enter email')).toBeTruthy()
   })
 
-  it('updates value on typing', () => {
-    const { getByPlaceholderText } = render(<MockedTextInputField />)
+  it('updates value on typing', async () => {
+    const { getByPlaceholderText } = await render(<MockedTextInputField />)
     const input = getByPlaceholderText('Enter email')
-    fireEvent.changeText(input, 'test@example.com')
+    await fireEvent.changeText(input, 'test@example.com')
     expect(input.props.value).toBe('test@example.com')
   })
 
-  it('shows and clears with close icon when focused and has text', () => {
-    const { getByPlaceholderText, queryByTestId, getByTestId } = render(<MockedTextInputField />)
+  it('shows and clears with close icon when focused and has text', async () => {
+    const { getByPlaceholderText, queryByTestId, getByTestId } = await render(
+      <MockedTextInputField />,
+    )
     const input = getByPlaceholderText('Enter email')
 
     expect(queryByTestId('clear-button')).toBeNull()
 
-    fireEvent.changeText(input, 'hello')
-    fireEvent(input, 'focus')
+    await fireEvent.changeText(input, 'hello')
+    await fireEvent(input, 'focus')
 
     const clearButton = getByTestId('clear-button')
     expect(clearButton).toBeTruthy()
 
-    fireEvent.press(clearButton)
+    await fireEvent.press(clearButton)
     expect(input.props.value).toBe('')
   })
 
-  it('toggles password visibility when secureTextEntry + showToggle', () => {
-    const { getByPlaceholderText, getByTestId } = render(
+  it('toggles password visibility when secureTextEntry + showToggle', async () => {
+    const { getByPlaceholderText, getByTestId } = await render(
       <MockedTextInputField
         name="password"
         placeholder="Enter password"
@@ -76,10 +77,10 @@ describe('TextInputField Component', () => {
 
     expect(input.props.secureTextEntry).toBe(true)
 
-    fireEvent.press(toggle)
+    await fireEvent.press(toggle)
     expect(input.props.secureTextEntry).toBe(false)
 
-    fireEvent.press(toggle)
+    await fireEvent.press(toggle)
     expect(input.props.secureTextEntry).toBe(true)
   })
 
@@ -107,13 +108,13 @@ describe('TextInputField Component', () => {
       )
     }
 
-    const { getByText, getByPlaceholderText } = render(<TestComponent />)
+    const { getByText, getByPlaceholderText } = await render(<TestComponent />)
 
     const input = getByPlaceholderText('Enter email')
 
-    fireEvent.changeText(input, 'test')
-    fireEvent.changeText(input, '')
-    fireEvent(input, 'blur')
+    await fireEvent.changeText(input, 'test')
+    await fireEvent.changeText(input, '')
+    await fireEvent(input, 'blur')
 
     await waitFor(() => {
       expect(getByText('This field is required')).toBeTruthy()
@@ -150,10 +151,10 @@ describe('TextInputField Component', () => {
       )
     }
 
-    const { getByText, getByTestId } = render(<TestComponent />)
+    const { getByText, getByTestId } = await render(<TestComponent />)
 
     const submitButton = getByTestId('submit-button')
-    fireEvent.press(submitButton)
+    await fireEvent.press(submitButton)
 
     await waitFor(() => {
       expect(getByText('This field is required')).toBeTruthy()
@@ -162,8 +163,8 @@ describe('TextInputField Component', () => {
 })
 
 describe('TextInputField Component Snapshot', () => {
-  it('should render the TextInputField Component successfully', () => {
-    const { toJSON } = render(<MockedTextInputField />)
+  it('should render the TextInputField Component successfully', async () => {
+    const { toJSON } = await render(<MockedTextInputField />)
 
     expect(toJSON()).toMatchSnapshot()
   })

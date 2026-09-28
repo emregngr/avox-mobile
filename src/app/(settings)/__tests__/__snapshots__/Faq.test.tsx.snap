@@ -53,7 +53,7 @@ exports[`Faq Screen Snapshot should render the Faq Screen successfully 1`] = `
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     data={
@@ -180,7 +180,7 @@ exports[`Faq Screen Snapshot should render the Faq Screen successfully 1`] = `
     showsVerticalScrollIndicator={false}
     stickyHeaderIndices={[]}
     testID="faq-flatlist"
-    updateCellsBatchingPeriod={150}
+    updateCellsBatchingPeriod={100}
     viewabilityConfigCallbackPairs={[]}
     windowSize={7}
   >

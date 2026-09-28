@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import { FleetList } from '@/components/feature/Airline/AirlineDetail/Tab/FleetTab/Sections/FleetList'
 
@@ -41,20 +40,20 @@ const mockedDefaultProps: any = {
 }
 
 describe('FleetList Component', () => {
-  it('should render the correct number of airplane cards', () => {
-    const { getAllByTestId } = render(<FleetList {...mockedDefaultProps} />)
+  it('should render the correct number of airplane cards', async () => {
+    const { getAllByTestId } = await render(<FleetList {...mockedDefaultProps} />)
     const airplaneCards = getAllByTestId(/airplane-row-/)
     expect(airplaneCards).toHaveLength(mockedAirplanes.length)
   })
 
-  it('should render nothing when the airplanes array is empty', () => {
-    const { queryAllByTestId } = render(<FleetList {...mockedDefaultProps} airplanes={[]} />)
+  it('should render nothing when the airplanes array is empty', async () => {
+    const { queryAllByTestId } = await render(<FleetList {...mockedDefaultProps} airplanes={[]} />)
     const airplaneCards = queryAllByTestId(/airplane-row-/)
     expect(airplaneCards).toHaveLength(0)
   })
 
-  it('should pass the correct props down to each AirplaneRowCard', () => {
-    render(<FleetList {...mockedDefaultProps} />)
+  it('should pass the correct props down to each AirplaneRowCard', async () => {
+    await render(<FleetList {...mockedDefaultProps} />)
     expect(mockAirplaneRowCardSpy).toHaveBeenCalledWith(
       expect.objectContaining({
         airplane: mockedAirplanes[0],
@@ -64,28 +63,28 @@ describe('FleetList Component', () => {
     )
   })
 
-  it('should call onImagePress with correct arguments when a card is pressed', () => {
-    const { getByTestId } = render(<FleetList {...mockedDefaultProps} />)
+  it('should call onImagePress with correct arguments when a card is pressed', async () => {
+    const { getByTestId } = await render(<FleetList {...mockedDefaultProps} />)
     const firstAirplaneImage = getByTestId(`airplane-image-${mockedAirplanes[0].type}`)
-    fireEvent.press(firstAirplaneImage)
+    await fireEvent.press(firstAirplaneImage)
     expect(mockedOnImagePress).toHaveBeenCalledTimes(1)
     expect(mockedOnImagePress).toHaveBeenCalledWith(mockedAirplanes[0].type, 'some-image-key')
   })
 
-  it('should have correct performance props set on FlatList', () => {
-    const { getByTestId } = render(<FleetList {...mockedDefaultProps} />)
+  it('should have correct performance props set on FlatList', async () => {
+    const { getByTestId } = await render(<FleetList {...mockedDefaultProps} />)
     const flatList = getByTestId('fleet-list')
     expect(flatList.props.initialNumToRender).toBe(4)
     expect(flatList.props.maxToRenderPerBatch).toBe(3)
     expect(flatList.props.windowSize).toBe(7)
-    expect(flatList.props.updateCellsBatchingPeriod).toBe(150)
+    expect(flatList.props.updateCellsBatchingPeriod).toBe(100)
     expect(flatList.props.removeClippedSubviews).toBe(true)
   })
 })
 
 describe('FleetList Component Snapshot', () => {
-  it('should render the FleetList Component successfully', () => {
-    const { toJSON } = render(<FleetList {...mockedDefaultProps} />)
+  it('should render the FleetList Component successfully', async () => {
+    const { toJSON } = await render(<FleetList {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

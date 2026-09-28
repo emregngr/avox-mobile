@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Location } from '@/components/feature/Airport/AirportDetail/Tab/GeneralTab/Sections/Location'
 import { getLocale } from '@/locales/i18next'
@@ -59,8 +58,8 @@ beforeEach(() => {
 
 describe('Location Component', () => {
   describe('When full data is provided', () => {
-    it('should render the section with the correct title', () => {
-      render(<Location operations={mockedOperations} />)
+    it('should render the section with the correct title', async () => {
+      await render(<Location operations={mockedOperations} />)
       expect(mockedGetLocale).toHaveBeenCalledWith('locationInformation')
       expect(mockedAirportSectionRow).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -69,18 +68,18 @@ describe('Location Component', () => {
       )
     })
 
-    it('should render three row items', () => {
-      render(<Location operations={mockedOperations} />)
+    it('should render three row items', async () => {
+      await render(<Location operations={mockedOperations} />)
       expect(mockedAirportRowItem).toHaveBeenCalledTimes(3)
     })
 
-    it('should call formatNumber with the elevation', () => {
-      render(<Location operations={mockedOperations} />)
+    it('should call formatNumber with the elevation', async () => {
+      await render(<Location operations={mockedOperations} />)
       expect(mockedFormatNumber).toHaveBeenCalledWith(325)
     })
 
-    it('should pass correct props to each AirportRowItem', () => {
-      render(<Location operations={mockedOperations} />)
+    it('should pass correct props to each AirportRowItem', async () => {
+      await render(<Location operations={mockedOperations} />)
       expect(mockedAirportRowItem).toHaveBeenCalledWith(
         expect.objectContaining({
           icon: 'city-variant-outline',
@@ -106,26 +105,26 @@ describe('Location Component', () => {
   })
 
   describe('When data is incomplete', () => {
-    it('should throw an error when operations prop is undefined', () => {
-      expect(() => render(<Location operations={undefined as any} />)).toThrow(
+    it('should throw an error when operations prop is undefined', async () => {
+      await expect(render(<Location operations={undefined as any} />)).rejects.toThrow(
         "Cannot read properties of undefined (reading 'city'",
       )
     })
 
-    it('should throw an error if operations exists but the nested location object is missing', () => {
+    it('should throw an error if operations exists but the nested location object is missing', async () => {
       const operationsWithoutLocation = {
         country: 'Turkey',
       }
-      expect(() => render(<Location operations={operationsWithoutLocation as any} />)).toThrow(
-        "Cannot read properties of undefined (reading 'city'",
-      )
+      await expect(
+        render(<Location operations={operationsWithoutLocation as any} />),
+      ).rejects.toThrow("Cannot read properties of undefined (reading 'city'")
     })
   })
 })
 
 describe('Location Component Snapshot', () => {
-  it('should render the Location Component successfully', () => {
-    const { toJSON } = render(<Location operations={mockedOperations} />)
+  it('should render the Location Component successfully', async () => {
+    const { toJSON } = await render(<Location operations={mockedOperations} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

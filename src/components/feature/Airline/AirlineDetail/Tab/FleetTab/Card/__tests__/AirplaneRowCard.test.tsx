@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import { AirplaneRowCard } from '@/components/feature/Airline/AirlineDetail/Tab/FleetTab/Card/AirplaneRowCard'
 import { getLocale } from '@/locales/i18next'
@@ -61,8 +60,8 @@ beforeEach(() => {
 })
 
 describe('AirplaneRowCard Component', () => {
-  it('should render all airplane details correctly', () => {
-    const { getByText } = render(
+  it('should render all airplane details correctly', async () => {
+    const { getByText } = await render(
       <AirplaneRowCard
         airplane={mockedAirplane}
         onImagePress={mockedOnImagePress}
@@ -80,8 +79,8 @@ describe('AirplaneRowCard Component', () => {
     expect(getByText('5.5k')).toBeTruthy()
   })
 
-  it('should calculate and display the percentage correctly', () => {
-    const { getByText } = render(
+  it('should calculate and display the percentage correctly', async () => {
+    const { getByText } = await render(
       <AirplaneRowCard
         airplane={{ ...mockedAirplane, count: 25 }}
         onImagePress={mockedOnImagePress}
@@ -94,8 +93,8 @@ describe('AirplaneRowCard Component', () => {
     expect(getByText('31%')).toBeTruthy()
   })
 
-  it('should translate "narrow_body" using getLocale', () => {
-    const { getByText } = render(
+  it('should translate "narrow_body" using getLocale', async () => {
+    const { getByText } = await render(
       <AirplaneRowCard
         airplane={{ ...mockedAirplane, bodyType: 'narrow_body' }}
         onImagePress={mockedOnImagePress}
@@ -109,8 +108,8 @@ describe('AirplaneRowCard Component', () => {
     expect(getByText('narrowBody')).toBeTruthy()
   })
 
-  it('should call onImagePress with correct arguments when the image is pressed', () => {
-    const { getByTestId } = render(
+  it('should call onImagePress with correct arguments when the image is pressed', async () => {
+    const { getByTestId } = await render(
       <AirplaneRowCard
         airplane={mockedAirplane}
         onImagePress={mockedOnImagePress}
@@ -121,20 +120,20 @@ describe('AirplaneRowCard Component', () => {
     )
 
     const imageButton = getByTestId('airplane-row-card-Boeing 737-800')
-    fireEvent.press(imageButton)
+    await fireEvent.press(imageButton)
 
     expect(mockedOnImagePress).toHaveBeenCalledTimes(1)
     expect(mockedOnImagePress).toHaveBeenCalledWith('Boeing 737-800', 'b737-key')
   })
 
-  it('should not render capacity sections if data is undefined', () => {
+  it('should not render capacity sections if data is undefined', async () => {
     const airplaneWithoutCapacity: any = {
       ...mockedAirplane,
       capacitySeats: undefined,
       capacityTons: undefined,
     }
 
-    const { queryByText } = render(
+    const { queryByText } = await render(
       <AirplaneRowCard
         airplane={airplaneWithoutCapacity}
         onImagePress={mockedOnImagePress}
@@ -150,8 +149,8 @@ describe('AirplaneRowCard Component', () => {
 })
 
 describe('AirplaneRowCard Component Snapshot', () => {
-  it('should render the AirplaneRowCard Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the AirplaneRowCard Component successfully', async () => {
+    const { toJSON } = await render(
       <AirplaneRowCard
         airplane={mockedAirplane}
         onImagePress={mockedOnImagePress}

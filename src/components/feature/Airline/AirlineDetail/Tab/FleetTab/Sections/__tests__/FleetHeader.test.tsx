@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { FleetHeader } from '@/components/feature/Airline/AirlineDetail/Tab/FleetTab/Sections/FleetHeader'
 import useThemeStore from '@/store/theme'
@@ -30,17 +29,17 @@ beforeEach(() => {
 })
 
 describe('FleetHeader Component', () => {
-  it('should render the fleet detail text correctly', () => {
+  it('should render the fleet detail text correctly', async () => {
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'dark' })
 
-    const { getByText } = render(<FleetHeader fleetDetailText={mockedFleetDetailText} />)
+    const { getByText } = await render(<FleetHeader fleetDetailText={mockedFleetDetailText} />)
 
     expect(getByText(mockedFleetDetailText)).toBeTruthy()
   })
 
-  it('should render the icon with correct fixed props', () => {
+  it('should render the icon with correct fixed props', async () => {
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'dark' })
-    const { getByTestId } = render(<FleetHeader fleetDetailText={mockedFleetDetailText} />)
+    const { getByTestId } = await render(<FleetHeader fleetDetailText={mockedFleetDetailText} />)
 
     const icon = getByTestId('mocked-material-community-icon')
 
@@ -48,18 +47,18 @@ describe('FleetHeader Component', () => {
     expect(icon.props.size).toBe(20)
   })
 
-  it('should apply the correct icon color for the dark theme', () => {
+  it('should apply the correct icon color for the dark theme', async () => {
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'dark' })
-    const { getByTestId } = render(<FleetHeader fleetDetailText={mockedFleetDetailText} />)
+    const { getByTestId } = await render(<FleetHeader fleetDetailText={mockedFleetDetailText} />)
 
     const icon = getByTestId('mocked-material-community-icon')
 
     expect(icon.props.color).toBe(darkColors.onPrimary100)
   })
 
-  it('should apply the correct icon color for the light theme', () => {
+  it('should apply the correct icon color for the light theme', async () => {
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'light' })
-    const { getByTestId } = render(<FleetHeader fleetDetailText={mockedFleetDetailText} />)
+    const { getByTestId } = await render(<FleetHeader fleetDetailText={mockedFleetDetailText} />)
 
     const icon = getByTestId('mocked-material-community-icon')
 
@@ -68,8 +67,8 @@ describe('FleetHeader Component', () => {
 })
 
 describe('FleetHeader Component Snapshot', () => {
-  it('should render the FleetHeader Component successfully', () => {
-    const { toJSON } = render(<FleetHeader fleetDetailText={mockedFleetDetailText} />)
+  it('should render the FleetHeader Component successfully', async () => {
+    const { toJSON } = await render(<FleetHeader fleetDetailText={mockedFleetDetailText} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

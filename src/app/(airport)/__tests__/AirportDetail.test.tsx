@@ -1,7 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router, useLocalSearchParams } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import AirportDetail from '@/app/(airport)/airport-detail'
@@ -348,30 +347,30 @@ beforeEach(() => {
 })
 
 describe('AirportDetail Screen', () => {
-  it('should display loading screen while data is loading', () => {
+  it('should display loading screen while data is loading', async () => {
     mockedUseLocalSearchParams.mockReturnValue({ airportId: '1' })
     mockedUseAirportById.mockReturnValue({ data: null } as any)
-    const { getByTestId } = renderWithSafeAreaProvider(<AirportDetail />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<AirportDetail />)
     expect(getByTestId('full-screen-loading')).toBeTruthy()
   })
 
-  it('should display airport details when data is loaded', () => {
+  it('should display airport details when data is loaded', async () => {
     mockedUseLocalSearchParams.mockReturnValue({ airportId: '1' })
     mockedUseAirportById.mockReturnValue({ data: mockedAirport } as any)
-    const { getByTestId, queryByTestId } = renderWithSafeAreaProvider(<AirportDetail />)
+    const { getByTestId, queryByTestId } = await renderWithSafeAreaProvider(<AirportDetail />)
     expect(getByTestId('airport-header')).toBeTruthy()
     expect(queryByTestId('full-screen-loading')).toBeNull()
   })
 
-  it('should navigate back when the back button is pressed', () => {
+  it('should navigate back when the back button is pressed', async () => {
     mockedUseLocalSearchParams.mockReturnValue({ airport: JSON.stringify(mockedAirport) })
-    const { getByTestId } = renderWithSafeAreaProvider(<AirportDetail />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<AirportDetail />)
     const backButton = getByTestId('back-button')
-    fireEvent.press(backButton)
+    await fireEvent.press(backButton)
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should call the favorite function when the favorite button is pressed', () => {
+  it('should call the favorite function when the favorite button is pressed', async () => {
     const handleFavoritePress = jest.fn()
     mockedUseFavoriteToggle.mockReturnValue({
       handleFavoritePress,
@@ -379,24 +378,24 @@ describe('AirportDetail Screen', () => {
       isPending: false,
     })
     mockedUseLocalSearchParams.mockReturnValue({ airport: JSON.stringify(mockedAirport) })
-    const { getByTestId } = renderWithSafeAreaProvider(<AirportDetail />)
-    fireEvent.press(getByTestId('favorite-button'))
+    const { getByTestId } = await renderWithSafeAreaProvider(<AirportDetail />)
+    await fireEvent.press(getByTestId('favorite-button'))
     expect(handleFavoritePress).toHaveBeenCalledTimes(1)
   })
 
   it('should call the share function when the share button is pressed', async () => {
     mockedUseLocalSearchParams.mockReturnValue({ airport: JSON.stringify(mockedAirport) })
-    const { getByTestId } = renderWithSafeAreaProvider(<AirportDetail />)
-    fireEvent.press(getByTestId('share-button'))
+    const { getByTestId } = await renderWithSafeAreaProvider(<AirportDetail />)
+    await fireEvent.press(getByTestId('share-button'))
     expect(shareAirport).toHaveBeenCalledWith(mockedAirport)
   })
 })
 
 describe('AirportDetail Screen Snapshot', () => {
-  it('should render the AirportDetail Screen successfully', () => {
+  it('should render the AirportDetail Screen successfully', async () => {
     mockedUseLocalSearchParams.mockReturnValue({ airport: JSON.stringify(mockedAirport) })
 
-    const { toJSON } = render(<AirportDetail />)
+    const { toJSON } = await renderWithSafeAreaProvider(<AirportDetail />)
 
     expect(toJSON()).toMatchSnapshot()
   })

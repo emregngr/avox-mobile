@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { StatsGrid } from '@/components/feature/Airline/AirlineDetail/Tab/AirlineFlightTab/Sections/StatsGrid'
 
@@ -32,16 +31,16 @@ const mockedDefaultProps = {
 }
 
 describe('StatsGrid Component', () => {
-  it('should render four StatsCard components', () => {
-    const { getAllByTestId } = render(<StatsGrid {...mockedDefaultProps} />)
+  it('should render four StatsCard components', async () => {
+    const { getAllByTestId } = await render(<StatsGrid {...mockedDefaultProps} />)
 
     const statsCards = getAllByTestId('mocked-stats-card')
     expect(statsCards.length).toBe(4)
     expect(mockedStatsCard).toHaveBeenCalledTimes(4)
   })
 
-  it('should pass correct props to each StatsCard', () => {
-    render(<StatsGrid {...mockedDefaultProps} />)
+  it('should pass correct props to each StatsCard', async () => {
+    await render(<StatsGrid {...mockedDefaultProps} />)
 
     expect(mockedStatsCard).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -76,21 +75,25 @@ describe('StatsGrid Component', () => {
     )
   })
 
-  it('should throw an error when stats prop is undefined', () => {
+  it('should throw an error when stats prop is undefined', async () => {
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
     const propsWithMissingStats = {
       ...mockedDefaultProps,
       stats: undefined as any,
     }
 
-    expect(() => render(<StatsGrid {...propsWithMissingStats} />)).toThrow(
+    await expect(render(<StatsGrid {...propsWithMissingStats} />)).rejects.toThrow(
       "Cannot read properties of undefined (reading 'destinationCount')",
     )
+
+    consoleErrorSpy.mockRestore()
   })
 })
 
 describe('StatsGrid Component Snapshot', () => {
-  it('should render the StatsGrid Component successfully', () => {
-    const { toJSON } = render(<StatsGrid {...mockedDefaultProps} />)
+  it('should render the StatsGrid Component successfully', async () => {
+    const { toJSON } = await render(<StatsGrid {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

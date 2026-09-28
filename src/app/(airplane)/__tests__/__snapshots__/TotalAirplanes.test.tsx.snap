@@ -51,7 +51,7 @@ exports[`TotalAirplanes Screen Snapshot should render the TotalAirplanes Screen 
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     data={
@@ -86,7 +86,7 @@ exports[`TotalAirplanes Screen Snapshot should render the TotalAirplanes Screen 
     scrollEventThrottle={16}
     showsVerticalScrollIndicator={false}
     stickyHeaderIndices={[]}
-    updateCellsBatchingPeriod={150}
+    updateCellsBatchingPeriod={100}
     viewabilityConfigCallbackPairs={[]}
     windowSize={7}
   >

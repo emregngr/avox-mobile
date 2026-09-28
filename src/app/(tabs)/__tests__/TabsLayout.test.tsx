@@ -23,16 +23,20 @@ const mockedUseAuthStore = useAuthStore as jest.MockedFunction<typeof useAuthSto
 jest.mock('expo-router/unstable-native-tabs', () => {
   const { Text, View } = require('react-native')
 
-  const MockedComponent = ({ children, ...props }: any) => <View {...props}>{children}</View>
+  const MockedIcon = (_props: any) => <View testID="mocked-icon" />
   const MockedLabel = ({ children }: { children: ReactNode }) => <Text>{children}</Text>
-  const NativeTabs: any = ({ children }: { children: ReactNode }) => <View>{children}</View>
+  const MockedVectorIcon = (_props: any) => <View testID="mocked-vector-icon" />
 
-  NativeTabs.Trigger = MockedComponent
+  const MockedTrigger: any = ({ children, ...props }: any) => <View {...props}>{children}</View>
+  MockedTrigger.Icon = MockedIcon
+  MockedTrigger.Label = MockedLabel
+  MockedTrigger.VectorIcon = MockedVectorIcon
+
+  const NativeTabs: any = ({ children }: { children: ReactNode }) => <View>{children}</View>
+  NativeTabs.Trigger = MockedTrigger
+
   return {
     NativeTabs,
-    Icon: () => <View testID="mocked-icon" />,
-    Label: MockedLabel,
-    VectorIcon: MockedComponent,
   }
 })
 
@@ -56,7 +60,7 @@ afterEach(() => {
   jest.useRealTimers()
 })
 
-const renderTabLayout = (isAuthenticated = false, segments: SegmentsType = ['', 'home']) => {
+const renderTabLayout = async (isAuthenticated = false, segments: SegmentsType = ['', 'home']) => {
   mockedUseAuthStore.mockReturnValue({ isAuthenticated })
   mockedUseSegments.mockReturnValue(segments)
   return render(<TabsLayout />)
@@ -65,9 +69,9 @@ const renderTabLayout = (isAuthenticated = false, segments: SegmentsType = ['', 
 describe('TabsLayout', () => {
   describe('Authentication Protection Logic', () => {
     describe('when user is not authenticated', () => {
-      it('redirects to auth when accessing favorites tab', () => {
+      it('redirects to auth when accessing favorites tab', async () => {
         const segments = ['', 'favorites']
-        renderTabLayout(false, segments)
+        await renderTabLayout(false, segments)
 
         const callback = mockedUseFocusEffect.mock.calls[0]?.[0]
         if (callback) {
@@ -82,7 +86,7 @@ describe('TabsLayout', () => {
         })
       })
 
-      it('does not redirect when accessing non-protected tabs', () => {
+      it('does not redirect when accessing non-protected tabs', async () => {
         const testCases: SegmentsType[] = [
           ['', 'home'],
           ['', 'discover'],
@@ -91,7 +95,7 @@ describe('TabsLayout', () => {
 
         for (const segments of testCases) {
           mockedRouterReplace.mockClear()
-          renderTabLayout(false, segments)
+          await renderTabLayout(false, segments)
           const callback = mockedUseFocusEffect.mock.calls[0]?.[0]
           if (callback) {
             callback()
@@ -103,9 +107,9 @@ describe('TabsLayout', () => {
     })
 
     describe('when user is authenticated', () => {
-      it('does not redirect when accessing protected tab', () => {
+      it('does not redirect when accessing protected tab', async () => {
         const segments = ['', 'favorites']
-        renderTabLayout(true, segments)
+        await renderTabLayout(true, segments)
 
         const callback = mockedUseFocusEffect.mock.calls[0]?.[0]
         if (callback) {
@@ -118,8 +122,8 @@ describe('TabsLayout', () => {
   })
 
   describe('Component Rendering', () => {
-    it('renders all tab labels', () => {
-      renderTabLayout()
+    it('renders all tab labels', async () => {
+      await renderTabLayout()
 
       expect(screen.getByText('home')).toBeTruthy()
       expect(screen.getByText('discover')).toBeTruthy()
@@ -129,8 +133,8 @@ describe('TabsLayout', () => {
   })
 
   describe('TabsLayout Snapshot', () => {
-    it('should render the TabsLayout successfully', () => {
-      const { toJSON } = renderTabLayout(true)
+    it('should render the TabsLayout successfully', async () => {
+      const { toJSON } = await renderTabLayout(true)
 
       expect(toJSON()).toMatchSnapshot()
     })

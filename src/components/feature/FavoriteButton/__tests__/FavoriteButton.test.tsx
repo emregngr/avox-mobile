@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import { FavoriteButton } from '@/components/feature/FavoriteButton'
 import { useFavoriteToggle } from '@/hooks/services/useFavoriteToggle'
@@ -29,14 +28,14 @@ beforeEach(() => {
 })
 
 describe('FavoriteButton Component', () => {
-  it('should display the correct icon and be enabled when the item is not a favorite', () => {
+  it('should display the correct icon and be enabled when the item is not a favorite', async () => {
     mockedUseFavoriteToggle.mockReturnValue({
       isFavorite: false,
       isPending: false,
       handleFavoritePress: mockedHandleFavoritePress,
     })
 
-    const { getByTestId } = render(<FavoriteButton id="123" type="airport" />)
+    const { getByTestId } = await render(<FavoriteButton id="123" type="airport" />)
     const button = getByTestId('favorite-button')
     const icon = getByTestId('mocked-material-community-icon')
 
@@ -45,28 +44,28 @@ describe('FavoriteButton Component', () => {
     expect(button).not.toBeDisabled()
   })
 
-  it('should display the correct icon when the item is a favorite', () => {
+  it('should display the correct icon when the item is a favorite', async () => {
     mockedUseFavoriteToggle.mockReturnValue({
       isFavorite: true,
       isPending: false,
       handleFavoritePress: mockedHandleFavoritePress,
     })
 
-    const { getByTestId } = render(<FavoriteButton id="123" type="airport" />)
+    const { getByTestId } = await render(<FavoriteButton id="123" type="airport" />)
     const icon = getByTestId('mocked-material-community-icon')
 
     expect(icon.props.color).toBe(colors?.tertiary100)
     expect(icon.props.name).toBe('heart')
   })
 
-  it('should display an ActivityIndicator and be disabled when in a pending state', () => {
+  it('should display an ActivityIndicator and be disabled when in a pending state', async () => {
     mockedUseFavoriteToggle.mockReturnValue({
       isFavorite: false,
       isPending: true,
       handleFavoritePress: mockedHandleFavoritePress,
     })
 
-    const { getByTestId, queryByTestId } = render(<FavoriteButton id="123" type="airport" />)
+    const { getByTestId, queryByTestId } = await render(<FavoriteButton id="123" type="airport" />)
     const button = getByTestId('favorite-button')
 
     expect(getByTestId('activity-indicator')).toBeTruthy()
@@ -81,7 +80,7 @@ describe('FavoriteButton Component', () => {
       handleFavoritePress: mockedHandleFavoritePress,
     })
 
-    const { getByTestId } = render(<FavoriteButton id="123" type="airport" />)
+    const { getByTestId } = await render(<FavoriteButton id="123" type="airport" />)
     const button = getByTestId('favorite-button')
 
     await fireEvent.press(button)
@@ -91,8 +90,8 @@ describe('FavoriteButton Component', () => {
 })
 
 describe('FavoriteButton Component Snapshot', () => {
-  it('should render the FavoriteButton Component successfully', () => {
-    const { toJSON } = render(<FavoriteButton id="123" type="airport" />)
+  it('should render the FavoriteButton Component successfully', async () => {
+    const { toJSON } = await render(<FavoriteButton id="123" type="airport" />)
 
     expect(toJSON()).toMatchSnapshot()
   })

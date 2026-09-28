@@ -50,7 +50,7 @@ exports[`HomeSlider Component Snapshot should render the HomeSlider Component su
     showsHorizontalScrollIndicator={false}
     stickyHeaderIndices={[]}
     testID="home-slider-flatlist"
-    updateCellsBatchingPeriod={150}
+    updateCellsBatchingPeriod={100}
     viewabilityConfigCallbackPairs={[]}
     windowSize={7}
   >

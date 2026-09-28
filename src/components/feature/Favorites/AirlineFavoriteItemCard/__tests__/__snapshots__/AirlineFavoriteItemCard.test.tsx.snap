@@ -65,11 +65,7 @@ exports[`AirlineFavoriteItemCard Component Snapshot should render the AirlineFav
     <View
       cachePolicy="memory-disk"
       contentFit="contain"
-      source={
-        {
-          "default": "mocked-test-file",
-        }
-      }
+      source="mocked-test-file"
       style={
         {
           "height": 40,

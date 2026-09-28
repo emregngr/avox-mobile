@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import type { AttractionCardProps } from '@/components/feature/Airport/AirportDetail/Tab/NearbyPlacesTab/Cards/AttractionCard'
 import { AttractionCard } from '@/components/feature/Airport/AirportDetail/Tab/NearbyPlacesTab/Cards/AttractionCard'
@@ -32,8 +31,8 @@ beforeEach(() => {
 })
 
 describe('AttractionCard Component', () => {
-  it('should render all the provided information', () => {
-    const { getByText } = render(<AttractionCard {...mockedDefaultProps} />)
+  it('should render all the provided information', async () => {
+    const { getByText } = await render(<AttractionCard {...mockedDefaultProps} />)
 
     expect(getByText(mockedDefaultProps.attractionName)).toBeTruthy()
     expect(getByText(mockedDefaultProps.description)).toBeTruthy()
@@ -41,24 +40,24 @@ describe('AttractionCard Component', () => {
     expect(getByText(mockedDefaultProps.getDirectionText)).toBeTruthy()
   })
 
-  it('should call handleDirectionPress when the directions button is pressed', () => {
-    const { getByText } = render(<AttractionCard {...mockedDefaultProps} />)
+  it('should call handleDirectionPress when the directions button is pressed', async () => {
+    const { getByText } = await render(<AttractionCard {...mockedDefaultProps} />)
 
     const directionsButton = getByText(mockedDefaultProps.getDirectionText)
 
-    fireEvent.press(directionsButton)
+    await fireEvent.press(directionsButton)
 
     expect(mockedDefaultProps.handleDirectionPress).toHaveBeenCalledTimes(1)
   })
 
-  it('should apply truncation props to the text components', () => {
+  it('should apply truncation props to the text components', async () => {
     const longTextProps = {
       ...mockedDefaultProps,
       attractionName: 'This is a very long attraction name that should be truncated',
       description:
         'This is a very long description that should also be truncated after five lines to avoid overflowing the card layout.',
     }
-    const { getByText } = render(<AttractionCard {...longTextProps} />)
+    const { getByText } = await render(<AttractionCard {...longTextProps} />)
 
     const attractionNameText = getByText(longTextProps.attractionName)
     const descriptionText = getByText(longTextProps.description)
@@ -72,8 +71,8 @@ describe('AttractionCard Component', () => {
 })
 
 describe('AttractionCard Component Snapshot', () => {
-  it('should render the AttractionCard Component successfully', () => {
-    const { toJSON } = render(<AttractionCard {...mockedDefaultProps} />)
+  it('should render the AttractionCard Component successfully', async () => {
+    const { toJSON } = await render(<AttractionCard {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

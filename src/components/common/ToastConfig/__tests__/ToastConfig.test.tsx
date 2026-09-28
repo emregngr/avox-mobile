@@ -42,11 +42,11 @@ describe('useToastConfig Component', () => {
     expect(result.current.error).toBeInstanceOf(Function)
   })
 
-  it('should configure SuccessToast with correct props for the light theme', () => {
+  it('should configure SuccessToast with correct props for the light theme', async () => {
     const { result } = renderHook(() => useToastConfig())
 
     const SuccessToastComponent = result.current.success({})
-    const { getByTestId } = render(SuccessToastComponent)
+    const { getByTestId } = await render(SuccessToastComponent)
     const toast = getByTestId('mocked-success-toast')
 
     expect(toast.props.text2NumberOfLines).toBe(2)
@@ -58,29 +58,29 @@ describe('useToastConfig Component', () => {
     expect(toast.props.style.width).toBe(375 - 32)
   })
 
-  it('should configure ErrorToast with the correct error color', () => {
+  it('should configure ErrorToast with the correct error color', async () => {
     const { result } = renderHook(() => useToastConfig())
 
     const ErrorToastComponent = result.current.error({})
-    const { getByTestId } = render(ErrorToastComponent)
+    const { getByTestId } = await render(ErrorToastComponent)
     const toast = getByTestId('mocked-error-toast')
 
     expect(toast.props.style.borderLeftColor).toBe(lightColors.error)
   })
 
-  it('should pass through custom props to the underlying toast component', () => {
+  it('should pass through custom props to the underlying toast component', async () => {
     const { result } = renderHook(() => useToastConfig())
     const customProps = { text1: 'Custom Title', text2: 'My custom message.' }
 
     const SuccessToastComponent = result.current.success(customProps as any)
-    const { getByTestId } = render(SuccessToastComponent)
+    const { getByTestId } = await render(SuccessToastComponent)
     const toast = getByTestId('mocked-success-toast')
 
     expect(toast.props.text1).toBe('Custom Title')
     expect(toast.props.text2).toBe('My custom message.')
   })
 
-  it('should update toast styles when the theme changes from light to dark', () => {
+  it('should update toast styles when the theme changes from light to dark', async () => {
     const { result, rerender } = renderHook(() => useToastConfig())
 
     mockedUseThemeStore.mockReturnValue({ selectedTheme: 'dark' })
@@ -88,7 +88,7 @@ describe('useToastConfig Component', () => {
     rerender()
 
     const SuccessToastComponent = result.current.success({})
-    const { getByTestId } = render(SuccessToastComponent)
+    const { getByTestId } = await render(SuccessToastComponent)
     const toast = getByTestId('mocked-success-toast')
 
     expect(toast.props.text1Style.color).toBe(darkColors.text100)

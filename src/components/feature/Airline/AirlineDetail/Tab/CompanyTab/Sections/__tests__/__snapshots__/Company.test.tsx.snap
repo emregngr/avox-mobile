@@ -10,7 +10,7 @@ exports[`Company Component Snapshot should render the Company Component successf
   >
     Year of Establishment
     : 
-    1933 (92 years)
+    1933 (93 years)
   </Text>
   <Text
     testID="row-item-domain"

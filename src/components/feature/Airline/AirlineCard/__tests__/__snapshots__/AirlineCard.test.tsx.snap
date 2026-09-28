@@ -65,11 +65,7 @@ exports[`AirlineCard Component Snapshot should render the AirlineCard successful
     <View
       cachePolicy="memory-disk"
       contentFit="contain"
-      source={
-        {
-          "default": "mocked-test-file",
-        }
-      }
+      source="mocked-test-file"
       style={
         {
           "height": 40,
@@ -104,7 +100,9 @@ exports[`AirlineCard Component Snapshot should render the AirlineCard successful
         THY
       </Text>
     </View>
-    FavoriteButton-1
+    <Text>
+      FavoriteButton-1
+    </Text>
   </View>
   <View
     className="px-3 py-3"

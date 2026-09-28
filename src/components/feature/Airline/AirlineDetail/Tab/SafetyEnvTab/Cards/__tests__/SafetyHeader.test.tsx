@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { cn } from '@/utils/common/cn'
 
@@ -26,14 +25,14 @@ const mockedProps = {
 }
 
 describe('SafetyHeader', () => {
-  it('should render the title text correctly', () => {
-    const { getByText } = render(<SafetyHeader {...mockedProps} />)
+  it('should render the title text correctly', async () => {
+    const { getByText } = await render(<SafetyHeader {...mockedProps} />)
 
     expect(getByText(mockedProps.title)).toBeTruthy()
   })
 
-  it('should render the icon with the correct name, color, and size', () => {
-    const { getByTestId } = render(<SafetyHeader {...mockedProps} />)
+  it('should render the icon with the correct name, color, and size', async () => {
+    const { getByTestId } = await render(<SafetyHeader {...mockedProps} />)
 
     const icon = getByTestId('mocked-material-community-icon')
 
@@ -42,23 +41,23 @@ describe('SafetyHeader', () => {
     expect(icon.props.size).toBe(20)
   })
 
-  it('should use the default className when none is provided', () => {
-    render(<SafetyHeader {...mockedProps} />)
+  it('should use the default className when none is provided', async () => {
+    await render(<SafetyHeader {...mockedProps} />)
 
     expect(mockedCn).toHaveBeenCalledWith('flex-row items-center', 'mb-4')
   })
 
-  it('should override the default className when a custom one is provided', () => {
+  it('should override the default className when a custom one is provided', async () => {
     const customClassName = 'p-4 border-b'
-    render(<SafetyHeader {...mockedProps} className={customClassName} />)
+    await render(<SafetyHeader {...mockedProps} className={customClassName} />)
 
     expect(mockedCn).toHaveBeenCalledWith('flex-row items-center', customClassName)
   })
 })
 
 describe('SafetyHeader Component Snapshot', () => {
-  it('should render the SafetyHeader Component successfully', () => {
-    const { toJSON } = render(<SafetyHeader {...mockedProps} />)
+  it('should render the SafetyHeader Component successfully', async () => {
+    const { toJSON } = await render(<SafetyHeader {...mockedProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

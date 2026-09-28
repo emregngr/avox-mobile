@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import { SectionHeader } from '@/components/feature/Home/SectionHeader'
 import { getLocale } from '@/locales/i18next'
@@ -28,58 +27,60 @@ beforeEach(() => {
 })
 
 describe('SectionHeader Component', () => {
-  it('should render the title correctly', () => {
+  it('should render the title correctly', async () => {
     const title = 'Trending Topics'
-    const { getByText } = render(<SectionHeader title={title} />)
+    const { getByText } = await render(<SectionHeader title={title} />)
 
     expect(getByText(title)).toBeTruthy()
   })
 
-  it('should not render the "View All" button by default', () => {
-    const { queryByTestId } = render(<SectionHeader title="My Section" />)
+  it('should not render the "View All" button by default', async () => {
+    const { queryByTestId } = await render(<SectionHeader title="My Section" />)
 
     expect(queryByTestId('view-all-button')).toBeNull()
   })
 
-  it('should not render the "View All" button when showViewAll is false', () => {
-    const { queryByTestId } = render(<SectionHeader showViewAll={false} title="Another Section" />)
+  it('should not render the "View All" button when showViewAll is false', async () => {
+    const { queryByTestId } = await render(
+      <SectionHeader showViewAll={false} title="Another Section" />,
+    )
 
     expect(queryByTestId('view-all-button')).toBeNull()
   })
 
-  it('should render the "View All" button when showViewAll is true', () => {
-    const { getByTestId } = render(<SectionHeader title="Featured" showViewAll />)
+  it('should render the "View All" button when showViewAll is true', async () => {
+    const { getByTestId } = await render(<SectionHeader title="Featured" showViewAll />)
 
     const viewAllButton = getByTestId('view-all-button-Featured')
     expect(viewAllButton).toBeTruthy()
   })
 
-  it('should call the onViewAll callback when the "View All" button is pressed', () => {
+  it('should call the onViewAll callback when the "View All" button is pressed', async () => {
     const mockedOnViewAll = jest.fn()
 
-    const { getByTestId } = render(
+    const { getByTestId } = await render(
       <SectionHeader onViewAll={mockedOnViewAll} title="All Items" showViewAll />,
     )
 
     const viewAllButton = getByTestId('view-all-button-All Items')
 
     expect(viewAllButton).toBeTruthy()
-    fireEvent.press(viewAllButton)
+    await fireEvent.press(viewAllButton)
 
     expect(mockedOnViewAll).toHaveBeenCalledTimes(1)
   })
 
-  it('should not throw an error if onViewAll is not provided and button is pressed', () => {
-    const { getByTestId } = render(<SectionHeader title="No Callback" showViewAll />)
+  it('should not throw an error if onViewAll is not provided and button is pressed', async () => {
+    const { getByTestId } = await render(<SectionHeader title="No Callback" showViewAll />)
 
     const viewAllButton = getByTestId('view-all-button-No Callback')
 
     expect(viewAllButton).toBeTruthy()
-    expect(() => fireEvent.press(viewAllButton)).not.toThrow()
+    await fireEvent.press(viewAllButton)
   })
 
-  it('should render the view all button with correct properties', () => {
-    const { getByTestId } = render(<SectionHeader title="Structure Test" showViewAll />)
+  it('should render the view all button with correct properties', async () => {
+    const { getByTestId } = await render(<SectionHeader title="Structure Test" showViewAll />)
 
     const viewAllButton = getByTestId('view-all-button-Structure Test')
 
@@ -91,8 +92,8 @@ describe('SectionHeader Component', () => {
 })
 
 describe('SectionHeader Component Snapshot', () => {
-  it('should render the SectionHeader Component successfully', () => {
-    const { toJSON } = render(<SectionHeader title="SectionHeader" />)
+  it('should render the SectionHeader Component successfully', async () => {
+    const { toJSON } = await render(<SectionHeader title="SectionHeader" />)
 
     expect(toJSON()).toMatchSnapshot()
   })

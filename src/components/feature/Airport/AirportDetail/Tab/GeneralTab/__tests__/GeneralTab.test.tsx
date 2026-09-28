@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { GeneralTab } from '@/components/feature/Airport/AirportDetail/Tab/GeneralTab'
 
@@ -91,8 +90,8 @@ const mockedAirportData: any = {
 }
 
 describe('GeneralTab Component', () => {
-  it('should render all section components', () => {
-    const { getByTestId } = render(<GeneralTab airportData={mockedAirportData} />)
+  it('should render all section components', async () => {
+    const { getByTestId } = await render(<GeneralTab airportData={mockedAirportData} />)
 
     expect(getByTestId('general-section')).toBeTruthy()
     expect(getByTestId('services-section')).toBeTruthy()
@@ -102,8 +101,8 @@ describe('GeneralTab Component', () => {
     expect(getByTestId('map-section')).toBeTruthy()
   })
 
-  it('should pass correct props to General component', () => {
-    render(<GeneralTab airportData={mockedAirportData} />)
+  it('should pass correct props to General component', async () => {
+    await render(<GeneralTab airportData={mockedAirportData} />)
 
     expect(mockedGeneral).toHaveBeenCalledWith({
       airportInfo: mockedAirportData.airportInfo,
@@ -111,48 +110,48 @@ describe('GeneralTab Component', () => {
     })
   })
 
-  it('should pass correct props to Services component', () => {
-    render(<GeneralTab airportData={mockedAirportData} />)
+  it('should pass correct props to Services component', async () => {
+    await render(<GeneralTab airportData={mockedAirportData} />)
 
     expect(mockedServices).toHaveBeenCalledWith({
       facilities: mockedAirportData.facilities,
     })
   })
 
-  it('should pass correct props to Contact component', () => {
-    render(<GeneralTab airportData={mockedAirportData} />)
+  it('should pass correct props to Contact component', async () => {
+    await render(<GeneralTab airportData={mockedAirportData} />)
 
     expect(mockedContact).toHaveBeenCalledWith({
       airportInfo: mockedAirportData.airportInfo,
     })
   })
 
-  it('should pass correct props to SocialMedia component', () => {
-    render(<GeneralTab airportData={mockedAirportData} />)
+  it('should pass correct props to SocialMedia component', async () => {
+    await render(<GeneralTab airportData={mockedAirportData} />)
 
     expect(mockedSocialMedia).toHaveBeenCalledWith({
       airportInfo: mockedAirportData.airportInfo,
     })
   })
 
-  it('should pass correct props to Location component', () => {
-    render(<GeneralTab airportData={mockedAirportData} />)
+  it('should pass correct props to Location component', async () => {
+    await render(<GeneralTab airportData={mockedAirportData} />)
 
     expect(mockedLocation).toHaveBeenCalledWith({
       operations: mockedAirportData.operations,
     })
   })
 
-  it('should pass correct props to Map component', () => {
-    render(<GeneralTab airportData={mockedAirportData} />)
+  it('should pass correct props to Map component', async () => {
+    await render(<GeneralTab airportData={mockedAirportData} />)
 
     expect(mockedMap).toHaveBeenCalledWith({
       airportData: mockedAirportData,
     })
   })
 
-  it('should handle undefined airportData gracefully', () => {
-    render(<GeneralTab airportData={undefined as any} />)
+  it('should handle undefined airportData gracefully', async () => {
+    await render(<GeneralTab airportData={undefined as any} />)
 
     expect(mockedGeneral).toHaveBeenCalledWith({
       airportInfo: undefined,
@@ -162,13 +161,13 @@ describe('GeneralTab Component', () => {
     expect(mockedMap).toHaveBeenCalledWith({ airportData: undefined })
   })
 
-  it('should handle partial airportData (missing facilities)', () => {
+  it('should handle partial airportData (missing facilities)', async () => {
     const partialData: any = {
       airportInfo: mockedAirportData.airportInfo,
       operations: mockedAirportData.operations,
     }
 
-    render(<GeneralTab airportData={partialData} />)
+    await render(<GeneralTab airportData={partialData} />)
 
     expect(mockedGeneral).toHaveBeenCalledWith({
       airportInfo: partialData.airportInfo,
@@ -177,13 +176,13 @@ describe('GeneralTab Component', () => {
     expect(mockedServices).toHaveBeenCalledWith({ facilities: undefined })
   })
 
-  it('should handle partial airportData (missing airportInfo)', () => {
+  it('should handle partial airportData (missing airportInfo)', async () => {
     const partialData: any = {
       facilities: mockedAirportData.facilities,
       operations: mockedAirportData.operations,
     }
 
-    render(<GeneralTab airportData={partialData} />)
+    await render(<GeneralTab airportData={partialData} />)
 
     expect(mockedGeneral).toHaveBeenCalledWith({
       airportInfo: undefined,
@@ -193,8 +192,8 @@ describe('GeneralTab Component', () => {
     expect(mockedSocialMedia).toHaveBeenCalledWith({ airportInfo: undefined })
   })
 
-  it('should call all section components exactly once', () => {
-    render(<GeneralTab airportData={mockedAirportData} />)
+  it('should call all section components exactly once', async () => {
+    await render(<GeneralTab airportData={mockedAirportData} />)
 
     expect(mockedGeneral).toHaveBeenCalledTimes(1)
     expect(mockedServices).toHaveBeenCalledTimes(1)
@@ -206,8 +205,8 @@ describe('GeneralTab Component', () => {
 })
 
 describe('GeneralTab Component Snapshot', () => {
-  it('should render the GeneralTab Component successfully', () => {
-    const { toJSON } = render(<GeneralTab airportData={mockedAirportData} />)
+  it('should render the GeneralTab Component successfully', async () => {
+    const { toJSON } = await render(<GeneralTab airportData={mockedAirportData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

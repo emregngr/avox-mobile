@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import { NearbyPlacesTab } from '@/components/feature/Airport/AirportDetail/Tab/NearbyPlacesTab'
 import { useMapNavigation } from '@/hooks/maps/useMapNavigation'
@@ -82,8 +81,8 @@ beforeEach(() => {
 })
 
 describe('NearbyPlacesTab Component', () => {
-  it('should render a list of attraction cards based on airport data', () => {
-    const { getByText } = render(<NearbyPlacesTab airportData={mockedAirportData} />)
+  it('should render a list of attraction cards based on airport data', async () => {
+    const { getByText } = await render(<NearbyPlacesTab airportData={mockedAirportData} />)
 
     expect(getByText('Sultanahmet Camii')).toBeTruthy()
     expect(getByText('Ayasofya')).toBeTruthy()
@@ -91,13 +90,13 @@ describe('NearbyPlacesTab Component', () => {
     expect(getByText('45.5 km')).toBeTruthy()
   })
 
-  it('should render an AttractionCard for each item in the array', () => {
-    render(<NearbyPlacesTab airportData={mockedAirportData} />)
+  it('should render an AttractionCard for each item in the array', async () => {
+    await render(<NearbyPlacesTab airportData={mockedAirportData} />)
     expect(mockedAttractionCard).toHaveBeenCalledTimes(2)
   })
 
-  it('should pass correct props to the first AttractionCard', () => {
-    render(<NearbyPlacesTab airportData={mockedAirportData} />)
+  it('should pass correct props to the first AttractionCard', async () => {
+    await render(<NearbyPlacesTab airportData={mockedAirportData} />)
     const firstAttraction = mockedAirportData.nearbyAttractions[0]
 
     expect(mockedAttractionCard).toHaveBeenNthCalledWith(
@@ -111,11 +110,11 @@ describe('NearbyPlacesTab Component', () => {
     )
   })
 
-  it('should call openMapNavigation with correct coordinates when a direction button is pressed', () => {
-    const { getByTestId } = render(<NearbyPlacesTab airportData={mockedAirportData} />)
+  it('should call openMapNavigation with correct coordinates when a direction button is pressed', async () => {
+    const { getByTestId } = await render(<NearbyPlacesTab airportData={mockedAirportData} />)
 
     const sultanahmetButton = getByTestId('button-Sultanahmet Camii')
-    fireEvent.press(sultanahmetButton)
+    await fireEvent.press(sultanahmetButton)
 
     expect(mockOpenMapNavigation).toHaveBeenCalledTimes(1)
     const firstAttraction = mockedAirportData.nearbyAttractions[0]
@@ -126,29 +125,33 @@ describe('NearbyPlacesTab Component', () => {
     )
   })
 
-  it('should render nothing when there are no nearby attractions', () => {
+  it('should render nothing when there are no nearby attractions', async () => {
     const emptyAirportData = { ...mockedAirportData, nearbyAttractions: [] }
-    const { queryByTestId } = render(<NearbyPlacesTab airportData={emptyAirportData} />)
+    const { queryByTestId } = await render(<NearbyPlacesTab airportData={emptyAirportData} />)
 
     expect(queryByTestId('mocked-attraction-card')).toBeNull()
 
     expect(mockedAttractionCard).not.toHaveBeenCalled()
   })
 
-  it('should handle undefined or null airportData and attractions gracefully', () => {
-    const { rerender, queryByTestId } = render(<NearbyPlacesTab airportData={undefined as any} />)
+  it('should handle undefined or null airportData and attractions gracefully', async () => {
+    const { rerender, queryByTestId } = await render(
+      <NearbyPlacesTab airportData={undefined as any} />,
+    )
     expect(queryByTestId('mocked-attraction-card')).toBeNull()
     expect(mockedAttractionCard).not.toHaveBeenCalled()
 
-    rerender(<NearbyPlacesTab airportData={{ ...mockedAirportData, nearbyAttractions: null }} />)
+    await rerender(
+      <NearbyPlacesTab airportData={{ ...mockedAirportData, nearbyAttractions: null }} />,
+    )
     expect(queryByTestId('mocked-attraction-card')).toBeNull()
     expect(mockedAttractionCard).not.toHaveBeenCalled()
   })
 })
 
 describe('NearbyPlacesTab Component Snapshot', () => {
-  it('should render the NearbyPlacesTab Component successfully', () => {
-    const { toJSON } = render(<NearbyPlacesTab airportData={mockedAirportData} />)
+  it('should render the NearbyPlacesTab Component successfully', async () => {
+    const { toJSON } = await render(<NearbyPlacesTab airportData={mockedAirportData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

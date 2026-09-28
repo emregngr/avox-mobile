@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Alliance } from '@/components/feature/Airline/AirlineDetail/Tab/AirlineFlightTab/Sections/Alliance'
 
@@ -36,22 +35,22 @@ const mockedDefaultProps = {
 }
 
 describe('Alliance Component', () => {
-  it('should render the alliance name correctly', () => {
-    const { getByText } = render(<Alliance {...mockedDefaultProps} />)
+  it('should render the alliance name correctly', async () => {
+    const { getByText } = await render(<Alliance {...mockedDefaultProps} />)
 
     expect(getByText(mockedDefaultProps.alliance)).toBeTruthy()
   })
 
-  it('should pass the correct title to AirlineSectionRow', () => {
-    const { getByTestId } = render(<Alliance {...mockedDefaultProps} />)
+  it('should pass the correct title to AirlineSectionRow', async () => {
+    const { getByTestId } = await render(<Alliance {...mockedDefaultProps} />)
 
     const sectionRow = getByTestId('mocked-section-row')
 
     expect(sectionRow.props.title).toBe(mockedDefaultProps.title)
   })
 
-  it('should pass the correct props to MaterialCommunityIcons', () => {
-    const { getByTestId } = render(<Alliance {...mockedDefaultProps} />)
+  it('should pass the correct props to MaterialCommunityIcons', async () => {
+    const { getByTestId } = await render(<Alliance {...mockedDefaultProps} />)
 
     const icon = getByTestId('mocked-material-community-icon')
 
@@ -60,8 +59,8 @@ describe('Alliance Component', () => {
     expect(icon.props.color).toBe(mockedDefaultProps.iconColor)
   })
 
-  it('should pass the correct props to ThemedText', () => {
-    const { getByText } = render(<Alliance {...mockedDefaultProps} />)
+  it('should pass the correct props to ThemedText', async () => {
+    const { getByText } = await render(<Alliance {...mockedDefaultProps} />)
 
     const themedText = getByText(mockedDefaultProps.alliance)
 
@@ -71,8 +70,8 @@ describe('Alliance Component', () => {
 })
 
 describe('Alliance Component Snapshot', () => {
-  it('should render the Alliance Component successfully', () => {
-    const { toJSON } = render(<Alliance {...mockedDefaultProps} />)
+  it('should render the Alliance Component successfully', async () => {
+    const { toJSON } = await render(<Alliance {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

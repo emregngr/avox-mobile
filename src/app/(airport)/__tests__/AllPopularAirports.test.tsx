@@ -1,7 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import AllPopularAirports from '@/app/(airport)/all-popular-airports'
@@ -461,49 +460,49 @@ const renderWithSafeAreaProvider = (component: ReactNode) =>
   )
 
 describe('AllPopularAirports Screen', () => {
-  it('should display skeleton loader while loading', () => {
+  it('should display skeleton loader while loading', async () => {
     mockedUseHome.mockReturnValue({ isLoading: true, homeData: null } as any)
-    const { getByTestId } = renderWithSafeAreaProvider(<AllPopularAirports />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<AllPopularAirports />)
     expect(getByTestId('skeleton')).toBeTruthy()
   })
 
-  it('should display the list of airports when data is loaded', () => {
+  it('should display the list of airports when data is loaded', async () => {
     mockedUseHome.mockReturnValue({
       isLoading: false,
       homeData: { popularAirports: mockedAirports },
     } as any)
-    const { getByTestId, queryByTestId } = renderWithSafeAreaProvider(<AllPopularAirports />)
+    const { getByTestId, queryByTestId } = await renderWithSafeAreaProvider(<AllPopularAirports />)
     expect(getByTestId('airport-card-1')).toBeTruthy()
     expect(getByTestId('airport-card-2')).toBeTruthy()
     expect(queryByTestId('skeleton')).toBeNull()
   })
 
-  it('should navigate back when the back button is pressed', () => {
+  it('should navigate back when the back button is pressed', async () => {
     mockedUseHome.mockReturnValue({ isLoading: false, homeData: null } as any)
-    const { getByTestId } = renderWithSafeAreaProvider(<AllPopularAirports />)
-    fireEvent.press(getByTestId('back-button'))
+    const { getByTestId } = await renderWithSafeAreaProvider(<AllPopularAirports />)
+    await fireEvent.press(getByTestId('back-button'))
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should render an empty list without crashing if no airport data is available', () => {
+  it('should render an empty list without crashing if no airport data is available', async () => {
     mockedUseHome.mockReturnValue({
       isLoading: false,
       homeData: { popularAirports: [] },
     } as any)
-    const { queryByTestId } = renderWithSafeAreaProvider(<AllPopularAirports />)
+    const { queryByTestId } = await renderWithSafeAreaProvider(<AllPopularAirports />)
     expect(queryByTestId('airport-card-1')).toBeNull()
     expect(queryByTestId('skeleton')).toBeNull()
   })
 })
 
 describe('AllPopularAirports Screen Snapshot', () => {
-  it('should render the AllPopularAirports Screen successfully', () => {
+  it('should render the AllPopularAirports Screen successfully', async () => {
     mockedUseHome.mockReturnValue({
       isLoading: false,
       homeData: { popularAirports: mockedAirports },
     } as any)
 
-    const { toJSON } = renderWithSafeAreaProvider(<AllPopularAirports />)
+    const { toJSON } = await renderWithSafeAreaProvider(<AllPopularAirports />)
 
     expect(toJSON()).toMatchSnapshot()
   })

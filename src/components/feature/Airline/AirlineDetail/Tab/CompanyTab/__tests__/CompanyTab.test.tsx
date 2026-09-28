@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { CompanyTab } from '@/components/feature/Airline/AirlineDetail/Tab/CompanyTab'
 
@@ -86,8 +85,8 @@ const mockedAirlineData: any = {
 }
 
 describe('CompanyTab Component', () => {
-  it('should render all section components', () => {
-    const { getByTestId } = render(<CompanyTab airlineData={mockedAirlineData} />)
+  it('should render all section components', async () => {
+    const { getByTestId } = await render(<CompanyTab airlineData={mockedAirlineData} />)
 
     expect(getByTestId('company-section')).toBeTruthy()
     expect(getByTestId('contact-section')).toBeTruthy()
@@ -96,8 +95,8 @@ describe('CompanyTab Component', () => {
     expect(getByTestId('map-section')).toBeTruthy()
   })
 
-  it('should pass airlineData to Company component', () => {
-    render(<CompanyTab airlineData={mockedAirlineData} />)
+  it('should pass airlineData to Company component', async () => {
+    await render(<CompanyTab airlineData={mockedAirlineData} />)
 
     expect(mockedCompany).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -106,8 +105,8 @@ describe('CompanyTab Component', () => {
     )
   })
 
-  it('should pass companyInfo to Contact component', () => {
-    render(<CompanyTab airlineData={mockedAirlineData} />)
+  it('should pass companyInfo to Contact component', async () => {
+    await render(<CompanyTab airlineData={mockedAirlineData} />)
 
     expect(mockedContact).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -116,8 +115,8 @@ describe('CompanyTab Component', () => {
     )
   })
 
-  it('should pass companyInfo to SocialMedia component', () => {
-    render(<CompanyTab airlineData={mockedAirlineData} />)
+  it('should pass companyInfo to SocialMedia component', async () => {
+    await render(<CompanyTab airlineData={mockedAirlineData} />)
 
     expect(mockedSocialMedia).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -126,8 +125,8 @@ describe('CompanyTab Component', () => {
     )
   })
 
-  it('should pass operations to Hub component', () => {
-    render(<CompanyTab airlineData={mockedAirlineData} />)
+  it('should pass operations to Hub component', async () => {
+    await render(<CompanyTab airlineData={mockedAirlineData} />)
 
     expect(mockedHub).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -136,8 +135,8 @@ describe('CompanyTab Component', () => {
     )
   })
 
-  it('should pass airlineData to Map component', () => {
-    render(<CompanyTab airlineData={mockedAirlineData} />)
+  it('should pass airlineData to Map component', async () => {
+    await render(<CompanyTab airlineData={mockedAirlineData} />)
 
     expect(mockedMap).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -146,8 +145,8 @@ describe('CompanyTab Component', () => {
     )
   })
 
-  it('should handle undefined airlineData gracefully', () => {
-    render(<CompanyTab airlineData={undefined as any} />)
+  it('should handle undefined airlineData gracefully', async () => {
+    await render(<CompanyTab airlineData={undefined as any} />)
 
     expect(mockedContact).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -162,14 +161,14 @@ describe('CompanyTab Component', () => {
     )
   })
 
-  it('should handle partial airlineData (missing companyInfo)', () => {
+  it('should handle partial airlineData (missing companyInfo)', async () => {
     const partialData = {
       id: '1',
       name: 'Test Airline',
       operations: mockedAirlineData.operations,
     } as any
 
-    render(<CompanyTab airlineData={partialData} />)
+    await render(<CompanyTab airlineData={partialData} />)
 
     expect(mockedContact).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -184,14 +183,14 @@ describe('CompanyTab Component', () => {
     )
   })
 
-  it('should handle partial airlineData (missing operations)', () => {
+  it('should handle partial airlineData (missing operations)', async () => {
     const partialData = {
       id: '1',
       name: 'Test Airline',
       companyInfo: mockedAirlineData.companyInfo,
     } as any
 
-    render(<CompanyTab airlineData={partialData} />)
+    await render(<CompanyTab airlineData={partialData} />)
 
     expect(mockedContact).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -206,15 +205,15 @@ describe('CompanyTab Component', () => {
     )
   })
 
-  it('should render with correct container styling', () => {
-    const { getByTestId } = render(<CompanyTab airlineData={mockedAirlineData} />)
+  it('should render with correct container styling', async () => {
+    const { getByTestId } = await render(<CompanyTab airlineData={mockedAirlineData} />)
 
     const companySection = getByTestId('company-section')
     expect(companySection).toBeTruthy()
   })
 
-  it('should call all section components exactly once', () => {
-    render(<CompanyTab airlineData={mockedAirlineData} />)
+  it('should call all section components exactly once', async () => {
+    await render(<CompanyTab airlineData={mockedAirlineData} />)
 
     expect(mockedCompany).toHaveBeenCalledTimes(1)
     expect(mockedContact).toHaveBeenCalledTimes(1)
@@ -225,8 +224,8 @@ describe('CompanyTab Component', () => {
 })
 
 describe('CompanyTab Component Snapshot', () => {
-  it('should render the CompanyTab Component successfully', () => {
-    const { toJSON } = render(<CompanyTab airlineData={mockedAirlineData} />)
+  it('should render the CompanyTab Component successfully', async () => {
+    const { toJSON } = await render(<CompanyTab airlineData={mockedAirlineData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

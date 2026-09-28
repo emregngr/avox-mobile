@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { AirportServices } from '@/components/feature/FilterModal/AirportServices'
 import { FilterChip } from '@/components/feature/FilterModal/FilterChip'
@@ -51,8 +50,8 @@ beforeEach(() => {
 })
 
 describe('AirportServices', () => {
-  it('should render the title and all service chips correctly', () => {
-    const { getByText } = render(
+  it('should render the title and all service chips correctly', async () => {
+    const { getByText } = await render(
       <AirportServices localFilters={{}} onBooleanToggle={mockedOnBooleanToggle} />,
     )
 
@@ -65,8 +64,8 @@ describe('AirportServices', () => {
     expect(calls?.[2]?.[0].label).toBe('Parking')
   })
 
-  it('should call onBooleanToggle with the correct value when a chip is pressed', () => {
-    render(<AirportServices localFilters={{}} onBooleanToggle={mockedOnBooleanToggle} />)
+  it('should call onBooleanToggle with the correct value when a chip is pressed', async () => {
+    await render(<AirportServices localFilters={{}} onBooleanToggle={mockedOnBooleanToggle} />)
 
     const loungeCall = mockedFilterChip.mock.calls.find(call => call[0].label === 'Lounge')
     const loungeProps = loungeCall?.[0]
@@ -76,13 +75,15 @@ describe('AirportServices', () => {
     expect(mockedOnBooleanToggle).toHaveBeenCalledWith('lounge')
   })
 
-  it('should correctly pass the "selected" prop based on localFilters', () => {
+  it('should correctly pass the "selected" prop based on localFilters', async () => {
     const localFilters = {
       lounge: true,
       parking: false,
     }
 
-    render(<AirportServices localFilters={localFilters} onBooleanToggle={mockedOnBooleanToggle} />)
+    await render(
+      <AirportServices localFilters={localFilters} onBooleanToggle={mockedOnBooleanToggle} />,
+    )
 
     const calls = mockedFilterChip.mock.calls
 
@@ -96,14 +97,14 @@ describe('AirportServices', () => {
     expect(calls?.[2]?.[0].selected).toBe(false)
   })
 
-  it('should not refetch services on re-render due to useMemo', () => {
-    const { rerender } = render(
+  it('should not refetch services on re-render due to useMemo', async () => {
+    const { rerender } = await render(
       <AirportServices localFilters={{}} onBooleanToggle={mockedOnBooleanToggle} />,
     )
 
     expect(mockedGetAirportServices).toHaveBeenCalledTimes(1)
 
-    rerender(
+    await rerender(
       <AirportServices localFilters={{ wifi: true }} onBooleanToggle={mockedOnBooleanToggle} />,
     )
 

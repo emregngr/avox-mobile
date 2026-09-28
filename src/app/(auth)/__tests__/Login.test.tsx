@@ -1,7 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { router, useLocalSearchParams } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -130,8 +129,10 @@ beforeEach(() => {
 })
 
 describe('Login Screen', () => {
-  it('should render correctly', () => {
-    const { getAllByText, getByLabelText, getByTestId } = renderWithSafeAreaProvider(<Login />)
+  it('should render correctly', async () => {
+    const { getAllByText, getByLabelText, getByTestId } = await renderWithSafeAreaProvider(
+      <Login />,
+    )
     expect(getAllByText('login').length).toBeGreaterThan(0)
     expect(getByLabelText('email')).toBeTruthy()
     expect(getByLabelText('password')).toBeTruthy()
@@ -149,9 +150,9 @@ describe('Login Screen', () => {
       reset: mockedReset,
     } as any)
 
-    const { getByTestId } = renderWithSafeAreaProvider(<Login />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<Login />)
     const loginButton = getByTestId('login-button')
-    fireEvent.press(loginButton)
+    await fireEvent.press(loginButton)
 
     await waitFor(() => {
       expect(handleSubmitMock).toHaveBeenCalled()
@@ -170,23 +171,23 @@ describe('Login Screen', () => {
       reset: mockedReset,
     } as any)
 
-    const { getByTestId } = renderWithSafeAreaProvider(<Login />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<Login />)
     const loginButton = getByTestId('login-button')
     expect(loginButton).not.toBeDisabled()
 
-    fireEvent.press(loginButton)
+    await fireEvent.press(loginButton)
 
     await waitFor(() => {
       expect(loginButton).toBeDisabled()
     })
   })
 
-  it('should show loading state and disable inputs', () => {
+  it('should show loading state and disable inputs', async () => {
     ;(require('@/hooks/services/useAuth').useEmailLogin as jest.Mock).mockReturnValue({
       isPending: true,
       mutateAsync: mockedUseEmailLogin,
     })
-    const { getByTestId, getByText, getByLabelText } = renderWithSafeAreaProvider(<Login />)
+    const { getByTestId, getByText, getByLabelText } = await renderWithSafeAreaProvider(<Login />)
 
     expect(getByTestId('login-button')).toBeDisabled()
     expect(getByText('Loading...')).toBeTruthy()
@@ -194,18 +195,18 @@ describe('Login Screen', () => {
     expect(getByLabelText('password').props.editable).toBe(false)
   })
 
-  it('should navigate to forgot-password', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Login />)
+  it('should navigate to forgot-password', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Login />)
     const forgotPasswordButton = getByTestId('button-forgotPassword')
-    fireEvent.press(forgotPasswordButton)
+    await fireEvent.press(forgotPasswordButton)
     expect(mockedReset).toHaveBeenCalled()
     expect(router.navigate).toHaveBeenCalledWith('/forgot-password')
   })
 
-  it('should navigate to register', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Login />)
+  it('should navigate to register', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Login />)
     const createAccountButton = getByTestId('button-createAccount')
-    fireEvent.press(createAccountButton)
+    await fireEvent.press(createAccountButton)
     expect(mockedReset).toHaveBeenCalled()
     expect(router.navigate).toHaveBeenCalledWith({
       params: { isLoginParam: 'true' },
@@ -213,29 +214,29 @@ describe('Login Screen', () => {
     })
   })
 
-  it('should navigate back to auth screen by default', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Login />)
+  it('should navigate back to auth screen by default', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Login />)
     const backButton = getByTestId('back-button')
-    fireEvent.press(backButton)
+    await fireEvent.press(backButton)
     expect(mockedReset).toHaveBeenCalled()
     expect(router.replace).toHaveBeenCalledWith('/auth')
   })
 
-  it('should navigate back to register screen if coming from there', () => {
+  it('should navigate back to register screen if coming from there', async () => {
     ;(require('expo-router').useLocalSearchParams as jest.Mock).mockReturnValue({
       isRegisterParam: 'true',
     })
-    const { getByTestId } = renderWithSafeAreaProvider(<Login />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<Login />)
     const backButton = getByTestId('back-button')
-    fireEvent.press(backButton)
+    await fireEvent.press(backButton)
     expect(mockedReset).toHaveBeenCalled()
     expect(router.navigate).toHaveBeenCalledWith('/register')
   })
 })
 
 describe('Login Screen Snapshot', () => {
-  it('should render the Login successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Login />)
+  it('should render the Login successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Login />)
 
     expect(toJSON()).toMatchSnapshot()
   })

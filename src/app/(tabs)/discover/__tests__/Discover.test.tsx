@@ -1,6 +1,5 @@
 import { render, waitFor } from '@testing-library/react-native'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import Discover from '@/app/(tabs)/discover'
@@ -154,20 +153,20 @@ beforeEach(() => {
 })
 
 describe('Discover Screen', () => {
-  it('should render the tab container and tab bar correctly', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Discover />)
+  it('should render the tab container and tab bar correctly', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Discover />)
     expect(getByTestId('tabs-container')).toBeTruthy()
     expect(getByTestId('render-tab-bar')).toBeTruthy()
   })
 
-  it('should render tabs with the correct labels', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Discover />)
+  it('should render tabs with the correct labels', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Discover />)
     expect(getByTestId('tab-content-airports')).toBeTruthy()
     expect(getByTestId('tab-content-airlines')).toBeTruthy()
   })
 
   it('should pass correct props from useAirport hook to AirportsTab', async () => {
-    const { getByText, getByTestId } = renderWithSafeAreaProvider(<Discover />)
+    const { getByText, getByTestId } = await renderWithSafeAreaProvider(<Discover />)
 
     await waitFor(() => {
       const airportsTab = getByTestId('airports-tab')
@@ -181,7 +180,7 @@ describe('Discover Screen', () => {
   })
 
   it('should pass correct props from useAirline hook to AirlinesTab', async () => {
-    const { getByText, getByTestId } = renderWithSafeAreaProvider(<Discover />)
+    const { getByText, getByTestId } = await renderWithSafeAreaProvider(<Discover />)
 
     await waitFor(() => {
       const airlinesTab = getByTestId('airlines-tab')
@@ -196,8 +195,8 @@ describe('Discover Screen', () => {
 })
 
 describe('Discover Screen Snapshot', () => {
-  it('should render the Discover screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Discover />)
+  it('should render the Discover screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Discover />)
 
     expect(toJSON()).toMatchSnapshot()
   })

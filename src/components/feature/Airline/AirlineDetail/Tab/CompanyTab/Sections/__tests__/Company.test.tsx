@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Company } from '@/components/feature/Airline/AirlineDetail/Tab/CompanyTab/Sections/Company'
 import { getLocale } from '@/locales/i18next'
@@ -102,8 +101,8 @@ beforeEach(() => {
 })
 
 describe('Company Component', () => {
-  it('should render AirlineSectionRow with correct title', () => {
-    render(<Company airlineData={mockedAirlineData} />)
+  it('should render AirlineSectionRow with correct title', async () => {
+    await render(<Company airlineData={mockedAirlineData} />)
 
     expect(mockedAirlineSectionRow).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -112,8 +111,8 @@ describe('Company Component', () => {
     )
   })
 
-  it('should render all AirlineRowItem components with correct props', () => {
-    render(<Company airlineData={mockedAirlineData} />)
+  it('should render all AirlineRowItem components with correct props', async () => {
+    await render(<Company airlineData={mockedAirlineData} />)
 
     expect(mockedAirlineRowItem).toHaveBeenCalledTimes(10)
 
@@ -198,7 +197,7 @@ describe('Company Component', () => {
     )
   })
 
-  it('should handle cargo business model correctly', () => {
+  it('should handle cargo business model correctly', async () => {
     const cargoAirlineData = {
       ...mockedAirlineData,
       operations: {
@@ -207,7 +206,7 @@ describe('Company Component', () => {
       },
     }
 
-    render(<Company airlineData={cargoAirlineData} />)
+    await render(<Company airlineData={cargoAirlineData} />)
 
     expect(mockedAirlineRowItem).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -218,7 +217,7 @@ describe('Company Component', () => {
     )
   })
 
-  it('should handle low_cost business type correctly', () => {
+  it('should handle low_cost business type correctly', async () => {
     const lowCostAirlineData = {
       ...mockedAirlineData,
       operations: {
@@ -227,7 +226,7 @@ describe('Company Component', () => {
       },
     }
 
-    render(<Company airlineData={lowCostAirlineData} />)
+    await render(<Company airlineData={lowCostAirlineData} />)
 
     expect(mockedAirlineRowItem).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -238,7 +237,7 @@ describe('Company Component', () => {
     )
   })
 
-  it('should handle regional business type correctly', () => {
+  it('should handle regional business type correctly', async () => {
     const regionalAirlineData = {
       ...mockedAirlineData,
       operations: {
@@ -247,7 +246,7 @@ describe('Company Component', () => {
       },
     }
 
-    render(<Company airlineData={regionalAirlineData} />)
+    await render(<Company airlineData={regionalAirlineData} />)
 
     expect(mockedAirlineRowItem).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -258,7 +257,7 @@ describe('Company Component', () => {
     )
   })
 
-  it('should handle unknown business model by replacing underscores', () => {
+  it('should handle unknown business model by replacing underscores', async () => {
     const unknownBusinessModelData = {
       ...mockedAirlineData,
       operations: {
@@ -267,7 +266,7 @@ describe('Company Component', () => {
       },
     }
 
-    render(<Company airlineData={unknownBusinessModelData} />)
+    await render(<Company airlineData={unknownBusinessModelData} />)
 
     const businessModelCalls = mockedAirlineRowItem.mock.calls.filter(
       call => call[0].icon === 'briefcase-outline' && call[0].label === 'Business Model',
@@ -283,7 +282,7 @@ describe('Company Component', () => {
     )
   })
 
-  it('should handle unknown business type by replacing underscores', () => {
+  it('should handle unknown business type by replacing underscores', async () => {
     const unknownBusinessTypeData = {
       ...mockedAirlineData,
       operations: {
@@ -292,7 +291,7 @@ describe('Company Component', () => {
       },
     }
 
-    render(<Company airlineData={unknownBusinessTypeData} />)
+    await render(<Company airlineData={unknownBusinessTypeData} />)
 
     const businessTypeCalls = mockedAirlineRowItem.mock.calls.filter(
       call => call[0].icon === 'airplane' && call[0].label === 'Business Type',
@@ -308,8 +307,8 @@ describe('Company Component', () => {
     )
   })
 
-  it('should handle undefined airlineData gracefully', () => {
-    render(<Company airlineData={undefined as any} />)
+  it('should handle undefined airlineData gracefully', async () => {
+    await render(<Company airlineData={undefined as any} />)
 
     expect(mockedAirlineSectionRow).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -320,7 +319,7 @@ describe('Company Component', () => {
     expect(mockedAirlineRowItem).toHaveBeenCalledTimes(10)
   })
 
-  it('should handle partial companyInfo data', () => {
+  it('should handle partial companyInfo data', async () => {
     const partialData: any = {
       ...mockedAirlineData,
       companyInfo: {
@@ -328,7 +327,7 @@ describe('Company Component', () => {
       },
     }
 
-    render(<Company airlineData={partialData} />)
+    await render(<Company airlineData={partialData} />)
 
     expect(mockedAirlineRowItem).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -347,7 +346,7 @@ describe('Company Component', () => {
     )
   })
 
-  it('should handle partial operations data', () => {
+  it('should handle partial operations data', async () => {
     const partialData: any = {
       ...mockedAirlineData,
       operations: {
@@ -355,7 +354,7 @@ describe('Company Component', () => {
       },
     }
 
-    render(<Company airlineData={partialData} />)
+    await render(<Company airlineData={partialData} />)
 
     expect(mockedAirlineRowItem).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -374,14 +373,14 @@ describe('Company Component', () => {
     )
   })
 
-  it('should call formatNumber for employee count', () => {
-    render(<Company airlineData={mockedAirlineData} />)
+  it('should call formatNumber for employee count', async () => {
+    await render(<Company airlineData={mockedAirlineData} />)
 
     expect(mockedFormatNumber).toHaveBeenCalledWith(45000)
   })
 
-  it('should call getLocale for all required translations', () => {
-    render(<Company airlineData={mockedAirlineData} />)
+  it('should call getLocale for all required translations', async () => {
+    await render(<Company airlineData={mockedAirlineData} />)
 
     const calledKeys = mockedGetLocale.mock.calls.map(call => call[0])
     const uniqueCalledKeys = [...new Set(calledKeys)]
@@ -409,17 +408,17 @@ describe('Company Component', () => {
     expect(uniqueCalledKeys.includes('year') || uniqueCalledKeys.includes('years')).toBe(true)
   })
 
-  it('should memoize locale strings based on selectedLocale', () => {
-    const { rerender } = render(<Company airlineData={mockedAirlineData} />)
+  it('should memoize locale strings based on selectedLocale', async () => {
+    const { rerender } = await render(<Company airlineData={mockedAirlineData} />)
 
     const initialCallCount = mockedGetLocale.mock.calls.length
 
-    rerender(<Company airlineData={mockedAirlineData} />)
+    await rerender(<Company airlineData={mockedAirlineData} />)
 
     expect(mockedGetLocale.mock.calls.length).toBe(initialCallCount)
   })
 
-  it('should handle zero skytrax rating', () => {
+  it('should handle zero skytrax rating', async () => {
     const zeroRatingData = {
       ...mockedAirlineData,
       operations: {
@@ -428,7 +427,7 @@ describe('Company Component', () => {
       },
     }
 
-    render(<Company airlineData={zeroRatingData} />)
+    await render(<Company airlineData={zeroRatingData} />)
 
     const skytraxRatingCalls = mockedAirlineRowItem.mock.calls.filter(
       call => call[0].icon === 'star-outline' && call[0].label === 'Skytrax Rating',
@@ -446,8 +445,8 @@ describe('Company Component', () => {
 })
 
 describe('Company Component Snapshot', () => {
-  it('should render the Company Component successfully', () => {
-    const { toJSON } = render(<Company airlineData={mockedAirlineData} />)
+  it('should render the Company Component successfully', async () => {
+    const { toJSON } = await render(<Company airlineData={mockedAirlineData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

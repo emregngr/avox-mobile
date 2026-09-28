@@ -42,47 +42,47 @@ afterEach(() => {
 })
 
 describe('HomeSlider Component', () => {
-  it('should render null if breakingNews prop is empty or undefined', () => {
-    const { rerender, queryByTestId } = render(<HomeSlider breakingNews={[]} />)
+  it('should render null if breakingNews prop is empty or undefined', async () => {
+    const { rerender, queryByTestId } = await render(<HomeSlider breakingNews={[]} />)
     expect(queryByTestId('home-slider-flatlist')).toBeNull()
 
-    rerender(<HomeSlider breakingNews={undefined as any} />)
+    await rerender(<HomeSlider breakingNews={undefined as any} />)
     expect(queryByTestId('home-slider-flatlist')).toBeNull()
   })
 
-  it('should render correctly with breaking news data', () => {
-    const { getByText } = render(<HomeSlider breakingNews={mockedBreakingNews} />)
+  it('should render correctly with breaking news data', async () => {
+    const { getByText } = await render(<HomeSlider breakingNews={mockedBreakingNews} />)
 
     mockedBreakingNews.forEach(news => {
       expect(getByText(news.title)).toBeTruthy()
     })
   })
 
-  it('should render news cards with correct testIDs', () => {
-    const { getByTestId } = render(<HomeSlider breakingNews={mockedBreakingNews} />)
+  it('should render news cards with correct testIDs', async () => {
+    const { getByTestId } = await render(<HomeSlider breakingNews={mockedBreakingNews} />)
 
     mockedBreakingNews.forEach(news => {
       expect(getByTestId(`news-card-${news.id}`)).toBeTruthy()
     })
   })
 
-  it('should handle auto-scroll functionality', () => {
-    render(<HomeSlider breakingNews={mockedBreakingNews} />)
+  it('should handle auto-scroll functionality', async () => {
+    await render(<HomeSlider breakingNews={mockedBreakingNews} />)
 
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(AUTO_SCROLL_INTERVAL)
     })
 
     expect(true).toBeTruthy()
   })
 
-  it('should handle user interaction events', () => {
-    const { queryByTestId } = render(<HomeSlider breakingNews={mockedBreakingNews} />)
+  it('should handle user interaction events', async () => {
+    const { queryByTestId } = await render(<HomeSlider breakingNews={mockedBreakingNews} />)
 
     const flatList = queryByTestId('home-slider-flatlist')
     if (flatList) {
-      fireEvent(flatList, 'onScrollBeginDrag')
-      fireEvent(flatList, 'onMomentumScrollEnd', {
+      await fireEvent(flatList, 'onScrollBeginDrag')
+      await fireEvent(flatList, 'onMomentumScrollEnd', {
         nativeEvent: { contentOffset: { x: MOCKED_DEVICE_WIDTH } },
       })
     }
@@ -90,12 +90,12 @@ describe('HomeSlider Component', () => {
     expect(true).toBeTruthy()
   })
 
-  it('should handle scroll events', () => {
-    const { queryByTestId } = render(<HomeSlider breakingNews={mockedBreakingNews} />)
+  it('should handle scroll events', async () => {
+    const { queryByTestId } = await render(<HomeSlider breakingNews={mockedBreakingNews} />)
 
     const flatList = queryByTestId('home-slider-flatlist')
     if (flatList) {
-      fireEvent(flatList, 'onScroll', {
+      await fireEvent(flatList, 'onScroll', {
         nativeEvent: {
           contentOffset: { x: MOCKED_DEVICE_WIDTH },
           layoutMeasurement: { width: MOCKED_DEVICE_WIDTH },
@@ -107,19 +107,19 @@ describe('HomeSlider Component', () => {
     expect(true).toBeTruthy()
   })
 
-  it('should cleanup on unmount', () => {
+  it('should cleanup on unmount', async () => {
     const clearIntervalSpy = jest.spyOn(global, 'clearInterval')
-    const { unmount } = render(<HomeSlider breakingNews={mockedBreakingNews} />)
+    const { unmount } = await render(<HomeSlider breakingNews={mockedBreakingNews} />)
 
-    unmount()
+    await unmount()
 
     expect(clearIntervalSpy).toHaveBeenCalled()
   })
 })
 
 describe('HomeSlider Component Snapshot', () => {
-  it('should render the HomeSlider Component successfully', () => {
-    const { toJSON } = render(<HomeSlider breakingNews={mockedBreakingNews} />)
+  it('should render the HomeSlider Component successfully', async () => {
+    const { toJSON } = await render(<HomeSlider breakingNews={mockedBreakingNews} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

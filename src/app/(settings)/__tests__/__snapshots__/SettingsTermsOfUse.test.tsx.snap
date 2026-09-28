@@ -53,7 +53,7 @@ exports[`SettingsTermsOfUse Screen Snapshot should render the SettingsTermsOfUse
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     indicatorStyle="black"

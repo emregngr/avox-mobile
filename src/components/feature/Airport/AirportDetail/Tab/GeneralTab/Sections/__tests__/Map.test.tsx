@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 import { Platform } from 'react-native'
 
 import { Map } from '@/components/feature/Airport/AirportDetail/Tab/GeneralTab/Sections/Map'
@@ -65,13 +64,13 @@ describe('Map Component', () => {
       Platform.OS = 'android'
     })
 
-    it('renders WebView', () => {
-      const { getByTestId } = render(<Map airportData={mockedAirportData} />)
+    it('renders WebView', async () => {
+      const { getByTestId } = await render(<Map airportData={mockedAirportData} />)
       expect(getByTestId('mocked-webview')).toBeTruthy()
     })
 
-    it('generates HTML with the correct, evaluated URL', () => {
-      const { getByTestId } = render(<Map airportData={mockedAirportData} />)
+    it('generates HTML with the correct, evaluated URL', async () => {
+      const { getByTestId } = await render(<Map airportData={mockedAirportData} />)
       const webView = getByTestId('mocked-webview')
       const html = webView.props.source.html
 
@@ -81,40 +80,38 @@ describe('Map Component', () => {
   })
 
   describe('Data Handling (Testing for Crashes)', () => {
-    it('throws an error when AirportInfo is null', () => {
-      expect(() => render(<Map airportData={null as any} />)).toThrow()
+    it('renders nothing when AirportInfo is null', async () => {
+      const { toJSON } = await render(<Map airportData={null as any} />)
+      expect(toJSON()).toBeNull()
     })
 
-    it('throws an error for missing operations', () => {
+    it('renders nothing for missing operations', async () => {
       const incompleteData: any = { id: '1', name: 'Test' }
-      expect(() => render(<Map airportData={incompleteData} />)).toThrow(
-        "Cannot read properties of undefined (reading 'coordinates')",
-      )
+      const { toJSON } = await render(<Map airportData={incompleteData} />)
+      expect(toJSON()).toBeNull()
     })
 
-    it('throws an error for missing hub', () => {
+    it('renders nothing for missing hub', async () => {
       const incompleteData: any = { id: '1', name: 'Test', operations: {} }
-      expect(() => render(<Map airportData={incompleteData} />)).toThrow(
-        "Cannot read properties of undefined (reading 'coordinates')",
-      )
+      const { toJSON } = await render(<Map airportData={incompleteData} />)
+      expect(toJSON()).toBeNull()
     })
 
-    it('throws an error for missing coordinates', () => {
+    it('renders nothing for missing coordinates', async () => {
       const incompleteData: any = {
         id: '1',
         name: 'Test',
         operations: { location: {} },
       }
-      expect(() => render(<Map airportData={incompleteData} />)).toThrow(
-        "Cannot read properties of undefined (reading 'latitude')",
-      )
+      const { toJSON } = await render(<Map airportData={incompleteData} />)
+      expect(toJSON()).toBeNull()
     })
   })
 })
 
 describe('Map Component Snapshot', () => {
-  it('should render the Map Component successfully', () => {
-    const { toJSON } = render(<Map airportData={mockedAirportData} />)
+  it('should render the Map Component successfully', async () => {
+    const { toJSON } = await render(<Map airportData={mockedAirportData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

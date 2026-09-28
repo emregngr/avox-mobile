@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Terminal } from '@/components/feature/Airport/AirportDetail/Tab/InfrastructureTab/Sections/Terminal'
 import { getLocale } from '@/locales/i18next'
@@ -61,8 +60,8 @@ beforeEach(() => {
 })
 
 describe('Terminal Component', () => {
-  it('should render the section with the correct title', () => {
-    render(<Terminal infrastructure={mockedInfrastructure} />)
+  it('should render the section with the correct title', async () => {
+    await render(<Terminal infrastructure={mockedInfrastructure} />)
     expect(mockedGetLocale).toHaveBeenCalledWith('terminalandCapacity')
     expect(mockedAirportSectionRow).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -71,20 +70,20 @@ describe('Terminal Component', () => {
     )
   })
 
-  it('should render six row items', () => {
-    render(<Terminal infrastructure={mockedInfrastructure} />)
+  it('should render six row items', async () => {
+    await render(<Terminal infrastructure={mockedInfrastructure} />)
     expect(mockedAirportRowItem).toHaveBeenCalledTimes(6)
   })
 
-  it('should call formatNumber for relevant fields', () => {
-    render(<Terminal infrastructure={mockedInfrastructure} />)
+  it('should call formatNumber for relevant fields', async () => {
+    await render(<Terminal infrastructure={mockedInfrastructure} />)
     expect(mockedFormatNumber).toHaveBeenCalledWith(30000)
     expect(mockedFormatNumber).toHaveBeenCalledWith(140)
     expect(mockedFormatNumber).toHaveBeenCalledWith(7650)
   })
 
-  it('should pass correct props to each AirportRowItem', () => {
-    render(<Terminal infrastructure={mockedInfrastructure} />)
+  it('should pass correct props to each AirportRowItem', async () => {
+    await render(<Terminal infrastructure={mockedInfrastructure} />)
 
     expect(mockedAirportRowItem).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -130,8 +129,8 @@ describe('Terminal Component', () => {
     )
   })
 
-  it('should handle undefined infrastructure prop gracefully', () => {
-    render(<Terminal infrastructure={undefined as any} />)
+  it('should handle undefined infrastructure prop gracefully', async () => {
+    await render(<Terminal infrastructure={undefined as any} />)
     expect(mockedAirportSectionRow).toHaveBeenCalled()
     expect(mockedAirportRowItem).toHaveBeenCalledTimes(6)
     expect(mockedAirportRowItem).toHaveBeenCalledWith(
@@ -144,8 +143,8 @@ describe('Terminal Component', () => {
 })
 
 describe('Terminal Component Snapshot', () => {
-  it('should render the Terminal Component successfully', () => {
-    const { toJSON } = render(<Terminal infrastructure={mockedInfrastructure} />)
+  it('should render the Terminal Component successfully', async () => {
+    const { toJSON } = await render(<Terminal infrastructure={mockedInfrastructure} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 import type { TextProps } from 'react-native'
 
 import type { TypographyType } from '@/components/common/ThemedText'
@@ -10,8 +9,8 @@ jest.mock('@/utils/common/cn', () => ({
 }))
 
 describe('ThemedText Component', () => {
-  it('should render its children correctly', () => {
-    const { getByText } = render(
+  it('should render its children correctly', async () => {
+    const { getByText } = await render(
       <ThemedText color="text-100" type="body1">
         Hello, World!
       </ThemedText>,
@@ -38,8 +37,8 @@ describe('ThemedText Component', () => {
 
     it.each(Object.entries(typographyMap))(
       'should apply the correct style for type "%s"',
-      (type, expectedClass) => {
-        const { getByTestId } = render(
+      async (type, expectedClass) => {
+        const { getByTestId } = await render(
           <ThemedText color="text-100" testID="themed-text" type={type as TypographyType}>
             Styled Text
           </ThemedText>,
@@ -51,8 +50,8 @@ describe('ThemedText Component', () => {
   })
 
   describe('Color Application', () => {
-    it('should apply the correct class for a single-level color', () => {
-      const { getByTestId } = render(
+    it('should apply the correct class for a single-level color', async () => {
+      const { getByTestId } = await render(
         <ThemedText color="success" testID="themed-text" type="body1">
           Success
         </ThemedText>,
@@ -60,8 +59,8 @@ describe('ThemedText Component', () => {
       expect(getByTestId('themed-text').props.className).toContain('text-success')
     })
 
-    it('should apply the correct class for a nested color', () => {
-      const { getByTestId } = render(
+    it('should apply the correct class for a nested color', async () => {
+      const { getByTestId } = await render(
         <ThemedText color="primary-70" testID="themed-text" type="body1">
           Primary
         </ThemedText>,
@@ -69,8 +68,8 @@ describe('ThemedText Component', () => {
       expect(getByTestId('themed-text').props.className).toContain('text-primary-70')
     })
 
-    it('should handle an invalid color gracefully without applying a color class', () => {
-      const { getByTestId } = render(
+    it('should handle an invalid color gracefully without applying a color class', async () => {
+      const { getByTestId } = await render(
         <ThemedText color="invalid-color" testID="themed-text" type="body1">
           Invalid Color
         </ThemedText>,
@@ -80,20 +79,17 @@ describe('ThemedText Component', () => {
     })
   })
 
-  it('should apply the text-center class when center prop is true', () => {
-    const { getByTestId } = render(
-      <ThemedText
-        color="text-100" testID="themed-text" type="h1"
-        center
-      >
+  it('should apply the text-center class when center prop is true', async () => {
+    const { getByTestId } = await render(
+      <ThemedText color="text-100" testID="themed-text" type="h1" center>
         Centered
       </ThemedText>,
     )
     expect(getByTestId('themed-text').props.className).toContain('text-center')
   })
 
-  it('should not apply the text-center class when center prop is omitted', () => {
-    const { getByTestId } = render(
+  it('should not apply the text-center class when center prop is omitted', async () => {
+    const { getByTestId } = await render(
       <ThemedText color="text-100" testID="themed-text" type="h1">
         Not Centered
       </ThemedText>,
@@ -101,13 +97,10 @@ describe('ThemedText Component', () => {
     expect(getByTestId('themed-text').props.className).not.toContain('text-center')
   })
 
-  it('should merge any additional className', () => {
+  it('should merge any additional className', async () => {
     const customClass = 'mt-4 opacity-75'
-    const { getByTestId } = render(
-      <ThemedText
-        className={customClass} color="text-100" testID="themed-text"
-        type="body1"
-      >
+    const { getByTestId } = await render(
+      <ThemedText className={customClass} color="text-100" testID="themed-text" type="body1">
         Custom Class
       </ThemedText>,
     )
@@ -117,13 +110,10 @@ describe('ThemedText Component', () => {
     expect(textElement.props.className).toContain(customClass)
   })
 
-  it('should pass through other standard TextProps', () => {
+  it('should pass through other standard TextProps', async () => {
     const textProps: TextProps = { numberOfLines: 2, ellipsizeMode: 'tail' }
-    const { getByTestId } = render(
-      <ThemedText
-        color="text-100" testID="themed-text" type="body1"
-        {...textProps}
-      >
+    const { getByTestId } = await render(
+      <ThemedText color="text-100" testID="themed-text" type="body1" {...textProps}>
         A very long text that is expected to be truncated after two lines.
       </ThemedText>,
     )
@@ -132,8 +122,8 @@ describe('ThemedText Component', () => {
     expect(textElement.props.ellipsizeMode).toBe('tail')
   })
 
-  it('should have allowFontScaling set to false and maxFontSizeMultiplier to 1.0', () => {
-    const { getByTestId } = render(
+  it('should have allowFontScaling set to false and maxFontSizeMultiplier to 1.0', async () => {
+    const { getByTestId } = await render(
       <ThemedText color="text-100" testID="themed-text" type="body1">
         Fixed Font Size
       </ThemedText>,
@@ -145,8 +135,8 @@ describe('ThemedText Component', () => {
 })
 
 describe('ThemedText Component Snapshot', () => {
-  it('should render the ThemedText Component successfully', () => {
-    const { getByTestId } = render(
+  it('should render the ThemedText Component successfully', async () => {
+    const { getByTestId } = await render(
       <ThemedText color="text-100" testID="themed-text" type="body1">
         Hello, World!
       </ThemedText>,

@@ -67,7 +67,7 @@ describe('AnalyticsService', () => {
     it('should log an error if logEvent fails', async () => {
       const error = new Error('Firebase network error')
       mockedStorageGetString.mockReturnValue('user-123')
-      mockedLogEvent.mockRejectedValue(error)
+      mockedLogEvent.mockRejectedValue(error as never)
 
       await AnalyticsService.sendEvent('failing_event', { key: 'value' })
 
@@ -126,7 +126,7 @@ describe('AnalyticsService', () => {
 
     it('should log an error if setUserId fails', async () => {
       const error = new Error('Failed to set user ID')
-      mockedSetUserId.mockRejectedValue(error)
+      mockedSetUserId.mockRejectedValue(error as never)
 
       await AnalyticsService.setUser(user)
 
@@ -138,7 +138,7 @@ describe('AnalyticsService', () => {
 
     it('should log an error if setUserProperties fails', async () => {
       const error = new Error('Failed to set user properties')
-      mockedSetUserProperties.mockRejectedValue(error)
+      mockedSetUserProperties.mockRejectedValue(error as never)
 
       await AnalyticsService.setUser(user)
 

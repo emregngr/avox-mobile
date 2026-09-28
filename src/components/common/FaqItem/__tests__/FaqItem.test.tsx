@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import { FaqItem } from '@/components/common/FaqItem'
 import useThemeStore from '@/store/theme'
@@ -23,46 +22,34 @@ beforeEach(() => {
 })
 
 describe('FaqItem Component', () => {
-  it('renders the title correctly', () => {
-    const { getByText } = render(
-      <FaqItem
-        index={0} isExpanded={false} item={mockedItem}
-        toggleExpanded={mockedToggle}
-      />,
+  it('renders the title correctly', async () => {
+    const { getByText } = await render(
+      <FaqItem index={0} isExpanded={false} item={mockedItem} toggleExpanded={mockedToggle} />,
     )
 
     expect(getByText('Test Question?')).toBeTruthy()
   })
 
-  it('renders the description but keeps it collapsed when isExpanded = false', () => {
-    const { getByText } = render(
-      <FaqItem
-        index={0} isExpanded={false} item={mockedItem}
-        toggleExpanded={mockedToggle}
-      />,
+  it('renders the description but keeps it collapsed when isExpanded = false', async () => {
+    const { getByText } = await render(
+      <FaqItem index={0} isExpanded={false} item={mockedItem} toggleExpanded={mockedToggle} />,
     )
 
     expect(getByText('Test Answer')).toBeTruthy()
   })
 
-  it('calls toggleExpanded when the toggle button is pressed', () => {
-    const { getByTestId } = render(
-      <FaqItem
-        index={1} isExpanded={false} item={mockedItem}
-        toggleExpanded={mockedToggle}
-      />,
+  it('calls toggleExpanded when the toggle button is pressed', async () => {
+    const { getByTestId } = await render(
+      <FaqItem index={1} isExpanded={false} item={mockedItem} toggleExpanded={mockedToggle} />,
     )
 
-    fireEvent.press(getByTestId('faq-1'))
+    await fireEvent.press(getByTestId('faq-1'))
     expect(mockedToggle).toHaveBeenCalledWith(1)
   })
 
-  it('shows the description when isExpanded = true', () => {
-    const { getByText } = render(
-      <FaqItem
-        index={0} item={mockedItem} toggleExpanded={mockedToggle}
-        isExpanded
-      />,
+  it('shows the description when isExpanded = true', async () => {
+    const { getByText } = await render(
+      <FaqItem index={0} item={mockedItem} toggleExpanded={mockedToggle} isExpanded />,
     )
 
     expect(getByText('Test Answer')).toBeTruthy()
@@ -70,12 +57,9 @@ describe('FaqItem Component', () => {
 })
 
 describe('FaqItem Component Snapshot', () => {
-  it('should render the FaqItem Component successfully', () => {
-    const { toJSON } = render(
-      <FaqItem
-        index={0} isExpanded={false} item={mockedItem}
-        toggleExpanded={mockedToggle}
-      />,
+  it('should render the FaqItem Component successfully', async () => {
+    const { toJSON } = await render(
+      <FaqItem index={0} isExpanded={false} item={mockedItem} toggleExpanded={mockedToggle} />,
     )
 
     expect(toJSON()).toMatchSnapshot()

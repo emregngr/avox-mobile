@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { InfrastructureTab } from '@/components/feature/Airport/AirportDetail/Tab/InfrastructureTab'
 
@@ -91,8 +90,8 @@ const mockedAirportData: any = {
 }
 
 describe('InfrastructureTab Component', () => {
-  it('should render all section components', () => {
-    const { getByTestId } = render(<InfrastructureTab airportData={mockedAirportData} />)
+  it('should render all section components', async () => {
+    const { getByTestId } = await render(<InfrastructureTab airportData={mockedAirportData} />)
 
     expect(getByTestId('terminal-section')).toBeTruthy()
     expect(getByTestId('runway-section')).toBeTruthy()
@@ -101,24 +100,24 @@ describe('InfrastructureTab Component', () => {
     expect(getByTestId('certifications-section')).toBeTruthy()
   })
 
-  it('should pass correct props to Terminal component', () => {
-    render(<InfrastructureTab airportData={mockedAirportData} />)
+  it('should pass correct props to Terminal component', async () => {
+    await render(<InfrastructureTab airportData={mockedAirportData} />)
 
     expect(mockedTerminal).toHaveBeenCalledWith({
       infrastructure: mockedAirportData.infrastructure,
     })
   })
 
-  it('should pass correct props to Runway component', () => {
-    render(<InfrastructureTab airportData={mockedAirportData} />)
+  it('should pass correct props to Runway component', async () => {
+    await render(<InfrastructureTab airportData={mockedAirportData} />)
 
     expect(mockedRunway).toHaveBeenCalledWith({
       infrastructure: mockedAirportData.infrastructure,
     })
   })
 
-  it('should pass correct props to Facilities component', () => {
-    render(<InfrastructureTab airportData={mockedAirportData} />)
+  it('should pass correct props to Facilities component', async () => {
+    await render(<InfrastructureTab airportData={mockedAirportData} />)
 
     expect(mockedFacilities).toHaveBeenCalledWith({
       facilities: mockedAirportData.facilities,
@@ -126,24 +125,24 @@ describe('InfrastructureTab Component', () => {
     })
   })
 
-  it('should pass correct props to Cargo component', () => {
-    render(<InfrastructureTab airportData={mockedAirportData} />)
+  it('should pass correct props to Cargo component', async () => {
+    await render(<InfrastructureTab airportData={mockedAirportData} />)
 
     expect(mockedCargo).toHaveBeenCalledWith({
       cargo: mockedAirportData.cargo,
     })
   })
 
-  it('should pass correct props to Certifications component', () => {
-    render(<InfrastructureTab airportData={mockedAirportData} />)
+  it('should pass correct props to Certifications component', async () => {
+    await render(<InfrastructureTab airportData={mockedAirportData} />)
 
     expect(mockedCertifications).toHaveBeenCalledWith({
       safety: mockedAirportData.safety,
     })
   })
 
-  it('should handle undefined airportData gracefully', () => {
-    render(<InfrastructureTab airportData={undefined as any} />)
+  it('should handle undefined airportData gracefully', async () => {
+    await render(<InfrastructureTab airportData={undefined as any} />)
 
     expect(mockedTerminal).toHaveBeenCalledWith({ infrastructure: undefined })
     expect(mockedFacilities).toHaveBeenCalledWith({
@@ -154,26 +153,26 @@ describe('InfrastructureTab Component', () => {
     expect(mockedCertifications).toHaveBeenCalledWith({ safety: undefined })
   })
 
-  it('should handle partial airportData (missing infrastructure)', () => {
+  it('should handle partial airportData (missing infrastructure)', async () => {
     const partialData: any = {
       cargo: mockedAirportData.cargo,
       safety: mockedAirportData.safety,
     }
 
-    render(<InfrastructureTab airportData={partialData} />)
+    await render(<InfrastructureTab airportData={partialData} />)
 
     expect(mockedTerminal).toHaveBeenCalledWith({ infrastructure: undefined })
     expect(mockedRunway).toHaveBeenCalledWith({ infrastructure: undefined })
     expect(mockedCargo).toHaveBeenCalledWith({ cargo: partialData.cargo })
   })
 
-  it('should handle partial airportData (missing safety and cargo)', () => {
+  it('should handle partial airportData (missing safety and cargo)', async () => {
     const partialData: any = {
       facilities: mockedAirportData.facilities,
       infrastructure: mockedAirportData.infrastructure,
     }
 
-    render(<InfrastructureTab airportData={partialData} />)
+    await render(<InfrastructureTab airportData={partialData} />)
 
     expect(mockedFacilities).toHaveBeenCalledWith({
       facilities: partialData.facilities,
@@ -183,8 +182,8 @@ describe('InfrastructureTab Component', () => {
     expect(mockedCertifications).toHaveBeenCalledWith({ safety: undefined })
   })
 
-  it('should call all section components exactly once', () => {
-    render(<InfrastructureTab airportData={mockedAirportData} />)
+  it('should call all section components exactly once', async () => {
+    await render(<InfrastructureTab airportData={mockedAirportData} />)
 
     expect(mockedTerminal).toHaveBeenCalledTimes(1)
     expect(mockedRunway).toHaveBeenCalledTimes(1)
@@ -195,8 +194,8 @@ describe('InfrastructureTab Component', () => {
 })
 
 describe('InfrastructureTab Component Snapshot', () => {
-  it('should render the InfrastructureTab Component successfully', () => {
-    const { toJSON } = render(<InfrastructureTab airportData={mockedAirportData} />)
+  it('should render the InfrastructureTab Component successfully', async () => {
+    const { toJSON } = await render(<InfrastructureTab airportData={mockedAirportData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

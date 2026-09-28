@@ -48,30 +48,30 @@ const renderOptions = {}
 
 describe('Favorite Hooks', () => {
   describe('useFavoriteIds', () => {
-    it('should successfully fetch user favorite IDs', () => {
+    it('should successfully fetch user favorite IDs', async () => {
       const mockFavoriteIds = [{ id: '1', type: 'airport' }]
       useQuery.mockReturnValue({ data: mockFavoriteIds, isSuccess: true })
-      const { result } = renderHook(() => useFavoriteIds(), renderOptions)
+      const { result } = await renderHook(() => useFavoriteIds(), renderOptions)
       expect(result.current.isSuccess).toBe(true)
       expect(result.current.data).toEqual(mockFavoriteIds)
     })
 
-    it('should show a loading state while fetching data', () => {
+    it('should show a loading state while fetching data', async () => {
       useQuery.mockReturnValue({ isLoading: true })
-      const { result } = renderHook(() => useFavoriteIds(), renderOptions)
+      const { result } = await renderHook(() => useFavoriteIds(), renderOptions)
       expect(result.current.isLoading).toBe(true)
     })
 
-    it('should handle a data fetching error', () => {
+    it('should handle a data fetching error', async () => {
       const error = new Error('Could not fetch favorites')
       useQuery.mockReturnValue({ isError: true, error })
-      const { result } = renderHook(() => useFavoriteIds(), renderOptions)
+      const { result } = await renderHook(() => useFavoriteIds(), renderOptions)
       expect(result.current.isError).toBe(true)
       expect(result.current.error).toEqual(error)
     })
 
     it('should refetch data on focus if refetchOnFocus is true', async () => {
-      renderHook(() => useFavoriteIds(true), renderOptions)
+      await renderHook(() => useFavoriteIds(true), renderOptions)
       const effectCallback = mockedUseFocusEffect.mock.calls?.[0]?.[0] as any
       await act(async () => {
         await effectCallback()
@@ -82,7 +82,7 @@ describe('Favorite Hooks', () => {
     })
 
     it('should not refetch data on focus if refetchOnFocus is false', async () => {
-      renderHook(() => useFavoriteIds(false), renderOptions)
+      await renderHook(() => useFavoriteIds(false), renderOptions)
       const effectCallback = mockedUseFocusEffect.mock.calls?.[0]?.[0] as any
       await act(async () => {
         await effectCallback()
@@ -92,14 +92,14 @@ describe('Favorite Hooks', () => {
   })
 
   describe('useFavoriteDetails', () => {
-    it('should successfully fetch favorite details when there are favorite IDs', () => {
+    it('should successfully fetch favorite details when there are favorite IDs', async () => {
       const mockFavoriteIds = [{ id: '1', type: 'airport' }]
       const mockDetails: any = [{ id: '1', title: 'Test airport' }]
       useQuery.mockReturnValueOnce({ data: mockFavoriteIds, isSuccess: true })
       useQuery.mockReturnValueOnce({ data: mockDetails, isSuccess: true })
       mockedFavoriteService.fetchFavoriteDetails.mockResolvedValue(mockDetails)
 
-      const { result } = renderHook(() => useFavoriteDetails(), renderOptions)
+      const { result } = await renderHook(() => useFavoriteDetails(), renderOptions)
       expect(result.current.isSuccess).toBe(true)
       expect(result.current.data).toEqual(mockDetails)
     })
@@ -107,23 +107,23 @@ describe('Favorite Hooks', () => {
     it('should not fetch details when there are no favorite IDs', async () => {
       useQuery.mockReturnValueOnce({ data: [], isSuccess: true })
       useQuery.mockReturnValueOnce({ data: [], isSuccess: true })
-      const { result } = renderHook(() => useFavoriteDetails(), renderOptions)
+      const { result } = await renderHook(() => useFavoriteDetails(), renderOptions)
       expect(result.current.isSuccess).toBe(true)
       expect(result.current.data).toEqual([])
       expect(mockedFavoriteService.fetchFavoriteDetails).not.toHaveBeenCalled()
     })
 
-    it('should not fetch details if favoriteIds data is undefined', () => {
+    it('should not fetch details if favoriteIds data is undefined', async () => {
       useQuery.mockReturnValueOnce({ data: undefined, isSuccess: true })
       useQuery.mockReturnValueOnce({ data: [], isSuccess: true })
-      const { result } = renderHook(() => useFavoriteDetails(), renderOptions)
+      const { result } = await renderHook(() => useFavoriteDetails(), renderOptions)
       expect(result.current.data).toEqual([])
       expect(mockedFavoriteService.fetchFavoriteDetails).not.toHaveBeenCalled()
     })
 
     it('should refetch data on focus if refetchOnFocus is true', async () => {
       useQuery.mockReturnValue({ data: [], isSuccess: true })
-      renderHook(() => useFavoriteDetails(true), renderOptions)
+      await renderHook(() => useFavoriteDetails(true), renderOptions)
       const effectCallback = mockedUseFocusEffect.mock.calls?.[1]?.[0] as any
       await act(async () => {
         await effectCallback()
@@ -135,7 +135,7 @@ describe('Favorite Hooks', () => {
 
     it('should not refetch data on focus if refetchOnFocus is false', async () => {
       useQuery.mockReturnValue({ data: [], isSuccess: true })
-      renderHook(() => useFavoriteDetails(false), renderOptions)
+      await renderHook(() => useFavoriteDetails(false), renderOptions)
       const effectCallback = mockedUseFocusEffect.mock.calls?.[1]?.[0] as any
       await act(async () => {
         await effectCallback()
@@ -148,7 +148,7 @@ describe('Favorite Hooks', () => {
     it('should successfully add an item and invalidate caches', async () => {
       const newItem = { id: '2', type: 'tv' }
       const initialFavorites = [{ id: '1', type: 'airport' }]
-      renderHook(() => useAddFavorite(), renderOptions)
+      await renderHook(() => useAddFavorite(), renderOptions)
       const mutationOptions = useMutation.mock.calls[0][0]
 
       mockedGetQueryData.mockReturnValue(initialFavorites)
@@ -174,7 +174,7 @@ describe('Favorite Hooks', () => {
     it('should not change the list when adding an existing item', async () => {
       const existingItem = { id: '1', type: 'airport' }
       const initialFavorites = [{ id: '1', type: 'airport' }]
-      renderHook(() => useAddFavorite(), renderOptions)
+      await renderHook(() => useAddFavorite(), renderOptions)
       const mutationOptions = useMutation.mock.calls[0][0]
 
       mockedGetQueryData.mockReturnValue(initialFavorites)
@@ -188,7 +188,7 @@ describe('Favorite Hooks', () => {
 
     it('should add an item when the cache is empty', async () => {
       const newItem = { id: '1', type: 'airport' }
-      renderHook(() => useAddFavorite(), renderOptions)
+      await renderHook(() => useAddFavorite(), renderOptions)
       const mutationOptions = useMutation.mock.calls[0][0]
 
       mockedGetQueryData.mockReturnValue(undefined)
@@ -205,7 +205,7 @@ describe('Favorite Hooks', () => {
       const newItem = { id: '2', type: 'tv' }
       const error = new Error('Could not add')
       const context = { previousFavorites: initialFavorites }
-      renderHook(() => useAddFavorite(), renderOptions)
+      await renderHook(() => useAddFavorite(), renderOptions)
       const mutationOptions = useMutation.mock.calls[0][0]
 
       await act(async () => {
@@ -218,7 +218,7 @@ describe('Favorite Hooks', () => {
     })
 
     it('should not revert state on error if context is missing', async () => {
-      renderHook(() => useAddFavorite(), renderOptions)
+      await renderHook(() => useAddFavorite(), renderOptions)
       const mutationOptions = useMutation.mock.calls[0][0]
       const error = new Error('Could not add favorite')
       await act(async () => {
@@ -229,7 +229,7 @@ describe('Favorite Hooks', () => {
 
     it('should do nothing if userId is missing', async () => {
       getAuth.mockReturnValue({ currentUser: null })
-      renderHook(() => useAddFavorite(), {})
+      await renderHook(() => useAddFavorite(), {})
       const mutationOptions = useMutation.mock.calls[0][0]
 
       await act(async () => {
@@ -248,7 +248,7 @@ describe('Favorite Hooks', () => {
     it('should successfully remove an item', async () => {
       const itemToRemove = { id: '1', type: 'airport' }
       const initialFavorites = [{ id: '1', type: 'airport' }]
-      renderHook(() => useRemoveFavorite(), renderOptions)
+      await renderHook(() => useRemoveFavorite(), renderOptions)
       const mutationOptions = useMutation.mock.calls[0][0]
 
       mockedGetQueryData.mockReturnValue(initialFavorites)
@@ -268,7 +268,7 @@ describe('Favorite Hooks', () => {
       const initialFavorites = [{ id: '1', type: 'airport' }]
       const error = new Error('Could not remove')
       const context = { previousFavorites: initialFavorites }
-      renderHook(() => useRemoveFavorite(), renderOptions)
+      await renderHook(() => useRemoveFavorite(), renderOptions)
       const mutationOptions = useMutation.mock.calls[0][0]
 
       await act(async () => {
@@ -281,7 +281,7 @@ describe('Favorite Hooks', () => {
     })
 
     it('should not revert state on error if context is missing', async () => {
-      renderHook(() => useRemoveFavorite(), renderOptions)
+      await renderHook(() => useRemoveFavorite(), renderOptions)
       const mutationOptions = useMutation.mock.calls[0][0]
       const error = new Error('Could not remove favorite')
       await act(async () => {
@@ -292,7 +292,7 @@ describe('Favorite Hooks', () => {
 
     it('should handle removing from an empty cache', async () => {
       const itemToRemove = { id: '1', type: 'airport' }
-      renderHook(() => useRemoveFavorite(), renderOptions)
+      await renderHook(() => useRemoveFavorite(), renderOptions)
       const mutationOptions = useMutation.mock.calls[0][0]
 
       mockedGetQueryData.mockReturnValue(undefined)
@@ -307,7 +307,7 @@ describe('Favorite Hooks', () => {
     it('should not change list when removing a non-existent item', async () => {
       const itemToRemove = { id: '2', type: 'airport' }
       const initialFavorites = [{ id: '1', type: 'airport' }]
-      renderHook(() => useRemoveFavorite(), renderOptions)
+      await renderHook(() => useRemoveFavorite(), renderOptions)
       const mutationOptions = useMutation.mock.calls[0][0]
 
       mockedGetQueryData.mockReturnValue(initialFavorites)
@@ -321,7 +321,7 @@ describe('Favorite Hooks', () => {
 
     it('should do nothing if userId is missing', async () => {
       getAuth.mockReturnValue({ currentUser: null })
-      renderHook(() => useRemoveFavorite(), {})
+      await renderHook(() => useRemoveFavorite(), {})
       const mutationOptions = useMutation.mock.calls[0][0]
 
       await act(async () => {
@@ -337,23 +337,23 @@ describe('Favorite Hooks', () => {
   })
 
   describe('useIsFavorite', () => {
-    it('should return true if item is in favorites', () => {
+    it('should return true if item is in favorites', async () => {
       const favorites = [{ id: '1', type: 'airport' }]
       useQuery.mockReturnValue({ data: favorites, isSuccess: true })
-      const { result } = renderHook(() => useIsFavorite({ id: '1', type: 'airport' }))
+      const { result } = await renderHook(() => useIsFavorite({ id: '1', type: 'airport' }))
       expect(result.current).toBe(true)
     })
 
-    it('should return false if item is not in favorites', () => {
+    it('should return false if item is not in favorites', async () => {
       const favorites = [{ id: '1', type: 'airline' }]
       useQuery.mockReturnValue({ data: favorites, isSuccess: true })
-      const { result } = renderHook(() => useIsFavorite({ id: '3', type: 'airline' }))
+      const { result } = await renderHook(() => useIsFavorite({ id: '3', type: 'airline' }))
       expect(result.current).toBe(false)
     })
 
-    it('should return false if favorite list is undefined', () => {
+    it('should return false if favorite list is undefined', async () => {
       useQuery.mockReturnValue({ data: undefined, isSuccess: true })
-      const { result } = renderHook(() => useIsFavorite({ id: '1', type: 'airport' }))
+      const { result } = await renderHook(() => useIsFavorite({ id: '1', type: 'airport' }))
       expect(result.current).toBe(false)
     })
   })

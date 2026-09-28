@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
-import type React from 'react'
 import type { ReactNode } from 'react'
 import { Alert } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
@@ -114,21 +113,21 @@ beforeEach(() => {
 
 describe('Profile Screen', () => {
   describe('When user is logged out', () => {
-    it('should render the "Sign In or Register" option', () => {
-      const { getByTestId, queryByTestId } = renderWithSafeAreaProvider(<Profile />)
+    it('should render the "Sign In or Register" option', async () => {
+      const { getByTestId, queryByTestId } = await renderWithSafeAreaProvider(<Profile />)
       expect(getByTestId('item-signInOrRegister')).toBeTruthy()
       expect(queryByTestId('item-updateProfile')).toBeNull()
       expect(queryByTestId('item-logout')).toBeNull()
     })
 
-    it('should display default name and photo', () => {
-      const { getByText } = renderWithSafeAreaProvider(<Profile />)
+    it('should display default name and photo', async () => {
+      const { getByText } = await renderWithSafeAreaProvider(<Profile />)
       expect(getByText('avox')).toBeTruthy()
     })
 
-    it('should navigate to auth screen on press', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
-      fireEvent.press(getByTestId('item-signInOrRegister'))
+    it('should navigate to auth screen on press', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<Profile />)
+      await fireEvent.press(getByTestId('item-signInOrRegister'))
       expect(router.replace).toHaveBeenCalledWith({
         params: { tab: 'profile' },
         pathname: '/auth',
@@ -137,11 +136,13 @@ describe('Profile Screen', () => {
   })
 
   describe('When user is logged in', () => {
-    it('should render user-specific items', () => {
+    it('should render user-specific items', async () => {
       mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
 
-      const { getByTestId, queryByTestId, getByText } = renderWithSafeAreaProvider(<Profile />)
+      const { getByTestId, queryByTestId, getByText } = await renderWithSafeAreaProvider(
+        <Profile />,
+      )
 
       expect(getByText('John Doe')).toBeTruthy()
       expect(getByTestId('item-updateProfile')).toBeTruthy()
@@ -149,28 +150,28 @@ describe('Profile Screen', () => {
       expect(queryByTestId('item-signInOrRegister')).toBeNull()
     })
 
-    it('should show "Change Password" for password users', () => {
+    it('should show "Change Password" for password users', async () => {
       mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
 
-      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
+      const { getByTestId } = await renderWithSafeAreaProvider(<Profile />)
       expect(getByTestId('item-changePassword')).toBeTruthy()
     })
 
-    it('should show "Add Password" for non-password users', () => {
+    it('should show "Add Password" for non-password users', async () => {
       mockedUseAuthUser.mockReturnValue({ data: mockedUserWithoutPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithoutPassword } as any)
 
-      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
+      const { getByTestId } = await renderWithSafeAreaProvider(<Profile />)
       expect(getByTestId('item-addPassword')).toBeTruthy()
     })
 
-    it('should show a confirmation alert on logout press', () => {
+    it('should show a confirmation alert on logout press', async () => {
       mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
 
-      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
-      fireEvent.press(getByTestId('item-logout'))
+      const { getByTestId } = await renderWithSafeAreaProvider(<Profile />)
+      await fireEvent.press(getByTestId('item-logout'))
 
       expect(mockedAlert).toHaveBeenCalledWith(
         'warning',
@@ -180,68 +181,68 @@ describe('Profile Screen', () => {
       )
     })
 
-    it('should call the logout mutation when confirming the alert', () => {
+    it('should call the logout mutation when confirming the alert', async () => {
       const mockMutateAsync = jest.fn()
       mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseLogout.mockReturnValue({ mutateAsync: mockMutateAsync } as any)
 
-      mockedAlert.mockImplementation((title, message, buttons) => {
+      mockedAlert.mockImplementation((_title, _message, buttons) => {
         const yesButton = buttons.find((b: any) => b.style === 'destructive')
         if (yesButton) {
           yesButton.onPress()
         }
       })
 
-      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
-      fireEvent.press(getByTestId('item-logout'))
+      const { getByTestId } = await renderWithSafeAreaProvider(<Profile />)
+      await fireEvent.press(getByTestId('item-logout'))
 
       expect(mockMutateAsync).toHaveBeenCalledTimes(1)
     })
   })
 
   describe('Navigation', () => {
-    it('should navigate to settings on header icon press', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
-      fireEvent.press(getByTestId('settings-button'))
+    it('should navigate to settings on header icon press', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<Profile />)
+      await fireEvent.press(getByTestId('settings-button'))
       expect(router.navigate).toHaveBeenCalledWith('/settings')
     })
 
-    it('should navigate to choose-theme on item press', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
-      fireEvent.press(getByTestId('item-chooseTheme'))
+    it('should navigate to choose-theme on item press', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<Profile />)
+      await fireEvent.press(getByTestId('item-chooseTheme'))
       expect(router.navigate).toHaveBeenCalledWith('/choose-theme')
     })
 
-    it('should navigate to choose-language on item press', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
-      fireEvent.press(getByTestId('item-chooseLanguage'))
+    it('should navigate to choose-language on item press', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<Profile />)
+      await fireEvent.press(getByTestId('item-chooseLanguage'))
       expect(router.navigate).toHaveBeenCalledWith('/choose-language')
     })
 
-    it('should navigate to update-profile when logged in user presses update profile', () => {
+    it('should navigate to update-profile when logged in user presses update profile', async () => {
       mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
 
-      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
-      fireEvent.press(getByTestId('item-updateProfile'))
+      const { getByTestId } = await renderWithSafeAreaProvider(<Profile />)
+      await fireEvent.press(getByTestId('item-updateProfile'))
       expect(router.navigate).toHaveBeenCalledWith('/update-profile')
     })
 
-    it('should navigate to password screen when user presses change password', () => {
+    it('should navigate to password screen when user presses change password', async () => {
       mockedUseAuthUser.mockReturnValue({ data: mockedUserWithPassword } as any)
       mockedUseGetUser.mockReturnValue({ data: mockedUserWithPassword } as any)
 
-      const { getByTestId } = renderWithSafeAreaProvider(<Profile />)
-      fireEvent.press(getByTestId('item-changePassword'))
+      const { getByTestId } = await renderWithSafeAreaProvider(<Profile />)
+      await fireEvent.press(getByTestId('item-changePassword'))
       expect(router.navigate).toHaveBeenCalledWith('/password')
     })
   })
 })
 
 describe('Profile Screen Snapshot', () => {
-  it('should render the Profile screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Profile />)
+  it('should render the Profile screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Profile />)
 
     expect(toJSON()).toMatchSnapshot()
   })

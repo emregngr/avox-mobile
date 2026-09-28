@@ -52,7 +52,7 @@ exports[`AllPopularAirlines Screen Snapshot should render the AllPopularAirlines
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     data={
@@ -319,7 +319,7 @@ exports[`AllPopularAirlines Screen Snapshot should render the AllPopularAirlines
     scrollEventThrottle={16}
     showsVerticalScrollIndicator={false}
     stickyHeaderIndices={[]}
-    updateCellsBatchingPeriod={150}
+    updateCellsBatchingPeriod={100}
     viewabilityConfigCallbackPairs={[]}
     windowSize={7}
   >

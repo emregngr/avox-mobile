@@ -49,33 +49,25 @@ exports[`Onboarding Screen Snapshot should render the Onboarding Screen successf
       [
         {
           "id": "1",
-          "image": {
-            "default": "mocked-test-file",
-          },
+          "image": "mocked-test-file",
           "text": "Text 1",
           "title": "Title 1",
         },
         {
           "id": "2",
-          "image": {
-            "default": "mocked-test-file",
-          },
+          "image": "mocked-test-file",
           "text": "Text 2",
           "title": "Title 2",
         },
         {
           "id": "3",
-          "image": {
-            "default": "mocked-test-file",
-          },
+          "image": "mocked-test-file",
           "text": "Text 3",
           "title": "Title 3",
         },
         {
           "id": "4",
-          "image": {
-            "default": "mocked-test-file",
-          },
+          "image": "mocked-test-file",
           "text": "Text 4",
           "title": "Title 4",
         },
@@ -105,7 +97,7 @@ exports[`Onboarding Screen Snapshot should render the Onboarding Screen successf
     showsHorizontalScrollIndicator={false}
     stickyHeaderIndices={[]}
     testID="onboarding-flatlist"
-    updateCellsBatchingPeriod={150}
+    updateCellsBatchingPeriod={100}
     viewabilityConfigCallbackPairs={[]}
     windowSize={7}
   >

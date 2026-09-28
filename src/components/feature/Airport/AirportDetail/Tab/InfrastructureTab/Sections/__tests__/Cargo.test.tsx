@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Cargo } from '@/components/feature/Airport/AirportDetail/Tab/InfrastructureTab/Sections/Cargo'
 import { getLocale } from '@/locales/i18next'
@@ -60,27 +59,27 @@ beforeEach(() => {
 
 describe('Cargo Component', () => {
   describe('When full data is provided', () => {
-    it('should render the section with the correct title', () => {
-      render(<Cargo cargo={mockedCargoData} />)
+    it('should render the section with the correct title', async () => {
+      await render(<Cargo cargo={mockedCargoData} />)
       expect(mockedGetLocale).toHaveBeenCalledWith('cargo')
       expect(mockedAirportSectionRow).toHaveBeenCalledWith(
         expect.objectContaining({ title: 'cargo' }),
       )
     })
 
-    it('should render four row items', () => {
-      render(<Cargo cargo={mockedCargoData} />)
+    it('should render four row items', async () => {
+      await render(<Cargo cargo={mockedCargoData} />)
       expect(mockedAirportRowItem).toHaveBeenCalledTimes(4)
     })
 
-    it('should call formatNumber with correct values', () => {
-      render(<Cargo cargo={mockedCargoData} />)
+    it('should call formatNumber with correct values', async () => {
+      await render(<Cargo cargo={mockedCargoData} />)
       expect(mockedFormatNumber).toHaveBeenCalledWith(5500000)
       expect(mockedFormatNumber).toHaveBeenCalledWith(1500000)
     })
 
-    it('should pass correct props to each AirportRowItem', () => {
-      render(<Cargo cargo={mockedCargoData} />)
+    it('should pass correct props to each AirportRowItem', async () => {
+      await render(<Cargo cargo={mockedCargoData} />)
 
       expect(mockedAirportRowItem).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -114,9 +113,9 @@ describe('Cargo Component', () => {
   })
 
   describe('When boolean data varies', () => {
-    it('should display correct status when booleans are false', () => {
+    it('should display correct status when booleans are false', async () => {
       const falseData = { ...mockedCargoData, coldStorage: false, dangerousGoods: false }
-      render(<Cargo cargo={falseData} />)
+      await render(<Cargo cargo={falseData} />)
       expect(mockedAirportRowItem).toHaveBeenCalledWith(
         expect.objectContaining({
           label: 'coldStorage',
@@ -133,8 +132,8 @@ describe('Cargo Component', () => {
   })
 
   describe('When data is incomplete', () => {
-    it('should handle undefined cargo prop gracefully', () => {
-      render(<Cargo cargo={undefined as any} />)
+    it('should handle undefined cargo prop gracefully', async () => {
+      await render(<Cargo cargo={undefined as any} />)
 
       expect(mockedAirportSectionRow).toHaveBeenCalled()
       expect(mockedAirportRowItem).toHaveBeenCalledTimes(4)
@@ -146,8 +145,8 @@ describe('Cargo Component', () => {
 })
 
 describe('Cargo Component Snapshot', () => {
-  it('should render the Cargo Component successfully', () => {
-    const { toJSON } = render(<Cargo cargo={mockedCargoData} />)
+  it('should render the Cargo Component successfully', async () => {
+    const { toJSON } = await render(<Cargo cargo={mockedCargoData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import { FilterSection } from '@/components/feature/FilterModal/FilterSection'
 import type { FilterOptionType, RangeFilterOptionType } from '@/types/feature/filter'
@@ -34,7 +33,7 @@ jest.mock('@/components/feature/FilterModal/FilterChip', () => {
       >
         <Text>{label}</Text>
       </TouchableOpacity>
-      ),
+    ),
   }
 })
 
@@ -59,8 +58,8 @@ describe('FilterSection', () => {
   }
 
   describe('Rendering', () => {
-    it('renders correctly with title and options', () => {
-      const { getByText } = render(<FilterSection {...mockedDefaultProps} />)
+    it('renders correctly with title and options', async () => {
+      const { getByText } = await render(<FilterSection {...mockedDefaultProps} />)
 
       expect(getByText('Test Filter Section')).toBeTruthy()
       expect(getByText('Option 1')).toBeTruthy()
@@ -68,22 +67,22 @@ describe('FilterSection', () => {
       expect(getByText('Option 3')).toBeTruthy()
     })
 
-    it('renders nothing when options is empty', () => {
-      const { queryByText } = render(<FilterSection {...mockedDefaultProps} options={[]} />)
+    it('renders nothing when options is empty', async () => {
+      const { queryByText } = await render(<FilterSection {...mockedDefaultProps} options={[]} />)
 
       expect(queryByText('Test Filter Section')).toBeNull()
     })
 
-    it('renders nothing when options is null/undefined', () => {
-      const { queryByText } = render(
+    it('renders nothing when options is null/undefined', async () => {
+      const { queryByText } = await render(
         <FilterSection {...mockedDefaultProps} options={undefined as any} />,
       )
 
       expect(queryByText('Test Filter Section')).toBeNull()
     })
 
-    it('renders with range options', () => {
-      const { getByText } = render(
+    it('renders with range options', async () => {
+      const { getByText } = await render(
         <FilterSection {...mockedDefaultProps} options={mockedRangeOptions} />,
       )
 
@@ -95,8 +94,8 @@ describe('FilterSection', () => {
   describe('Multi-select behavior', () => {
     const mockedOnMultiSelectToggle = jest.fn()
 
-    it('calls onMultiSelectToggle when chip is pressed in multi mode', () => {
-      const { getByTestId } = render(
+    it('calls onMultiSelectToggle when chip is pressed in multi mode', async () => {
+      const { getByTestId } = await render(
         <FilterSection
           {...mockedDefaultProps}
           handlerType="multi"
@@ -104,17 +103,17 @@ describe('FilterSection', () => {
         />,
       )
 
-      fireEvent.press(getByTestId('filter-chip-Option 1'))
+      await fireEvent.press(getByTestId('filter-chip-Option 1'))
 
       expect(mockedOnMultiSelectToggle).toHaveBeenCalledWith('testFilter', 'option1')
     })
 
-    it('shows correct selected state for multi-select', () => {
+    it('shows correct selected state for multi-select', async () => {
       const localFilters = {
         testFilter: ['option1', 'option3'],
       }
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterSection {...mockedDefaultProps} handlerType="multi" localFilters={localFilters} />,
       )
 
@@ -127,12 +126,12 @@ describe('FilterSection', () => {
       expect(chip3.props.accessibilityState.selected).toBe(true)
     })
 
-    it('handles empty array in localFilters for multi-select', () => {
+    it('handles empty array in localFilters for multi-select', async () => {
       const localFilters = {
         testFilter: [],
       }
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterSection {...mockedDefaultProps} handlerType="multi" localFilters={localFilters} />,
       )
 
@@ -140,10 +139,10 @@ describe('FilterSection', () => {
       expect(chip1.props.accessibilityState.selected).toBe(false)
     })
 
-    it('handles undefined filter key in localFilters for multi-select', () => {
+    it('handles undefined filter key in localFilters for multi-select', async () => {
       const localFilters = {}
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterSection {...mockedDefaultProps} handlerType="multi" localFilters={localFilters} />,
       )
 
@@ -155,8 +154,8 @@ describe('FilterSection', () => {
   describe('Single-select behavior', () => {
     const mockOnSingleSelectToggle = jest.fn()
 
-    it('calls onSingleSelectToggle when chip is pressed in single mode', () => {
-      const { getByTestId } = render(
+    it('calls onSingleSelectToggle when chip is pressed in single mode', async () => {
+      const { getByTestId } = await render(
         <FilterSection
           {...mockedDefaultProps}
           handlerType="single"
@@ -164,17 +163,17 @@ describe('FilterSection', () => {
         />,
       )
 
-      fireEvent.press(getByTestId('filter-chip-Option 1'))
+      await fireEvent.press(getByTestId('filter-chip-Option 1'))
 
       expect(mockOnSingleSelectToggle).toHaveBeenCalledWith('testFilter', 'option1')
     })
 
-    it('shows correct selected state for single-select', () => {
+    it('shows correct selected state for single-select', async () => {
       const localFilters = {
         testFilter: 'option2',
       }
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterSection {...mockedDefaultProps} handlerType="single" localFilters={localFilters} />,
       )
 
@@ -189,8 +188,8 @@ describe('FilterSection', () => {
   })
 
   describe('Handler callbacks', () => {
-    it('does not crash when onMultiSelectToggle is not provided', () => {
-      const { getByTestId } = render(
+    it('does not crash when onMultiSelectToggle is not provided', async () => {
+      const { getByTestId } = await render(
         <FilterSection
           {...(mockedDefaultProps as any)}
           handlerType="multi"
@@ -198,13 +197,11 @@ describe('FilterSection', () => {
         />,
       )
 
-      expect(() => {
-        fireEvent.press(getByTestId('filter-chip-Option 1'))
-      }).not.toThrow()
+      await fireEvent.press(getByTestId('filter-chip-Option 1'))
     })
 
-    it('does not crash when onSingleSelectToggle is not provided', () => {
-      const { getByTestId } = render(
+    it('does not crash when onSingleSelectToggle is not provided', async () => {
+      const { getByTestId } = await render(
         <FilterSection
           {...(mockedDefaultProps as any)}
           handlerType="single"
@@ -212,17 +209,15 @@ describe('FilterSection', () => {
         />,
       )
 
-      expect(() => {
-        fireEvent.press(getByTestId('filter-chip-Option 1'))
-      }).not.toThrow()
+      await fireEvent.press(getByTestId('filter-chip-Option 1'))
     })
   })
 
   describe('Range options handling', () => {
-    it('handles range options correctly with multi-select', () => {
+    it('handles range options correctly with multi-select', async () => {
       const mockOnMultiSelectToggle = jest.fn()
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterSection
           {...mockedDefaultProps}
           handlerType="multi"
@@ -231,17 +226,17 @@ describe('FilterSection', () => {
         />,
       )
 
-      fireEvent.press(getByTestId('filter-chip-0-10'))
+      await fireEvent.press(getByTestId('filter-chip-0-10'))
 
       expect(mockOnMultiSelectToggle).toHaveBeenCalledWith('testFilter', '0-10')
     })
 
-    it('shows correct selected state for range options', () => {
+    it('shows correct selected state for range options', async () => {
       const localFilters = {
         testFilter: ['0-10'],
       }
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterSection
           {...mockedDefaultProps}
           handlerType="multi"
@@ -256,23 +251,23 @@ describe('FilterSection', () => {
   })
 
   describe('Component optimization', () => {
-    it('memoizes filteredOptions correctly', () => {
-      const { rerender } = render(<FilterSection {...mockedDefaultProps} />)
+    it('memoizes filteredOptions correctly', async () => {
+      const { rerender } = await render(<FilterSection {...mockedDefaultProps} />)
 
-      rerender(<FilterSection {...mockedDefaultProps} />)
+      await rerender(<FilterSection {...mockedDefaultProps} />)
 
-      expect(() => {
-        rerender(<FilterSection {...mockedDefaultProps} />)
-      }).not.toThrow()
+      await rerender(<FilterSection {...mockedDefaultProps} />)
     })
 
-    it('handles options change correctly', () => {
-      const { getByText, rerender, queryByText } = render(<FilterSection {...mockedDefaultProps} />)
+    it('handles options change correctly', async () => {
+      const { getByText, rerender, queryByText } = await render(
+        <FilterSection {...mockedDefaultProps} />,
+      )
 
       expect(getByText('Option 1')).toBeTruthy()
 
       const newOptions = [{ label: 'New Option', value: 'new' }]
-      rerender(<FilterSection {...mockedDefaultProps} options={newOptions} />)
+      await rerender(<FilterSection {...mockedDefaultProps} options={newOptions} />)
 
       expect(queryByText('Option 1')).toBeNull()
       expect(getByText('New Option')).toBeTruthy()
@@ -280,14 +275,14 @@ describe('FilterSection', () => {
   })
 
   describe('Edge cases', () => {
-    it('handles options with undefined/null values', () => {
+    it('handles options with undefined/null values', async () => {
       const edgeCaseOptions = [
         { label: 'Valid Option', value: 'valid' },
         { label: 'Null Value', value: null as any },
         { label: 'Undefined Value', value: undefined as any },
       ]
 
-      const { getByText } = render(
+      const { getByText } = await render(
         <FilterSection {...mockedDefaultProps} options={edgeCaseOptions} />,
       )
 
@@ -296,14 +291,14 @@ describe('FilterSection', () => {
       expect(getByText('Undefined Value')).toBeTruthy()
     })
 
-    it('handles numeric values', () => {
+    it('handles numeric values', async () => {
       const numericOptions = [
         { label: 'Zero', value: 0 },
         { label: 'One', value: 1 },
       ]
 
       const mockOnMultiSelectToggle = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterSection
           {...mockedDefaultProps}
           onMultiSelectToggle={mockOnMultiSelectToggle}
@@ -311,19 +306,19 @@ describe('FilterSection', () => {
         />,
       )
 
-      fireEvent.press(getByTestId('filter-chip-Zero'))
+      await fireEvent.press(getByTestId('filter-chip-Zero'))
 
       expect(mockOnMultiSelectToggle).toHaveBeenCalledWith('testFilter', '0')
     })
 
-    it('handles boolean values', () => {
+    it('handles boolean values', async () => {
       const booleanOptions = [
         { label: 'True', value: true },
         { label: 'False', value: false },
       ]
 
       const mockOnSingleSelectToggle = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <FilterSection
           {...mockedDefaultProps}
           handlerType="single"
@@ -332,7 +327,7 @@ describe('FilterSection', () => {
         />,
       )
 
-      fireEvent.press(getByTestId('filter-chip-False'))
+      await fireEvent.press(getByTestId('filter-chip-False'))
 
       expect(mockOnSingleSelectToggle).toHaveBeenCalledWith('testFilter', 'false')
     })

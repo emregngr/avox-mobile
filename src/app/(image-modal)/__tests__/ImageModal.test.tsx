@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router, useLocalSearchParams } from 'expo-router'
-import type React from 'react'
 import type { ReactNode } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -61,7 +60,7 @@ beforeEach(() => {
 })
 
 describe('ImageModal', () => {
-  it('should render the title and image correctly', () => {
+  it('should render the title and image correctly', async () => {
     const mockedTitle = 'F-16 Fighting Falcon'
     const mockedImageKey = 'f16'
     const mockedImageSource = { uri: 'path/to/f16.jpg' }
@@ -73,7 +72,7 @@ describe('ImageModal', () => {
 
     mockedGetAirplaneImageSource.mockReturnValue(mockedImageSource as any)
 
-    const { getByText, getByTestId } = renderWithSafeAreaProvider(<ImageModal />)
+    const { getByText, getByTestId } = await renderWithSafeAreaProvider(<ImageModal />)
 
     expect(getByText(mockedTitle)).toBeTruthy()
 
@@ -82,29 +81,29 @@ describe('ImageModal', () => {
     expect(image.props.source).toEqual(mockedImageSource)
   })
 
-  it('should call router.back when the close button is pressed', () => {
+  it('should call router.back when the close button is pressed', async () => {
     mockedUseLocalSearchParams.mockReturnValue({
       title: 'Any Title',
       selectedImageKey: 'any-key',
     })
     mockedGetAirplaneImageSource.mockReturnValue({ uri: 'path/to/any.jpg' } as any)
 
-    const { getByTestId } = renderWithSafeAreaProvider(<ImageModal />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<ImageModal />)
 
     const closeButton = getByTestId('close-button')
 
-    fireEvent.press(closeButton)
+    await fireEvent.press(closeButton)
 
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should render gracefully with a null image source', () => {
+  it('should render gracefully with a null image source', async () => {
     mockedUseLocalSearchParams.mockReturnValue({
       title: 'Title Without Image',
       selectedImageKey: undefined,
     } as any)
 
-    const { getByText, getByTestId } = renderWithSafeAreaProvider(<ImageModal />)
+    const { getByText, getByTestId } = await renderWithSafeAreaProvider(<ImageModal />)
 
     expect(getByText('Title Without Image')).toBeTruthy()
     const image = getByTestId('mocked-image')
@@ -115,7 +114,7 @@ describe('ImageModal', () => {
 })
 
 describe('ImageModal Screen Snapshot', () => {
-  it('should render the ImageModal Screen successfully', () => {
+  it('should render the ImageModal Screen successfully', async () => {
     mockedUseLocalSearchParams.mockReturnValue({
       title: 'Any Title',
       selectedImageKey: 'any-key',
@@ -123,7 +122,7 @@ describe('ImageModal Screen Snapshot', () => {
 
     mockedGetAirplaneImageSource.mockReturnValue({ uri: 'path/to/any.jpg' } as any)
 
-    const { toJSON } = renderWithSafeAreaProvider(<ImageModal />)
+    const { toJSON } = await renderWithSafeAreaProvider(<ImageModal />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -1,7 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import TotalAirplanes from '@/app/(airplane)/total-airplanes'
@@ -71,46 +70,46 @@ const renderWithSafeAreaProvider = (component: ReactNode) =>
   )
 
 describe('TotalAirplanes Screen', () => {
-  it('should display loading screen while loading', () => {
+  it('should display loading screen while loading', async () => {
     mockedUseHome.mockReturnValue({ isLoading: true, homeData: null } as any)
-    const { getByTestId } = renderWithSafeAreaProvider(<TotalAirplanes />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<TotalAirplanes />)
     expect(getByTestId('full-screen-loading')).toBeTruthy()
   })
 
-  it('should display the list of airplanes when data is loaded', () => {
+  it('should display the list of airplanes when data is loaded', async () => {
     mockedUseHome.mockReturnValue({
       isLoading: false,
       homeData: { totalAirplanes: mockedAirplanes },
     } as any)
-    const { getByTestId, queryByTestId } = renderWithSafeAreaProvider(<TotalAirplanes />)
+    const { getByTestId, queryByTestId } = await renderWithSafeAreaProvider(<TotalAirplanes />)
     expect(getByTestId('airplane-card-1')).toBeTruthy()
     expect(getByTestId('airplane-card-2')).toBeTruthy()
     expect(queryByTestId('full-screen-loading')).toBeNull()
   })
 
-  it('should navigate back when the back button is pressed', () => {
+  it('should navigate back when the back button is pressed', async () => {
     mockedUseHome.mockReturnValue({ isLoading: false, homeData: null } as any)
-    const { getByTestId } = renderWithSafeAreaProvider(<TotalAirplanes />)
-    fireEvent.press(getByTestId('back-button'))
+    const { getByTestId } = await renderWithSafeAreaProvider(<TotalAirplanes />)
+    await fireEvent.press(getByTestId('back-button'))
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should render an empty list without crashing if no airplane data is available', () => {
+  it('should render an empty list without crashing if no airplane data is available', async () => {
     mockedUseHome.mockReturnValue({
       isLoading: false,
       homeData: { totalAirplanes: [] },
     } as any)
-    const { queryByTestId } = renderWithSafeAreaProvider(<TotalAirplanes />)
+    const { queryByTestId } = await renderWithSafeAreaProvider(<TotalAirplanes />)
     expect(queryByTestId('airplane-card-1')).toBeNull()
     expect(queryByTestId('full-screen-loading')).toBeNull()
   })
 
-  it('should sort the airplanes by count in descending order', () => {
+  it('should sort the airplanes by count in descending order', async () => {
     mockedUseHome.mockReturnValue({
       isLoading: false,
       homeData: { totalAirplanes: mockedAirplanes },
     } as any)
-    const { getAllByTestId } = renderWithSafeAreaProvider(<TotalAirplanes />)
+    const { getAllByTestId } = await renderWithSafeAreaProvider(<TotalAirplanes />)
     const cards = getAllByTestId(/airplane-card-/)
 
     expect(cards).toHaveLength(2)
@@ -119,13 +118,13 @@ describe('TotalAirplanes Screen', () => {
 })
 
 describe('TotalAirplanes Screen Snapshot', () => {
-  it('should render the TotalAirplanes Screen successfully', () => {
+  it('should render the TotalAirplanes Screen successfully', async () => {
     mockedUseHome.mockReturnValue({
       isLoading: false,
       homeData: { totalAirplanes: mockedAirplanes },
     } as any)
 
-    const { toJSON } = renderWithSafeAreaProvider(<TotalAirplanes />)
+    const { toJSON } = await renderWithSafeAreaProvider(<TotalAirplanes />)
 
     expect(toJSON()).toMatchSnapshot()
   })

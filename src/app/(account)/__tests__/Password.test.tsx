@@ -1,7 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import PasswordScreen from '@/app/(account)/password'
@@ -68,15 +67,15 @@ beforeEach(() => {
 
 describe('Password Screen', () => {
   describe('Password User Flow', () => {
-    it('should render ChangePassword component for a password user', () => {
-      const { getByTestId, queryByTestId } = renderWithSafeAreaProvider(<PasswordScreen />)
+    it('should render ChangePassword component for a password user', async () => {
+      const { getByTestId, queryByTestId } = await renderWithSafeAreaProvider(<PasswordScreen />)
 
       expect(getByTestId('change-password-component')).toBeTruthy()
       expect(queryByTestId('add-password-component')).toBeNull()
     })
 
-    it('should display correct title for password user', () => {
-      const { getByText } = renderWithSafeAreaProvider(<PasswordScreen />)
+    it('should display correct title for password user', async () => {
+      const { getByText } = await renderWithSafeAreaProvider(<PasswordScreen />)
       expect(getByText('ChangePassword Component')).toBeTruthy()
     })
   })
@@ -92,34 +91,34 @@ describe('Password Screen', () => {
       } as any)
     })
 
-    it('should render AddPassword component for a non-password user', () => {
-      const { getByTestId, queryByTestId } = renderWithSafeAreaProvider(<PasswordScreen />)
+    it('should render AddPassword component for a non-password user', async () => {
+      const { getByTestId, queryByTestId } = await renderWithSafeAreaProvider(<PasswordScreen />)
 
       expect(getByTestId('add-password-component')).toBeTruthy()
       expect(queryByTestId('change-password-component')).toBeNull()
     })
 
-    it('should display correct title for non-password user', () => {
-      const { getByText } = renderWithSafeAreaProvider(<PasswordScreen />)
+    it('should display correct title for non-password user', async () => {
+      const { getByText } = await renderWithSafeAreaProvider(<PasswordScreen />)
       expect(getByText('AddPassword Component')).toBeTruthy()
     })
   })
 
   describe('Navigation', () => {
-    it('should call router.back when back button is pressed', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<PasswordScreen />)
+    it('should call router.back when back button is pressed', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<PasswordScreen />)
 
       const backButton = getByTestId('back-button')
-      fireEvent.press(backButton)
+      await fireEvent.press(backButton)
 
       expect(router.back).toHaveBeenCalledTimes(1)
     })
 
-    it('should not call router.back multiple times on single press', () => {
-      const { getByTestId } = renderWithSafeAreaProvider(<PasswordScreen />)
+    it('should not call router.back multiple times on single press', async () => {
+      const { getByTestId } = await renderWithSafeAreaProvider(<PasswordScreen />)
 
       const backButton = getByTestId('back-button')
-      fireEvent.press(backButton)
+      await fireEvent.press(backButton)
 
       expect(router.back).toHaveBeenCalledTimes(1)
       expect(router.back).not.toHaveBeenCalledTimes(2)
@@ -128,13 +127,13 @@ describe('Password Screen', () => {
 })
 
 describe('Password Screen Snapshot', () => {
-  it('should render for password user successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<PasswordScreen />)
+  it('should render for password user successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<PasswordScreen />)
 
     expect(toJSON()).toMatchSnapshot()
   })
 
-  it('should render for non-password user successfully', () => {
+  it('should render for non-password user successfully', async () => {
     mockedUseAuthUser.mockReturnValue({
       data: {
         uid: 'test-user-id',
@@ -143,7 +142,7 @@ describe('Password Screen Snapshot', () => {
       },
     } as any)
 
-    const { toJSON } = renderWithSafeAreaProvider(<PasswordScreen />)
+    const { toJSON } = await renderWithSafeAreaProvider(<PasswordScreen />)
 
     expect(toJSON()).toMatchSnapshot()
   })

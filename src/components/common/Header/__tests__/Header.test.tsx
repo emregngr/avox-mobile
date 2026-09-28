@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 
 import { Header } from '@/components/common/Header'
 import useThemeStore from '@/store/theme'
@@ -20,55 +19,59 @@ beforeEach(() => {
 })
 
 describe('Header Component', () => {
-  it('renders the title when provided', () => {
-    const { getByText } = render(<Header title="Test Title" />)
+  it('renders the title when provided', async () => {
+    const { getByText } = await render(<Header title="Test Title" />)
     expect(getByText('Test Title')).toBeTruthy()
   })
 
-  it('does not render the title when not provided', () => {
-    const { queryByText } = render(<Header />)
+  it('does not render the title when not provided', async () => {
+    const { queryByText } = await render(<Header />)
     expect(queryByText('Test Title')).toBeNull()
   })
 
-  it('renders back icon by default and calls onPress when pressed', () => {
-    const { getByTestId } = render(<Header backIconOnPress={mockedBack} title="Back Test" />)
+  it('renders back icon by default and calls onPress when pressed', async () => {
+    const { getByTestId } = await render(<Header backIconOnPress={mockedBack} title="Back Test" />)
 
-    fireEvent.press(getByTestId('header-back-icon'))
+    await fireEvent.press(getByTestId('header-back-icon'))
     expect(mockedBack).toHaveBeenCalled()
   })
 
-  it('does not render back icon when backIcon={false}', () => {
-    const { queryByTestId } = render(<Header backIcon={false} />)
+  it('does not render back icon when backIcon={false}', async () => {
+    const { queryByTestId } = await render(<Header backIcon={false} />)
     expect(queryByTestId('header-back-icon')).toBeNull()
   })
 
-  it('renders right button when label is provided and calls onPress', () => {
-    const { getByText } = render(
+  it('renders right button when label is provided and calls onPress', async () => {
+    const { getByText } = await render(
       <Header rightButtonLabel="Save" rightButtonOnPress={mockedRightButton} />,
     )
 
-    fireEvent.press(getByText('Save'))
+    await fireEvent.press(getByText('Save'))
     expect(mockedRightButton).toHaveBeenCalled()
   })
 
-  it('renders right icon when provided and calls onPress', () => {
-    const { getByTestId } = render(<Header rightIcon={<></>} rightIconOnPress={mockedRightIcon} />)
+  it('renders right icon when provided and calls onPress', async () => {
+    const { getByTestId } = await render(
+      <Header rightIcon={<></>} rightIconOnPress={mockedRightIcon} />,
+    )
 
-    fireEvent.press(getByTestId('header-right-icon'))
+    await fireEvent.press(getByTestId('header-right-icon'))
     expect(mockedRightIcon).toHaveBeenCalled()
   })
 
-  it('renders share icon when provided and calls onPress', () => {
-    const { getByTestId } = render(<Header shareIcon={<></>} shareIconOnPress={mockedShareIcon} />)
+  it('renders share icon when provided and calls onPress', async () => {
+    const { getByTestId } = await render(
+      <Header shareIcon={<></>} shareIconOnPress={mockedShareIcon} />,
+    )
 
-    fireEvent.press(getByTestId('header-share-icon'))
+    await fireEvent.press(getByTestId('header-share-icon'))
     expect(mockedShareIcon).toHaveBeenCalled()
   })
 })
 
 describe('Header Component Snapshot', () => {
-  it('should render the Header Component successfully', () => {
-    const { toJSON } = render(<Header title="Test Title" />)
+  it('should render the Header Component successfully', async () => {
+    const { toJSON } = await render(<Header title="Test Title" />)
 
     expect(toJSON()).toMatchSnapshot()
   })

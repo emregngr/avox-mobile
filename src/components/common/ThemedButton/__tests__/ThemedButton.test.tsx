@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 import { View } from 'react-native'
 
 import { ThemedButton } from '@/components/common/ThemedButton'
@@ -25,22 +24,22 @@ const mockedDefaultProps = {
 
 describe('ThemedButton Component', () => {
   describe('Rendering', () => {
-    it('should render with default props', () => {
-      const { getByTestId, getByText } = render(<ThemedButton {...mockedDefaultProps} />)
+    it('should render with default props', async () => {
+      const { getByTestId, getByText } = await render(<ThemedButton {...mockedDefaultProps} />)
 
       expect(getByTestId('themed-button')).toBeTruthy()
       expect(getByText('Test Button')).toBeTruthy()
     })
 
-    it('should render with icon when provided', () => {
+    it('should render with icon when provided', async () => {
       const icon = <View testID="test-icon" />
-      const { getByTestId } = render(<ThemedButton {...mockedDefaultProps} icon={icon} />)
+      const { getByTestId } = await render(<ThemedButton {...mockedDefaultProps} icon={icon} />)
 
       expect(getByTestId('test-icon')).toBeTruthy()
     })
 
-    it('should not render icon container when no icon is provided', () => {
-      const { getByTestId } = render(<ThemedButton {...mockedDefaultProps} />)
+    it('should not render icon container when no icon is provided', async () => {
+      const { getByTestId } = await render(<ThemedButton {...mockedDefaultProps} />)
 
       const button = getByTestId('themed-button')
       const children = button.props.children
@@ -51,8 +50,8 @@ describe('ThemedButton Component', () => {
   })
 
   describe('Button Types', () => {
-    it('should render normal type correctly', () => {
-      const { getByTestId } = render(<ThemedButton {...mockedDefaultProps} type="normal" />)
+    it('should render normal type correctly', async () => {
+      const { getByTestId } = await render(<ThemedButton {...mockedDefaultProps} type="normal" />)
 
       const button = getByTestId('themed-button')
       expect(button.props.style).toMatchObject({
@@ -60,22 +59,22 @@ describe('ThemedButton Component', () => {
       })
     })
 
-    it('should render border type correctly', () => {
-      const { getByTestId } = render(<ThemedButton {...mockedDefaultProps} type="border" />)
+    it('should render border type correctly', async () => {
+      const { getByTestId } = await render(<ThemedButton {...mockedDefaultProps} type="border" />)
 
       const button = getByTestId('themed-button')
       expect(button).toBeTruthy()
     })
 
-    it('should render social type correctly', () => {
-      const { getByTestId } = render(<ThemedButton {...mockedDefaultProps} type="social" />)
+    it('should render social type correctly', async () => {
+      const { getByTestId } = await render(<ThemedButton {...mockedDefaultProps} type="social" />)
 
       const button = getByTestId('themed-button')
       expect(button).toBeTruthy()
     })
 
-    it('should render danger type correctly', () => {
-      const { getByTestId } = render(<ThemedButton {...mockedDefaultProps} type="danger" />)
+    it('should render danger type correctly', async () => {
+      const { getByTestId } = await render(<ThemedButton {...mockedDefaultProps} type="danger" />)
 
       const button = getByTestId('themed-button')
       expect(button).toBeTruthy()
@@ -83,38 +82,40 @@ describe('ThemedButton Component', () => {
   })
 
   describe('Loading State', () => {
-    it('should show ActivityIndicator when loading is true', () => {
-      const { getByTestId } = render(<ThemedButton {...mockedDefaultProps} loading />)
+    it('should show ActivityIndicator when loading is true', async () => {
+      const { getByTestId } = await render(<ThemedButton {...mockedDefaultProps} loading />)
       const activityIndicator = getByTestId('activity-indicator')
 
       expect(activityIndicator).toBeTruthy()
       expect(activityIndicator.props.size).toBe('large')
     })
 
-    it('should not show text when loading is true', () => {
-      const { queryByText } = render(<ThemedButton {...mockedDefaultProps} loading />)
+    it('should not show text when loading is true', async () => {
+      const { queryByText } = await render(<ThemedButton {...mockedDefaultProps} loading />)
 
       expect(queryByText('Test Button')).toBeFalsy()
     })
 
-    it('should not show icon when loading is true', () => {
+    it('should not show icon when loading is true', async () => {
       const icon = <View testID="test-icon" />
-      const { queryByTestId } = render(<ThemedButton {...mockedDefaultProps} icon={icon} loading />)
+      const { queryByTestId } = await render(
+        <ThemedButton {...mockedDefaultProps} icon={icon} loading />,
+      )
 
       expect(queryByTestId('test-icon')).toBeFalsy()
     })
 
-    it('should not trigger onPress when loading', () => {
+    it('should not trigger onPress when loading', async () => {
       const mockedOnPressMock = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <ThemedButton {...mockedDefaultProps} onPress={mockedOnPressMock} loading />,
       )
-      fireEvent.press(getByTestId('themed-button'))
+      await fireEvent.press(getByTestId('themed-button'))
       expect(mockedOnPressMock).not.toHaveBeenCalled()
     })
 
-    it('should be correctly identified as disabled by accessibility tools when loading', () => {
-      const { getByTestId } = render(<ThemedButton {...mockedDefaultProps} loading />)
+    it('should be correctly identified as disabled by accessibility tools when loading', async () => {
+      const { getByTestId } = await render(<ThemedButton {...mockedDefaultProps} loading />)
       const button = getByTestId('themed-button')
 
       expect(button.props.accessibilityState?.disabled).toBe(true)
@@ -122,19 +123,19 @@ describe('ThemedButton Component', () => {
   })
 
   describe('Disabled State', () => {
-    it('should be correctly identified as disabled by accessibility tools', () => {
-      const { getByTestId } = render(<ThemedButton {...mockedDefaultProps} disabled />)
+    it('should be correctly identified as disabled by accessibility tools', async () => {
+      const { getByTestId } = await render(<ThemedButton {...mockedDefaultProps} disabled />)
       const button = getByTestId('themed-button')
 
       expect(button.props.accessibilityState?.disabled).toBe(true)
     })
 
-    it('should not trigger onPress when disabled', () => {
+    it('should not trigger onPress when disabled', async () => {
       const mockedOnPressMock = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <ThemedButton {...mockedDefaultProps} onPress={mockedOnPressMock} disabled />,
       )
-      fireEvent.press(getByTestId('themed-button'))
+      await fireEvent.press(getByTestId('themed-button'))
       expect(mockedOnPressMock).not.toHaveBeenCalled()
     })
   })
@@ -142,7 +143,7 @@ describe('ThemedButton Component', () => {
   describe('Interactions', () => {
     it('should call onPress when pressed', async () => {
       const mockedOnPressMock = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <ThemedButton {...mockedDefaultProps} onPress={mockedOnPressMock} />,
       )
       await fireEvent.press(getByTestId('themed-button'))
@@ -151,14 +152,14 @@ describe('ThemedButton Component', () => {
   })
 
   describe('Accessibility', () => {
-    it('should have proper hit slop', () => {
-      const { getByTestId } = render(<ThemedButton {...mockedDefaultProps} />)
+    it('should have proper hit slop', async () => {
+      const { getByTestId } = await render(<ThemedButton {...mockedDefaultProps} />)
       const button = getByTestId('themed-button')
       expect(button.props.hitSlop).toBe(20)
     })
 
-    it('should pass through TouchableOpacity props', () => {
-      const { getByTestId } = render(
+    it('should pass through TouchableOpacity props', async () => {
+      const { getByTestId } = await render(
         <ThemedButton
           {...mockedDefaultProps}
           accessibilityLabel="Custom accessibility label"
@@ -169,8 +170,8 @@ describe('ThemedButton Component', () => {
       expect(button.props.accessibilityLabel).toBe('Custom accessibility label')
     })
 
-    it('should apply custom className', () => {
-      const { getByTestId } = render(
+    it('should apply custom className', async () => {
+      const { getByTestId } = await render(
         <ThemedButton {...mockedDefaultProps} className="custom-class" />,
       )
 
@@ -182,7 +183,7 @@ describe('ThemedButton Component', () => {
   describe('Integration', () => {
     it('should work with real world usage scenario', async () => {
       const mockedHandleSubmit = jest.fn()
-      const { getByTestId, queryByTestId, rerender } = render(
+      const { getByTestId, queryByTestId, rerender } = await render(
         <ThemedButton
           icon={<View testID="submit-icon" />}
           label="Submit Form"
@@ -198,7 +199,7 @@ describe('ThemedButton Component', () => {
       await fireEvent.press(button)
       expect(mockedHandleSubmit).toHaveBeenCalled()
 
-      rerender(
+      await rerender(
         <ThemedButton
           icon={<View testID="submit-icon" />}
           label="Submit Form"
@@ -216,8 +217,8 @@ describe('ThemedButton Component', () => {
 })
 
 describe('ThemedButton Component Snapshot', () => {
-  it('should render the ThemedButton Component successfully', () => {
-    const { toJSON } = render(<ThemedButton {...mockedDefaultProps} />)
+  it('should render the ThemedButton Component successfully', async () => {
+    const { toJSON } = await render(<ThemedButton {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

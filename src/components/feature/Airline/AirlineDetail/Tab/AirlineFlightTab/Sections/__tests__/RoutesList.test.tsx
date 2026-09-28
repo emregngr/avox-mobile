@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { RoutesList } from '@/components/feature/Airline/AirlineDetail/Tab/AirlineFlightTab/Sections/RoutesList'
 
@@ -43,23 +42,23 @@ const mockedDefaultProps = {
 }
 
 describe('RoutesList Component', () => {
-  it('should pass the correct title to AirlineSectionRow', () => {
-    const { getByTestId } = render(<RoutesList {...mockedDefaultProps} />)
+  it('should pass the correct title to AirlineSectionRow', async () => {
+    const { getByTestId } = await render(<RoutesList {...mockedDefaultProps} />)
 
     const sectionRow = getByTestId('mocked-section-row')
     expect(sectionRow.props.title).toBe(mockedDefaultProps.title)
   })
 
-  it('should render a RouteRowCard for each route', () => {
-    const { getAllByTestId } = render(<RoutesList {...mockedDefaultProps} />)
+  it('should render a RouteRowCard for each route', async () => {
+    const { getAllByTestId } = await render(<RoutesList {...mockedDefaultProps} />)
 
     const routeCards = getAllByTestId('mocked-route-card')
     expect(routeCards.length).toBe(mockedDefaultProps.routes.length)
     expect(mockedRouteRowCard).toHaveBeenCalledTimes(mockedDefaultProps.routes.length)
   })
 
-  it('should pass correct props to each RouteRowCard', () => {
-    render(<RoutesList {...mockedDefaultProps} />)
+  it('should pass correct props to each RouteRowCard', async () => {
+    await render(<RoutesList {...mockedDefaultProps} />)
 
     expect(mockedRouteRowCard).toHaveBeenNthCalledWith(
       1,
@@ -80,29 +79,29 @@ describe('RoutesList Component', () => {
     )
   })
 
-  it('should render nothing inside the list when routes array is empty', () => {
-    const { queryAllByTestId } = render(<RoutesList {...mockedDefaultProps} routes={[]} />)
+  it('should render nothing inside the list when routes array is empty', async () => {
+    const { queryAllByTestId } = await render(<RoutesList {...mockedDefaultProps} routes={[]} />)
     const routeCards = queryAllByTestId('mocked-route-card')
     expect(routeCards.length).toBe(0)
     expect(mockedRouteRowCard).not.toHaveBeenCalled()
   })
 
-  it('should handle undefined or null routes prop gracefully', () => {
-    const { rerender, queryAllByTestId } = render(
+  it('should handle undefined or null routes prop gracefully', async () => {
+    const { rerender, queryAllByTestId } = await render(
       <RoutesList {...mockedDefaultProps} routes={undefined as any} />,
     )
     expect(queryAllByTestId('mocked-route-card').length).toBe(0)
     expect(mockedRouteRowCard).not.toHaveBeenCalled()
 
-    rerender(<RoutesList {...mockedDefaultProps} routes={null as any} />)
+    await rerender(<RoutesList {...mockedDefaultProps} routes={null as any} />)
     expect(queryAllByTestId('mocked-route-card').length).toBe(0)
     expect(mockedRouteRowCard).not.toHaveBeenCalled()
   })
 })
 
 describe('RoutesList Component Snapshot', () => {
-  it('should render the RoutesList Component successfully', () => {
-    const { toJSON } = render(<RoutesList {...mockedDefaultProps} />)
+  it('should render the RoutesList Component successfully', async () => {
+    const { toJSON } = await render(<RoutesList {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

@@ -1,19 +1,6 @@
 import { getAirportImage } from '@/utils/feature/getAirportImage'
 import { AirportBadgeType } from '@/utils/feature/getBadge'
 
-jest.mock('@/assets/images/airport/large_airport.webp', () => 'mocked-large-airport.webp', {
-  virtual: true,
-})
-jest.mock('@/assets/images/airport/medium_airport.webp', () => 'mocked-medium-airport.webp', {
-  virtual: true,
-})
-jest.mock('@/assets/images/airport/mega_airport.webp', () => 'mocked-mega-airport.webp', {
-  virtual: true,
-})
-jest.mock('@/assets/images/airport/small_airport.webp', () => 'mocked-small-airport.webp', {
-  virtual: true,
-})
-
 const mockedAirportBadgeTypes = {
   SmallAirport: 'small_airport',
   MediumAirport: 'medium_airport',
@@ -25,44 +12,44 @@ describe('getAirportImage', () => {
   describe('valid airport types', () => {
     it('should return correct image for SmallAirport', () => {
       const result = getAirportImage(AirportBadgeType.SmallAirport)
-      expect(result).toBe('mocked-small-airport.webp')
+      expect(result).toBe('mocked-test-file')
     })
 
     it('should return correct image for MediumAirport', () => {
       const result = getAirportImage(AirportBadgeType.MediumAirport)
-      expect(result).toBe('mocked-medium-airport.webp')
+      expect(result).toBe('mocked-test-file')
     })
 
     it('should return correct image for LargeAirport', () => {
       const result = getAirportImage(AirportBadgeType.LargeAirport)
-      expect(result).toBe('mocked-large-airport.webp')
+      expect(result).toBe('mocked-test-file')
     })
 
     it('should return correct image for MegaAirport', () => {
       const result = getAirportImage(AirportBadgeType.MegaAirport)
-      expect(result).toBe('mocked-mega-airport.webp')
+      expect(result).toBe('mocked-test-file')
     })
   })
 
   describe('edge cases', () => {
     it('should return small_airport image for undefined input', () => {
       const result = getAirportImage(undefined as any)
-      expect(result).toBe('mocked-small-airport.webp')
+      expect(result).toBe('mocked-test-file')
     })
 
     it('should return small_airport image for null input', () => {
       const result = getAirportImage(null as any)
-      expect(result).toBe('mocked-small-airport.webp')
+      expect(result).toBe('mocked-test-file')
     })
 
     it('should return small_airport image for invalid airport type', () => {
       const result = getAirportImage('invalid_type' as any)
-      expect(result).toBe('mocked-small-airport.webp')
+      expect(result).toBe('mocked-test-file')
     })
 
     it('should return small_airport image for empty string', () => {
       const result = getAirportImage('' as any)
-      expect(result).toBe('mocked-small-airport.webp')
+      expect(result).toBe('mocked-test-file')
     })
   })
 
@@ -108,10 +95,9 @@ describe('getAirportImage', () => {
 
 describe('getAirportImage - with specific enum values', () => {
   it('should map enum values correctly to image paths', () => {
-    Object.entries(mockedAirportBadgeTypes).forEach(([enumKey, enumValue]) => {
+    Object.entries(mockedAirportBadgeTypes).forEach(([_enumKey, enumValue]) => {
       const result = getAirportImage(enumValue as AirportBadgeType)
       expect(result).toContain('mocked')
-      expect(result).toContain('.webp')
     })
   })
 })

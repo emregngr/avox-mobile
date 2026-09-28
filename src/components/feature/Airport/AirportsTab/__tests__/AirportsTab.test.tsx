@@ -1,12 +1,35 @@
-import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
+import { fireEvent, render, waitFor } from '@testing-library/react-native'
 
 import { AirportsTab } from '@/components/feature/Airport/AirportsTab'
 import { getLocale } from '@/locales/i18next'
 import useThemeStore from '@/store/theme'
 import type { AirportType } from '@/types/feature/airport'
 
+jest.mock('@/hooks/batchingPeriod/useBatchingPeriod', () => ({
+  useBatchingPeriod: () => 50,
+}))
+
 const { mockedUseSafeAreaInsets } = require('react-native-safe-area-context')
+
+jest.mock('react-native-reanimated', () => {
+  const React = require('react')
+  const { FlatList, View } = require('react-native')
+
+  return {
+    __esModule: true,
+    default: {
+      FlatList: React.forwardRef((props: any, ref: any) => <FlatList ref={ref} {...props} />),
+      View: React.forwardRef((props: any, ref: any) => <View ref={ref} {...props} />),
+    },
+    useAnimatedScrollHandler: () => () => {},
+    useAnimatedStyle: () => ({}),
+    useSharedValue: (v: any) => ({ value: v }),
+    withSpring: (v: any) => v,
+    withTiming: (v: any) => v,
+    interpolate: () => 0,
+    Extrapolation: { CLAMP: 'clamp' },
+  }
+})
 
 jest.mock('@/locales/i18next')
 
@@ -164,25 +187,27 @@ beforeEach(() => {
 
 describe('AirportsTab Component', () => {
   describe('Component Rendering', () => {
-    it('renders all main components correctly', () => {
-      const { getByTestId } = render(<AirportsTab {...mockedDefaultProps} />)
+    it('renders all main components correctly', async () => {
+      const { getByTestId } = await render(<AirportsTab {...mockedDefaultProps} />)
 
       expect(getByTestId('search-input')).toBeTruthy()
       expect(getByTestId('active-filters')).toBeTruthy()
       expect(getByTestId('filter-modal')).toBeTruthy()
     })
 
-    it('renders airport cards when data is loaded', () => {
-      const { getByTestId, getByText } = render(<AirportsTab {...mockedDefaultProps} />)
+    it('renders airport cards when data is loaded', async () => {
+      const { getByTestId, getByText } = await render(<AirportsTab {...mockedDefaultProps} />)
 
-      expect(getByTestId('airport-card-1')).toBeTruthy()
-      expect(getByTestId('airport-card-2')).toBeTruthy()
-      expect(getByText('Istanbul Airport')).toBeTruthy()
-      expect(getByText('Sabiha Gokcen Airport')).toBeTruthy()
+      await waitFor(() => {
+        expect(getByTestId('airport-card-1')).toBeTruthy()
+        expect(getByTestId('airport-card-2')).toBeTruthy()
+        expect(getByText('Istanbul Airport')).toBeTruthy()
+        expect(getByText('Sabiha Gokcen Airport')).toBeTruthy()
+      })
     })
 
-    it('renders skeleton cards when search is loading', () => {
-      const { getAllByTestId } = render(
+    it('renders skeleton cards when search is loading', async () => {
+      const { getAllByTestId } = await render(
         <AirportsTab {...mockedDefaultProps} airportsSearchLoading />,
       )
 
@@ -190,49 +215,49 @@ describe('AirportsTab Component', () => {
       expect(skeletons).toHaveLength(6)
     })
 
-    it('renders load more footer when not search loading', () => {
-      const { getByTestId } = render(<AirportsTab {...mockedDefaultProps} />)
+    it('renders load more footer when not search loading', async () => {
+      const { getByTestId } = await render(<AirportsTab {...mockedDefaultProps} />)
 
       expect(getByTestId('load-more-footer')).toBeTruthy()
     })
 
-    it('does not render load more footer when search loading', () => {
-      const { queryByTestId } = render(
+    it('does not render load more footer when search loading', async () => {
+      const { queryByTestId } = await render(
         <AirportsTab {...mockedDefaultProps} airportsSearchLoading />,
       )
 
       expect(queryByTestId('load-more-footer')).toBeNull()
     })
 
-    it('renders filter icon correctly', () => {
-      const { getByTestId } = render(<AirportsTab {...mockedDefaultProps} />)
+    it('renders filter icon correctly', async () => {
+      const { getByTestId } = await render(<AirportsTab {...mockedDefaultProps} />)
 
       expect(getByTestId('mocked-material-community-icon')).toBeTruthy()
     })
   })
 
   describe('Search Functionality', () => {
-    it('calls setAirportsSearchTerm when search text changes', () => {
+    it('calls setAirportsSearchTerm when search text changes', async () => {
       const mockedSetAirportsFilters = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <AirportsTab {...mockedDefaultProps} setAirportsSearchTerm={mockedSetAirportsFilters} />,
       )
 
       const searchInput = getByTestId('search-input')
-      fireEvent.changeText(searchInput, 'Turkish')
+      await fireEvent.changeText(searchInput, 'Turkish')
 
       expect(mockedSetAirportsFilters).toHaveBeenCalledWith('Turkish')
     })
 
-    it('displays correct search placeholder from locale', () => {
-      const { getByTestId } = render(<AirportsTab {...mockedDefaultProps} />)
+    it('displays correct search placeholder from locale', async () => {
+      const { getByTestId } = await render(<AirportsTab {...mockedDefaultProps} />)
 
       const searchInput = getByTestId('search-input')
       expect(searchInput.props.placeholder).toBe('airportSearchPlaceholder')
     })
 
-    it('displays current search term in input', () => {
-      const { getByTestId } = render(
+    it('displays current search term in input', async () => {
+      const { getByTestId } = await render(
         <AirportsTab {...mockedDefaultProps} airportsSearchTerm="Istanbul Airports" />,
       )
 
@@ -242,8 +267,8 @@ describe('AirportsTab Component', () => {
   })
 
   describe('Filter Functionality', () => {
-    it('shows filter count badge when filters are active', () => {
-      const { getByText } = render(
+    it('shows filter count badge when filters are active', async () => {
+      const { getByText } = await render(
         <AirportsTab
           {...mockedDefaultProps}
           airportsFilters={mockedFilters}
@@ -254,17 +279,17 @@ describe('AirportsTab Component', () => {
       expect(getByText('2')).toBeTruthy()
     })
 
-    it('does not show filter count badge when no filters applied', () => {
-      const { queryByText } = render(
+    it('does not show filter count badge when no filters applied', async () => {
+      const { queryByText } = await render(
         <AirportsTab {...mockedDefaultProps} airportsFiltersCount={0} />,
       )
 
       expect(queryByText('0')).toBeNull()
     })
 
-    it('removes individual filter when remove button is pressed', () => {
+    it('removes individual filter when remove button is pressed', async () => {
       const mockedSetAirportsFilters = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <AirportsTab
           {...mockedDefaultProps}
           airportsFilters={mockedFilters}
@@ -272,14 +297,14 @@ describe('AirportsTab Component', () => {
         />,
       )
 
-      fireEvent.press(getByTestId('remove-filter-country'))
+      await fireEvent.press(getByTestId('remove-filter-country'))
 
       expect(mockedSetAirportsFilters).toHaveBeenCalledWith({ airportType: 'international' })
     })
 
-    it('clears all filters when clear all button is pressed', () => {
+    it('clears all filters when clear all button is pressed', async () => {
       const mockedSetAirportsFilters = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <AirportsTab
           {...mockedDefaultProps}
           airportsFilters={mockedFilters}
@@ -287,39 +312,41 @@ describe('AirportsTab Component', () => {
         />,
       )
 
-      fireEvent.press(getByTestId('clear-all-filters'))
+      await fireEvent.press(getByTestId('clear-all-filters'))
 
       expect(mockedSetAirportsFilters).toHaveBeenCalledWith({})
     })
 
-    it('opens filter modal when filter button is pressed', () => {
-      const { getByTestId } = render(<AirportsTab {...mockedDefaultProps} />)
+    it('opens filter modal when filter button is pressed', async () => {
+      const { getByTestId } = await render(<AirportsTab {...mockedDefaultProps} />)
 
       expect(getByTestId('mocked-material-community-icon')).toBeTruthy()
     })
   })
 
   describe('Loading States', () => {
-    it('shows loading state in footer when Airports are loading', () => {
-      const { getByText } = render(<AirportsTab {...mockedDefaultProps} airportsLoading />)
+    it('shows loading state in footer when Airports are loading', async () => {
+      const { getByText } = await render(<AirportsTab {...mockedDefaultProps} airportsLoading />)
 
       expect(getByText('Loading...')).toBeTruthy()
     })
 
-    it('shows load more option when more data is available', () => {
-      const { getByText } = render(<AirportsTab {...mockedDefaultProps} airportsHasMore />)
+    it('shows load more option when more data is available', async () => {
+      const { getByText } = await render(<AirportsTab {...mockedDefaultProps} airportsHasMore />)
 
       expect(getByText('Load More')).toBeTruthy()
     })
 
-    it('shows no more data message when all data is loaded', () => {
-      const { getByText } = render(<AirportsTab {...mockedDefaultProps} airportsHasMore={false} />)
+    it('shows no more data message when all data is loaded', async () => {
+      const { getByText } = await render(
+        <AirportsTab {...mockedDefaultProps} airportsHasMore={false} />,
+      )
 
       expect(getByText('No More')).toBeTruthy()
     })
 
-    it('displays skeleton loading correctly during search', () => {
-      const { getAllByTestId } = render(
+    it('displays skeleton loading correctly during search', async () => {
+      const { getAllByTestId } = await render(
         <AirportsTab {...mockedDefaultProps} airportsSearchLoading />,
       )
 
@@ -330,8 +357,8 @@ describe('AirportsTab Component', () => {
   })
 
   describe('Empty States', () => {
-    it('handles empty Airports array gracefully', () => {
-      const { queryByTestId } = render(
+    it('handles empty Airports array gracefully', async () => {
+      const { queryByTestId } = await render(
         <AirportsTab {...mockedDefaultProps} paginatedAirports={[]} />,
       )
 
@@ -339,39 +366,45 @@ describe('AirportsTab Component', () => {
       expect(queryByTestId('airport-card-2')).toBeNull()
     })
 
-    it('handles empty filters object', () => {
-      const { queryByTestId } = render(<AirportsTab {...mockedDefaultProps} airportsFilters={{}} />)
+    it('handles empty filters object', async () => {
+      const { queryByTestId } = await render(
+        <AirportsTab {...mockedDefaultProps} airportsFilters={{}} />,
+      )
 
       expect(queryByTestId('clear-all-filters')).toBeNull()
     })
   })
 
   describe('Props Integration', () => {
-    it('passes correct props to FlatList through data changes', () => {
+    it('passes correct props to FlatList through data changes', async () => {
       const mockedNewAirports = [
         ...mockedAirports,
         { id: '3', name: 'AtlasGlobal', code: 'KK', image: 'https://example.com/kk.png' },
       ]
 
-      const { rerender, getByTestId } = render(<AirportsTab {...mockedDefaultProps} />)
+      const { rerender, getByTestId } = await render(<AirportsTab {...mockedDefaultProps} />)
 
-      expect(getByTestId('airport-card-1')).toBeTruthy()
-      expect(getByTestId('airport-card-2')).toBeTruthy()
+      await waitFor(() => {
+        expect(getByTestId('airport-card-1')).toBeTruthy()
+        expect(getByTestId('airport-card-2')).toBeTruthy()
+      })
 
-      rerender(<AirportsTab {...mockedDefaultProps} paginatedAirports={mockedNewAirports} />)
+      await rerender(<AirportsTab {...mockedDefaultProps} paginatedAirports={mockedNewAirports} />)
 
-      expect(getByTestId('airport-card-3')).toBeTruthy()
+      await waitFor(() => {
+        expect(getByTestId('airport-card-3')).toBeTruthy()
+      })
     })
 
-    it('updates search term correctly', () => {
-      const { rerender, getByTestId } = render(
+    it('updates search term correctly', async () => {
+      const { rerender, getByTestId } = await render(
         <AirportsTab {...mockedDefaultProps} airportsSearchTerm="" />,
       )
 
       let searchInput = getByTestId('search-input')
       expect(searchInput.props.value).toBe('')
 
-      rerender(<AirportsTab {...mockedDefaultProps} airportsSearchTerm="Turkish" />)
+      await rerender(<AirportsTab {...mockedDefaultProps} airportsSearchTerm="Turkish" />)
 
       searchInput = getByTestId('search-input')
       expect(searchInput.props.value).toBe('Turkish')
@@ -379,30 +412,32 @@ describe('AirportsTab Component', () => {
   })
 
   describe('Callback Functions', () => {
-    it('calls loadMoreAirports prop function', () => {
+    it('calls loadMoreAirports prop function', async () => {
       const mockedLoadMoreAirports = jest.fn()
-      render(<AirportsTab {...mockedDefaultProps} loadMoreAirports={mockedLoadMoreAirports} />)
+      await render(
+        <AirportsTab {...mockedDefaultProps} loadMoreAirports={mockedLoadMoreAirports} />,
+      )
 
       expect(mockedLoadMoreAirports).not.toHaveBeenCalled()
     })
 
-    it('properly handles filter modal interactions', () => {
+    it('properly handles filter modal interactions', async () => {
       const mockedSetAirportsFilters = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <AirportsTab {...mockedDefaultProps} setAirportsFilters={mockedSetAirportsFilters} />,
       )
 
-      fireEvent.press(getByTestId('apply-filters'))
+      await fireEvent.press(getByTestId('apply-filters'))
       expect(mockedSetAirportsFilters).toHaveBeenCalledWith({ newFilter: 'value' })
     })
   })
 
   describe('Error Handling', () => {
-    it('handles undefined filter keys during removal', () => {
+    it('handles undefined filter keys during removal', async () => {
       const mockedSetAirportsFilters = jest.fn()
       const filtersWithUndefined = { country: 'Turkey', undefined }
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <AirportsTab
           {...mockedDefaultProps}
           airportsFilters={filtersWithUndefined}
@@ -410,38 +445,40 @@ describe('AirportsTab Component', () => {
         />,
       )
 
-      fireEvent.press(getByTestId('remove-filter-country'))
+      await fireEvent.press(getByTestId('remove-filter-country'))
 
       expect(mockedSetAirportsFilters).toHaveBeenCalled()
     })
 
-    it('handles missing airport properties gracefully', () => {
+    it('handles missing airport properties gracefully', async () => {
       const incompleteAirports: any = [{ id: '1', name: 'Turkish Airports' }, { id: '2' }]
 
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <AirportsTab {...mockedDefaultProps} paginatedAirports={incompleteAirports} />,
       )
 
-      expect(getByTestId('airport-card-1')).toBeTruthy()
-      expect(getByTestId('airport-card-2')).toBeTruthy()
+      await waitFor(() => {
+        expect(getByTestId('airport-card-1')).toBeTruthy()
+        expect(getByTestId('airport-card-2')).toBeTruthy()
+      })
     })
   })
 
   describe('Performance and Memoization', () => {
-    it('maintains component stability with React.memo', () => {
-      const { rerender } = render(<AirportsTab {...mockedDefaultProps} />)
+    it('maintains component stability with React.memo', async () => {
+      const { rerender } = await render(<AirportsTab {...mockedDefaultProps} />)
 
-      rerender(<AirportsTab {...mockedDefaultProps} />)
+      await rerender(<AirportsTab {...mockedDefaultProps} />)
 
       expect(mockedDefaultProps.setAirportsFilters).not.toHaveBeenCalled()
     })
 
-    it('updates when necessary props change', () => {
-      const { rerender, getByTestId } = render(
+    it('updates when necessary props change', async () => {
+      const { rerender, getByTestId } = await render(
         <AirportsTab {...mockedDefaultProps} airportsSearchTerm="" />,
       )
 
-      rerender(<AirportsTab {...mockedDefaultProps} airportsSearchTerm="New Search" />)
+      await rerender(<AirportsTab {...mockedDefaultProps} airportsSearchTerm="New Search" />)
 
       const searchInput = getByTestId('search-input')
       expect(searchInput.props.value).toBe('New Search')

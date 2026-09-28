@@ -16,16 +16,16 @@ const mockedCertification = 'React Native Certified'
 const mockedIconColor = 'blue'
 
 describe('CertificationCard Component', () => {
-  it('should render the certification text correctly', () => {
-    const { getByText } = render(
+  it('should render the certification text correctly', async () => {
+    const { getByText } = await render(
       <CertificationCard certification={mockedCertification} iconColor={mockedIconColor} />,
     )
     const certificationText = getByText(mockedCertification)
     expect(certificationText).toBeTruthy()
   })
 
-  it('should pass the correct props to the MaterialCommunityIcons component', () => {
-    const { getByTestId } = render(
+  it('should pass the correct props to the MaterialCommunityIcons component', async () => {
+    const { getByTestId } = await render(
       <CertificationCard certification={mockedCertification} iconColor={mockedIconColor} />,
     )
     const icon = getByTestId('mocked-material-community-icon')
@@ -37,8 +37,8 @@ describe('CertificationCard Component', () => {
 })
 
 describe('CertificationCard Component Snapshot', () => {
-  it('should render the CertificationCard Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the CertificationCard Component successfully', async () => {
+    const { toJSON } = await render(
       <CertificationCard certification={mockedCertification} iconColor={mockedIconColor} />,
     )
 

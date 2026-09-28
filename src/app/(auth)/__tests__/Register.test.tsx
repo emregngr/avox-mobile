@@ -1,7 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { router, useLocalSearchParams } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -162,8 +161,10 @@ beforeEach(() => {
 })
 
 describe('Register Screen', () => {
-  it('should render correctly', () => {
-    const { getAllByText, getByLabelText, getByTestId } = renderWithSafeAreaProvider(<Register />)
+  it('should render correctly', async () => {
+    const { getAllByText, getByLabelText, getByTestId } = await renderWithSafeAreaProvider(
+      <Register />,
+    )
     expect(getAllByText('register').length).toBeGreaterThan(0)
     expect(getByLabelText('firstName')).toBeTruthy()
     expect(getByLabelText('lastName')).toBeTruthy()
@@ -175,9 +176,9 @@ describe('Register Screen', () => {
   })
 
   it('should call register mutation on submit', async () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Register />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<Register />)
     const registerButton = getByTestId('register-button')
-    fireEvent.press(registerButton)
+    await fireEvent.press(registerButton)
 
     await waitFor(() => {
       expect(mockedUseEmailRegister).toHaveBeenCalledWith(mockedFormValues)
@@ -197,30 +198,32 @@ describe('Register Screen', () => {
       trigger: jest.fn(),
     } as any)
 
-    const { getByTestId } = renderWithSafeAreaProvider(<Register />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<Register />)
     const registerButton = getByTestId('register-button')
     expect(registerButton).not.toBeDisabled()
-    fireEvent.press(registerButton)
+    await fireEvent.press(registerButton)
     await waitFor(() => {
       expect(registerButton).toBeDisabled()
     })
   })
 
-  it('should show loading state and disable inputs', () => {
+  it('should show loading state and disable inputs', async () => {
     ;(require('@/hooks/services/useAuth').useEmailRegister as jest.Mock).mockReturnValue({
       isPending: true,
       mutateAsync: mockedUseEmailRegister,
     })
-    const { getByTestId, getByText, getByLabelText } = renderWithSafeAreaProvider(<Register />)
+    const { getByTestId, getByText, getByLabelText } = await renderWithSafeAreaProvider(
+      <Register />,
+    )
     expect(getByTestId('register-button')).toBeDisabled()
     expect(getByText('Loading...')).toBeTruthy()
     expect(getByLabelText('firstName').props.editable).toBe(false)
   })
 
-  it('should navigate to login', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Register />)
+  it('should navigate to login', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Register />)
     const loginButton = getByTestId('button-login')
-    fireEvent.press(loginButton)
+    await fireEvent.press(loginButton)
     expect(mockedReset).toHaveBeenCalled()
     expect(mockedlearForm).toHaveBeenCalled()
     expect(router.navigate).toHaveBeenCalledWith({
@@ -229,10 +232,10 @@ describe('Register Screen', () => {
     })
   })
 
-  it('should navigate to privacy policy', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Register />)
+  it('should navigate to privacy policy', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Register />)
     const privacyPolicyCheckbox = getByTestId('checkbox-privacyPolicy')
-    fireEvent.press(privacyPolicyCheckbox)
+    await fireEvent.press(privacyPolicyCheckbox)
     expect(mockedSetFormValues).toHaveBeenCalledWith(mockedFormValues)
     expect(router.navigate).toHaveBeenCalledWith({
       params: {
@@ -243,10 +246,10 @@ describe('Register Screen', () => {
     })
   })
 
-  it('should navigate to terms of use', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Register />)
+  it('should navigate to terms of use', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Register />)
     const termsOfUseCheckbox = getByTestId('checkbox-termsOfUse')
-    fireEvent.press(termsOfUseCheckbox)
+    await fireEvent.press(termsOfUseCheckbox)
     expect(mockedSetFormValues).toHaveBeenCalledWith(mockedFormValues)
     expect(router.navigate).toHaveBeenCalledWith({
       params: {
@@ -257,29 +260,29 @@ describe('Register Screen', () => {
     })
   })
 
-  it('should navigate back to auth screen by default', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Register />)
+  it('should navigate back to auth screen by default', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Register />)
     const backButton = getByTestId('back-button')
-    fireEvent.press(backButton)
+    await fireEvent.press(backButton)
     expect(mockedReset).toHaveBeenCalled()
     expect(mockedlearForm).toHaveBeenCalled()
     expect(router.replace).toHaveBeenCalledWith('/auth')
   })
 
-  it('should navigate back to login screen if coming from there', () => {
+  it('should navigate back to login screen if coming from there', async () => {
     mockedUseLocalSearchParams.mockReturnValue({
       isLoginParam: 'true',
     })
-    const { getByTestId } = renderWithSafeAreaProvider(<Register />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<Register />)
     const backButton = getByTestId('back-button')
-    fireEvent.press(backButton)
+    await fireEvent.press(backButton)
     expect(router.navigate).toHaveBeenCalledWith('/login')
   })
 })
 
 describe('Register Screen Snapshot', () => {
-  it('should render the Register successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Register />)
+  it('should render the Register successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Register />)
 
     expect(toJSON()).toMatchSnapshot()
   })

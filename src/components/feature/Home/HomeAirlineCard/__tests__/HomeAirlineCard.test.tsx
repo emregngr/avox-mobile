@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
-import React from 'react'
 
 import { HomeAirlineCard } from '@/components/feature/Home/HomeAirlineCard'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
@@ -165,8 +164,8 @@ beforeEach(() => {
 })
 
 describe('HomeAirlineCard Component', () => {
-  it('renders airline info correctly', () => {
-    const { getByText } = render(<HomeAirlineCard airline={mockedAirline} />)
+  it('renders airline info correctly', async () => {
+    const { getByText } = await render(<HomeAirlineCard airline={mockedAirline} />)
 
     expect(getByText('TK')).toBeTruthy()
     expect(getByText('THY')).toBeTruthy()
@@ -174,11 +173,11 @@ describe('HomeAirlineCard Component', () => {
     expect(getByText('İstanbul, Turkey, EU')).toBeTruthy()
   })
 
-  it('calls analytics, router and showInterstitialAd on press', () => {
-    const { getByText } = render(<HomeAirlineCard airline={mockedAirline} />)
+  it('calls analytics, router and showInterstitialAd on press', async () => {
+    const { getByText } = await render(<HomeAirlineCard airline={mockedAirline} />)
     const card = getByText('TK').parent as any
 
-    fireEvent.press(card)
+    await fireEvent.press(card)
 
     expect(AnalyticsService.sendEvent).toHaveBeenCalledWith('airline_card_press', {
       airline_id: '1',
@@ -197,8 +196,8 @@ describe('HomeAirlineCard Component', () => {
 })
 
 describe('HomeAirlineCard Component Snapshot', () => {
-  it('should render the HomeAirlineCard Component successfully', () => {
-    const { toJSON } = render(<HomeAirlineCard airline={mockedAirline} />)
+  it('should render the HomeAirlineCard Component successfully', async () => {
+    const { toJSON } = await render(<HomeAirlineCard airline={mockedAirline} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

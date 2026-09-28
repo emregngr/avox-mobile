@@ -49,7 +49,7 @@ exports[`ChooseLanguage Screen Snapshot should render the ChooseLanguage Screen 
     contentContainerStyle={
       {
         "paddingBottom": 20,
-        "paddingTop": 64,
+        "paddingTop": 20,
       }
     }
     showsVerticalScrollIndicator={false}

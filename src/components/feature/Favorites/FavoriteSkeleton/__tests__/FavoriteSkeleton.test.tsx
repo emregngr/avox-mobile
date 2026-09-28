@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { FavoriteSkeleton } from '@/components/feature/Favorites/FavoriteSkeleton'
 
@@ -18,20 +17,20 @@ jest.mock('@/components/feature/Airport/AirportCardSkeleton', () => {
 })
 
 describe('FavoriteSkeleton Component', () => {
-  it('renders Airport skeletons when type="airport"', () => {
-    const { getAllByText } = render(<FavoriteSkeleton type="airport" />)
+  it('renders Airport skeletons when type="airport"', async () => {
+    const { getAllByText } = await render(<FavoriteSkeleton type="airport" />)
 
     expect(getAllByText('Airport Skeleton')).toHaveLength(6)
   })
 
-  it('renders Airline skeletons when type="airline"', () => {
-    const { getAllByText } = render(<FavoriteSkeleton type="airline" />)
+  it('renders Airline skeletons when type="airline"', async () => {
+    const { getAllByText } = await render(<FavoriteSkeleton type="airline" />)
 
     expect(getAllByText('Airline Skeleton')).toHaveLength(6)
   })
 
-  it('has correct keyExtractor', () => {
-    const { getByTestId } = render(<FavoriteSkeleton type="airport" />)
+  it('has correct keyExtractor', async () => {
+    const { getByTestId } = await render(<FavoriteSkeleton type="airport" />)
 
     const flatList = getByTestId('favorite-skeleton-flatlist')
     const ids = flatList.props.data.map((item: any) => item.id)
@@ -48,8 +47,8 @@ describe('FavoriteSkeleton Component', () => {
 })
 
 describe('FavoriteSkeleton Component Snapshot', () => {
-  it('should render the FavoriteSkeleton Component successfully', () => {
-    const { toJSON } = render(<FavoriteSkeleton type="airport" />)
+  it('should render the FavoriteSkeleton Component successfully', async () => {
+    const { toJSON } = await render(<FavoriteSkeleton type="airport" />)
 
     expect(toJSON()).toMatchSnapshot()
   })

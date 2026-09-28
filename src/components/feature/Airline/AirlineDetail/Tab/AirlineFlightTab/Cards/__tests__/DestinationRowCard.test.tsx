@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { DestinationRowCard } from '@/components/feature/Airline/AirlineDetail/Tab/AirlineFlightTab/Cards/DestinationRowCard'
 
@@ -17,8 +16,8 @@ const mockedDestination = 'Ankara'
 const mockedIconColor = '#FFA500'
 
 describe('DestinationRowCard Component', () => {
-  it('should render the destination text correctly', () => {
-    const { getByText } = render(
+  it('should render the destination text correctly', async () => {
+    const { getByText } = await render(
       <DestinationRowCard destination={mockedDestination} iconColor={mockedIconColor} />,
     )
 
@@ -26,8 +25,8 @@ describe('DestinationRowCard Component', () => {
     expect(destinationText).toBeTruthy()
   })
 
-  it('should pass the correct props to MaterialCommunityIcons', () => {
-    const { getByTestId } = render(
+  it('should pass the correct props to MaterialCommunityIcons', async () => {
+    const { getByTestId } = await render(
       <DestinationRowCard destination={mockedDestination} iconColor={mockedIconColor} />,
     )
 
@@ -38,8 +37,8 @@ describe('DestinationRowCard Component', () => {
     expect(icon.props.color).toBe(mockedIconColor)
   })
 
-  it('should pass the correct props to ThemedText', () => {
-    const { getByText } = render(
+  it('should pass the correct props to ThemedText', async () => {
+    const { getByText } = await render(
       <DestinationRowCard destination={mockedDestination} iconColor={mockedIconColor} />,
     )
 
@@ -49,11 +48,11 @@ describe('DestinationRowCard Component', () => {
     expect(themedText.props.type).toBe('body2')
   })
 
-  it('should render correctly with different props', () => {
+  it('should render correctly with different props', async () => {
     const newDestination = 'İzmir'
     const newColor = '#0000FF'
 
-    const { getByText, getByTestId } = render(
+    const { getByText, getByTestId } = await render(
       <DestinationRowCard destination={newDestination} iconColor={newColor} />,
     )
 
@@ -64,8 +63,8 @@ describe('DestinationRowCard Component', () => {
 })
 
 describe('DestinationRowCard Component Snapshot', () => {
-  it('should render the DestinationRowCard Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the DestinationRowCard Component successfully', async () => {
+    const { toJSON } = await render(
       <DestinationRowCard destination={mockedDestination} iconColor={mockedIconColor} />,
     )
 

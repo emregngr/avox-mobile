@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { AirlineRowCard } from '@/components/feature/Airport/AirportDetail/Tab/AirportFlightTab/Cards/AirlineRowCard'
 
@@ -19,15 +18,15 @@ const mockedDefaultProps = {
 }
 
 describe('AirlineRowCard Component', () => {
-  it('should render the airline name correctly', () => {
-    const { getByText } = render(<AirlineRowCard {...mockedDefaultProps} />)
+  it('should render the airline name correctly', async () => {
+    const { getByText } = await render(<AirlineRowCard {...mockedDefaultProps} />)
 
     const airlineText = getByText(mockedDefaultProps.airline)
     expect(airlineText).toBeTruthy()
   })
 
-  it('should pass the correct props to MaterialCommunityIcons', () => {
-    const { getByTestId } = render(<AirlineRowCard {...mockedDefaultProps} />)
+  it('should pass the correct props to MaterialCommunityIcons', async () => {
+    const { getByTestId } = await render(<AirlineRowCard {...mockedDefaultProps} />)
 
     const icon = getByTestId('mocked-material-community-icon')
 
@@ -36,8 +35,8 @@ describe('AirlineRowCard Component', () => {
     expect(icon.props.color).toBe(mockedDefaultProps.iconColor)
   })
 
-  it('should pass the correct props to ThemedText', () => {
-    const { getByText } = render(<AirlineRowCard {...mockedDefaultProps} />)
+  it('should pass the correct props to ThemedText', async () => {
+    const { getByText } = await render(<AirlineRowCard {...mockedDefaultProps} />)
 
     const themedText = getByText(mockedDefaultProps.airline)
 
@@ -47,8 +46,8 @@ describe('AirlineRowCard Component', () => {
 })
 
 describe('AirlineRowCard Component Snapshot', () => {
-  it('should render the AirlineRowCard Component successfully', () => {
-    const { toJSON } = render(<AirlineRowCard {...mockedDefaultProps} />)
+  it('should render the AirlineRowCard Component successfully', async () => {
+    const { toJSON } = await render(<AirlineRowCard {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

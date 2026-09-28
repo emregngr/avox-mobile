@@ -1,7 +1,6 @@
 import { act, fireEvent, render } from '@testing-library/react-native'
 import * as Linking from 'expo-linking'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { Platform } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -68,8 +67,8 @@ const renderWithSafeAreaProvider = (component: ReactNode) =>
   )
 
 describe('ForceUpdate Screen', () => {
-  it('should render the title, description, and update button', () => {
-    const { getByText, getByTestId } = renderWithSafeAreaProvider(<ForceUpdate />)
+  it('should render the title, description, and update button', async () => {
+    const { getByText, getByTestId } = await renderWithSafeAreaProvider(<ForceUpdate />)
     expect(getByText('avox')).toBeTruthy()
     expect(getByText('forceUpdateText')).toBeTruthy()
     expect(getByTestId('update-button')).toBeTruthy()
@@ -77,11 +76,11 @@ describe('ForceUpdate Screen', () => {
 
   it('should open the correct App Store URL on iOS when the button is pressed', async () => {
     Platform.OS = 'ios'
-    const { getByTestId } = renderWithSafeAreaProvider(<ForceUpdate />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<ForceUpdate />)
     const updateButton = getByTestId('update-button')
 
     await act(async () => {
-      fireEvent.press(updateButton)
+      await fireEvent.press(updateButton)
     })
 
     expect(openURLSpy).toHaveBeenCalledWith('https://apps.apple.com/ca/app/avox/6747673276')
@@ -89,11 +88,11 @@ describe('ForceUpdate Screen', () => {
 
   it('should open the correct Play Store URL on Android when the button is pressed', async () => {
     Platform.OS = 'android'
-    const { getByTestId } = renderWithSafeAreaProvider(<ForceUpdate />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<ForceUpdate />)
     const updateButton = getByTestId('update-button')
 
     await act(async () => {
-      fireEvent.press(updateButton)
+      await fireEvent.press(updateButton)
     })
 
     expect(openURLSpy).toHaveBeenCalledWith(
@@ -103,8 +102,8 @@ describe('ForceUpdate Screen', () => {
 })
 
 describe('ForceUpdate Screen Snapshot', () => {
-  it('should render the ForceUpdate Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<ForceUpdate />)
+  it('should render the ForceUpdate Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<ForceUpdate />)
 
     expect(toJSON()).toMatchSnapshot()
   })

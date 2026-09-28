@@ -1,7 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { router } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import Home from '@/app/(tabs)/home'
@@ -127,15 +126,15 @@ beforeEach(() => {
 })
 
 describe('Home Screen', () => {
-  it('should display FullScreenLoading component while data is loading', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Home />)
+  it('should display FullScreenLoading component while data is loading', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Home />)
     expect(getByTestId('full-screen-loading')).toBeTruthy()
   })
 
-  it('should display all sections with correct titles when data is loaded', () => {
+  it('should display all sections with correct titles when data is loaded', async () => {
     mockedUseHome.mockReturnValue({ homeData: mockedHomeData, isLoading: false } as any)
 
-    const { getByText, getByTestId } = renderWithSafeAreaProvider(<Home />)
+    const { getByText, getByTestId } = await renderWithSafeAreaProvider(<Home />)
 
     expect(getByTestId('news-section')).toBeTruthy()
     expect(getByText('popularAirlines')).toBeTruthy()
@@ -168,21 +167,21 @@ describe('Home Screen', () => {
     })
   })
 
-  it('should navigate to the correct pages when "View All" buttons are pressed', () => {
+  it('should navigate to the correct pages when "View All" buttons are pressed', async () => {
     mockedUseHome.mockReturnValue({ homeData: mockedHomeData, isLoading: false } as any)
 
-    const { getByTestId } = renderWithSafeAreaProvider(<Home />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<Home />)
 
-    fireEvent.press(getByTestId('view-all-popularAirlines'))
+    await fireEvent.press(getByTestId('view-all-popularAirlines'))
     expect(router.navigate).toHaveBeenCalledWith('/all-popular-airlines')
 
-    fireEvent.press(getByTestId('view-all-popularAirports'))
+    await fireEvent.press(getByTestId('view-all-popularAirports'))
     expect(router.navigate).toHaveBeenCalledWith('/all-popular-airports')
 
-    fireEvent.press(getByTestId('view-all-popularDestinations'))
+    await fireEvent.press(getByTestId('view-all-popularDestinations'))
     expect(router.navigate).toHaveBeenCalledWith('/all-popular-destinations')
 
-    fireEvent.press(getByTestId('view-all-totalAirplanes'))
+    await fireEvent.press(getByTestId('view-all-totalAirplanes'))
     expect(router.navigate).toHaveBeenCalledWith('/total-airplanes')
 
     expect(router.navigate).toHaveBeenCalledTimes(4)
@@ -190,8 +189,8 @@ describe('Home Screen', () => {
 })
 
 describe('Home Screen Snapshot', () => {
-  it('should render the Home screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Home />)
+  it('should render the Home screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Home />)
 
     expect(toJSON()).toMatchSnapshot()
   })

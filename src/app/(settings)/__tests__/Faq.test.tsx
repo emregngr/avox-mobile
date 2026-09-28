@@ -1,7 +1,6 @@
 import { act, fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { FlatList } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -109,48 +108,48 @@ beforeEach(() => {
 })
 
 describe('FAQ Screen', () => {
-  it('should render FAQ screen with header and initial state', () => {
-    const { getByTestId, getByText } = renderWithSafeAreaProvider(<Faq />)
+  it('should render FAQ screen with header and initial state', async () => {
+    const { getByTestId, getByText } = await renderWithSafeAreaProvider(<Faq />)
 
     expect(getByTestId('safe-layout')).toBeTruthy()
     expect(getByTestId('header-title')).toBeTruthy()
     expect(getByText('Frequently Asked Questions')).toBeTruthy()
   })
 
-  it('should call router.back when back button is pressed', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Faq />)
+  it('should call router.back when back button is pressed', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Faq />)
 
     const backButton = getByTestId('back-button')
 
-    fireEvent.press(backButton)
+    await fireEvent.press(backButton)
 
     expect(router.back).toHaveBeenCalledTimes(1)
   })
 
-  it('should render English FAQ items when locale is en', () => {
+  it('should render English FAQ items when locale is en', async () => {
     mockedUseLocaleStore.mockReturnValue({ selectedLocale: 'en' })
 
-    const { getByText } = renderWithSafeAreaProvider(<Faq />)
+    const { getByText } = await renderWithSafeAreaProvider(<Faq />)
 
     expect(getByText('What is the Avox app and what does it do?')).toBeTruthy()
     expect(getByText('Is the app free to use?')).toBeTruthy()
   })
 
-  it('should render Turkish FAQ items when locale is tr', () => {
+  it('should render Turkish FAQ items when locale is tr', async () => {
     mockedUseLocaleStore.mockReturnValue({ selectedLocale: 'tr' })
 
-    const { getByText } = renderWithSafeAreaProvider(<Faq />)
+    const { getByText } = await renderWithSafeAreaProvider(<Faq />)
 
     expect(getByText('Avox uygulaması nedir ve ne işe yarar?')).toBeTruthy()
     expect(getByText('Uygulamayı kullanmak ücretli mi?')).toBeTruthy()
   })
 
   it('should expand/collapse FAQ item when pressed', async () => {
-    const { getByText, getByTestId, queryByTestId } = renderWithSafeAreaProvider(<Faq />)
+    const { getByText, getByTestId, queryByTestId } = await renderWithSafeAreaProvider(<Faq />)
 
     const firstFaqItem = getByText('What is the Avox app and what does it do?')
 
-    fireEvent.press(firstFaqItem)
+    await fireEvent.press(firstFaqItem)
 
     await act(async () => {
       jest.runAllTimers()
@@ -158,7 +157,7 @@ describe('FAQ Screen', () => {
 
     expect(getByTestId('collapsible-content')).toBeTruthy()
 
-    fireEvent.press(firstFaqItem)
+    await fireEvent.press(firstFaqItem)
 
     await act(async () => {
       jest.runAllTimers()
@@ -168,14 +167,14 @@ describe('FAQ Screen', () => {
   })
 
   it('should show correct chevron icon based on expanded state', async () => {
-    const { getAllByText, queryByText, getByText } = renderWithSafeAreaProvider(<Faq />)
+    const { getAllByText, queryByText, getByText } = await renderWithSafeAreaProvider(<Faq />)
 
     expect(getAllByText('chevron-down').length).toBeGreaterThan(0)
     expect(queryByText('chevron-up')).toBeFalsy()
 
     const firstFaqItem = getByText('What is the Avox app and what does it do?')
 
-    fireEvent.press(firstFaqItem)
+    await fireEvent.press(firstFaqItem)
 
     await act(async () => {
       jest.runAllTimers()
@@ -185,12 +184,12 @@ describe('FAQ Screen', () => {
   })
 
   it('should collapse previously expanded item when expanding a new one', async () => {
-    const { getByText, queryByText } = renderWithSafeAreaProvider(<Faq />)
+    const { getByText, queryByText } = await renderWithSafeAreaProvider(<Faq />)
 
     const firstFaqItem = getByText('What is the Avox app and what does it do?')
     const secondFaqItem = getByText('Is the app free to use?')
 
-    fireEvent.press(firstFaqItem)
+    await fireEvent.press(firstFaqItem)
 
     await act(async () => {
       jest.runAllTimers()
@@ -202,7 +201,7 @@ describe('FAQ Screen', () => {
       ),
     ).toBeTruthy()
 
-    fireEvent.press(secondFaqItem)
+    await fireEvent.press(secondFaqItem)
 
     await act(async () => {
       jest.runAllTimers()
@@ -224,11 +223,11 @@ describe('FAQ Screen', () => {
   it('should call scrollToIndex when FAQ item is expanded', async () => {
     const scrollToIndexSpy = jest.spyOn(FlatList.prototype, 'scrollToIndex')
 
-    const { getByText } = renderWithSafeAreaProvider(<Faq />)
+    const { getByText } = await renderWithSafeAreaProvider(<Faq />)
 
     const firstFaqItem = getByText('What is the Avox app and what does it do?')
 
-    fireEvent.press(firstFaqItem)
+    await fireEvent.press(firstFaqItem)
 
     await act(async () => {
       jest.runAllTimers()
@@ -246,7 +245,7 @@ describe('FAQ Screen', () => {
   it('should handle scroll to index failure gracefully', async () => {
     const scrollToIndexSpy = jest.spyOn(FlatList.prototype, 'scrollToIndex')
 
-    const { getByTestId } = renderWithSafeAreaProvider(<Faq />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<Faq />)
 
     const flatList = getByTestId('faq-flatlist')
 
@@ -257,7 +256,7 @@ describe('FAQ Screen', () => {
     }
 
     if (flatList.props.onScrollToIndexFailed) {
-      act(() => {
+      await act(() => {
         flatList.props.onScrollToIndexFailed(failInfo)
       })
     }
@@ -275,26 +274,26 @@ describe('FAQ Screen', () => {
     scrollToIndexSpy.mockRestore()
   })
 
-  it('should use correct theme colors', () => {
+  it('should use correct theme colors', async () => {
     mockedUseThemeStore.mockReturnValue({
       selectedTheme: 'dark',
     })
 
-    const { getByTestId } = renderWithSafeAreaProvider(<Faq />)
+    const { getByTestId } = await renderWithSafeAreaProvider(<Faq />)
 
     expect(getByTestId('safe-layout')).toBeTruthy()
   })
 
-  it('should render with correct FlatList props', () => {
-    const { getByTestId, getByText } = renderWithSafeAreaProvider(<Faq />)
+  it('should render with correct FlatList props', async () => {
+    const { getByTestId, getByText } = await renderWithSafeAreaProvider(<Faq />)
 
     expect(getByTestId('safe-layout')).toBeTruthy()
 
     expect(getByText('What is the Avox app and what does it do?')).toBeTruthy()
   })
 
-  it('should generate correct key for FAQ items', () => {
-    const { getByText } = renderWithSafeAreaProvider(<Faq />)
+  it('should generate correct key for FAQ items', async () => {
+    const { getByText } = await renderWithSafeAreaProvider(<Faq />)
 
     expect(getByText('What is the Avox app and what does it do?')).toBeTruthy()
     expect(getByText('Is the app free to use?')).toBeTruthy()
@@ -302,8 +301,8 @@ describe('FAQ Screen', () => {
 })
 
 describe('Faq Screen Snapshot', () => {
-  it('should render the Faq Screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Faq />)
+  it('should render the Faq Screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Faq />)
 
     expect(toJSON()).toMatchSnapshot()
   })

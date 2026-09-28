@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { DestinationCard } from '@/components/feature/Home/DestinationCard'
 import { getLocale } from '@/locales/i18next'
@@ -49,40 +48,40 @@ beforeEach(() => {
 })
 
 describe('DestinationCard', () => {
-  it('renders route and country correctly', () => {
-    const { getByText } = render(<DestinationCard destination={mockedDestination} />)
+  it('renders route and country correctly', async () => {
+    const { getByText } = await render(<DestinationCard destination={mockedDestination} />)
 
     expect(getByText('IST → JFK')).toBeTruthy()
     expect(getByText('Türkiye')).toBeTruthy()
   })
 
-  it('renders formatted flight count and distance with unit', () => {
-    const { getByText } = render(<DestinationCard destination={mockedDestination} />)
+  it('renders formatted flight count and distance with unit', async () => {
+    const { getByText } = await render(<DestinationCard destination={mockedDestination} />)
 
     expect(getByText('678')).toBeTruthy()
     expect(getByText('12.345 km')).toBeTruthy()
   })
 
-  it('renders localized labels correctly', () => {
-    const { getByText } = render(<DestinationCard destination={mockedDestination} />)
+  it('renders localized labels correctly', async () => {
+    const { getByText } = await render(<DestinationCard destination={mockedDestination} />)
 
     expect(getByText('Flights per year')).toBeTruthy()
     expect(getByText('Distance')).toBeTruthy()
     expect(getByText('International')).toBeTruthy()
   })
 
-  it('should render the DestinationCard successfully', () => {
-    render(<DestinationCard destination={mockedDestination} />)
+  it('should render the DestinationCard successfully', async () => {
+    await render(<DestinationCard destination={mockedDestination} />)
 
-    const { toJSON } = render(<DestinationCard destination={mockedDestination} />)
+    const { toJSON } = await render(<DestinationCard destination={mockedDestination} />)
 
     expect(toJSON()).toMatchSnapshot()
   })
 })
 
 describe('DestinationCard Component Snapshot', () => {
-  it('should render the DestinationCard Component successfully', () => {
-    const { toJSON } = render(<DestinationCard destination={mockedDestination} />)
+  it('should render the DestinationCard Component successfully', async () => {
+    const { toJSON } = await render(<DestinationCard destination={mockedDestination} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

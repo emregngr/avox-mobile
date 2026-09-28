@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { AirplaneCard } from '@/components/feature/Home/AirplaneCard'
 import type { TotalAirplaneType } from '@/types/feature/home'
@@ -21,8 +20,8 @@ const mockedAirplane: TotalAirplaneType = {
 }
 
 describe('AirplaneCard Component', () => {
-  it('renders airplane model and count correctly', () => {
-    const { getByText } = render(<AirplaneCard airplane={mockedAirplane} />)
+  it('renders airplane model and count correctly', async () => {
+    const { getByText } = await render(<AirplaneCard airplane={mockedAirplane} />)
 
     expect(getByText('Boeing 737')).toBeTruthy()
     expect(getByText('5')).toBeTruthy()
@@ -30,8 +29,8 @@ describe('AirplaneCard Component', () => {
 })
 
 describe('AirplaneCard Component Snapshot', () => {
-  it('should render the AirplaneCard Component successfully', () => {
-    const { toJSON } = render(<AirplaneCard airplane={mockedAirplane} />)
+  it('should render the AirplaneCard Component successfully', async () => {
+    const { toJSON } = await render(<AirplaneCard airplane={mockedAirplane} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

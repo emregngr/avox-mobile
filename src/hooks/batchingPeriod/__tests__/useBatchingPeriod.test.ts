@@ -24,14 +24,17 @@ beforeEach(() => {
 })
 
 describe('useBatchingPeriod', () => {
-  it('should return the initial batching period (MEDIUM) before async logic resolves', () => {
-    const { result } = renderHook(() => useBatchingPeriod())
+  it('should return the initial batching period (MEDIUM) before async logic resolves', async () => {
+    mockedGetTotalMemory.mockReturnValue(new Promise(() => {}))
+
+    const { result } = await renderHook(() => useBatchingPeriod())
+
     expect(result.current).toBe(BATCHING_PERIODS.MEDIUM)
   })
 
   it('should return FAST period for iOS devices', async () => {
     Platform.OS = 'ios'
-    const { result } = renderHook(() => useBatchingPeriod())
+    const { result } = await renderHook(() => useBatchingPeriod())
 
     await waitFor(() => expect(result.current).toBe(BATCHING_PERIODS.FAST))
 
@@ -41,7 +44,7 @@ describe('useBatchingPeriod', () => {
   it('should return SLOW period for Android devices with low memory', async () => {
     mockedGetTotalMemory.mockResolvedValue(2 * 1024 * 1024 * 1024)
 
-    const { result } = renderHook(() => useBatchingPeriod())
+    const { result } = await renderHook(() => useBatchingPeriod())
 
     await waitFor(() => expect(result.current).toBe(BATCHING_PERIODS.SLOW))
     expect(mockedGetTotalMemory).toHaveBeenCalledTimes(1)
@@ -50,7 +53,7 @@ describe('useBatchingPeriod', () => {
   it('should return MEDIUM period for Android devices with medium memory', async () => {
     mockedGetTotalMemory.mockResolvedValue(4 * 1024 * 1024 * 1024)
 
-    const { result } = renderHook(() => useBatchingPeriod())
+    const { result } = await renderHook(() => useBatchingPeriod())
 
     await waitFor(() => expect(result.current).toBe(BATCHING_PERIODS.MEDIUM))
     expect(mockedGetTotalMemory).toHaveBeenCalledTimes(1)
@@ -59,7 +62,7 @@ describe('useBatchingPeriod', () => {
   it('should return FAST period for Android devices with high memory', async () => {
     mockedGetTotalMemory.mockResolvedValue(8 * 1024 * 1024 * 1024)
 
-    const { result } = renderHook(() => useBatchingPeriod())
+    const { result } = await renderHook(() => useBatchingPeriod())
 
     await waitFor(() => expect(result.current).toBe(BATCHING_PERIODS.FAST))
     expect(mockedGetTotalMemory).toHaveBeenCalledTimes(1)
@@ -69,7 +72,7 @@ describe('useBatchingPeriod', () => {
     const mockedError = new Error('Failed to get total memory')
     mockedGetTotalMemory.mockRejectedValue(mockedError)
 
-    const { result } = renderHook(() => useBatchingPeriod())
+    const { result } = await renderHook(() => useBatchingPeriod())
 
     await waitFor(() => expect(result.current).toBe(BATCHING_PERIODS.MEDIUM))
 

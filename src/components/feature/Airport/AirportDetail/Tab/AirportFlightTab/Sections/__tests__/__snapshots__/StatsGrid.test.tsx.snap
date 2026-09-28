@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`StatsGrid Component Snapshot should render the StatsGrid Component successfully 1`] = `
-[
+<>
   <View
     className="flex-row gap-x-4"
   >
@@ -11,7 +11,7 @@ exports[`StatsGrid Component Snapshot should render the StatsGrid Component succ
     <View
       testID="mocked-stats-card"
     />
-  </View>,
+  </View>
   <View
     className="flex-row gap-x-4"
   >
@@ -21,6 +21,6 @@ exports[`StatsGrid Component Snapshot should render the StatsGrid Component succ
     <View
       testID="mocked-stats-card"
     />
-  </View>,
-]
+  </View>
+</>
 `;

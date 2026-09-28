@@ -7,7 +7,7 @@ exports[`PopularCardSkeleton Component Snapshot should render the PopularCardSke
   contentContainerStyle={
     {
       "paddingBottom": 20,
-      "paddingTop": 64,
+      "paddingTop": 20,
     }
   }
   data={
@@ -50,7 +50,7 @@ exports[`PopularCardSkeleton Component Snapshot should render the PopularCardSke
   scrollEventThrottle={16}
   showsVerticalScrollIndicator={false}
   stickyHeaderIndices={[]}
-  updateCellsBatchingPeriod={150}
+  updateCellsBatchingPeriod={100}
   viewabilityConfigCallbackPairs={[]}
   windowSize={7}
 >
@@ -123,7 +123,7 @@ exports[`PopularCardSkeleton Component should pass correct prop values to FlatLi
   contentContainerStyle={
     {
       "paddingBottom": 20,
-      "paddingTop": 64,
+      "paddingTop": 20,
     }
   }
   data={
@@ -166,7 +166,7 @@ exports[`PopularCardSkeleton Component should pass correct prop values to FlatLi
   scrollEventThrottle={16}
   showsVerticalScrollIndicator={false}
   stickyHeaderIndices={[]}
-  updateCellsBatchingPeriod={150}
+  updateCellsBatchingPeriod={100}
   viewabilityConfigCallbackPairs={[]}
   windowSize={7}
 >
@@ -239,7 +239,7 @@ exports[`PopularCardSkeleton Component should pass correct prop values to FlatLi
   contentContainerStyle={
     {
       "paddingBottom": 20,
-      "paddingTop": 64,
+      "paddingTop": 20,
     }
   }
   data={
@@ -282,7 +282,7 @@ exports[`PopularCardSkeleton Component should pass correct prop values to FlatLi
   scrollEventThrottle={16}
   showsVerticalScrollIndicator={false}
   stickyHeaderIndices={[]}
-  updateCellsBatchingPeriod={150}
+  updateCellsBatchingPeriod={100}
   viewabilityConfigCallbackPairs={[]}
   windowSize={7}
 >

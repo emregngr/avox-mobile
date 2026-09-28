@@ -1,5 +1,4 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
-import React from 'react'
 
 import { ChangePassword } from '@/components/feature/Password/ChangePassword'
 import { useChangePassword } from '@/hooks/services/useUser'
@@ -24,8 +23,8 @@ beforeEach(() => {
 })
 
 describe('ChangePassword Component', () => {
-  const setup = () => {
-    const utils = render(<ChangePassword />)
+  const setup = async () => {
+    const utils = await render(<ChangePassword />)
     const currentPasswordInput = utils.getByPlaceholderText('currentPasswordPlaceholder')
     const newPasswordInput = utils.getByPlaceholderText('newPasswordPlaceholder')
     const confirmPasswordInput = utils.getByPlaceholderText('confirmNewPasswordPlaceholder')
@@ -39,8 +38,9 @@ describe('ChangePassword Component', () => {
     }
   }
 
-  it('should render all form fields and the submit button correctly', () => {
-    const { currentPasswordInput, newPasswordInput, confirmPasswordInput, submitButton } = setup()
+  it('should render all form fields and the submit button correctly', async () => {
+    const { currentPasswordInput, newPasswordInput, confirmPasswordInput, submitButton } =
+      await setup()
 
     expect(currentPasswordInput).toBeTruthy()
     expect(newPasswordInput).toBeTruthy()
@@ -56,13 +56,13 @@ describe('ChangePassword Component', () => {
       confirmPasswordInput,
       submitButton,
       getByText,
-    } = setup()
+    } = await setup()
     const samePassword = 'password123'
 
-    fireEvent.changeText(currentPasswordInput, samePassword)
-    fireEvent.changeText(newPasswordInput, samePassword)
-    fireEvent.changeText(confirmPasswordInput, samePassword)
-    fireEvent.press(submitButton)
+    await fireEvent.changeText(currentPasswordInput, samePassword)
+    await fireEvent.changeText(newPasswordInput, samePassword)
+    await fireEvent.changeText(confirmPasswordInput, samePassword)
+    await fireEvent.press(submitButton)
 
     await waitFor(() => {
       expect(getByText('newPasswordCannotBeSame')).toBeTruthy()
@@ -77,12 +77,12 @@ describe('ChangePassword Component', () => {
       confirmPasswordInput,
       submitButton,
       getByText,
-    } = setup()
+    } = await setup()
 
-    fireEvent.changeText(currentPasswordInput, 'oldPassword123')
-    fireEvent.changeText(newPasswordInput, 'newPassword456')
-    fireEvent.changeText(confirmPasswordInput, 'newPassword789')
-    fireEvent.press(submitButton)
+    await fireEvent.changeText(currentPasswordInput, 'oldPassword123')
+    await fireEvent.changeText(newPasswordInput, 'newPassword456')
+    await fireEvent.changeText(confirmPasswordInput, 'newPassword789')
+    await fireEvent.press(submitButton)
 
     await waitFor(() => {
       expect(getByText('passwordsDoNotMatch')).toBeTruthy()
@@ -91,8 +91,8 @@ describe('ChangePassword Component', () => {
   })
 
   it('should show errors if passwords are too short', async () => {
-    const { submitButton, getAllByText } = setup()
-    fireEvent.press(submitButton)
+    const { submitButton, getAllByText } = await setup()
+    await fireEvent.press(submitButton)
 
     await waitFor(() => {
       expect(getAllByText('minPassword')).toHaveLength(3)
@@ -101,14 +101,15 @@ describe('ChangePassword Component', () => {
   })
 
   it('should call mutation with correct data on successful submission', async () => {
-    const { currentPasswordInput, newPasswordInput, confirmPasswordInput, submitButton } = setup()
+    const { currentPasswordInput, newPasswordInput, confirmPasswordInput, submitButton } =
+      await setup()
     const oldPassword = 'current-password'
     const newPassword = 'brand-new-password'
 
-    fireEvent.changeText(currentPasswordInput, oldPassword)
-    fireEvent.changeText(newPasswordInput, newPassword)
-    fireEvent.changeText(confirmPasswordInput, newPassword)
-    fireEvent.press(submitButton)
+    await fireEvent.changeText(currentPasswordInput, oldPassword)
+    await fireEvent.changeText(newPasswordInput, newPassword)
+    await fireEvent.changeText(confirmPasswordInput, newPassword)
+    await fireEvent.press(submitButton)
 
     await waitFor(() => {
       expect(mockedMutateAsync).toHaveBeenCalledTimes(1)
@@ -119,7 +120,7 @@ describe('ChangePassword Component', () => {
     })
   })
 
-  it('should disable inputs and show loading state on button when pending', () => {
+  it('should disable inputs and show loading state on button when pending', async () => {
     mockedUseChangePassword.mockReturnValue({
       isPending: true,
       mutateAsync: mockedMutateAsync,
@@ -131,7 +132,7 @@ describe('ChangePassword Component', () => {
       confirmPasswordInput,
       submitButton,
       queryByTestId,
-    } = setup()
+    } = await setup()
 
     expect(currentPasswordInput).toBeDisabled()
     expect(newPasswordInput).toBeDisabled()
@@ -141,20 +142,21 @@ describe('ChangePassword Component', () => {
   })
 
   it('should disable the button after an invalid submission attempt and re-enable it on valid input', async () => {
-    const { currentPasswordInput, newPasswordInput, confirmPasswordInput, submitButton } = setup()
+    const { currentPasswordInput, newPasswordInput, confirmPasswordInput, submitButton } =
+      await setup()
 
     expect(submitButton).toBeEnabled()
 
-    fireEvent.changeText(newPasswordInput, 'short')
-    fireEvent.press(submitButton)
+    await fireEvent.changeText(newPasswordInput, 'short')
+    await fireEvent.press(submitButton)
 
     await waitFor(() => {
       expect(submitButton).toBeDisabled()
     })
 
-    fireEvent.changeText(currentPasswordInput, 'a-valid-current-password')
-    fireEvent.changeText(newPasswordInput, 'long-enough-new-password')
-    fireEvent.changeText(confirmPasswordInput, 'long-enough-new-password')
+    await fireEvent.changeText(currentPasswordInput, 'a-valid-current-password')
+    await fireEvent.changeText(newPasswordInput, 'long-enough-new-password')
+    await fireEvent.changeText(confirmPasswordInput, 'long-enough-new-password')
 
     await waitFor(() => {
       expect(submitButton).toBeEnabled()
@@ -163,8 +165,8 @@ describe('ChangePassword Component', () => {
 })
 
 describe('ChangePassword Component Snapshot', () => {
-  it('should render the ChangePassword Component successfully', () => {
-    const { toJSON } = render(<ChangePassword />)
+  it('should render the ChangePassword Component successfully', async () => {
+    const { toJSON } = await render(<ChangePassword />)
 
     expect(toJSON()).toMatchSnapshot()
   })

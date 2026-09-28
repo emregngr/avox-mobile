@@ -1,5 +1,4 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
-import React from 'react'
 
 import { AddPassword } from '@/components/feature/Password/AddPassword'
 import { useAddPassword } from '@/hooks/services/useUser'
@@ -24,8 +23,8 @@ beforeEach(() => {
 })
 
 describe('AddPassword Component', () => {
-  const setup = () => {
-    const utils = render(<AddPassword />)
+  const setup = async () => {
+    const utils = await render(<AddPassword />)
     const newPasswordInput = utils.getByPlaceholderText('newPasswordPlaceholder')
     const confirmPasswordInput = utils.getByPlaceholderText('confirmNewPasswordPlaceholder')
     const submitButton = utils.getByTestId('add-password-submit-button')
@@ -37,8 +36,8 @@ describe('AddPassword Component', () => {
     }
   }
 
-  it('should render all form fields and the submit button correctly', () => {
-    const { newPasswordInput, confirmPasswordInput, submitButton } = setup()
+  it('should render all form fields and the submit button correctly', async () => {
+    const { newPasswordInput, confirmPasswordInput, submitButton } = await setup()
 
     expect(newPasswordInput).toBeTruthy()
     expect(confirmPasswordInput).toBeTruthy()
@@ -47,11 +46,11 @@ describe('AddPassword Component', () => {
   })
 
   it('should not call mutation if passwords are too short', async () => {
-    const { newPasswordInput, confirmPasswordInput, submitButton, getAllByText } = setup()
+    const { newPasswordInput, confirmPasswordInput, submitButton, getAllByText } = await setup()
 
-    fireEvent.changeText(newPasswordInput, '123')
-    fireEvent.changeText(confirmPasswordInput, '123')
-    fireEvent.press(submitButton)
+    await fireEvent.changeText(newPasswordInput, '123')
+    await fireEvent.changeText(confirmPasswordInput, '123')
+    await fireEvent.press(submitButton)
 
     await waitFor(() => {
       const errorMessages = getAllByText('minPassword')
@@ -62,11 +61,11 @@ describe('AddPassword Component', () => {
   })
 
   it('should not call mutation if passwords do not match', async () => {
-    const { newPasswordInput, confirmPasswordInput, submitButton, getByText } = setup()
+    const { newPasswordInput, confirmPasswordInput, submitButton, getByText } = await setup()
 
-    fireEvent.changeText(newPasswordInput, 'password123')
-    fireEvent.changeText(confirmPasswordInput, 'password456')
-    fireEvent.press(submitButton)
+    await fireEvent.changeText(newPasswordInput, 'password123')
+    await fireEvent.changeText(confirmPasswordInput, 'password456')
+    await fireEvent.press(submitButton)
 
     await waitFor(() => {
       expect(getByText('passwordsDoNotMatch')).toBeTruthy()
@@ -76,25 +75,25 @@ describe('AddPassword Component', () => {
   })
 
   it('should call mutation with the new password on successful submission', async () => {
-    const { newPasswordInput, confirmPasswordInput, submitButton } = setup()
+    const { newPasswordInput, confirmPasswordInput, submitButton } = await setup()
     const validPassword = 'a-valid-password'
 
-    fireEvent.changeText(newPasswordInput, validPassword)
-    fireEvent.changeText(confirmPasswordInput, validPassword)
-    fireEvent.press(submitButton)
+    await fireEvent.changeText(newPasswordInput, validPassword)
+    await fireEvent.changeText(confirmPasswordInput, validPassword)
+    await fireEvent.press(submitButton)
 
     await waitFor(() => {
       expect(mockedMutateAsync).toHaveBeenCalledWith({ newPassword: validPassword })
     })
   })
 
-  it('should disable inputs and show loading state on button when pending', () => {
+  it('should disable inputs and show loading state on button when pending', async () => {
     mockedUseAddPassword.mockReturnValue({
       isPending: true,
       mutateAsync: mockedMutateAsync,
     } as any)
 
-    const { newPasswordInput, confirmPasswordInput, submitButton, queryByTestId } = setup()
+    const { newPasswordInput, confirmPasswordInput, submitButton, queryByTestId } = await setup()
 
     expect(newPasswordInput).toBeDisabled()
     expect(confirmPasswordInput).toBeDisabled()
@@ -103,19 +102,19 @@ describe('AddPassword Component', () => {
   })
 
   it('should disable the button after an invalid submission attempt and re-enable it on valid input', async () => {
-    const { newPasswordInput, confirmPasswordInput, submitButton } = setup()
+    const { newPasswordInput, confirmPasswordInput, submitButton } = await setup()
 
     expect(submitButton).toBeEnabled()
 
-    fireEvent.changeText(newPasswordInput, 'short')
-    fireEvent.press(submitButton)
+    await fireEvent.changeText(newPasswordInput, 'short')
+    await fireEvent.press(submitButton)
 
     await waitFor(() => {
       expect(submitButton).toBeDisabled()
     })
 
-    fireEvent.changeText(newPasswordInput, 'long-enough-password')
-    fireEvent.changeText(confirmPasswordInput, 'long-enough-password')
+    await fireEvent.changeText(newPasswordInput, 'long-enough-password')
+    await fireEvent.changeText(confirmPasswordInput, 'long-enough-password')
 
     await waitFor(() => {
       expect(submitButton).toBeEnabled()
@@ -124,8 +123,8 @@ describe('AddPassword Component', () => {
 })
 
 describe('AddPassword Component Snapshot', () => {
-  it('should render the AddPassword Component successfully', () => {
-    const { toJSON } = render(<AddPassword />)
+  it('should render the AddPassword Component successfully', async () => {
+    const { toJSON } = await render(<AddPassword />)
 
     expect(toJSON()).toMatchSnapshot()
   })

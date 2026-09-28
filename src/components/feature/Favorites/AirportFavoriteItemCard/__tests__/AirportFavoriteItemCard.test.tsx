@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { router } from 'expo-router'
-import React from 'react'
 
 import { AirportFavoriteItemCard } from '@/components/feature/Favorites/AirportFavoriteItemCard'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
@@ -258,8 +257,8 @@ beforeEach(() => {
 })
 
 describe('AirportFavoriteItemCard', () => {
-  it('renders airport details correctly', () => {
-    const { getByText } = render(<AirportFavoriteItemCard airport={mockedAirport} />)
+  it('renders airport details correctly', async () => {
+    const { getByText } = await render(<AirportFavoriteItemCard airport={mockedAirport} />)
 
     expect(getByText('İstanbul Airport')).toBeTruthy()
     expect(getByText('Arnavutköy, İstanbul, Turkey, EU')).toBeTruthy()
@@ -273,11 +272,11 @@ describe('AirportFavoriteItemCard', () => {
     expect(getByText('FavoriteButton-1')).toBeTruthy()
   })
 
-  it('calls analytics, navigation and ad handler on press', () => {
-    const { getByTestId } = render(<AirportFavoriteItemCard airport={mockedAirport} />)
+  it('calls analytics, navigation and ad handler on press', async () => {
+    const { getByTestId } = await render(<AirportFavoriteItemCard airport={mockedAirport} />)
 
     const button = getByTestId('airport-card-1')
-    fireEvent.press(button)
+    await fireEvent.press(button)
 
     expect(AnalyticsService.sendEvent).toHaveBeenCalledWith('airport_card_press', {
       airline_id: '1',
@@ -296,8 +295,8 @@ describe('AirportFavoriteItemCard', () => {
 })
 
 describe('AirportFavoriteItemCard Component Snapshot', () => {
-  it('should render the AirportFavoriteItemCard Component successfully', () => {
-    const { toJSON } = render(<AirportFavoriteItemCard airport={mockedAirport} />)
+  it('should render the AirportFavoriteItemCard Component successfully', async () => {
+    const { toJSON } = await render(<AirportFavoriteItemCard airport={mockedAirport} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

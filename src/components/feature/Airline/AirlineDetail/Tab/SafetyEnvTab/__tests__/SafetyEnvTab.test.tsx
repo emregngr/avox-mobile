@@ -1,5 +1,4 @@
 import { render, waitFor } from '@testing-library/react-native'
-import React from 'react'
 
 import { SafetyEnvTab } from '@/components/feature/Airline/AirlineDetail/Tab/SafetyEnvTab'
 import { getLocale } from '@/locales/i18next'
@@ -99,7 +98,7 @@ beforeEach(() => {
 
 describe('SafetyEnvTab Component', () => {
   it('renders SafetyEnvTab component successfully', async () => {
-    const { getByTestId } = render(<SafetyEnvTab airlineData={mockedAirlineData} />)
+    const { getByTestId } = await render(<SafetyEnvTab airlineData={mockedAirlineData} />)
     await waitFor(() => {
       expect(getByTestId('safety-component')).toBeTruthy()
       expect(getByTestId('environmental-component')).toBeTruthy()
@@ -107,7 +106,7 @@ describe('SafetyEnvTab Component', () => {
   })
 
   it('displays correct safety titles', async () => {
-    const { getByTestId } = render(<SafetyEnvTab airlineData={mockedAirlineData} />)
+    const { getByTestId } = await render(<SafetyEnvTab airlineData={mockedAirlineData} />)
     await waitFor(() => {
       expect(getByTestId('safety-title')).toHaveTextContent('Safety Information')
       expect(getByTestId('certifications-title')).toHaveTextContent('Certifications')
@@ -116,7 +115,7 @@ describe('SafetyEnvTab Component', () => {
   })
 
   it('displays correct environmental titles', async () => {
-    const { getByTestId } = render(<SafetyEnvTab airlineData={mockedAirlineData} />)
+    const { getByTestId } = await render(<SafetyEnvTab airlineData={mockedAirlineData} />)
     await waitFor(() => {
       expect(getByTestId('environmental-title')).toHaveTextContent('Environmental Policy')
       expect(getByTestId('environmental-subtitle')).toHaveTextContent(
@@ -131,8 +130,8 @@ describe('Prop Passing Checks', () => {
     mockedGetLocale.mockImplementation((key: string) => key)
   })
 
-  it('should pass correct props to child components', () => {
-    render(<SafetyEnvTab airlineData={mockedAirlineData} />)
+  it('should pass correct props to child components', async () => {
+    await render(<SafetyEnvTab airlineData={mockedAirlineData} />)
 
     expect(mockedSafety).toHaveBeenCalledWith({
       certifications: mockedAirlineData.safety.certifications,
@@ -151,18 +150,18 @@ describe('Prop Passing Checks', () => {
     })
   })
 
-  it('should call child components exactly once', () => {
-    render(<SafetyEnvTab airlineData={mockedAirlineData} />)
+  it('should call child components exactly once', async () => {
+    await render(<SafetyEnvTab airlineData={mockedAirlineData} />)
     expect(mockedSafety).toHaveBeenCalledTimes(1)
     expect(mockedEnvironmental).toHaveBeenCalledTimes(1)
   })
 
-  it('should pass undefined for missing data sections', () => {
+  it('should pass undefined for missing data sections', async () => {
     const incompleteData = {
       id: '1',
       name: 'Partial Airline',
     } as any
-    render(<SafetyEnvTab airlineData={incompleteData} />)
+    await render(<SafetyEnvTab airlineData={incompleteData} />)
 
     expect(mockedSafety).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -180,23 +179,19 @@ describe('Prop Passing Checks', () => {
 })
 
 describe('SafetyEnvTab - Minimal Tests', () => {
-  it('renders without crashing', () => {
-    expect(() => {
-      render(<SafetyEnvTab airlineData={mockedAirlineData} />)
-    }).not.toThrow()
+  it('renders without crashing', async () => {
+    expect(() => render(<SafetyEnvTab airlineData={mockedAirlineData} />)).not.toThrow()
   })
 
-  it('handles null and undefined airline data', () => {
-    const { rerender } = render(<SafetyEnvTab airlineData={null as any} />)
-    expect(() => {
-      rerender(<SafetyEnvTab airlineData={undefined as any} />)
-    }).not.toThrow()
+  it('handles null and undefined airline data', async () => {
+    const { rerender } = await render(<SafetyEnvTab airlineData={null as any} />)
+    expect(() => rerender(<SafetyEnvTab airlineData={undefined as any} />)).not.toThrow()
   })
 })
 
 describe('SafetyEnvTab Component Snapshot', () => {
-  it('should render the SafetyEnvTab Component successfully', () => {
-    const { toJSON } = render(<SafetyEnvTab airlineData={mockedAirlineData} />)
+  it('should render the SafetyEnvTab Component successfully', async () => {
+    const { toJSON } = await render(<SafetyEnvTab airlineData={mockedAirlineData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

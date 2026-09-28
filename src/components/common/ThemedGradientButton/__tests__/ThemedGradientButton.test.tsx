@@ -1,5 +1,4 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import React from 'react'
 import { View } from 'react-native'
 
 import { ThemedGradientButton } from '@/components/common/ThemedGradientButton'
@@ -41,25 +40,29 @@ beforeEach(() => {
 
 describe('ThemedGradientButton Component', () => {
   describe('Rendering', () => {
-    it('should render with default props', () => {
-      const { getByText, getByTestId } = render(<ThemedGradientButton {...mockedDefaultProps} />)
+    it('should render with default props', async () => {
+      const { getByText, getByTestId } = await render(
+        <ThemedGradientButton {...mockedDefaultProps} />,
+      )
 
       expect(getByText('Test Button')).toBeTruthy()
       expect(getByTestId('linear-gradient')).toBeTruthy()
       expect(getByTestId('themed-text')).toBeTruthy()
     })
 
-    it('should render with icon when provided', () => {
+    it('should render with icon when provided', async () => {
       const icon = <View testID="test-icon" />
-      const { getByTestId } = render(<ThemedGradientButton {...mockedDefaultProps} icon={icon} />)
+      const { getByTestId } = await render(
+        <ThemedGradientButton {...mockedDefaultProps} icon={icon} />,
+      )
 
       expect(getByTestId('test-icon')).toBeTruthy()
     })
   })
 
   describe('Button Types', () => {
-    it('should render primary button by default', () => {
-      const { getByTestId } = render(<ThemedGradientButton {...mockedDefaultProps} />)
+    it('should render primary button by default', async () => {
+      const { getByTestId } = await render(<ThemedGradientButton {...mockedDefaultProps} />)
       const linearGradient = getByTestId('linear-gradient')
       expect(linearGradient.props.colors).toEqual([
         colors.primaryGradientStart,
@@ -67,8 +70,8 @@ describe('ThemedGradientButton Component', () => {
       ])
     })
 
-    it('should render secondary button when type is secondary', () => {
-      const { getByTestId } = render(
+    it('should render secondary button when type is secondary', async () => {
+      const { getByTestId } = await render(
         <ThemedGradientButton {...mockedDefaultProps} type="secondary" />,
       )
       const linearGradient = getByTestId('linear-gradient')
@@ -80,8 +83,10 @@ describe('ThemedGradientButton Component', () => {
   })
 
   describe('Disabled State', () => {
-    it('should render disabled colors when disabled is true', () => {
-      const { getByTestId } = render(<ThemedGradientButton {...mockedDefaultProps} disabled />)
+    it('should render disabled colors when disabled is true', async () => {
+      const { getByTestId } = await render(
+        <ThemedGradientButton {...mockedDefaultProps} disabled />,
+      )
       const linearGradient = getByTestId('linear-gradient')
       expect(linearGradient.props.colors).toEqual([
         colors.background.tertiary,
@@ -89,15 +94,17 @@ describe('ThemedGradientButton Component', () => {
       ])
     })
 
-    it('should use disabled text color when disabled', () => {
-      const { getByTestId } = render(<ThemedGradientButton {...mockedDefaultProps} disabled />)
+    it('should use disabled text color when disabled', async () => {
+      const { getByTestId } = await render(
+        <ThemedGradientButton {...mockedDefaultProps} disabled />,
+      )
       const themedText = getByTestId('themed-text')
       expect(themedText.props.color).toBe('text-50')
     })
 
-    it('should not trigger onPress when disabled', () => {
+    it('should not trigger onPress when disabled', async () => {
       const mockedOnPressMock = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <ThemedGradientButton
           {...mockedDefaultProps}
           onPress={mockedOnPressMock}
@@ -105,12 +112,12 @@ describe('ThemedGradientButton Component', () => {
           disabled
         />,
       )
-      fireEvent.press(getByTestId('button-disabled'))
+      await fireEvent.press(getByTestId('button-disabled'))
       expect(mockedOnPressMock).not.toHaveBeenCalled()
     })
 
-    it('should be correctly identified as disabled by accessibility tools', () => {
-      const { getByTestId } = render(
+    it('should be correctly identified as disabled by accessibility tools', async () => {
+      const { getByTestId } = await render(
         <ThemedGradientButton {...mockedDefaultProps} testID="button-disabled" disabled />,
       )
       const button = getByTestId('button-disabled')
@@ -120,9 +127,9 @@ describe('ThemedGradientButton Component', () => {
   })
 
   describe('Loading State', () => {
-    it('should not show text or icon when loading is true', () => {
+    it('should not show text or icon when loading is true', async () => {
       const icon = <View testID="test-icon" />
-      const { queryByText, queryByTestId } = render(
+      const { queryByText, queryByTestId } = await render(
         <ThemedGradientButton {...mockedDefaultProps} icon={icon} loading />,
       )
 
@@ -130,17 +137,17 @@ describe('ThemedGradientButton Component', () => {
       expect(queryByTestId('test-icon')).toBeFalsy()
     })
 
-    it('should show ActivityIndicator when loading is true', () => {
-      const { getByTestId } = render(<ThemedGradientButton {...mockedDefaultProps} loading />)
+    it('should show ActivityIndicator when loading is true', async () => {
+      const { getByTestId } = await render(<ThemedGradientButton {...mockedDefaultProps} loading />)
       const activityIndicator = getByTestId('activity-indicator')
 
       expect(activityIndicator).toBeTruthy()
       expect(activityIndicator.props.size).toBe('large')
     })
 
-    it('should not trigger onPress when loading', () => {
+    it('should not trigger onPress when loading', async () => {
       const mockedOnPressMock = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <ThemedGradientButton
           {...mockedDefaultProps}
           onPress={mockedOnPressMock}
@@ -148,12 +155,12 @@ describe('ThemedGradientButton Component', () => {
           loading
         />,
       )
-      fireEvent.press(getByTestId('button-loading'))
+      await fireEvent.press(getByTestId('button-loading'))
       expect(mockedOnPressMock).not.toHaveBeenCalled()
     })
 
-    it('should be correctly identified as disabled by accessibility tools when loading', () => {
-      const { getByTestId } = render(
+    it('should be correctly identified as disabled by accessibility tools when loading', async () => {
+      const { getByTestId } = await render(
         <ThemedGradientButton {...mockedDefaultProps} testID="button-loading" loading />,
       )
       const button = getByTestId('button-loading')
@@ -165,7 +172,7 @@ describe('ThemedGradientButton Component', () => {
   describe('Interactions', () => {
     it('should call onPress when pressed', async () => {
       const mockedOnPressMock = jest.fn()
-      const { getByTestId } = render(
+      const { getByTestId } = await render(
         <ThemedGradientButton
           {...mockedDefaultProps}
           onPress={mockedOnPressMock}
@@ -178,16 +185,16 @@ describe('ThemedGradientButton Component', () => {
   })
 
   describe('Accessibility', () => {
-    it('should have proper hit slop', () => {
-      const { getByTestId } = render(
+    it('should have proper hit slop', async () => {
+      const { getByTestId } = await render(
         <ThemedGradientButton {...mockedDefaultProps} testID="button-hitslop" />,
       )
       const button = getByTestId('button-hitslop')
       expect(button.props.hitSlop).toBe(20)
     })
 
-    it('passes through TouchableOpacity props', () => {
-      const { getByTestId } = render(
+    it('passes through TouchableOpacity props', async () => {
+      const { getByTestId } = await render(
         <ThemedGradientButton
           {...mockedDefaultProps}
           accessibilityLabel="Custom accessibility label"
@@ -203,7 +210,7 @@ describe('ThemedGradientButton Component', () => {
     it('works with real world usage scenario', async () => {
       const mockedHandleSubmit = jest.fn()
       const icon = <View testID="test-icon" />
-      const { getByTestId, queryByTestId, rerender } = render(
+      const { getByTestId, queryByTestId, rerender } = await render(
         <ThemedGradientButton
           icon={icon}
           label="Submit Form"
@@ -220,7 +227,7 @@ describe('ThemedGradientButton Component', () => {
       await fireEvent.press(button)
       expect(mockedHandleSubmit).toHaveBeenCalled()
 
-      rerender(
+      await rerender(
         <ThemedGradientButton
           icon={icon}
           label="Submit Form"
@@ -239,8 +246,8 @@ describe('ThemedGradientButton Component', () => {
 })
 
 describe('ThemedGradientButton Component Snapshot', () => {
-  it('should render the ThemedGradientButton Component successfully', () => {
-    const { toJSON } = render(<ThemedGradientButton {...mockedDefaultProps} />)
+  it('should render the ThemedGradientButton Component successfully', async () => {
+    const { toJSON } = await render(<ThemedGradientButton {...mockedDefaultProps} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

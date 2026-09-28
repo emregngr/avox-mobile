@@ -1,6 +1,5 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { router } from 'expo-router'
-import React from 'react'
 
 import { AirportCard, AirportsLoadMoreFooter } from '@/components/feature/Airport/AirportCard'
 import { useInterstitialAdHandler } from '@/hooks/advertisement/useInterstitialAdHandler'
@@ -30,9 +29,13 @@ jest.mock('@/store/locale')
 
 const mockedUseLocaleStore = useLocaleStore as jest.MockedFunction<typeof useLocaleStore>
 
-jest.mock('@/components/feature/FavoriteButton', () => ({
-  FavoriteButton: ({ id }: { id: string }) => <>{`FavoriteButton-${id}`}</>,
-}))
+jest.mock('@/components/feature/FavoriteButton', () => {
+  const { Text } = require('react-native')
+
+  return {
+    FavoriteButton: ({ id }: { id: string }) => <Text>{`FavoriteButton-${id}`}</Text>,
+  }
+})
 
 jest.mock('@/components/common/FullScreenLoading', () => {
   const { View } = require('react-native')
@@ -250,8 +253,8 @@ beforeEach(() => {
 })
 
 describe('AirportCard Component', () => {
-  it('renders airport card with name and codes', () => {
-    const { getByText } = render(<AirportCard airport={mockedAirport} />)
+  it('renders airport card with name and codes', async () => {
+    const { getByText } = await render(<AirportCard airport={mockedAirport} />)
 
     expect(getByText('İstanbul Airport')).toBeTruthy()
     expect(getByText('IST')).toBeTruthy()
@@ -259,10 +262,10 @@ describe('AirportCard Component', () => {
   })
 
   it('navigates on press, logs analytics, and shows ad', async () => {
-    const { getByText } = render(<AirportCard airport={mockedAirport} />)
+    const { getByText } = await render(<AirportCard airport={mockedAirport} />)
     const card = getByText('İstanbul Airport')
 
-    fireEvent.press(card)
+    await fireEvent.press(card)
 
     await waitFor(() => {
       expect(router.navigate).toHaveBeenCalledWith({
@@ -283,35 +286,35 @@ describe('AirportCard Component', () => {
     })
   })
 
-  it('renders location text correctly', () => {
-    const { getByText } = render(<AirportCard airport={mockedAirport} />)
+  it('renders location text correctly', async () => {
+    const { getByText } = await render(<AirportCard airport={mockedAirport} />)
     expect(getByText('Arnavutköy, İstanbul, Turkey, EU')).toBeTruthy()
   })
 
-  it('renders airport stats correctly', () => {
-    const { getByText } = render(<AirportCard airport={mockedAirport} />)
+  it('renders airport stats correctly', async () => {
+    const { getByText } = await render(<AirportCard airport={mockedAirport} />)
     expect(getByText('220')).toBeTruthy()
     expect(getByText('80')).toBeTruthy()
     expect(getByText('90 m')).toBeTruthy()
     expect(getByText('4.4')).toBeTruthy()
   })
 
-  it('renders popular airlines', () => {
-    const { getByText } = render(<AirportCard airport={mockedAirport} />)
+  it('renders popular airlines', async () => {
+    const { getByText } = await render(<AirportCard airport={mockedAirport} />)
     expect(getByText('Turkish Airlines, Emirates, British Airways')).toBeTruthy()
   })
 })
 
 describe('AirportsLoadMoreFooter Component', () => {
-  it('renders loading state when loading initially', () => {
-    const { getByTestId } = render(
+  it('renders loading state when loading initially', async () => {
+    const { getByTestId } = await render(
       <AirportsLoadMoreFooter flatAirportsData={[]} airportsHasNext airportsLoading />,
     )
     expect(getByTestId('full-screen-loading')).toBeTruthy()
   })
 
-  it('renders no airports state when list is empty', () => {
-    const { getByText } = render(
+  it('renders no airports state when list is empty', async () => {
+    const { getByText } = await render(
       <AirportsLoadMoreFooter
         airportsHasNext={false}
         airportsLoading={false}
@@ -321,8 +324,8 @@ describe('AirportsLoadMoreFooter Component', () => {
     expect(getByText('noAirports')).toBeTruthy()
   })
 
-  it('renders all airports shown state at the end of the list', () => {
-    const { getByText } = render(
+  it('renders all airports shown state at the end of the list', async () => {
+    const { getByText } = await render(
       <AirportsLoadMoreFooter
         airportsHasNext={false}
         airportsLoading={false}
@@ -332,8 +335,8 @@ describe('AirportsLoadMoreFooter Component', () => {
     expect(getByText('allAirportsShown (1)')).toBeTruthy()
   })
 
-  it('renders nothing if there is more data to load and not currently loading', () => {
-    const { toJSON } = render(
+  it('renders nothing if there is more data to load and not currently loading', async () => {
+    const { toJSON } = await render(
       <AirportsLoadMoreFooter
         airportsLoading={false}
         flatAirportsData={[mockedAirport]}
@@ -345,16 +348,16 @@ describe('AirportsLoadMoreFooter Component', () => {
 })
 
 describe('Airport Component Snapshot', () => {
-  it('should render the Airport Component successfully', () => {
-    const { toJSON } = render(<AirportCard airport={mockedAirport} />)
+  it('should render the Airport Component successfully', async () => {
+    const { toJSON } = await render(<AirportCard airport={mockedAirport} />)
 
     expect(toJSON()).toMatchSnapshot()
   })
 })
 
 describe('AirportsLoadMoreFooter Component Snapshot', () => {
-  it('should render the AirportsLoadMoreFooter Component successfully', () => {
-    const { toJSON } = render(
+  it('should render the AirportsLoadMoreFooter Component successfully', async () => {
+    const { toJSON } = await render(
       <AirportsLoadMoreFooter
         flatAirportsData={[{ id: '1' } as any]}
         airportsHasNext

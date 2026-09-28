@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react-native'
-import React from 'react'
 
 import { AirlineFlightTab } from '@/components/feature/Airline/AirlineDetail/Tab/AirlineFlightTab'
 import { getLocale } from '@/locales/i18next'
@@ -141,16 +140,16 @@ beforeEach(() => {
 
 describe('AirlineFlightTab Component', () => {
   describe('Component Rendering', () => {
-    it('renders all main sections when data is provided', () => {
-      const { getByTestId } = render(<AirlineFlightTab airlineData={mockedAirlineData} />)
+    it('renders all main sections when data is provided', async () => {
+      const { getByTestId } = await render(<AirlineFlightTab airlineData={mockedAirlineData} />)
       expect(getByTestId('stats-grid-section')).toBeTruthy()
       expect(getByTestId('destination-list-section')).toBeTruthy()
       expect(getByTestId('routes-list-section')).toBeTruthy()
       expect(getByTestId('alliance-section')).toBeTruthy()
     })
 
-    it('does not render Alliance section when alliance is "none"', () => {
-      const { getByTestId, queryByTestId } = render(
+    it('does not render Alliance section when alliance is "none"', async () => {
+      const { getByTestId, queryByTestId } = await render(
         <AirlineFlightTab airlineData={mockedAirlineDataWithoutAlliance} />,
       )
       expect(getByTestId('stats-grid-section')).toBeTruthy()
@@ -161,8 +160,8 @@ describe('AirlineFlightTab Component', () => {
   })
 
   describe('Prop Passing Checks', () => {
-    it('should pass correct props to all child components', () => {
-      render(<AirlineFlightTab airlineData={mockedAirlineData} />)
+    it('should pass correct props to all child components', async () => {
+      await render(<AirlineFlightTab airlineData={mockedAirlineData} />)
       expect(mockedStatsGrid).toHaveBeenCalledWith(
         expect.objectContaining({
           stats: {
@@ -190,8 +189,8 @@ describe('AirlineFlightTab Component', () => {
       )
     })
 
-    it('should call all components exactly once when data is full', () => {
-      render(<AirlineFlightTab airlineData={mockedAirlineData} />)
+    it('should call all components exactly once when data is full', async () => {
+      await render(<AirlineFlightTab airlineData={mockedAirlineData} />)
       expect(mockedStatsGrid).toHaveBeenCalledTimes(1)
       expect(mockedDestinationList).toHaveBeenCalledTimes(1)
       expect(mockedRoutesList).toHaveBeenCalledTimes(1)
@@ -200,19 +199,19 @@ describe('AirlineFlightTab Component', () => {
   })
 
   describe('Error Handling and Edge Cases', () => {
-    it('handles undefined airlineData gracefully', () => {
-      const { getByTestId, queryByTestId } = render(
+    it('handles undefined airlineData gracefully', async () => {
+      const { getByTestId, queryByTestId } = await render(
         <AirlineFlightTab airlineData={undefined as any} />,
       )
       expect(getByTestId('stats-grid-section')).toBeTruthy()
       expect(queryByTestId('alliance-section')).toBeNull()
     })
 
-    it('handles missing operations data', () => {
+    it('handles missing operations data', async () => {
       const dataWithoutOperations: any = {
         network: mockedAirlineData.network,
       }
-      const { getByTestId, queryByTestId } = render(
+      const { getByTestId, queryByTestId } = await render(
         <AirlineFlightTab airlineData={dataWithoutOperations} />,
       )
       expect(getByTestId('stats-grid-section')).toBeTruthy()
@@ -222,8 +221,8 @@ describe('AirlineFlightTab Component', () => {
 })
 
 describe('AirlineFlightTab Component Snapshot', () => {
-  it('should render the AirlineFlightTab Component successfully', () => {
-    const { toJSON } = render(<AirlineFlightTab airlineData={mockedAirlineData} />)
+  it('should render the AirlineFlightTab Component successfully', async () => {
+    const { toJSON } = await render(<AirlineFlightTab airlineData={mockedAirlineData} />)
 
     expect(toJSON()).toMatchSnapshot()
   })

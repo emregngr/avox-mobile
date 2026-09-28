@@ -1,6 +1,5 @@
 import { render, waitFor } from '@testing-library/react-native'
 import type { ReactNode } from 'react'
-import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import Favorites from '@/app/(tabs)/favorites'
@@ -133,17 +132,17 @@ beforeEach(() => {
 })
 
 describe('Favorites Screen', () => {
-  it('should display FullScreenLoading component if the user is not authenticated', () => {
+  it('should display FullScreenLoading component if the user is not authenticated', async () => {
     mockedUseAuthStore.mockReturnValue({ isAuthenticated: false })
 
-    const { getByTestId, queryByTestId } = renderWithSafeAreaProvider(<Favorites />)
+    const { getByTestId, queryByTestId } = await renderWithSafeAreaProvider(<Favorites />)
 
     expect(getByTestId('full-screen-loading')).toBeTruthy()
     expect(queryByTestId('tabs-container')).toBeNull()
   })
 
-  it('should display the tab structure if the user is authenticated and data is loading', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Favorites />)
+  it('should display the tab structure if the user is authenticated and data is loading', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Favorites />)
 
     expect(getByTestId('tabs-container')).toBeTruthy()
     expect(getByTestId('render-tab-bar')).toBeTruthy()
@@ -156,7 +155,7 @@ describe('Favorites Screen', () => {
       refetch: jest.fn(),
     } as any)
 
-    const { getByText } = renderWithSafeAreaProvider(<Favorites />)
+    const { getByText } = await renderWithSafeAreaProvider(<Favorites />)
 
     await waitFor(() => {
       expect(getByText('Airports count: 2')).toBeTruthy()
@@ -165,8 +164,8 @@ describe('Favorites Screen', () => {
     })
   })
 
-  it('should render the correct tab labels', () => {
-    const { getByTestId } = renderWithSafeAreaProvider(<Favorites />)
+  it('should render the correct tab labels', async () => {
+    const { getByTestId } = await renderWithSafeAreaProvider(<Favorites />)
 
     expect(getByTestId('tab-content-airlines')).toBeTruthy()
     expect(getByTestId('tab-content-airports')).toBeTruthy()
@@ -179,7 +178,7 @@ describe('Favorites Screen', () => {
       refetch: jest.fn(),
     } as any)
 
-    const { getByText } = renderWithSafeAreaProvider(<Favorites />)
+    const { getByText } = await renderWithSafeAreaProvider(<Favorites />)
 
     await waitFor(() => {
       expect(getByText('Airports count: 0')).toBeTruthy()
@@ -189,8 +188,8 @@ describe('Favorites Screen', () => {
 })
 
 describe('Favorites Screen Snapshot', () => {
-  it('should render the Favorites screen successfully', () => {
-    const { toJSON } = renderWithSafeAreaProvider(<Favorites />)
+  it('should render the Favorites screen successfully', async () => {
+    const { toJSON } = await renderWithSafeAreaProvider(<Favorites />)
 
     expect(toJSON()).toMatchSnapshot()
   })
