@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -25,7 +25,7 @@ const skeletonData: Skeleton[] = Array(6)
   .map((_, index) => ({ id: `skeleton-${index}` }))
 
 export const PopularCardSkeleton = ({ type }: PopularCardSkeletonProps) => {
-  const { bottom, top } = useSafeAreaInsets()
+  const { bottom } = useSafeAreaInsets()
 
   const BATCHING_PERIOD = useBatchingPeriod()
 
@@ -49,7 +49,7 @@ export const PopularCardSkeleton = ({ type }: PopularCardSkeletonProps) => {
     <FlatList
       columnWrapperClassName="justify-between"
       contentContainerClassName="px-4"
-      contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+      contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: 20 }}
       data={skeletonData}
       getItemLayout={getItemLayout}
       initialNumToRender={INITIAL_ITEMS_PER_PAGE}

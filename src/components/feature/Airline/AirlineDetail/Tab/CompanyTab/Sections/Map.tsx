@@ -1,6 +1,6 @@
 import { AppleMaps } from 'expo-maps'
 import type { AppleMapsMarker } from 'expo-maps/build/apple/AppleMaps.types'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Platform, View } from 'react-native'
 import WebView from 'react-native-webview'
 
@@ -90,12 +90,11 @@ export const Map = ({ airlineData }: MapProps) => {
   const colors = useMemo(() => themeColors?.[selectedTheme], [selectedTheme])
 
   const { iataCode, id, name, operations } = airlineData ?? {}
-  const {
-    hub: {
-      coordinates: { latitude, longitude },
-    },
-    region,
-  } = operations ?? {}
+  const latitude = operations?.hub?.coordinates?.latitude
+  const longitude = operations?.hub?.coordinates?.longitude
+  const region = operations?.region
+
+  if (latitude === undefined || longitude === undefined) return null
 
   const googleMapsHTML = useMemo(
     () => createDynamicGoogleMapsHTML(name, latitude, longitude, selectedTheme),

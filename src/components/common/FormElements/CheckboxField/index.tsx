@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { useCallback, useMemo } from 'react'
-import type { Control } from 'react-hook-form'
+import { useCallback, useMemo } from 'react'
+// import type { Control } from "react-hook-form"
 import { Controller } from 'react-hook-form'
 import { TouchableOpacity, View } from 'react-native'
 
@@ -11,7 +11,7 @@ import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 
 interface CheckboxFieldProps {
-  control: Control<any>
+  control: any
   disabled?: boolean
   error?: string
   labelKey: string

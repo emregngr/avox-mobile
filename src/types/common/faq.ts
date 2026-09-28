@@ -1,6 +1,6 @@
 export type FaqItemType = {
-  description: string,
-  id: string,
+  description: string
+  id: string
   title: string
 }
 

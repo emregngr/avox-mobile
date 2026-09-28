@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import React from 'react'
 import type { TextProps } from 'react-native'
 import { Text } from 'react-native'
 

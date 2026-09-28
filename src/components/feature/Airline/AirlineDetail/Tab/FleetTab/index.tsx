@@ -1,5 +1,5 @@
 import { router } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { View } from 'react-native'
 
 import { FleetHeader } from '@/components/feature/Airline/AirlineDetail/Tab/FleetTab/Sections/FleetHeader'

@@ -1,11 +1,11 @@
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Alert, Platform, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Header, ProfileItem, SafeLayout, ThemedText } from '@/components/common'
-import { useLogout, useAuthUser } from '@/hooks/services/useAuth'
+import { useAuthUser, useLogout } from '@/hooks/services/useAuth'
 import { useGetUser } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
 import useLocaleStore from '@/store/locale'

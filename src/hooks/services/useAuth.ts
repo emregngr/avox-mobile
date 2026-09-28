@@ -1,5 +1,5 @@
 import { getApp } from '@react-native-firebase/app'
-import type { FirebaseAuthTypes } from '@react-native-firebase/auth'
+import type { User, UserCredential } from '@react-native-firebase/auth'
 import { getAuth, getIdToken } from '@react-native-firebase/auth'
 import type { QueryClient } from '@tanstack/react-query'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -31,7 +31,7 @@ const app = getApp()
 const auth = getAuth(app)
 
 const handleAuthSuccess = async <T extends AuthCredentialsType>(
-  userCredential: FirebaseAuthTypes.UserCredential,
+  userCredential: UserCredential,
   authFunction: (data: T & { token: string }) => void,
   authData: T,
   queryClient: QueryClient,
@@ -55,7 +55,7 @@ export const useAuthUser = () => {
     return unsubscribe
   }, [queryClient])
 
-  return useQuery<FirebaseAuthTypes.User | null>({
+  return useQuery<User | null>({
     queryKey: ['user'],
     queryFn: () => auth?.currentUser ?? null,
     initialData: auth?.currentUser ?? null,
@@ -135,7 +135,7 @@ export const useEmailLogin = () => {
 }
 
 const useSocialLogin = (
-  signInMethod: () => Promise<FirebaseAuthTypes.UserCredential>,
+  signInMethod: () => Promise<UserCredential>,
   provider: 'google' | 'apple',
 ) => {
   const queryClient = useQueryClient()

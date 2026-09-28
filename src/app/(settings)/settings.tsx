@@ -198,7 +198,7 @@ export default function Settings() {
 
       <ScrollView
         contentContainerClassName="px-4"
-        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: 20 }}
         showsVerticalScrollIndicator={false}
       >
         <ThemedText className="ml-4 mt-8 mb-2" color="text-70" type="body2">

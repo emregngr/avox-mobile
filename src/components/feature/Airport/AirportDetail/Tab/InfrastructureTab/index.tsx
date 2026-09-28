@@ -1,4 +1,3 @@
-import React from 'react'
 import { View } from 'react-native'
 
 import { Cargo } from '@/components/feature/Airport/AirportDetail/Tab/InfrastructureTab/Sections/Cargo'

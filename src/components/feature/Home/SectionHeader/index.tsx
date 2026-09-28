@@ -18,10 +18,7 @@ export const SectionHeader = ({ onViewAll, showViewAll = false, title }: Section
   return (
     <View className="flex-row justify-between items-center mb-6 mx-4">
       <View className="flex-1 mr-4">
-        <ThemedText
-          color="text-100" lineBreakMode="tail" numberOfLines={2}
-          type="h2"
-        >
+        <ThemedText color="text-100" lineBreakMode="tail" numberOfLines={2} type="h2">
           {title}
         </ThemedText>
       </View>

@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react'
 import { View } from 'react-native'
 import { BannerAd, BannerAdSize } from 'react-native-google-mobile-ads'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'

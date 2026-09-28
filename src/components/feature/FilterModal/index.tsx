@@ -1,5 +1,5 @@
 import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -60,7 +60,7 @@ export const FilterModal = forwardRef<BottomSheet, FilterModalPropsType>(
   ({ currentFilters, onApply, onClose, type }, ref) => {
     const { bottom } = useSafeAreaInsets()
 
-    const extraBottomPadding = Platform.OS === 'ios' ? 70 : 80
+    const extraBottomPadding = Platform.OS === 'ios' ? 20 : 30
     const bottomPadding = bottom + extraBottomPadding
 
     const [localFilters, setLocalFilters] = useState<any>(currentFilters)

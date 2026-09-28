@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 import TowerIcon from '@/assets/icons/tower.svg'
 import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/AirportRowItem'

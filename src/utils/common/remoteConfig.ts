@@ -3,8 +3,6 @@ import {
   getAll,
   getRemoteConfig,
   getValue,
-  setConfigSettings,
-  setDefaults,
 } from '@react-native-firebase/remote-config'
 
 import { Logger } from '@/utils/common/logger'
@@ -20,10 +18,11 @@ const remoteConfig = getRemoteConfig()
 
 const setFirebaseConfig = async (): Promise<boolean> => {
   try {
-    await setDefaults(remoteConfig, defaultConfigs)
-    await setConfigSettings(remoteConfig, {
+    remoteConfig.defaultConfig = defaultConfigs
+    remoteConfig.settings = {
+      fetchTimeoutMillis: 60000,
       minimumFetchIntervalMillis: 0,
-    })
+    }
 
     const activated = await fetchAndActivate(remoteConfig)
 

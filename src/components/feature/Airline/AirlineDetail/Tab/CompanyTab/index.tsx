@@ -1,4 +1,3 @@
-import React from 'react'
 import { View } from 'react-native'
 
 import { Company } from '@/components/feature/Airline/AirlineDetail/Tab/CompanyTab/Sections/Company'

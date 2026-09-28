@@ -1,5 +1,5 @@
 import { router } from 'expo-router'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -63,7 +63,7 @@ export default function AllPopularDestinations() {
       <FlatList
         columnWrapperClassName="justify-between gap-x-4"
         contentContainerClassName="px-4 self-center"
-        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: 20 }}
         data={destinationsData}
         getItemLayout={getItemLayout}
         initialNumToRender={INITIAL_ITEMS_PER_PAGE}

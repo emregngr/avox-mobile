@@ -1,4 +1,3 @@
-import React from 'react'
 import { View } from 'react-native'
 
 import { StatsCard } from '@/components/feature/Airport/AirportDetail/Tab/AirportFlightTab/Cards/StatsCard'
@@ -19,36 +18,40 @@ interface StatsGridProps {
   }
 }
 
-export const StatsGrid = ({ iconColor, localeStrings, stats }: StatsGridProps) => (
-  <>
-    <View className="flex-row gap-x-4">
-      <StatsCard
-        iconColor={iconColor}
-        iconName="flag-outline"
-        label={localeStrings.totalDestination}
-        value={stats.destinationCount}
-      />
-      <StatsCard
-        iconColor={iconColor}
-        iconName="earth"
-        label={localeStrings.country}
-        value={stats.destinationCountries}
-      />
-    </View>
+export const StatsGrid = ({ iconColor, localeStrings, stats }: StatsGridProps) => {
+  if (!stats) return null
 
-    <View className="flex-row gap-x-4">
-      <StatsCard
-        iconColor={iconColor}
-        iconName="home-outline"
-        label={localeStrings.domesticDestinations}
-        value={stats.domesticConnections}
-      />
-      <StatsCard
-        iconColor={iconColor}
-        iconName="earth-arrow-right"
-        label={localeStrings.internationalDestination}
-        value={stats.internationalConnections}
-      />
-    </View>
-  </>
-)
+  return (
+    <>
+      <View className="flex-row gap-x-4">
+        <StatsCard
+          iconColor={iconColor}
+          iconName="flag-outline"
+          label={localeStrings.totalDestination}
+          value={stats.destinationCount}
+        />
+        <StatsCard
+          iconColor={iconColor}
+          iconName="earth"
+          label={localeStrings.country}
+          value={stats.destinationCountries}
+        />
+      </View>
+
+      <View className="flex-row gap-x-4">
+        <StatsCard
+          iconColor={iconColor}
+          iconName="home-outline"
+          label={localeStrings.domesticDestinations}
+          value={stats.domesticConnections}
+        />
+        <StatsCard
+          iconColor={iconColor}
+          iconName="earth-arrow-right"
+          label={localeStrings.internationalDestination}
+          value={stats.internationalConnections}
+        />
+      </View>
+    </>
+  )
+}

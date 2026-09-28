@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { router } from 'expo-router'
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import type { TextInput } from 'react-native'
 import { Alert, View } from 'react-native'
@@ -85,17 +85,25 @@ export default function UpdateProfile() {
     reset,
   } = useForm<ProfileUpdateFormValues>({
     defaultValues,
-    mode: 'onBlur',
-    reValidateMode: 'onChange',
+    mode: 'onChange',
     resolver: zodResolver(profileUpdateSchema),
   })
 
   const resetFormData = useCallback(() => {
     if (userProfile) {
+      let firstName = userProfile.firstName ?? ''
+      let lastName = userProfile.lastName ?? ''
+
+      if (!firstName && !lastName && userProfile.displayName) {
+        const nameParts = userProfile.displayName.split(' ')
+        firstName = nameParts[0] || ''
+        lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : ''
+      }
+
       reset({
         email: userProfile.email ?? '',
-        firstName: userProfile.firstName ?? '',
-        lastName: userProfile.lastName ?? '',
+        firstName,
+        lastName,
       })
     }
   }, [userProfile, reset])
@@ -199,7 +207,7 @@ export default function UpdateProfile() {
       <KeyboardAwareScrollView
         bottomOffset={50}
         contentContainerClassName="px-4"
-        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: 20 }}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}

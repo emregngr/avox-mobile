@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { memo, useCallback, useMemo, useRef } from 'react'
+import { memo, useCallback, useMemo, useRef } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -28,7 +28,7 @@ export const ActiveFilters = memo(({ filters, onClearAll, onRemove }: ActiveFilt
   const getFilterCount = useCallback(() => {
     let count = 0
     if (!filters) return 0
-    Object?.entries(filters)?.forEach(([key, value]) => {
+    Object?.entries(filters)?.forEach(([_key, value]) => {
       if (Array?.isArray(value)) {
         count += value?.length
       } else if (value !== null && value !== undefined && value !== false) {

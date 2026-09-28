@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -30,10 +30,7 @@ export const FleetStats = memo(
           <ThemedText className="mb-1" color="text-100" type="h1">
             {totalAirplane}
           </ThemedText>
-          <ThemedText
-            color="text-90" lineBreakMode="tail" numberOfLines={2}
-            type="body3" center
-          >
+          <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={2} type="body3" center>
             {localeStrings.totalAirplane}
           </ThemedText>
         </View>
@@ -44,10 +41,7 @@ export const FleetStats = memo(
           <ThemedText className="mb-1" color="text-100" type="h1">
             {averageAgeYears}
           </ThemedText>
-          <ThemedText
-            color="text-90" lineBreakMode="tail" numberOfLines={2}
-            type="body3" center
-          >
+          <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={2} type="body3" center>
             {localeStrings.averageAgeYears}
           </ThemedText>
         </View>
@@ -58,10 +52,7 @@ export const FleetStats = memo(
           <ThemedText className="mb-1" color="text-100" type="h1">
             {airplaneTypeCount}
           </ThemedText>
-          <ThemedText
-            color="text-90" lineBreakMode="tail" numberOfLines={2}
-            type="body3" center
-          >
+          <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={2} type="body3" center>
             {localeStrings.airplaneType}
           </ThemedText>
         </View>

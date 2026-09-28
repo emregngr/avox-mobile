@@ -92,7 +92,7 @@ export const useAddFavorite = () => {
   return useMutation({
     mutationFn: addToFavorites,
 
-    onError: (err, variables, context) => {
+    onError: (_err, _variables, context) => {
       if (context?.previousFavorites && userId) {
         queryClient?.setQueryData(QUERY_KEYS.favorites(userId), context?.previousFavorites)
       }
@@ -142,7 +142,7 @@ export const useRemoveFavorite = () => {
   return useMutation({
     mutationFn: removeFromFavorites,
 
-    onError: (err, variables, context) => {
+    onError: (_err, _variables, context) => {
       if (context?.previousFavorites && userId) {
         queryClient?.setQueryData(QUERY_KEYS.favorites(userId), context?.previousFavorites)
       }

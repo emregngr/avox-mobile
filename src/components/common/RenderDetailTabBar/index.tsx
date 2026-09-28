@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import type { ColorValue } from 'react-native'
 import { View } from 'react-native'
 import { MaterialTabBar, MaterialTabItem } from 'react-native-collapsible-tab-view'
@@ -62,9 +62,7 @@ export const RenderDetailTabBar = ({
               android_ripple={{
                 borderless: false,
                 color: colors?.[indicatorBackgroundColor as keyof ThemeColors] as
-                  | ColorValue
-                  | null
-                  | undefined,
+                  ColorValue | null | undefined,
                 radius: 100,
               }}
               label={({ index, name }) => (

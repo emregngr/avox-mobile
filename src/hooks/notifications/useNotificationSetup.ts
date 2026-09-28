@@ -1,6 +1,5 @@
 import { getApp } from '@react-native-firebase/app'
-import type {
-  FirebaseMessagingTypes } from '@react-native-firebase/messaging'
+import type { RemoteMessage } from '@react-native-firebase/messaging'
 import {
   getMessaging,
   onMessage,
@@ -32,23 +31,17 @@ export const useNotificationSetup = () => {
 
   const setupNotifications = useCallback(() => {
     try {
-      setBackgroundMessageHandler(
-        messaging,
-        async (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
-          Logger.breadcrumb('Message handled in the background!', 'info', remoteMessage as any)
-        },
-      )
+      setBackgroundMessageHandler(messaging, async (remoteMessage: RemoteMessage) => {
+        Logger.breadcrumb('Message handled in the background!', 'info', remoteMessage as any)
+      })
 
-      const unsubscribeMessage = onMessage(
-        messaging,
-        async (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
-          Logger.breadcrumb('Message handled in the foreground!', 'info', remoteMessage as any)
-        },
-      )
+      const unsubscribeMessage = onMessage(messaging, async (remoteMessage: RemoteMessage) => {
+        Logger.breadcrumb('Message handled in the foreground!', 'info', remoteMessage as any)
+      })
 
       const unsubscribeNotificationOpened = onNotificationOpenedApp(
         messaging,
-        (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
+        (remoteMessage: RemoteMessage) => {
           Logger.breadcrumb('App opened from background!', 'info', remoteMessage as any)
           const type = remoteMessage?.data?.type as string
           const id = remoteMessage?.data?.id?.toString()

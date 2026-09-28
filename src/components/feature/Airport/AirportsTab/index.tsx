@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import type BottomSheet from '@gorhom/bottom-sheet'
-import React, { memo, useCallback, useMemo, useRef } from 'react'
+import { memo, useCallback, useMemo, useRef } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 import Animated, {
   Extrapolation,
@@ -226,7 +226,7 @@ export const AirportsTab = memo(
           { scale: headerScale.value },
         ],
       }
-    }, [])
+    })
 
     const searchInputStyle = useAnimatedStyle(() => {
       'worklet'
@@ -242,7 +242,7 @@ export const AirportsTab = memo(
         opacity: headerOpacity.value,
         transform: [{ scale: inputScale }],
       }
-    }, [])
+    })
 
     const filterButtonStyle = useAnimatedStyle(() => {
       'worklet'
@@ -257,7 +257,7 @@ export const AirportsTab = memo(
         opacity: headerOpacity.value,
         transform: [{ scale: buttonScale }],
       }
-    }, [])
+    })
 
     const hasActiveFilters = useMemo(
       () => Object?.keys(airportsFilters)?.length > 0,

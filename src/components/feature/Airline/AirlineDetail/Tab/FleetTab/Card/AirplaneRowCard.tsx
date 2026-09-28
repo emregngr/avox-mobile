@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Image } from 'expo-image'
-import React, { memo, useCallback, useMemo } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -16,7 +16,7 @@ interface AirplaneRowCardProps {
   airplane: AirplaneType
   onImagePress: (type: string, image: string) => void
   region: string
-  testID: string,
+  testID: string
   totalAirplane: number
 }
 

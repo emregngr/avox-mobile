@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -41,10 +41,7 @@ export const AirlineHeader = ({ airlineData }: AirlineHeaderProps) => {
       <View className="p-4 gap-y-4">
         <View className="flex-row items-center bg-background-primary py-3 rounded-xl overflow-hidden">
           <View className="flex-1 items-center">
-            <ThemedText
-              color="text-70" lineBreakMode="tail" numberOfLines={1}
-              type="body4"
-            >
+            <ThemedText color="text-70" lineBreakMode="tail" numberOfLines={1} type="body4">
               {localeStrings.iata}
             </ThemedText>
             <ThemedText color="text-100" type="body1">
@@ -55,10 +52,7 @@ export const AirlineHeader = ({ airlineData }: AirlineHeaderProps) => {
           <View className="w-px h-8 bg-background-quaternary" />
 
           <View className="flex-1 items-center">
-            <ThemedText
-              color="text-70" lineBreakMode="tail" numberOfLines={1}
-              type="body4"
-            >
+            <ThemedText color="text-70" lineBreakMode="tail" numberOfLines={1} type="body4">
               {localeStrings.icao}
             </ThemedText>
             <ThemedText color="text-100" type="body1">
@@ -69,10 +63,7 @@ export const AirlineHeader = ({ airlineData }: AirlineHeaderProps) => {
           <View className="w-px h-8 bg-background-quaternary" />
 
           <View className="flex-1 items-center">
-            <ThemedText
-              color="text-70" lineBreakMode="tail" numberOfLines={1}
-              type="body4"
-            >
+            <ThemedText color="text-70" lineBreakMode="tail" numberOfLines={1} type="body4">
               {localeStrings.continent}
             </ThemedText>
             <ThemedText color="text-100" type="body1">
@@ -84,16 +75,10 @@ export const AirlineHeader = ({ airlineData }: AirlineHeaderProps) => {
         <View className="flex-row items-center px-5 py-3 rounded-xl overflow-hidden bg-background-primary">
           <MaterialCommunityIcons color={homeIconColor} name="home-outline" size={20} />
           <View className="mx-4">
-            <ThemedText
-              color="text-100" ellipsizeMode="tail" numberOfLines={1}
-              type="body1"
-            >
+            <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={1} type="body1">
               {hubName}
             </ThemedText>
-            <ThemedText
-              color="text-70" ellipsizeMode="tail" numberOfLines={1}
-              type="body2"
-            >
+            <ThemedText color="text-70" ellipsizeMode="tail" numberOfLines={1} type="body2">
               {address}
             </ThemedText>
           </View>

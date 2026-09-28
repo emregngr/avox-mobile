@@ -1,5 +1,5 @@
 import { router } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Header, SafeLayout } from '@/components/common'

@@ -43,7 +43,7 @@ export const useUpdateUser = () => {
 
   return useMutation<any, Error, ProfileDataType, { previousProfile: any }>({
     mutationFn: async (profileData: ProfileDataType) => await updateUser(profileData),
-    onError: (error, newProfileData, context) => {
+    onError: (_error, _newProfileData, context) => {
       queryClient.setQueryData(['userProfile', userId], context?.previousProfile)
       Alert.alert(
         getLocale('error'),

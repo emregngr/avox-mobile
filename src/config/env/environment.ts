@@ -3,7 +3,7 @@ import Constants from 'expo-constants'
 interface Config {
   apiUrl: string
   environment: 'staging' | 'production'
-  googleWebClientId: string,
+  googleWebClientId: string
   sentryDsn: string
 }
 

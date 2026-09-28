@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'

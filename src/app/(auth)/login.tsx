@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Image } from 'expo-image'
 import { router, useLocalSearchParams } from 'expo-router'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { TextInput } from 'react-native'
 import { View } from 'react-native'
@@ -212,7 +212,7 @@ export default function Login() {
       <KeyboardAwareScrollView
         bottomOffset={50}
         contentContainerClassName="px-4"
-        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: 20 }}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}

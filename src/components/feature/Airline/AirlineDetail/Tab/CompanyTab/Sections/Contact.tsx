@@ -1,6 +1,6 @@
 import * as Linking from 'expo-linking'
 import { router } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { AirlineRowItem } from '@/components/feature/Airline/AirlineDetail/AirlineRowItem'
 import { AirlineSectionRow } from '@/components/feature/Airline/AirlineDetail/AirlineSectionRow'

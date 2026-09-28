@@ -18,7 +18,7 @@ import { useFonts } from 'expo-font'
 import * as Linking from 'expo-linking'
 import { router } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { LogBox, View } from 'react-native'
 import { SystemBars } from 'react-native-edge-to-edge'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -49,7 +49,7 @@ import { versionControl } from '@/utils/common/versionControl'
 LogBox.ignoreAllLogs(true)
 
 configureReanimatedLogger({
-  level: __DEV__ ? ReanimatedLogLevel.warn : ReanimatedLogLevel.error,
+  level: ReanimatedLogLevel.error,
   strict: false,
 })
 
@@ -80,7 +80,9 @@ const RootLayout = () => {
   usePerformanceMonitorDevTools()
   useTanStackQueryDevTools(queryClient)
   useMMKVDevTools({
-    storages: [storage],
+    storages: {
+      default: storage,
+    },
   })
 
   performance.mark('app-start')

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { View } from 'react-native'
 
 import { AttractionCard } from '@/components/feature/Airport/AirportDetail/Tab/NearbyPlacesTab/Cards/AttractionCard'

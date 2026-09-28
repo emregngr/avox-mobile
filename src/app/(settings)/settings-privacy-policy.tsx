@@ -1,5 +1,5 @@
 import { router } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -95,7 +95,7 @@ export default function SettingsPrivacyPolicy() {
       <ScrollView
         contentContainerStyle={{
           paddingBottom: bottom + 20,
-          paddingTop: top + 64,
+          paddingTop: 20,
         }}
         contentContainerClassName="px-4"
         indicatorStyle={indicatorStyle}

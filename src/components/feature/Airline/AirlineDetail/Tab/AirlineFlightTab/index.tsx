@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { View } from 'react-native'
 
 import { Alliance } from '@/components/feature/Airline/AirlineDetail/Tab/AirlineFlightTab/Sections/Alliance'

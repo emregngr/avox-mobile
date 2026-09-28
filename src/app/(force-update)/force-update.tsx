@@ -1,6 +1,6 @@
 import { Image } from 'expo-image'
 import * as Linking from 'expo-linking'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { Platform, View } from 'react-native'
 
 import { ThemedGradientButton, ThemedText } from '@/components/common'
@@ -37,17 +37,11 @@ export default function ForceUpdate() {
         transition={0}
       />
 
-      <ThemedText
-        className="mt-5" color="text-100" testID="app-title"
-        type="h1" center
-      >
+      <ThemedText className="mt-5" color="text-100" testID="app-title" type="h1" center>
         {getLocale('avox')}
       </ThemedText>
 
-      <ThemedText
-        className="my-12" color="text-100" testID="forceUpdate-text"
-        type="body1" center
-      >
+      <ThemedText className="my-12" color="text-100" testID="forceUpdate-text" type="body1" center>
         {getLocale('forceUpdateText')}
       </ThemedText>
 

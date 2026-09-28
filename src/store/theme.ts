@@ -30,7 +30,7 @@ const useThemeStore = create<ThemeStateType & ThemeActions>()(
           set({ selectedTheme: selectedThemeValue })
           Appearance.setColorScheme(selectedThemeValue)
         },
-        selectedTheme: Appearance.getColorScheme() ?? 'dark',
+        selectedTheme: Appearance.getColorScheme() === 'light' ? 'light' : 'dark',
       }),
       {
         name: 'theme',

@@ -1,5 +1,5 @@
 import { getApp } from '@react-native-firebase/app'
-import type { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
+import type { QueryDocumentSnapshot } from '@react-native-firebase/firestore'
 import { collection, doc, getDoc, getDocs, getFirestore } from '@react-native-firebase/firestore'
 
 import type { AirlineType } from '@/types/feature/airline'
@@ -16,7 +16,7 @@ export const getAllAirlines = async (locale: string): Promise<AirlineType[]> => 
     const snapshot = await getDocs(airlinesCollectionRef)
 
     const airlines = snapshot.docs.map(
-      (doc: FirebaseFirestoreTypes.QueryDocumentSnapshot) =>
+      (doc: QueryDocumentSnapshot) =>
         ({
           ...doc.data(),
           id: doc.id,

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { FlatList } from 'react-native'
 
 import { AirplaneRowCard } from '@/components/feature/Airline/AirlineDetail/Tab/FleetTab/Card/AirplaneRowCard'

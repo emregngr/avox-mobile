@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Tabs } from 'react-native-collapsible-tab-view'
 
 import { FullScreenLoading, RenderTabBar, SafeLayout } from '@/components/common'

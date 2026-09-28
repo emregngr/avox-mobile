@@ -1,6 +1,6 @@
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
-import React, { memo, useCallback, useMemo } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { Platform, TouchableOpacity, View } from 'react-native'
 
 import { FullScreenLoading } from '@/components/common/FullScreenLoading'

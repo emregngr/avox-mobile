@@ -1,5 +1,5 @@
 import { router } from 'expo-router'
-import React, { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -350,7 +350,7 @@ export default function Faq() {
       <FlatList
         contentContainerStyle={{
           paddingBottom: bottom + 20,
-          paddingTop: top + 64,
+          paddingTop: 20,
         }}
         contentContainerClassName="px-4"
         data={faqList}

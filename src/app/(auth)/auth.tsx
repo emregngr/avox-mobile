@@ -1,6 +1,6 @@
 import { Image } from 'expo-image'
 import { router, useLocalSearchParams } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Platform, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 

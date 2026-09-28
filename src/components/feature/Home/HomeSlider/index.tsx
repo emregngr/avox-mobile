@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import { FlatList, View } from 'react-native'
 

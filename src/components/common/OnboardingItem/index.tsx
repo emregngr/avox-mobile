@@ -37,10 +37,7 @@ export const OnboardingItem = ({ item }: OnboardingItemProps) => {
         >
           {title}
         </ThemedText>
-        <ThemedText
-          color="text-100" lineBreakMode="tail" numberOfLines={4}
-          type="h3"
-        >
+        <ThemedText color="text-100" lineBreakMode="tail" numberOfLines={4} type="h3">
           {text}
         </ThemedText>
       </View>

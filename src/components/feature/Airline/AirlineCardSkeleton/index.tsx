@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { View } from 'react-native'
 import Animated, {
   interpolate,
@@ -35,7 +35,7 @@ export const AirlineCardSkeleton = memo(() => {
     return {
       opacity: interpolate(pulse.value, [0, 1], [0.3, 0.7]),
     }
-  }, [])
+  })
 
   return (
     <View

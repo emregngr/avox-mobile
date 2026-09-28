@@ -1,7 +1,7 @@
-import type { FirebaseFirestoreTypes } from '@react-native-firebase/firestore'
+import type { Timestamp } from '@react-native-firebase/firestore'
 
 export type UserProfileType = {
-  createdAt?: FirebaseFirestoreTypes.Timestamp
+  createdAt?: Timestamp
   displayName: string | null
   email: string | null
   firstName: string | null

@@ -1,5 +1,4 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React from 'react'
 import { View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -19,10 +18,7 @@ export const StatsCard = ({ iconColor, iconName, label, value }: StatsCardProps)
       {value}
     </ThemedText>
 
-    <ThemedText
-      color="text-90" lineBreakMode="tail" numberOfLines={2}
-      type="body3" center
-    >
+    <ThemedText color="text-90" lineBreakMode="tail" numberOfLines={2} type="body3" center>
       {label}
     </ThemedText>
   </View>

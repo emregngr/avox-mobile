@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -47,18 +47,12 @@ export const DestinationCard = memo(({ destination }: DestinationCardProps) => {
   return (
     <View className="w-36 mb-4 bg-background-secondary rounded-xl border border-background-quaternary shadow shadow-background-quaternary">
       <View className="bg-background-primary rounded-xl overflow-hidden relative px-2 border-b border-background-quaternary w-full h-44 justify-center">
-        <ThemedText
-          className="mx-2" color="tertiary-100" type="h4"
-          center
-        >
+        <ThemedText className="mx-2" color="tertiary-100" type="h4" center>
           {route}
         </ThemedText>
 
         <View className="bg-primary-100 px-2 py-1 rounded-xl overflow-hidden absolute bottom-2 left-2">
-          <ThemedText
-            color="text-100" ellipsizeMode="tail" numberOfLines={1}
-            type="button2"
-          >
+          <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={1} type="button2">
             {destinationType}
           </ThemedText>
         </View>
@@ -77,31 +71,19 @@ export const DestinationCard = memo(({ destination }: DestinationCardProps) => {
           </ThemedText>
 
           <View className="absolute bottom-10">
-            <ThemedText
-              color="text-70" ellipsizeMode="tail" numberOfLines={1}
-              type="body4"
-            >
+            <ThemedText color="text-70" ellipsizeMode="tail" numberOfLines={1} type="body4">
               {localeStrings.flightPerYear}
             </ThemedText>
-            <ThemedText
-              color="text-90" ellipsizeMode="tail" numberOfLines={1}
-              type="body3"
-            >
+            <ThemedText color="text-90" ellipsizeMode="tail" numberOfLines={1} type="body3">
               {formattedFlightCount}
             </ThemedText>
           </View>
 
           <View className="absolute bottom-0">
-            <ThemedText
-              color="text-70" ellipsizeMode="tail" numberOfLines={1}
-              type="body4"
-            >
+            <ThemedText color="text-70" ellipsizeMode="tail" numberOfLines={1} type="body4">
               {localeStrings.distance}
             </ThemedText>
-            <ThemedText
-              color="text-90" ellipsizeMode="tail" numberOfLines={1}
-              type="body3"
-            >
+            <ThemedText color="text-90" ellipsizeMode="tail" numberOfLines={1} type="body3">
               {distanceWithUnit}
             </ThemedText>
           </View>

@@ -1,6 +1,6 @@
 import { Image } from 'expo-image'
 import { router, useLocalSearchParams } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Platform, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -54,7 +54,7 @@ export default function BreakingNewsDetail() {
 
       <ScrollView
         contentContainerClassName="px-4"
-        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: 20 }}
         indicatorStyle={indicatorStyle}
         testID="breaking-news-scroll-view"
       >

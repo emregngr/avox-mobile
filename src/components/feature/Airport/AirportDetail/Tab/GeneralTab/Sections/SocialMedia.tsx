@@ -1,5 +1,5 @@
 import * as Linking from 'expo-linking'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import InstagramIcon from '@/assets/icons/instagram.svg'

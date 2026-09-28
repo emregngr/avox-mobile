@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { ThemedText } from '@/components/common/ThemedText'
 import { AirlineSectionRow } from '@/components/feature/Airline/AirlineDetail/AirlineSectionRow'
 import { CertificationsList } from '@/components/feature/Airline/AirlineDetail/Tab/SafetyEnvTab/Cards/CertificationsList'

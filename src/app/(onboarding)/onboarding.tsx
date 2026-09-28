@@ -1,5 +1,5 @@
 import { router } from 'expo-router'
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
+import { memo, useCallback, useMemo, useRef, useState } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import { FlatList, View } from 'react-native'
 

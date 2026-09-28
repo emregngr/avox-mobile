@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { router, useLocalSearchParams } from 'expo-router'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ActivityIndicator, Platform, ScrollView } from 'react-native'
 import { Tabs } from 'react-native-collapsible-tab-view'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -203,6 +203,7 @@ export default function AirlineDetail() {
       onIndexChange: handleIndexChange,
       renderHeader: HeaderSectionComponent,
       renderTabBar,
+      allowHeaderOverscroll: true,
     }),
     [handleIndexChange, HeaderSectionComponent, containerStyle, headerContainerStyle, renderTabBar],
   )

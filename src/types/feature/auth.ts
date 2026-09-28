@@ -15,9 +15,7 @@ export type SocialCredentialsType = {
 }
 
 export type AuthCredentialsType =
-  | RegisterCredentialsType
-  | LoginCredentialsType
-  | SocialCredentialsType
+  RegisterCredentialsType | LoginCredentialsType | SocialCredentialsType
 
 export type RegisterType = {
   email: string

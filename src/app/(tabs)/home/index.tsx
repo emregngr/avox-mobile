@@ -1,5 +1,5 @@
 import { router } from 'expo-router'
-import React, { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { FlatList, Platform, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 

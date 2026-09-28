@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { FlatList, Platform, RefreshControl } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 

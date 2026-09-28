@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -108,7 +108,7 @@ export default function PrivacyPolicy() {
 
       <ScrollView
         contentContainerClassName="px-4"
-        contentContainerStyle={{ paddingBottom: bottom + 76, paddingTop: top + 64 }}
+        contentContainerStyle={{ paddingBottom: bottom + 76, paddingTop: 20 }}
         indicatorStyle={indicatorStyle}
       >
         <ThemedText color="text-100" type="body1">

@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -45,10 +45,7 @@ export const AirportHeader = ({ airportData }: AirportHeaderProps) => {
       <View className="p-4 gap-y-4">
         <View className="flex-row items-center bg-background-primary py-3 rounded-xl overflow-hidden">
           <View className="flex-1 items-center">
-            <ThemedText
-              color="text-70" lineBreakMode="tail" numberOfLines={1}
-              type="body4"
-            >
+            <ThemedText color="text-70" lineBreakMode="tail" numberOfLines={1} type="body4">
               {localeStrings.iata}
             </ThemedText>
             <ThemedText color="text-100" type="body1">
@@ -59,10 +56,7 @@ export const AirportHeader = ({ airportData }: AirportHeaderProps) => {
           <View className="w-px h-8 bg-background-quaternary" />
 
           <View className="flex-1 items-center">
-            <ThemedText
-              color="text-70" lineBreakMode="tail" numberOfLines={1}
-              type="body4"
-            >
+            <ThemedText color="text-70" lineBreakMode="tail" numberOfLines={1} type="body4">
               {localeStrings.icao}
             </ThemedText>
             <ThemedText color="text-100" type="body1">
@@ -125,10 +119,7 @@ export const AirportHeader = ({ airportData }: AirportHeaderProps) => {
         <View className="flex-row items-center px-5 py-3 rounded-xl overflow-hidden bg-background-primary">
           <MaterialCommunityIcons color={locationIconColor} name="map-marker-outline" size={16} />
           <View className="mx-4">
-            <ThemedText
-              color="text-100" ellipsizeMode="tail" numberOfLines={1}
-              type="body2"
-            >
+            <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={1} type="body2">
               {address}
             </ThemedText>
           </View>

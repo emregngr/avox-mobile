@@ -4,7 +4,7 @@ import 'dayjs/locale/tr'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as Haptics from 'expo-haptics'
 import { router } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { Platform, ScrollView, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -130,7 +130,7 @@ export default function ChooseTheme({ hapticFeedback = true }: ChooseThemeProps)
 
       <ScrollView
         contentContainerClassName="px-4"
-        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: 20 }}
         showsVerticalScrollIndicator={false}
       >
         <ThemedText className="my-8" color="text-100" type="h3">

@@ -1,6 +1,5 @@
 import { getApp } from '@react-native-firebase/app'
 import { getAuth, signOut } from '@react-native-firebase/auth'
-import { getMessaging, requestPermission } from '@react-native-firebase/messaging'
 import * as Network from 'expo-network'
 import {
   getTrackingPermissionsAsync,
@@ -11,6 +10,7 @@ import { AppState, PermissionsAndroid, Platform } from 'react-native'
 import mobileAds from 'react-native-google-mobile-ads'
 import { createMMKV } from 'react-native-mmkv'
 import { Notifications } from 'react-native-notifications'
+import { requestNotifications } from 'react-native-permissions'
 
 import { isProduction } from '@/config/env/environment'
 import { ENUMS } from '@/enums'
@@ -24,7 +24,6 @@ const BADGE_CLEAR_DELAY = {
 } as const
 
 const app = getApp()
-const messaging = getMessaging(app)
 const auth = getAuth(app)
 
 const storage = createMMKV()
@@ -62,7 +61,7 @@ export const useAppSetup = () => {
 
   const setupNotificationPermissions = useCallback(async () => {
     try {
-      await requestPermission(messaging)
+      await requestNotifications(['alert', 'badge', 'sound'])
 
       if (Platform.OS !== 'ios') {
         await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS)

@@ -1,7 +1,7 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { router, useFocusEffect, useSegments } from 'expo-router'
-import { Icon, Label, NativeTabs, VectorIcon } from 'expo-router/unstable-native-tabs'
-import React, { useCallback, useMemo } from 'react'
+import { NativeTabs } from 'expo-router/unstable-native-tabs'
+import { useCallback, useMemo } from 'react'
 
 import { getLocale } from '@/locales/i18next'
 import useAuthStore from '@/store/auth'
@@ -48,51 +48,61 @@ export default function TabsLayout() {
       shadowColor={colors?.onPrimary100}
     >
       <NativeTabs.Trigger name="home">
-        <Icon
-          src={
-            <VectorIcon
-              family={MaterialCommunityIcons}
-              name={currentTab === 'home' ? 'home' : 'home-outline'}
-            />
-          }
+        <NativeTabs.Trigger.Icon
+          src={{
+            default: (
+              <NativeTabs.Trigger.VectorIcon family={MaterialCommunityIcons} name="home-outline" />
+            ),
+            selected: <NativeTabs.Trigger.VectorIcon family={MaterialCommunityIcons} name="home" />,
+          }}
         />
-        <Label>{getLocale('home')}</Label>
+        <NativeTabs.Trigger.Label>{getLocale('home')}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="discover">
-        <Icon
-          src={
-            <VectorIcon
-              family={MaterialCommunityIcons}
-              name={currentTab === 'discover' ? 'magnify' : 'magnify-plus-outline'}
-            />
-          }
+        <NativeTabs.Trigger.Icon
+          src={{
+            default: (
+              <NativeTabs.Trigger.VectorIcon
+                family={MaterialCommunityIcons}
+                name="magnify-plus-outline"
+              />
+            ),
+            selected: (
+              <NativeTabs.Trigger.VectorIcon family={MaterialCommunityIcons} name="magnify" />
+            ),
+          }}
         />
-        <Label>{getLocale('discover')}</Label>
+        <NativeTabs.Trigger.Label>{getLocale('discover')}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="favorites">
-        <Icon
-          src={
-            <VectorIcon
-              family={MaterialCommunityIcons}
-              name={currentTab === 'favorites' ? 'star' : 'star-outline'}
-            />
-          }
+        <NativeTabs.Trigger.Icon
+          src={{
+            default: (
+              <NativeTabs.Trigger.VectorIcon family={MaterialCommunityIcons} name="star-outline" />
+            ),
+            selected: <NativeTabs.Trigger.VectorIcon family={MaterialCommunityIcons} name="star" />,
+          }}
         />
-        <Label>{getLocale('favorites')}</Label>
+        <NativeTabs.Trigger.Label>{getLocale('favorites')}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="profile">
-        <Icon
-          src={
-            <VectorIcon
-              family={MaterialCommunityIcons}
-              name={currentTab === 'profile' ? 'account' : 'account-outline'}
-            />
-          }
+        <NativeTabs.Trigger.Icon
+          src={{
+            default: (
+              <NativeTabs.Trigger.VectorIcon
+                family={MaterialCommunityIcons}
+                name="account-outline"
+              />
+            ),
+            selected: (
+              <NativeTabs.Trigger.VectorIcon family={MaterialCommunityIcons} name="account" />
+            ),
+          }}
         />
-        <Label>{getLocale('profile')}</Label>
+        <NativeTabs.Trigger.Label>{getLocale('profile')}</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
     </NativeTabs>
   )

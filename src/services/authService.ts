@@ -1,6 +1,6 @@
 import { appleAuth } from '@invertase/react-native-apple-authentication'
 import { getApp } from '@react-native-firebase/app'
-import type { FirebaseAuthTypes } from '@react-native-firebase/auth'
+import type { User, UserCredential } from '@react-native-firebase/auth'
 import {
   AppleAuthProvider,
   createUserWithEmailAndPassword,
@@ -27,7 +27,7 @@ GoogleSignin.configure({
   webClientId: config.googleWebClientId,
 })
 
-export const authStateChanged = (callback: (user: FirebaseAuthTypes.User | null) => void) =>
+export const authStateChanged = (callback: (user: User | null) => void) =>
   onAuthStateChanged(auth, callback)
 
 export const signUpWithEmail = async ({
@@ -35,7 +35,7 @@ export const signUpWithEmail = async ({
   firstName,
   lastName,
   password,
-}: RegisterCredentialsType): Promise<FirebaseAuthTypes.UserCredential> => {
+}: RegisterCredentialsType): Promise<UserCredential> => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
     await updateUser({ email, firstName, lastName })
@@ -49,7 +49,7 @@ export const signUpWithEmail = async ({
 export const signInWithEmail = async ({
   email,
   password,
-}: LoginCredentialsType): Promise<FirebaseAuthTypes.UserCredential> => {
+}: LoginCredentialsType): Promise<UserCredential> => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     return userCredential
@@ -59,7 +59,7 @@ export const signInWithEmail = async ({
   }
 }
 
-export const signInWithGoogle = async (): Promise<FirebaseAuthTypes.UserCredential> => {
+export const signInWithGoogle = async (): Promise<UserCredential> => {
   try {
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true })
     await GoogleSignin.signIn()
@@ -84,7 +84,7 @@ export const signInWithGoogle = async (): Promise<FirebaseAuthTypes.UserCredenti
   }
 }
 
-export const signInWithApple = async (): Promise<FirebaseAuthTypes.UserCredential> => {
+export const signInWithApple = async (): Promise<UserCredential> => {
   try {
     const appleAuthRequestResponse = await appleAuth.performRequest({
       requestedOperation: appleAuth.Operation.LOGIN,

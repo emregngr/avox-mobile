@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as Haptics from 'expo-haptics'
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { ActivityIndicator, Platform, TouchableOpacity } from 'react-native'
 
 import { useFavoriteToggle } from '@/hooks/services/useFavoriteToggle'

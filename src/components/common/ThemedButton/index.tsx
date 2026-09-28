@@ -1,6 +1,6 @@
 import * as Haptics from 'expo-haptics'
 import type { ReactNode } from 'react'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import type { TouchableOpacityProps } from 'react-native'
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native'
 

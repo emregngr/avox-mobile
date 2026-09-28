@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { Switch, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'

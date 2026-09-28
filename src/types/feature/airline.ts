@@ -88,8 +88,8 @@ export type AirlineType = {
   id: string
   isoCountry: string
   isoRegion: string
-  logo: string,
-  name: string,
+  logo: string
+  name: string
   network: NetworkType
   operations: OperationType
   safety: SafetyType

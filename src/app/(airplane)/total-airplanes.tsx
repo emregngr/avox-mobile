@@ -1,5 +1,5 @@
 import { router } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -66,7 +66,7 @@ export default function TotalAirplanes() {
       />
       <FlatList
         contentContainerClassName="px-4"
-        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: 20 }}
         data={sortedAirplanesData}
         getItemLayout={getItemLayout}
         initialNumToRender={INITIAL_ITEMS_PER_PAGE}

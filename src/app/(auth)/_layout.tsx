@@ -1,5 +1,5 @@
 import { router, Stack, useFocusEffect, useGlobalSearchParams } from 'expo-router'
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 
 import useAuthStore from '@/store/auth'
 

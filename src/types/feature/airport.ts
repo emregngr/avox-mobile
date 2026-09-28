@@ -116,11 +116,11 @@ export type AirportType = {
   iataCode: string
   icaoCode: string
   id: string
-  image: string,
-  infrastructure: InfrastructureType,
-  isoCountry: string,
-  isoRegion: string,
-  name: string,
+  image: string
+  infrastructure: InfrastructureType
+  isoCountry: string
+  isoRegion: string
+  name: string
   nearbyAttractions: NearbyAttractionType[]
   operations: OperationType
   safety: SafetyType

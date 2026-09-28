@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { TextInput } from 'react-native'
 import { View } from 'react-native'
@@ -13,7 +13,7 @@ import { useAddPassword } from '@/hooks/services/useUser'
 import { getLocale } from '@/locales/i18next'
 
 export const AddPassword = () => {
-  const { bottom, top } = useSafeAreaInsets()
+  const { bottom } = useSafeAreaInsets()
 
   const { isPending, mutateAsync: addPassword } = useAddPassword()
 
@@ -141,7 +141,7 @@ export const AddPassword = () => {
     <KeyboardAwareScrollView
       bottomOffset={50}
       contentContainerClassName="px-4"
-      contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+      contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: 20 }}
       keyboardDismissMode="on-drag"
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}

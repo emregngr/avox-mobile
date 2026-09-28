@@ -1,6 +1,6 @@
 import * as Haptics from 'expo-haptics'
 import { router } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { ScrollView, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -109,7 +109,7 @@ export default function ChooseLanguage({ hapticFeedback = true }: ChooseLanguage
       />
       <ScrollView
         contentContainerClassName="px-4"
-        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: top + 64 }}
+        contentContainerStyle={{ paddingBottom: bottom + 20, paddingTop: 20 }}
         showsVerticalScrollIndicator={false}
       >
         <View className="rounded-xl overflow-hidden bg-background-secondary">

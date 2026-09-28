@@ -1,4 +1,3 @@
-import React from 'react'
 import { View } from 'react-native'
 
 import { StatsCard } from '@/components/feature/Airline/AirlineDetail/Tab/AirlineFlightTab/Cards/StatsCard'

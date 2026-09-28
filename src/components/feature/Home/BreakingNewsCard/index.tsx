@@ -1,6 +1,6 @@
 import { Image } from 'expo-image'
 import { router } from 'expo-router'
-import React, { memo, useCallback, useMemo } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -54,10 +54,7 @@ export const BreakingNewsCard = memo(({ item }: BreakingNewsCardProps) => {
           transition={0}
         />
         <View className="absolute bottom-2 mx-3 bg-background-blur px-2 py-1 overflow-hidden rounded-xl">
-          <ThemedText
-            color="text-100" ellipsizeMode="tail" numberOfLines={3}
-            type="h4"
-          >
+          <ThemedText color="text-100" ellipsizeMode="tail" numberOfLines={3} type="h4">
             {title}
           </ThemedText>
         </View>

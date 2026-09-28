@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { View } from 'react-native'
 import { MaterialTabBar, MaterialTabItem } from 'react-native-collapsible-tab-view'
 

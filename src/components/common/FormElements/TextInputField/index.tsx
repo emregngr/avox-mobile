@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import type { ReactElement, Ref } from 'react'
-import React, { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useMemo, useState } from 'react'
 import type { Control, FieldValues, Path } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 import type { KeyboardTypeOptions } from 'react-native'
@@ -23,13 +23,7 @@ type TextContentType =
   | 'name'
   | 'username'
 type AutoCompleteType =
-  | 'off'
-  | 'email'
-  | 'password'
-  | 'given-name'
-  | 'family-name'
-  | 'name'
-  | 'username'
+  'off' | 'email' | 'password' | 'given-name' | 'family-name' | 'name' | 'username'
 type SubmitBehavior = 'submit' | 'blurAndSubmit' | 'newline'
 
 interface TextInputFieldProps<T extends FieldValues> {

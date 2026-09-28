@@ -1,4 +1,3 @@
-import React from 'react'
 import { View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'
@@ -10,7 +9,11 @@ interface CertificationsListProps {
   title: string
 }
 
-export const CertificationsList = ({ certifications, iconColor, title }: CertificationsListProps) => (
+export const CertificationsList = ({
+  certifications,
+  iconColor,
+  title,
+}: CertificationsListProps) => (
   <View>
     <ThemedText className="mb-2" color="text-90" type="body2">
       {title}:
@@ -18,6 +21,6 @@ export const CertificationsList = ({ certifications, iconColor, title }: Certifi
 
     {certifications?.map((cert, index) => (
       <CertificationCard certification={cert} iconColor={iconColor} key={index} />
-      ))}
+    ))}
   </View>
-  )
+)

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { View } from 'react-native'
 
 import { ThemedText } from '@/components/common/ThemedText'

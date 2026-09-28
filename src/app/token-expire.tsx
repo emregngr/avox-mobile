@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { Image } from 'expo-image'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { createMMKV } from 'react-native-mmkv'
 
 import { ENUMS } from '@/enums'

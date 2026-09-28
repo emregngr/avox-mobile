@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { AirlineSectionRow } from '@/components/feature/Airline/AirlineDetail/AirlineSectionRow'
 import { RouteRowCard } from '@/components/feature/Airline/AirlineDetail/Tab/AirlineFlightTab/Cards/RouteRowCard'
 import type { AirlineRouteType } from '@/types/feature/airline'

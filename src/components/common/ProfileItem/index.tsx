@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import type { ComponentType } from 'react'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import type { SvgProps } from 'react-native-svg'
 

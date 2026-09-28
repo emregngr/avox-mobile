@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { AirportRowItem } from '@/components/feature/Airport/AirportDetail/AirportRowItem'
 import { AirportSectionRow } from '@/components/feature/Airport/AirportDetail/AirportSectionRow'
