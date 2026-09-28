@@ -1,4 +1,4 @@
-import React, { ReactNode, forwardRef } from 'react'
+import { ReactNode, forwardRef } from 'react'
 import { View, type ViewProps, type ViewStyle } from 'react-native'
 
 interface BottomSheetProps extends ViewProps {

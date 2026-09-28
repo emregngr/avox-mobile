@@ -65,7 +65,7 @@ module.exports = {
   Slot: ({ children }: { children: ReactNode }) => <>{children}</>,
   Stack: Object.assign(MockedStack, { Screen: MockScreen }),
   Tabs: Object.assign(MockedTabs, { Screen: MockTabScreen }),
-  Link: ({ children, ...props }: { children: ReactNode }) =>
+  Link: ({ children }: { children: ReactNode; [key: string]: any }) =>
     createElement(Fragment, null, children),
   Redirect: () => null,
   setMockPathname: setMockPathname,

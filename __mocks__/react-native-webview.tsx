@@ -16,17 +16,14 @@ type MockWebViewProps = ViewProps & {
 
 const MockWebView = forwardRef<MockWebViewHandle, MockWebViewProps>(
   (props, ref: ForwardedRef<MockWebViewHandle>) => {
-    useImperativeHandle(
-      ref,
-      (): MockWebViewHandle => ({
-        goBack: jest.fn(),
-        goForward: jest.fn(),
-        reload: jest.fn(),
-        stopLoading: jest.fn(),
-        postMessage: jest.fn(),
-        injectJavaScript: jest.fn(),
-      }),
-    )
+    useImperativeHandle(ref, (): MockWebViewHandle => ({
+      goBack: jest.fn(),
+      goForward: jest.fn(),
+      reload: jest.fn(),
+      stopLoading: jest.fn(),
+      postMessage: jest.fn(),
+      injectJavaScript: jest.fn(),
+    }))
 
     return <View testID={props.testID || 'mocked-webview'} {...props} />
   },

@@ -1,6 +1,6 @@
 module.exports = {
   createURL: jest.fn(path => `exp://localhost:8081/${path || ''}`),
-  parse: jest.fn(url => ({
+  parse: jest.fn(_url => ({
     scheme: 'exp',
     hostname: 'localhost',
     path: '/',
