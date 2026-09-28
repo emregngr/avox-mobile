@@ -204,12 +204,10 @@ const plugins: Plugin[] = IS_PRODUCTION
 const config: ExpoConfig = {
   name: envConfig.name,
   slug: envConfig.slug,
-  version: '1.1.2',
+  version: '1.1.3',
   orientation: 'portrait',
   scheme: envConfig.scheme,
   userInterfaceStyle: 'automatic',
-  newArchEnabled: true,
-  jsEngine: 'hermes',
   platforms: ['ios', 'android'],
   updates: {
     enabled: true,
@@ -217,7 +215,7 @@ const config: ExpoConfig = {
     checkAutomatically: 'ON_LOAD',
     url: `https://u.expo.dev/${PROJECT_ID}`,
   },
-  runtimeVersion: '1.1.2',
+  runtimeVersion: '1.1.3',
   ios: {
     googleServicesFile: envConfig.googleServicesFile.ios,
     supportsTablet: true,
@@ -235,12 +233,6 @@ const config: ExpoConfig = {
       GIDClientID: '396294037399-k8k5qpf3rgid0a1ujc5jjg9jbpve70vk.apps.googleusercontent.com',
     },
     icon: './src/assets/images/app.icon',
-    splash: {
-      image: './src/assets/images/splash-ios.png',
-      resizeMode: 'contain',
-      backgroundColor: '#A2CAE5',
-      imageWidth: 200,
-    },
     associatedDomains: ['applinks:avox'],
   },
   android: {
@@ -250,13 +242,6 @@ const config: ExpoConfig = {
       foregroundImage: './src/assets/images/icon-android.png',
       backgroundColor: '#A2CAE5',
     },
-    splash: {
-      image: './src/assets/images/splash-android.png',
-      resizeMode: 'contain',
-      backgroundColor: '#A2CAE5',
-      imageWidth: 200,
-    },
-    edgeToEdgeEnabled: false,
     permissions: [
       'com.google.android.gms.permission.AD_ID',
       'android.permission.RECORD_AUDIO',

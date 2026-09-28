@@ -6,10 +6,12 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     match /devices/{deviceId} {
-      allow create, read, update, delete: if request.auth != null && (
-        request.resource.data.get('userId', null) == request.auth.uid ||
-        resource.data.get('userId', null) == request.auth.uid ||
-        resource.data.get('userId', null) == null
+      allow create: if request.auth != null;
+
+      allow read, update, delete: if request.auth != null && (
+        !('userId' in resource.data) ||
+        resource.data.userId == null ||
+        resource.data.userId == request.auth.uid
       );
     }
     match /enAirlines/{document=**} {

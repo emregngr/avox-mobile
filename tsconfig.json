@@ -1,5 +1,5 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": "expo/tsconfig.base.json",
   "compilerOptions": {
     "strict": true,
     "exactOptionalPropertyTypes": true,
@@ -44,10 +44,9 @@
       "@/store/*": ["./src/store/*"],
       "@/themes/*": ["./src/themes/*"],
       "@/types/*": ["./src/types/*"],
-      "@/utils/*": ["./src/utils/*"]
+      "@/utils/*": ["./src/utils/*"],
+      "*": ["./*"]
     },
-
-    "baseUrl": ".",
     "rootDir": ".",
     "outDir": "./dist",
 

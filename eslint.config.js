@@ -2,7 +2,6 @@ const js = require('@eslint/js')
 const { FlatCompat } = require('@eslint/eslintrc')
 const perfectionist = require('eslint-plugin-perfectionist')
 const sortDestructureKeys = require('eslint-plugin-sort-destructure-keys')
-const reactHooksExtra = require('eslint-plugin-react-hooks-extra')
 const sortKeysFix = require('eslint-plugin-sort-keys-fix')
 const typescriptSortKeys = require('eslint-plugin-typescript-sort-keys')
 const simpleImportSort = require('eslint-plugin-simple-import-sort')
@@ -71,7 +70,6 @@ module.exports = [
     plugins: {
       perfectionist,
       'sort-destructure-keys': sortDestructureKeys,
-      'react-hooks-extra': reactHooksExtra,
       'sort-keys-fix': sortKeysFix,
       'typescript-sort-keys': typescriptSortKeys,
       'simple-import-sort': simpleImportSort,
@@ -227,9 +225,6 @@ module.exports = [
         },
       ],
       'sort-destructure-keys/sort-destructure-keys': 'error',
-      'react-hooks-extra/no-redundant-custom-hook': 'warn',
-      'react-hooks-extra/no-direct-set-state-in-use-effect': 'error',
-      'react-hooks-extra/prefer-use-state-lazy-initialization': 'warn',
       'sort-keys-fix/sort-keys-fix': 'error',
       'typescript-sort-keys/interface': 'error',
       'typescript-sort-keys/string-enum': 'error',
