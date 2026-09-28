@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-native'
-import React from 'react'
 import { ScrollView, View } from 'react-native'
 import Toast from 'react-native-toast-message'
 

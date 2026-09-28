@@ -1,6 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import type { Meta, StoryObj } from '@storybook/react-native'
-import React from 'react'
 import { Alert, View } from 'react-native'
 
 import { ThemedButtonText } from '@/components/common/ThemedButtonText'

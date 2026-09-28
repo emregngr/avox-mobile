@@ -4,7 +4,7 @@ import useThemeStore from '@/store/theme'
 import { themeColors } from '@/themes'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import type { Meta, StoryObj } from '@storybook/react-native'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Alert, ScrollView, View } from 'react-native'
 
 const meta: Meta<typeof ThemedGradientButton> = {

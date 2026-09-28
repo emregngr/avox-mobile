@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-native'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Keyboard, ScrollView, TouchableOpacity, View } from 'react-native'
 
 import { SearchInput } from '@/components/common/SearchInput'
@@ -209,7 +209,7 @@ export const PlaceholderVariants: Story = {
 
 export const FocusStates: Story = {
   render: () => {
-    const [focusedInput, setFocusedInput] = useState<number | null>(null)
+    const [focusedInput, _setFocusedInput] = useState<number | null>(null)
     const [values, setValues] = useState<string[]>(['', '', ''])
 
     const createHandleChange = (index: number) => (text: string) => {

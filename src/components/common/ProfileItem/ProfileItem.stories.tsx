@@ -2,7 +2,7 @@ import Instagram from '@/assets/icons/instagram.svg'
 import Tiktok from '@/assets/icons/tiktok.svg'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import type { Meta, StoryObj } from '@storybook/react-native'
-import React, { ComponentProps, ComponentType, useState } from 'react'
+import { ComponentProps, ComponentType, useState } from 'react'
 import { Alert, ScrollView, View } from 'react-native'
 
 import { ProfileItem } from '@/components/common/ProfileItem'

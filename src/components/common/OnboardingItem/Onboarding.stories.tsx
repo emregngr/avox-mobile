@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-native'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import { OnboardingItem } from '@/components/common/OnboardingItem'
