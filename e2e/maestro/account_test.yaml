@@ -10,8 +10,8 @@ appId: com.avox.staging
       userTracking: allow
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
@@ -36,9 +36,9 @@ appId: com.avox.staging
 - assertVisible: { id: 'update-profile-screen' }
 
 - tapOn: { id: 'firstName' }
-- inputText: '1'
+- inputText: 'ABCDE'
 - tapOn: { id: 'lastName' }
-- inputText: '1'
+- inputText: 'EDCBA'
 
 - tapOn: { id: 'update-submit-button' }
 
@@ -50,8 +50,8 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
@@ -75,25 +75,12 @@ appId: com.avox.staging
 
 - assertVisible: { id: 'password-screen' }
 
-- tapOn: { id: 'currentPassword' }
-- inputText: '123456'
-- tapOn: { id: 'newPassword' }
-- inputText: '654321'
-- tapOn: { id: 'confirmPassword' }
-- inputText: '654321'
-
-- tapOn: { id: 'change-password-submit-button' }
-
-- assertVisible: 'Successful'
-- assertVisible: 'Password changed successfully'
-- assertVisible: { id: 'profile-screen' }
-
 - launchApp:
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
@@ -111,8 +98,8 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }

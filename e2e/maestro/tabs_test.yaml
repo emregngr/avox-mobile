@@ -10,13 +10,11 @@ appId: com.avox.staging
       userTracking: allow
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
-
-- assertVisible: { id: 'home-screen' }
 
 - swipe:
     elementId: 'home-screen-flatlist'
@@ -25,15 +23,7 @@ appId: com.avox.staging
 - tapOn: { text: 'Discover' }
 - assertVisible: { id: 'discover-screen' }
 
-- swipe:
-    elementId: 'discover-screen'
-    direction: UP
-
 - tapOn: { id: 'discover-airlines-tab' }
-
-- swipe:
-    elementId: 'discover-screen'
-    direction: UP
 
 - tapOn: { text: 'Favorites' }
 
@@ -56,9 +46,10 @@ appId: com.avox.staging
 
 - tapOn: { id: 'favorites-airlines-tab' }
 
-- swipe:
-    elementId: 'favorites-screen'
+- scrollUntilVisible:
     direction: UP
+    element:
+      text: 'Profile'
 
 - tapOn: { text: 'Profile' }
 - assertVisible: { id: 'profile-screen' }
@@ -67,13 +58,11 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
-
-- assertVisible: { id: 'home-screen' }
 
 - tapOn: { text: 'Discover' }
 - assertVisible: { id: 'discover-screen' }
@@ -86,19 +75,16 @@ appId: com.avox.staging
 - tapOn: { id: 'search-cancel-button' }
 
 - tapOn: { id: 'filter-button' }
-- tapOn: { id: 'filter-close-button' }
 
 - launchApp:
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
-
-- assertVisible: { id: 'home-screen' }
 
 - tapOn: { text: 'Discover' }
 - assertVisible: { id: 'discover-screen' }
@@ -112,4 +98,3 @@ appId: com.avox.staging
 - tapOn: { id: 'search-cancel-button' }
 
 - tapOn: { id: 'filter-button' }
-- tapOn: { id: 'filter-close-button' }

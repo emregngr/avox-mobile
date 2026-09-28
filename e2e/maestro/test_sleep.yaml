@@ -1,0 +1,8 @@
+appId: com.avox.staging
+---
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: 'non-existent-element'
+    optional: true
+    timeout: 3000

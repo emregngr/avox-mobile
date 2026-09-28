@@ -1,0 +1,5 @@
+appId: com.avox.staging
+---
+- evalScript: ${output.randomEmail = 'newuser_' + new Date().getTime() + '@avox.com'}
+- launchApp
+- inputText: ${output.randomEmail}

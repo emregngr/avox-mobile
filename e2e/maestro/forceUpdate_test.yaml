@@ -10,8 +10,8 @@ appId: com.avox.staging
       userTracking: allow
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - openLink: 'avox://force-update'

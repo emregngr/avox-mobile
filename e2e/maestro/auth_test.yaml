@@ -1,5 +1,7 @@
 appId: com.avox.staging
 ---
+- runScript: setup.js
+
 - launchApp:
     clearState: true
     permissions:
@@ -10,11 +12,15 @@ appId: com.avox.staging
       userTracking: allow
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'login-button' }
@@ -28,17 +34,25 @@ appId: com.avox.staging
 
 - tapOn: { id: 'login-submit-button' }
 
+- tapOn:
+    text: 'Not Now'
+    optional: true
+
 - assertVisible: { id: 'favorites-screen' }
 
 - launchApp:
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'login-button' }
@@ -59,11 +73,15 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'login-button' }
@@ -78,11 +96,15 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'register-button' }
@@ -94,16 +116,18 @@ appId: com.avox.staging
 - tapOn: { id: 'lastName' }
 - inputText: 'User'
 - tapOn: { id: 'email' }
-- inputText: 'newuser-1694458954@avox.com'
+- inputText: ${output.randomEmail}
 - tapOn: { id: 'password' }
 - inputText: '123456'
-
-- hideKeyboard
-
+- tapOn: { point: '50%, 10%' }
 - tapOn: { id: 'privacyPolicy-checkbox' }
 - tapOn: { id: 'termsOfUse-checkbox' }
 
 - tapOn: { id: 'register-submit-button' }
+
+- tapOn:
+    text: 'Not Now'
+    optional: true
 
 - assertVisible: { id: 'favorites-screen' }
 
@@ -111,11 +135,15 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'register-button' }
@@ -135,11 +163,15 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'register-button' }
@@ -151,12 +183,10 @@ appId: com.avox.staging
 - tapOn: { id: 'lastName' }
 - inputText: 'User'
 - tapOn: { id: 'email' }
-- inputText: 'newuser-1694458954@avox.com'
+- inputText: ${output.randomEmail}
 - tapOn: { id: 'password' }
 - inputText: '123456'
-
-- hideKeyboard
-
+- tapOn: { point: '50%, 10%' }
 - tapOn: { id: 'register-submit-button' }
 
 - assertVisible: 'You must accept the Privacy Policy'
@@ -166,11 +196,15 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'login-button' }
@@ -195,11 +229,15 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'register-button' }
@@ -214,9 +252,7 @@ appId: com.avox.staging
 - inputText: 'avox@gmail.com'
 - tapOn: { id: 'password' }
 - inputText: '123456'
-
-- hideKeyboard
-
+- tapOn: { point: '50%, 10%' }
 - tapOn: { id: 'privacyPolicy-checkbox' }
 - tapOn: { id: 'termsOfUse-checkbox' }
 
@@ -231,11 +267,15 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'login-button' }
@@ -258,11 +298,15 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'login-button' }
@@ -275,6 +319,10 @@ appId: com.avox.staging
 - inputText: '123456'
 
 - tapOn: { id: 'login-submit-button' }
+
+- tapOn:
+    text: 'Not Now'
+    optional: true
 
 - tapOn: { text: 'Profile' }
 
@@ -292,11 +340,15 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
+
+- extendedWaitUntil:
+    visible: 'Favorites'
+    timeout: 30000
 
 - tapOn: { text: 'Favorites' }
 - tapOn: { id: 'login-button' }
@@ -309,6 +361,10 @@ appId: com.avox.staging
 - inputText: '123456'
 
 - tapOn: { id: 'login-submit-button' }
+
+- tapOn:
+    text: 'Not Now'
+    optional: true
 
 - tapOn: { text: 'Profile' }
 - assertVisible: { id: 'profile-screen' }

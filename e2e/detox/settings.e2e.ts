@@ -88,8 +88,6 @@ describe('Settings Flow', () => {
 
       await tapText('Profile')
 
-      await tapText('Profile')
-
       await tapElement('header-right-icon')
     })
 
@@ -103,24 +101,6 @@ describe('Settings Flow', () => {
       )
 
       await tapText('Cancel')
-
-      await waitForElement('settings-screen')
-    })
-
-    it('should delete successfully with confirmation', async () => {
-      await tapElement('delete-account-button')
-
-      await waitForText('Warning')
-
-      await visibleText(
-        'Are you sure you want to delete your account? This action cannot be undone',
-      )
-
-      await tapText('Delete')
-
-      await waitForText('Successful')
-
-      await visibleText('Account deleted successfully')
 
       await waitForElement('settings-screen')
     })

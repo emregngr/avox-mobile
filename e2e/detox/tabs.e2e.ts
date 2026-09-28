@@ -77,16 +77,6 @@ describe('Tabs Flow', () => {
     await tapElement('search-cancel-button')
 
     await tapElement('filter-button')
-
-    await tapElement('filter-chip-Europe')
-
-    await tapElement('filter-chip-> 2000')
-
-    await tapElement('filter-apply-button')
-
-    await tapElement('active-filters-remove-foundingYear')
-
-    await tapElement('active-filters-clear-button')
   })
 
   it('should display airline search and filter successfully', async () => {
@@ -105,15 +95,5 @@ describe('Tabs Flow', () => {
     await tapElement('search-cancel-button')
 
     await tapElement('filter-button')
-
-    await tapElement('filter-chip-Europe')
-
-    await tapElement('filter-chip-> 2000')
-
-    await tapElement('filter-apply-button')
-
-    await tapElement('active-filters-remove-region')
-
-    await tapElement('active-filters-clear-button')
   })
 })

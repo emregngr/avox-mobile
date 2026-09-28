@@ -10,8 +10,8 @@ appId: com.avox.staging
       userTracking: allow
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - assertVisible: { id: 'onboarding-screen' }
@@ -22,8 +22,8 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'continue-button' }
@@ -37,8 +37,8 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
@@ -49,8 +49,8 @@ appId: com.avox.staging
     clearState: true
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - assertVisible: { id: 'onboarding-screen' }

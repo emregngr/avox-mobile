@@ -10,17 +10,18 @@ appId: com.avox.staging
       userTracking: allow
 
 - extendedWaitUntil:
-    visible: text
-    optional: true
+    visible:
+      id: 'onboarding-skip-button'
     timeout: 30000
 
 - tapOn: { id: 'onboarding-skip-button' }
 
 - assertVisible: { id: 'home-screen' }
 
-- swipe:
-    elementId: 'home-screen-flatlist'
-    direction: UP
+- scrollUntilVisible:
+    element:
+      id: 'view-all-button-Popular Destinations'
+    direction: DOWN
 
 - tapOn: { id: 'view-all-button-Popular Destinations' }
 

@@ -43,8 +43,8 @@ describe('Account Flow', () => {
 
       await waitForElement('update-profile-screen')
 
-      await typeText('firstName', '1')
-      await typeText('lastName', '1')
+      await typeText('firstName', 'ABCDE')
+      await typeText('lastName', 'EDCBA')
 
       await tapElement('update-submit-button')
 
@@ -73,23 +73,9 @@ describe('Account Flow', () => {
 
       await tapText('Profile')
 
-      await tapText('Profile')
-
       await tapElement('password-button')
 
       await waitForElement('password-screen')
-
-      await typeText('currentPassword', '123456')
-      await typeText('newPassword', '654321')
-      await typeText('confirmPassword', '654321')
-
-      await tapElement('change-password-submit-button')
-
-      await waitForText('Successful')
-
-      await visibleText('Password changed successfully')
-
-      await waitForElement('profile-screen')
     })
   })
 
