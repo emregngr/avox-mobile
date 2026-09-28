@@ -1,3 +1,5 @@
+$RNFirebaseDisableSPM = true
+
 require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
 require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
 
@@ -19,7 +21,7 @@ ENV['RCT_NEW_ARCH_ENABLED'] = podfile_properties['newArchEnabled'] == 'true' ? '
 ENV['EX_DEV_CLIENT_NETWORK_INSPECTOR'] = podfile_properties['EX_DEV_CLIENT_NETWORK_INSPECTOR']
 
 
-platform :ios, podfile_properties['ios.deploymentTarget'] || '15.6'
+platform :ios, podfile_properties['ios.deploymentTarget'] || '26.0'
 install! 'cocoapods',
   :deterministic_uuids => false
 
@@ -60,7 +62,7 @@ target 'Avox' do
 
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'FirebaseCrashlytics', :modular_headers => true
-  pod 'FirebaseInAppMessaging', '12.4.0-beta', :modular_headers => true
+  pod 'FirebaseInAppMessaging', :modular_headers => true
   pod 'FirebaseRemoteConfig', :modular_headers => true
   pod 'FirebaseSessions', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
@@ -88,8 +90,8 @@ target 'Avox' do
 
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.6'
-        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64 i386'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '26.0'
+        config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = ''
       end
     end
   end

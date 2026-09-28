@@ -36,8 +36,8 @@
 			</array>
 		</dict>
 		<dict>
-		    <key>CFBundleURLName</key>
-            <string>googleSignIn</string>
+			<key>CFBundleURLName</key>
+			<string>googleSignIn</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>$(GOOGLE_REVERSED_CLIENT_ID)</string>
@@ -293,6 +293,23 @@
 		<string>Inter-Regular.ttf</string>
 		<string>Inter-SemiBold.ttf</string>
 	</array>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
