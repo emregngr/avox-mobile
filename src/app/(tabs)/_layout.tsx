@@ -32,15 +32,23 @@ export default function TabsLayout() {
   return (
     <NativeTabs
       labelStyle={{
-        color: colors?.text100,
-        fontFamily: 'Inter-Medium',
-        fontSize: 12,
-        fontStyle: 'normal',
-        fontWeight: '700',
+        default: {
+          color: colors?.text100,
+          fontFamily: 'Inter-Medium',
+          fontSize: 12,
+          fontStyle: 'normal',
+          fontWeight: '700',
+        },
+        selected: {
+          color: colors?.primary100,
+        },
       }}
       backgroundColor={colors?.background?.primary}
       blurEffect={selectedTheme}
-      iconColor={colors?.onPrimary100}
+      iconColor={{
+        default: colors?.onPrimary100,
+        selected: colors?.primary100,
+      }}
       indicatorColor={colors?.primary100}
       labelVisibilityMode="labeled"
       minimizeBehavior="onScrollDown"
